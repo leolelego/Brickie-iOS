@@ -30,6 +30,7 @@
 		96E78BBA245CEA1D0032F4E3 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E78BB9245CEA1D0032F4E3 /* SettingsView.swift */; };
 		96E78BBC245CEA280032F4E3 /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E78BBB245CEA280032F4E3 /* SearchView.swift */; };
 		96E78BBE245CF4BB0032F4E3 /* LegoSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E78BBD245CF4BB0032F4E3 /* LegoSet.swift */; };
+		96E78BC2245D15220032F4E3 /* Secrets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E78BC1245D15220032F4E3 /* Secrets.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -54,6 +55,7 @@
 		96E78BB9245CEA1D0032F4E3 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		96E78BBB245CEA280032F4E3 /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
 		96E78BBD245CF4BB0032F4E3 /* LegoSet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LegoSet.swift; sourceTree = "<group>"; };
+		96E78BC1245D15220032F4E3 /* Secrets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Secrets.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -107,6 +109,7 @@
 				96E78BA5245CC8AF0032F4E3 /* BrickSetAPI.swift */,
 				96E78BAD245CCED40032F4E3 /* APIHelpers.swift */,
 				96E78BBD245CF4BB0032F4E3 /* LegoSet.swift */,
+				96E78BC1245D15220032F4E3 /* Secrets.swift */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -243,6 +246,7 @@
 				96E78BB2245CD79F0032F4E3 /* Logger.swift in Sources */,
 				96E78B7E245CAC270032F4E3 /* SceneDelegate.swift in Sources */,
 				96E78BA1245CC5AA0032F4E3 /* Configuration.swift in Sources */,
+				96E78BC2245D15220032F4E3 /* Secrets.swift in Sources */,
 				96E78B9F245CC5100032F4E3 /* User.swift in Sources */,
 				96E78BAE245CCED40032F4E3 /* APIHelpers.swift in Sources */,
 				96E78B98245CB1120032F4E3 /* RoundedButtonStyle.swift in Sources */,

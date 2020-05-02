@@ -11,8 +11,8 @@ import Alamofire
 
 let API = BrickSetAPI()
 struct BrickSetAPI {
-
-    var url = URL(string: "https://brickset.com/api/v3.asmx")!
+    let apiKey = BrickSetApiKey
+    let url = URL(string: "https://brickset.com/api/v3.asmx")!
 
     
     
