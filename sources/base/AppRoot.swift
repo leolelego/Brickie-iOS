@@ -9,7 +9,7 @@
 import SwiftUI
 struct AppRootView: View {
     
-    @ObservedObject private var config : Configuration = AppConfig
+    @EnvironmentObject var config : Configuration
     @State private var selection = 0
     
     var body: some View {
@@ -22,7 +22,8 @@ struct AppRootView: View {
                     SetListView()
                         .tabItem {
                             VStack {
-                                Image("first")
+                                                                            Image.tab_sets
+
                                 Text("Sets".ls)
                             }
                     }
@@ -31,21 +32,21 @@ struct AppRootView: View {
                         MinifigListView()
                                     .tabItem {
                                         VStack {
-                                            Image("second")
+                                            Image.tab_minifig
                                             Text("Minifigures".ls)
                                         }
                                 }
                                 .tag(1)
                     }
         
-                    SearchView()
-                        .tabItem {
-                            VStack {
-                                Image("second")
-                                Text("Search".ls)
-                            }
-                    }
-                    .tag(2)
+//                    SearchView()
+//                        .tabItem {
+//                            VStack {
+//                                Image("second")
+//                                Text("Search".ls)
+//                            }
+//                    }
+//                    .tag(2)
                     SettingsView()
                         .tabItem {
                             VStack {
@@ -57,7 +58,7 @@ struct AppRootView: View {
                 }
             }
             
-        }
+        }.accentColor(.appBlack)
     }
     
 }

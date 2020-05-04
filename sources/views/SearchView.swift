@@ -14,7 +14,7 @@ struct SearchView: View {
 
         Text("Search")
             .navigationBarTitle("Search")
-        }
+        }.navigationViewStyle(StackNavigationViewStyle())
         
     }
 }

@@ -9,11 +9,8 @@
 import Foundation
 import KeychainSwift
 
-let AppConfig = Configuration()
 class Configuration : ObservableObject {
     let keychain = KeychainSwift()
-    
-    
     @Published var user : User? {
         didSet{
             guard let u = user else  {
@@ -43,6 +40,7 @@ class Configuration : ObservableObject {
     }
     
     @Published var uiMinifigVisible = true
+    @Published var uiSetThumbail = true
 }
 
 
