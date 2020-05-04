@@ -10,51 +10,43 @@ import SwiftUI
 
 struct SettingsView: View {
     
-    @ObservedObject var config = AppConfig
+    @EnvironmentObject var config : Configuration
     
     var body: some View {
         NavigationView{
             
-            VStack {
+            
                 Form {
-                    Section(header: Text("Brickset Account")) {
-                        HStack{
-                            Text("User")
-                            Spacer()
-                            Text("\(AppConfig.user?.username  ?? "")")
-                        }
-                        
-                        Button(action: {
-                            API.synchronizeSets()
-                                               }) {
-                                                   Text( "Synchronize Sets".ls)
-                                                       .fontWeight(.bold)
-                                                       .frame(minWidth: 0, maxWidth: .infinity)
-                                                   
-                                                   }.buttonStyle(RoundedButtonStyle(backgroundColor: .blue)) .padding([.leading, .trailing], 16)
+                    HStack{
+                        Text("\(config.user?.username  ?? "Debug Name")").font(.title)
+                        Spacer()
                         Button(action: {
                             self.config.user = nil
                         }) {
                             Text( "logout".ls)
                                 .fontWeight(.bold)
-                                .frame(minWidth: 0, maxWidth: .infinity)
                             
-                            }.buttonStyle(RoundedButtonStyle(backgroundColor: .red)) .padding([.leading, .trailing], 16)
-     
-
+                            
+                        }.buttonStyle(RoundedButtonStyle(backgroundColor: .red, padding:8))
                     }
+
                     Section(header: Text("App")) {
                              Toggle(isOn: $config.uiMinifigVisible) {
                                       Text("Minifig's Section")
                                   }
+                        Toggle(isOn: $config.uiMinifigVisible) {
+                                                   Text("Sets Image Background")
+                                               }
 
                     }
                 
 
-                }
+                                
+            }.listStyle(GroupedListStyle())
+            .environment(\.horizontalSizeClass, .regular)
                 
-            }.navigationBarTitle("Settings")
-        }
+                .navigationBarTitle("Settings")
+        }.navigationViewStyle(StackNavigationViewStyle())
         
     }
 }

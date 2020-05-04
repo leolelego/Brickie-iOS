@@ -7,35 +7,36 @@
 //
 
 import Foundation
-import RealmSwift
-class LegoSet : Object {
-    @objc dynamic var setID : Int = 0
-    @objc dynamic var number : Int = 0
-    @objc dynamic var name = ""
-    @objc dynamic var year : Int = 0
+//import RealmSwift
+struct LegoSet : Codable {
+    var setID : Int = 0
+    var number : String = ""
+    var name : String = ""
+    var year : Int = 0
     
-    @objc dynamic var theme = ""
-    @objc dynamic var themeGroup = ""
-    @objc dynamic var  category = ""
-    @objc dynamic var released : Bool = true
-    @objc dynamic var pieces : Int = 0
-    @objc dynamic var  minifigs : Int = 0
-    @objc dynamic var bricksetURL = ""
-    
-    @objc dynamic var rating : Float = 0
-    @objc dynamic var instructionsCount : Float = 0
-    
-    @objc dynamic var collection: LegoSetCollection?
-    override static func primaryKey() -> String? {
-        return "id"
-    }
+    var theme : String = ""
+    var themeGroup : String = ""
+    var subtheme : String? = ""
+    var category : String = ""
+    var released : Bool = true
+    var pieces : Int = 0
+    let minifigs : Int?
+    let image : LegoSetImage
+    let bricksetURL : String
+    let collection : LegoSetCollection
+    let rating : Float
+    let instructionsCount : Float
 }
 
-class LegoSetCollection : Object {
-    @objc dynamic var owned : Bool = true
-    @objc dynamic var wanted : Bool = true
-    @objc dynamic var qtyOwned : Int = 0
-    @objc dynamic var rating : Float = 0
-    @objc dynamic var notes = ""
+struct LegoSetImage : Codable {
+    var thumbnailURL : String
+    var imageURL : String
+}
+struct LegoSetCollection : Codable {
+    let owned : Bool
+    let wanted : Bool
+    let qtyOwned : Int
+    let rating : Float
+    var notes = ""
 }
 

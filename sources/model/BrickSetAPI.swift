@@ -9,8 +9,11 @@
 import Foundation
 import Alamofire
 
-let API = BrickSetAPI()
+var API = BrickSetAPI(collection:UserCollection(),config:Configuration())
 struct BrickSetAPI {
+    let collection : UserCollection
+    let config : Configuration
+    
     let apiKey = BrickSetApiKey
     let url = URL(string: "https://brickset.com/api/v3.asmx")!
 
@@ -30,7 +33,7 @@ struct BrickSetAPI {
 
                     }
                     let user = User(username: username, token: hash)
-                    AppConfig.user = user
+                    self.config.user = user
                     completion(.success(Void()))
                 case  .failure(_):
                     completion(.failure(.badLogin))
@@ -40,7 +43,7 @@ struct BrickSetAPI {
     
     func search(text:String,completion: @escaping (Result<Void,APIError>) -> Void){
         
-        guard let hash = AppConfig.user?.token else {
+        guard let hash = config.user?.token else {
             return
         }
         let params : [String:Any] = ["apiKey":apiKey,"userHash":hash,"params":[
@@ -54,6 +57,8 @@ struct BrickSetAPI {
                         return
                     }
                     
+                    
+                    
         
                
                     completion(.success(Void()))
@@ -63,46 +68,77 @@ struct BrickSetAPI {
         }
     }
     
-    func synchronizeSets(){
-        
-        guard let hash = AppConfig.user?.token else {
-            return
-        }
-        
-//        let paramss = APIParams(apiKey: apiKey, userHash: hash, params: "{\"owned\": \"1\"}")
-        let paramss = APIParams(apiKey: apiKey, userHash: hash, params: ["owned":"1"])
-        var request = URLRequest(url: url.appendingPathComponent("getSets"))
-        request.method = .get
-        do {
-        request = try URLEncodedFormParameterEncoder().encode(paramss, into: request)
-
-            print(request)
-        AF.request(request).responseJSON { (response) in
-            switch response.result {
-                case  .success(let value):
-                    guard let d = value as? [String:Any], let sets = d["sets"] as? [[String:Any]]  else {
-                        log("error : \(value)", .error)
-                        return
-                    }
-                
-                print(sets)
-        
-               
-                case  .failure(let err):
-                    logerror(err)
-
+    func synchronize(){
+        #if DEBUG
+        self.collection.setsOwned = load("SampleSets.json")
+        #else
+        getSets(params: ["owned":"1"]) { (result) in
+            switch result {
+            case .success(let sets):
+                self.collection.setsOwned = sets
+            case .failure(let err):
+                logerror(err)
             }
         }
-        } catch {
-            
+        getSets(params: ["wanted":"1"]) { (result) in
+            switch result {
+            case .success(let sets):
+                self.collection.setsWanted = sets
+            case .failure(let err):
+                logerror(err)
+            }
         }
+        #endif
+       
+
+    }
+    
+    private func getSets(params:[String:String],completion: @escaping (Result<[LegoSet],Error>) -> Void){
+         guard let hash = config.user?.token else {
+                    
+                    return
+                }
+                
+                let apiParams = APIParams(apiKey: apiKey, userHash: hash, params: params)
+                var request = URLRequest(url: url.appendingPathComponent("getSets"))
+                request.method = .get
+                guard let req = try? URLEncodedFormParameterEncoder().encode(apiParams, into: request) else {return}
+//                    if noInternet {
+//                        req.cachePolicy = .returnCacheDataDontLoad
+//                    }
+                    print(req)
+                AF.request(req).responseJSON { (response) in
+                    switch response.result {
+                        case  .success(let value):
+                            guard let d = value as? [String:Any], let sets = d["sets"] as? [[String:Any]]  else {
+                                log("error : \(value)", .error)
+                                return
+                            }
+                            
+                            let decoder = JSONDecoder()
+                            guard let mySets = try? decoder.decode([LegoSet].self, fromJSONObject: sets) else {
+                                return
+                            }
+                            completion(.success(mySets))
+                
+                       
+                        case  .failure(let err):
+                            logerror(err)
+
+                    }
+                }
+        
     }
         
         
     
     
 }
-
+extension JSONDecoder {
+    func decode<T>(_ type: T.Type, fromJSONObject object: Any) throws -> T where T: Decodable {
+        return try decode(T.self, from: try JSONSerialization.data(withJSONObject: object, options: []))
+    }
+}
 //enum APIConsc
 
 struct APIParams : Encodable {

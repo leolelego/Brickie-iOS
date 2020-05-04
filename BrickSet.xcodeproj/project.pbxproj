@@ -7,20 +7,26 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		96DE9243245F31CA00652E0E /* SampleSets.json in Resources */ = {isa = PBXBuildFile; fileRef = 96DE9242245F31CA00652E0E /* SampleSets.json */; };
+		96DE9245245F34AA00652E0E /* Collection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96DE9244245F34AA00652E0E /* Collection.swift */; };
+		96DE9247245F3DD800652E0E /* SetDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96DE9246245F3DD800652E0E /* SetDetailView.swift */; };
+		96DE924A245F62FF00652E0E /* HeaderModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96DE9249245F62FF00652E0E /* HeaderModifier.swift */; };
+		96DE924C245F695100652E0E /* Assets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96DE924B245F695100652E0E /* Assets.swift */; };
+		96DE924E245F696700652E0E /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 96DE924D245F696700652E0E /* Colors.xcassets */; };
+		96DE9251245F875600652E0E /* SDWebImageSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = 96DE9250245F875600652E0E /* SDWebImageSwiftUI */; };
+		96DE9253245F8A6800652E0E /* Blur.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96DE9252245F8A6800652E0E /* Blur.swift */; };
+		96DE9256245FA7BC00652E0E /* RoundedCorners.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96DE9255245FA7BC00652E0E /* RoundedCorners.swift */; };
 		96E78B7C245CAC270032F4E3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E78B7B245CAC270032F4E3 /* AppDelegate.swift */; };
 		96E78B7E245CAC270032F4E3 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E78B7D245CAC270032F4E3 /* SceneDelegate.swift */; };
 		96E78B82245CAC290032F4E3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 96E78B81245CAC290032F4E3 /* Assets.xcassets */; };
 		96E78B88245CAC290032F4E3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 96E78B86245CAC290032F4E3 /* LaunchScreen.storyboard */; };
 		96E78B95245CADFA0032F4E3 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E78B94245CADFA0032F4E3 /* LoginView.swift */; };
 		96E78B98245CB1120032F4E3 /* RoundedButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E78B97245CB1120032F4E3 /* RoundedButtonStyle.swift */; };
-		96E78B9B245CC4BA0032F4E3 /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = 96E78B9A245CC4BA0032F4E3 /* Realm */; };
-		96E78B9D245CC4BA0032F4E3 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 96E78B9C245CC4BA0032F4E3 /* RealmSwift */; };
 		96E78B9F245CC5100032F4E3 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E78B9E245CC5100032F4E3 /* User.swift */; };
 		96E78BA1245CC5AA0032F4E3 /* Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E78BA0245CC5AA0032F4E3 /* Configuration.swift */; };
 		96E78BA4245CC7700032F4E3 /* KeychainSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 96E78BA3245CC7700032F4E3 /* KeychainSwift */; };
 		96E78BA6245CC8AF0032F4E3 /* BrickSetAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E78BA5245CC8AF0032F4E3 /* BrickSetAPI.swift */; };
 		96E78BA9245CCA3D0032F4E3 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 96E78BA8245CCA3D0032F4E3 /* Alamofire */; };
-		96E78BAC245CCA6D0032F4E3 /* AlamofireImage in Frameworks */ = {isa = PBXBuildFile; productRef = 96E78BAB245CCA6D0032F4E3 /* AlamofireImage */; };
 		96E78BAE245CCED40032F4E3 /* APIHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E78BAD245CCED40032F4E3 /* APIHelpers.swift */; };
 		96E78BB0245CD7330032F4E3 /* Foundation+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E78BAF245CD7330032F4E3 /* Foundation+Ext.swift */; };
 		96E78BB2245CD79F0032F4E3 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E78BB1245CD79F0032F4E3 /* Logger.swift */; };
@@ -34,6 +40,14 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		96DE9242245F31CA00652E0E /* SampleSets.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = SampleSets.json; sourceTree = "<group>"; };
+		96DE9244245F34AA00652E0E /* Collection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Collection.swift; sourceTree = "<group>"; };
+		96DE9246245F3DD800652E0E /* SetDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetDetailView.swift; sourceTree = "<group>"; };
+		96DE9249245F62FF00652E0E /* HeaderModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderModifier.swift; sourceTree = "<group>"; };
+		96DE924B245F695100652E0E /* Assets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Assets.swift; sourceTree = "<group>"; };
+		96DE924D245F696700652E0E /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
+		96DE9252245F8A6800652E0E /* Blur.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Blur.swift; sourceTree = "<group>"; };
+		96DE9255245FA7BC00652E0E /* RoundedCorners.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedCorners.swift; sourceTree = "<group>"; };
 		96E78B78245CAC270032F4E3 /* BrickSet.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BrickSet.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		96E78B7B245CAC270032F4E3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		96E78B7D245CAC270032F4E3 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -63,17 +77,39 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				96DE9251245F875600652E0E /* SDWebImageSwiftUI in Frameworks */,
 				96E78BA4245CC7700032F4E3 /* KeychainSwift in Frameworks */,
 				96E78BA9245CCA3D0032F4E3 /* Alamofire in Frameworks */,
-				96E78BAC245CCA6D0032F4E3 /* AlamofireImage in Frameworks */,
-				96E78B9D245CC4BA0032F4E3 /* RealmSwift in Frameworks */,
-				96E78B9B245CC4BA0032F4E3 /* Realm in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		96DE9241245F31A800652E0E /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				96DE9242245F31CA00652E0E /* SampleSets.json */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		96DE9248245F62E300652E0E /* Modifier */ = {
+			isa = PBXGroup;
+			children = (
+				96E78B97245CB1120032F4E3 /* RoundedButtonStyle.swift */,
+				96DE9249245F62FF00652E0E /* HeaderModifier.swift */,
+			);
+			path = Modifier;
+			sourceTree = "<group>";
+		};
+		96DE9257245FB48D00652E0E /* SetList */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = SetList;
+			sourceTree = "<group>";
+		};
 		96E78B6F245CAC270032F4E3 = {
 			isa = PBXGroup;
 			children = (
@@ -106,6 +142,7 @@
 			children = (
 				96E78B9E245CC5100032F4E3 /* User.swift */,
 				96E78BA0245CC5AA0032F4E3 /* Configuration.swift */,
+				96DE9244245F34AA00652E0E /* Collection.swift */,
 				96E78BA5245CC8AF0032F4E3 /* BrickSetAPI.swift */,
 				96E78BAD245CCED40032F4E3 /* APIHelpers.swift */,
 				96E78BBD245CF4BB0032F4E3 /* LegoSet.swift */,
@@ -117,12 +154,16 @@
 		96E78B91245CACA80032F4E3 /* views */ = {
 			isa = PBXGroup;
 			children = (
+				96DE9248245F62E300652E0E /* Modifier */,
+				96DE9257245FB48D00652E0E /* SetList */,
 				96E78B94245CADFA0032F4E3 /* LoginView.swift */,
-				96E78B96245CB0FD0032F4E3 /* Custom */,
 				96E78BB5245CE9BC0032F4E3 /* SetListView.swift */,
+				96DE9246245F3DD800652E0E /* SetDetailView.swift */,
 				96E78BB7245CE9FE0032F4E3 /* MinifigListView.swift */,
 				96E78BBB245CEA280032F4E3 /* SearchView.swift */,
 				96E78BB9245CEA1D0032F4E3 /* SettingsView.swift */,
+				96DE9252245F8A6800652E0E /* Blur.swift */,
+				96DE9255245FA7BC00652E0E /* RoundedCorners.swift */,
 			);
 			path = views;
 			sourceTree = "<group>";
@@ -142,20 +183,15 @@
 		96E78B93245CACC40032F4E3 /* assets */ = {
 			isa = PBXGroup;
 			children = (
+				96DE9241245F31A800652E0E /* Preview Content */,
 				96E78B8F245CAC420032F4E3 /* BrickSet.entitlements */,
-				96E78B81245CAC290032F4E3 /* Assets.xcassets */,
 				96E78B86245CAC290032F4E3 /* LaunchScreen.storyboard */,
 				96E78B89245CAC290032F4E3 /* Info.plist */,
+				96DE924B245F695100652E0E /* Assets.swift */,
+				96E78B81245CAC290032F4E3 /* Assets.xcassets */,
+				96DE924D245F696700652E0E /* Colors.xcassets */,
 			);
 			path = assets;
-			sourceTree = "<group>";
-		};
-		96E78B96245CB0FD0032F4E3 /* Custom */ = {
-			isa = PBXGroup;
-			children = (
-				96E78B97245CB1120032F4E3 /* RoundedButtonStyle.swift */,
-			);
-			path = Custom;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -175,11 +211,9 @@
 			);
 			name = BrickSet;
 			packageProductDependencies = (
-				96E78B9A245CC4BA0032F4E3 /* Realm */,
-				96E78B9C245CC4BA0032F4E3 /* RealmSwift */,
 				96E78BA3245CC7700032F4E3 /* KeychainSwift */,
 				96E78BA8245CCA3D0032F4E3 /* Alamofire */,
-				96E78BAB245CCA6D0032F4E3 /* AlamofireImage */,
+				96DE9250245F875600652E0E /* SDWebImageSwiftUI */,
 			);
 			productName = BrickSet;
 			productReference = 96E78B78245CAC270032F4E3 /* BrickSet.app */;
@@ -210,10 +244,9 @@
 			);
 			mainGroup = 96E78B6F245CAC270032F4E3;
 			packageReferences = (
-				96E78B99245CC4BA0032F4E3 /* XCRemoteSwiftPackageReference "realm-cocoa" */,
 				96E78BA2245CC7700032F4E3 /* XCRemoteSwiftPackageReference "keychain-swift" */,
 				96E78BA7245CCA3D0032F4E3 /* XCRemoteSwiftPackageReference "Alamofire" */,
-				96E78BAA245CCA6D0032F4E3 /* XCRemoteSwiftPackageReference "AlamofireImage" */,
+				96DE924F245F875600652E0E /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */,
 			);
 			productRefGroup = 96E78B79245CAC270032F4E3 /* Products */;
 			projectDirPath = "";
@@ -229,6 +262,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				96DE9243245F31CA00652E0E /* SampleSets.json in Resources */,
+				96DE924E245F696700652E0E /* Colors.xcassets in Resources */,
 				96E78B88245CAC290032F4E3 /* LaunchScreen.storyboard in Resources */,
 				96E78B82245CAC290032F4E3 /* Assets.xcassets in Resources */,
 			);
@@ -241,7 +276,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				96DE9253245F8A6800652E0E /* Blur.swift in Sources */,
 				96E78BBA245CEA1D0032F4E3 /* SettingsView.swift in Sources */,
+				96DE9256245FA7BC00652E0E /* RoundedCorners.swift in Sources */,
 				96E78B7C245CAC270032F4E3 /* AppDelegate.swift in Sources */,
 				96E78BB2245CD79F0032F4E3 /* Logger.swift in Sources */,
 				96E78B7E245CAC270032F4E3 /* SceneDelegate.swift in Sources */,
@@ -249,7 +286,10 @@
 				96E78BC2245D15220032F4E3 /* Secrets.swift in Sources */,
 				96E78B9F245CC5100032F4E3 /* User.swift in Sources */,
 				96E78BAE245CCED40032F4E3 /* APIHelpers.swift in Sources */,
+				96DE9247245F3DD800652E0E /* SetDetailView.swift in Sources */,
 				96E78B98245CB1120032F4E3 /* RoundedButtonStyle.swift in Sources */,
+				96DE924C245F695100652E0E /* Assets.swift in Sources */,
+				96DE9245245F34AA00652E0E /* Collection.swift in Sources */,
 				96E78BB0245CD7330032F4E3 /* Foundation+Ext.swift in Sources */,
 				96E78BB8245CE9FE0032F4E3 /* MinifigListView.swift in Sources */,
 				96E78BA6245CC8AF0032F4E3 /* BrickSetAPI.swift in Sources */,
@@ -257,6 +297,7 @@
 				96E78BB4245CE61A0032F4E3 /* AppRoot.swift in Sources */,
 				96E78BBC245CEA280032F4E3 /* SearchView.swift in Sources */,
 				96E78B95245CADFA0032F4E3 /* LoginView.swift in Sources */,
+				96DE924A245F62FF00652E0E /* HeaderModifier.swift in Sources */,
 				96E78BB6245CE9BC0032F4E3 /* SetListView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -395,6 +436,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = sources/assets/BrickSet.entitlements;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_ASSET_PATHS = "sources/assets/Preview\\ Content";
 				DEVELOPMENT_TEAM = Z22Q8S6MMK;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = sources/assets/Info.plist;
@@ -416,6 +458,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = sources/assets/BrickSet.entitlements;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_ASSET_PATHS = "sources/assets/Preview\\ Content";
 				DEVELOPMENT_TEAM = Z22Q8S6MMK;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = sources/assets/Info.plist;
@@ -455,12 +498,12 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		96E78B99245CC4BA0032F4E3 /* XCRemoteSwiftPackageReference "realm-cocoa" */ = {
+		96DE924F245F875600652E0E /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/realm/realm-cocoa.git";
+			repositoryURL = "https://github.com/SDWebImage/SDWebImageSwiftUI.git";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 4.4.1;
+				minimumVersion = 1.3.4;
 			};
 		};
 		96E78BA2245CC7700032F4E3 /* XCRemoteSwiftPackageReference "keychain-swift" */ = {
@@ -479,26 +522,13 @@
 				minimumVersion = 5.1.0;
 			};
 		};
-		96E78BAA245CCA6D0032F4E3 /* XCRemoteSwiftPackageReference "AlamofireImage" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/Alamofire/AlamofireImage.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 4.1.0;
-			};
-		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		96E78B9A245CC4BA0032F4E3 /* Realm */ = {
+		96DE9250245F875600652E0E /* SDWebImageSwiftUI */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 96E78B99245CC4BA0032F4E3 /* XCRemoteSwiftPackageReference "realm-cocoa" */;
-			productName = Realm;
-		};
-		96E78B9C245CC4BA0032F4E3 /* RealmSwift */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 96E78B99245CC4BA0032F4E3 /* XCRemoteSwiftPackageReference "realm-cocoa" */;
-			productName = RealmSwift;
+			package = 96DE924F245F875600652E0E /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */;
+			productName = SDWebImageSwiftUI;
 		};
 		96E78BA3245CC7700032F4E3 /* KeychainSwift */ = {
 			isa = XCSwiftPackageProductDependency;
@@ -509,11 +539,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 96E78BA7245CCA3D0032F4E3 /* XCRemoteSwiftPackageReference "Alamofire" */;
 			productName = Alamofire;
-		};
-		96E78BAB245CCA6D0032F4E3 /* AlamofireImage */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 96E78BAA245CCA6D0032F4E3 /* XCRemoteSwiftPackageReference "AlamofireImage" */;
-			productName = AlamofireImage;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
