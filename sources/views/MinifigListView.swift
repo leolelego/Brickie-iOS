@@ -17,7 +17,7 @@ struct MinifigListView: View {
              Text("My Sets")
              Text("My Sets")
              Text("My Sets")
-            }.navigationBarTitle("My Minifig'")
+            }.navigationBarTitle("MINIFIG")
         }
 
 

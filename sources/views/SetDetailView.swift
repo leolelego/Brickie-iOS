@@ -14,6 +14,9 @@ struct SetDetailView: View {
         Text(set.name)
     }
 }
+
+let previewCollection = UserCollection(json: "SampleSets.json")
+
 struct SetDetailView_Previews: PreviewProvider {
     static var previews: some View {
         
