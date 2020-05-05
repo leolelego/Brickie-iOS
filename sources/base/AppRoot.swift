@@ -19,7 +19,7 @@ struct AppRootView: View {
                 
             } else {
                 TabView(selection: $selection){
-                    SetListView()
+                    SetsView()
                         .tabItem {
                             VStack {
                                                                             Image.tab_sets
