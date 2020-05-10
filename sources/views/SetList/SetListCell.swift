@@ -20,7 +20,8 @@ struct SetListCell : View {
             
             
         }
-        .background(BackgroundImageView(imagePath: set.image.imageURL))
+        .background(
+            BackgroundImageView(imagePath: set.image.imageURL))
         .frame(maxWidth: .infinity,alignment:.topLeading)
         .modifier(RoundedShadowMod())
         
@@ -49,7 +50,7 @@ struct SetListCell : View {
     }
     func makeDetails() -> some View{
         HStack(alignment: .bottom){
-            Text("\(set.pieces)").font(.headline)
+            Text("\(set.pieces ?? 0)").font(.headline)
             Image.brick(height:20)
             Text("\(set.minifigs ?? 0)").font(.headline)
             Image.minifig_head(height:20)
@@ -59,19 +60,25 @@ struct SetListCell : View {
     }
     
     func makePastil() -> some View {
-        Group {
-            if set.collection.owned == false  {
-                Image(systemName: set.collection.wanted ? "heart.fill":"heart").font(.footnote)
-                .padding(.horizontal,8)
-                .padding(.vertical,8).foregroundColor(.white)
-                .background(RoundedCorners(color: Color("purple"), tl: 16, tr: 0, bl: 0, br: 0))
-            } else {
-                 Text("\(set.collection.qtyOwned)").font(.body)
+        HStack {
+            
+            if set.collection.qtyOwned != 0 {
+                Text("\(set.collection.qtyOwned)").font(.body)
                 .padding(.horizontal,8).foregroundColor(.background)
                 .background(RoundedCorners(color: .backgroundAlt, tl: 16, tr: 0, bl: 0, br: 0))
-                
             }
-        }
+            
+            if set.collection.wanted  {
+                Image(systemName: set.collection.wanted ? "heart.fill":"heart").font(.footnote)//.background(Color.purple)
+                .padding(.horizontal,8)
+                .padding(.vertical,8)
+                    .foregroundColor(.white)
+            }
+            
+            
+            
+        }.background(RoundedCorners(color: Color.black, tl: 16, tr: 0, bl: 0, br: 0))
+
     }
 }
 

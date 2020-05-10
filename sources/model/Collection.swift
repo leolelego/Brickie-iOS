@@ -7,22 +7,85 @@
 //
 
 import Foundation
-
+import Combine
+enum CollectionFilter : Equatable{
+    case wanted
+    case owned
+    case search(String)
+}
 class UserCollection : ObservableObject{
-    @Published var setsOwned = [LegoSet]()
-    @Published var setsWanted = [LegoSet]()
-
-    init(){}
-    init(json:String){
-        self.setsOwned = load(json)
+    @Published private var sets = [LegoSet]()
+    @Published var minifigs = [LegoMinifig]()
+    @Published var searchSetsText = ""
+    private var searchCancellable: AnyCancellable?
+    
+    init(){
+        searchCancellable = $searchSetsText
+            .debounce(for: .milliseconds(500), scheduler: DispatchQueue.main)
+            .removeDuplicates()
+            .sink{ _ in
+                if self.searchSetsText.isEmpty {
+                    self.setsFilter = .owned
+                } else {
+                    API.search(text: self.searchSetsText)
+                    self.setsFilter = .search(self.searchSetsText)
+                    
+                    
+                }
+        }
+        
+        
+        
     }
+    
+    func append(_ new:[LegoSet]){
+        objectWillChange.send()
+        for set in new {
+            if let idx = sets.firstIndex(of: set){
+                sets[idx].update(from: set)
+            } else {
+                sets.append(set)
+            }
+        }
+    }
+    // Remove set taht are NOT wanted
+    func updateWanted(with wanted:[LegoSet]){
+        objectWillChange.send()
+        for set in sets {
+            set.collection.wanted = wanted.contains(set)
+        }
+    }
+    func updateOwned(with owned:[LegoSet]){
+        objectWillChange.send()
+        for set in sets {
+            set.collection.owned = owned.contains(set)
+        }
+    }
+    
+    var setsFilter : CollectionFilter = .owned {
+        didSet{
+            objectWillChange.send()
+        }
+    }
+    
+    var setsUI : [LegoSet] {
+        switch setsFilter {
+        case .wanted:
+            return  sets.filter({$0.collection.wanted == true})
+        case .owned:
+            return sets.filter({$0.collection.owned == true})
+        case .search(let str):
+            return sets.filter({$0.match(str)})
+        }
+    }
+    
 }
 func load<T: Decodable>(_ filename: String) -> T {
     let data: Data
     
     guard let file = Bundle.main.url(forResource: filename, withExtension: nil)
-    else {
-        fatalError("Couldn't find \(filename) in main bundle.")
+        else {
+            fatalError("Couldn't find \(filename) in main bundle.")
     }
     
     do {

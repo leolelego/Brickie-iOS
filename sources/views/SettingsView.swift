@@ -44,7 +44,7 @@ struct SettingsView: View {
             }.listStyle(GroupedListStyle())
             .environment(\.horizontalSizeClass, .regular)
                 
-                .navigationBarTitle("Settings")
+                .navigationBarTitle("SETTINGS_")
         }.navigationViewStyle(StackNavigationViewStyle())
         
     }

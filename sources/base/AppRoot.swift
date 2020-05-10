@@ -50,7 +50,7 @@ struct AppRootView: View {
                     SettingsView()
                         .tabItem {
                             VStack {
-                                Image("second")
+                                Image.tab_settings
                                 Text("Settings".ls)
                             }
                     }

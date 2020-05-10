@@ -8,15 +8,6 @@
 
 import SwiftUI
 
-struct HeaderModifier: ViewModifier {
-    func body(content: Content) -> some View {
-        content
-    
-
-    }
-}
-
-
 
 struct RoundedShadowMod : ViewModifier {
     func body(content: Content) -> some View {

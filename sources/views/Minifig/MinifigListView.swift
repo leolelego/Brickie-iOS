@@ -12,7 +12,7 @@ struct MinifigListView: View {
     var body: some View {
         NavigationView{
 
-         VStack {
+         List {
              Text("My Minim")
              Text("My Sets")
              Text("My Sets")

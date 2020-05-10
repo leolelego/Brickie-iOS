@@ -23,8 +23,8 @@ class LegoSet : Codable , Equatable,Hashable{
     var themeGroup : String = ""
     var subtheme : String? = ""
     var category : String = ""
-    var released : Bool = true
-    var pieces : Int = 0
+//    var released : Bool = true
+    var pieces : Int? = 0
     let minifigs : Int?
     let image : LegoSetImage
     let bricksetURL : String
@@ -32,7 +32,7 @@ class LegoSet : Codable , Equatable,Hashable{
     let rating : Float
     let instructionsCount : Float
     let LEGOCom : [String:LegoSetPrice]
-
+    
     var price : String? {
         return fomatter.string(for: LEGOCom["US"]?.retailPrice) 
     }
@@ -41,10 +41,34 @@ class LegoSet : Codable , Equatable,Hashable{
         return lhs.setID == rhs.setID
     }
     func hash(into hasher: inout Hasher) {
-       hasher.combine(name)
-       hasher.combine(number)
-       hasher.combine(year)
-     }
+        hasher.combine(name)
+        hasher.combine(number)
+        hasher.combine(year)
+    }
+    
+    func update(from: LegoSet){
+        objectWillChange.send()
+        self.collection = from.collection
+    }
+    
+    func match(_ search:String) -> Bool{
+        let lower = search.lowercased()
+        let matched = name.lowercased().contains(lower)
+            || number.lowercased().contains(lower)
+            || theme.lowercased().contains(lower)
+            || themeGroup.lowercased().contains(lower)
+            ||   subtheme?.lowercased().contains(lower) ?? false
+            || category.lowercased().contains(lower)
+            || "\(year)".lowercased().contains(lower)
+        
+        return matched
+    }
+    
+}
+extension LegoSet : CustomStringConvertible {
+    var description: String {
+        return "\(name) - O:\(collection.owned) - W:\(collection.wanted) - Q:\(collection.qtyOwned)"
+    }
 }
 extension LegoSet : Identifiable {
     var id: Int {setID}
@@ -54,8 +78,8 @@ extension LegoSet : ObservableObject{}
 
 
 struct LegoSetImage : Codable {
-    var thumbnailURL : String
-    var imageURL : String
+    var thumbnailURL : String?
+    var imageURL : String?
 }
 class LegoSetCollection : Codable {
     var owned : Bool
