@@ -58,7 +58,7 @@ struct AppRootView: View {
                 }
             }
             
-        }.accentColor(.appBlack)
+        }.accentColor(.backgroundAlt)
     }
     
 }

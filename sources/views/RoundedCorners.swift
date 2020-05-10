@@ -42,3 +42,9 @@ struct RoundedCorners: View {
         }
     }
 }
+
+struct RoundedCorners_Previews: PreviewProvider {
+    static var previews: some View {
+        /*@START_MENU_TOKEN@*/Text("Hello, World!")/*@END_MENU_TOKEN@*/.background(RoundedCorners(color: .red, tl: 16, tr: 0, bl: 0, br: 0))
+    }
+}

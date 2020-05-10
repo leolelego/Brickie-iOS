@@ -40,7 +40,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         UINavigationBar.appearance().titleTextAttributes = [
             NSAttributedString.Key.font:UIFont(name: "LEGothicType", size: 17)!,
-        ]    }
+        ]
+
+        UINavigationBar.appearance().setBackgroundImage(UIImage(), for: .default)
+        UINavigationBar.appearance().shadowImage = UIImage()
+        UINavigationBar.appearance().isTranslucent = true
+
+
+//        UINavigationBar.appearance().tintColor = .systemBa
+    }
+        
     
 }
 

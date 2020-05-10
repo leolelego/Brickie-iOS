@@ -13,9 +13,10 @@ extension Color {
     public static var background: Color {
         Color("background", bundle: nil)
     }
-    public static var header: Color {
-        Color("header", bundle: nil)
+    public static var backgroundAlt: Color {
+        Color("backgroundAlt", bundle: nil)
     }
+
     public static var cellBackground: Color {
         Color("cell", bundle: nil)
     }
@@ -36,16 +37,30 @@ extension Color {
 }
 
 extension Image {
-    public static var tab_minifig: Image {
-        Image("tab_minifig")
+    static var tab_minifig: Image {
+        Image("lego_head").renderingMode(.template)
     }
-    public static var tab_sets: Image {
-        Image("tab_sets")
+    static var tab_sets: Image {
+        Image("lego_brick").renderingMode(.template)
     }
-    public static var cell_minifig: Image {
-        Image("tab_minifig")
+    
+    static var minifig_head: Image {
+        Image("lego_head")    }
+    static var brick: Image {
+        Image("lego_brick")
     }
-    public static var cell_sets: Image {
-        Image("tab_sets")
+    public static func minifig_head(height:CGFloat) -> some View {
+        Image("lego_head").renderingMode(.template).resizable().frame(width: height*35.0/41.0, height: height)  // 35 × 41 pixels
+    }
+    public static func brick(height:CGFloat) -> some View {
+        Image("lego_brick").renderingMode(.template).resizable().frame(width: height*47.0/43.0, height: height)  // 35 × 41 pixels
+    }
+
+}
+
+
+extension Font {
+    static func lego(size:CGFloat)->Font{
+        Font.custom("LEGothicType", size: size)
     }
 }

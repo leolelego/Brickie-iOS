@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-struct HeaderView : View {
+struct RoundedText : View {
     let text: String
     var body: some View {
         
@@ -18,11 +18,17 @@ struct HeaderView : View {
             .foregroundColor(Color.textAlternate)
             .padding(.vertical, 6)
             .padding(.horizontal, 10)
-            .background(Color.header)
+            .background(Color.backgroundAlt)
             .mask(RoundedRectangle(cornerRadius: 14, style: .continuous))
-            .padding(.leading, -12)
-            .padding(.bottom, -28)
-            .shadow(color: Color.black.opacity(0.15), radius: 2, x: 0, y: 1)
+      
+            .shadow(color: Color.backgroundAlt.opacity(0.15), radius: 2, x: 0, y: 1)
     }
     
+}
+
+
+struct SetListHeader_Previews: PreviewProvider {
+    static var previews: some View {
+        RoundedText(text: "Create Expert")
+    }
 }
