@@ -12,7 +12,7 @@ struct SetsView: View {
     
     @EnvironmentObject private var  collection : UserCollection
     var sets : [LegoSet]  {
-        return wanted ? collection.setsWanted : collection.setsOwned
+        return Array(collection.setsOwned)
     }
     @State var wanted : Bool = false
     var body: some View {
@@ -39,7 +39,11 @@ struct SetsView: View {
 
             List {
                 ForEach(sections(for: sets ), id: \.self){ theme in
-                    Section(header: HeaderView(text:theme)) {
+                    Section(header:
+                        RoundedText(text:theme)
+                        .padding(.leading, -12)
+                        .padding(.bottom, -28)
+                    ) {
                         ForEach(self.items(for: theme, items: self.sets), id: \.setID) { item in
                             NavigationLink(destination: SetDetailView(set: item)) {
                                 SetListCell(set:item)

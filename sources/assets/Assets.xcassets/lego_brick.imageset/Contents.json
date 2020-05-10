@@ -1,0 +1,12 @@
+{
+  "images" : [
+    {
+      "filename" : "legoBrick.pdf",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}

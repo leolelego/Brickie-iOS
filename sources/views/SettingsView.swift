@@ -11,7 +11,6 @@ import SwiftUI
 struct SettingsView: View {
     
     @EnvironmentObject var config : Configuration
-    
     var body: some View {
         NavigationView{
             
@@ -30,15 +29,15 @@ struct SettingsView: View {
                         }.buttonStyle(RoundedButtonStyle(backgroundColor: .red, padding:8))
                     }
 
-                    Section(header: Text("App")) {
-                             Toggle(isOn: $config.uiMinifigVisible) {
-                                      Text("Minifig's Section")
-                                  }
-                        Toggle(isOn: $config.uiMinifigVisible) {
-                                                   Text("Sets Image Background")
-                                               }
-
-                    }
+//                    Section(header: Text("App")) {
+//                        Toggle(isOn: config.$uiMinifigVisible) {
+//                                      Text("Minifig's Section")
+//                                  }
+//                        Toggle(isOn: $config.uiMinifigVisible) {
+//                                                   Text("Sets Image Background")
+//                                               }
+//
+//                    }
                 
 
                                 

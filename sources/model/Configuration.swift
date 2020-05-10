@@ -39,7 +39,7 @@ class Configuration : ObservableObject {
 
     }
     
-    @Published var uiMinifigVisible = true
+    @Published var uiMinifigVisible: Bool = true
     @Published var uiSetThumbail = true
 }
 

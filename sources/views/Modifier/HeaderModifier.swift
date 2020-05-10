@@ -18,3 +18,11 @@ struct HeaderModifier: ViewModifier {
 
 
 
+struct RoundedShadowMod : ViewModifier {
+    func body(content: Content) -> some View {
+        content
+            
+            .mask(RoundedRectangle(cornerRadius: 16, style: .continuous))
+            .shadow(color: Color.backgroundAlt.opacity(0.15), radius: 2, x: 0, y: 1)
+    }
+}
