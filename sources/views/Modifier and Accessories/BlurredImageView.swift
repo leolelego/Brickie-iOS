@@ -9,18 +9,23 @@
 import SwiftUI
 import SDWebImageSwiftUI
 struct BackgroundImageView : View {
-    let imagePath : String
+    let imagePath : String?
     var body : some View {
         ZStack {
+            if imagePath != nil {
+
             makeImage()
+                }
+
             Blur(style: .light).opacity(0.92)
         }
 
     }
     func makeImage() -> some View{
-        WebImage(url: URL(string: imagePath))
+            WebImage(url: URL(string: imagePath!))
             .resizable()
             .scaledToFill()
+        
             //.frame(minHeight:120,maxHeight: 120)
         
 

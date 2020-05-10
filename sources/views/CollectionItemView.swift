@@ -10,44 +10,33 @@ import SwiftUI
 
 struct CollectionItemView: View {
     
-    let isSet : Bool
-    let itemID : String
-    @Binding var owned : Bool
-    @Binding var wanted : Bool
-    @Binding var qty : Int
-
+    @ObservedObject var set : LegoSet
     var body: some View {
          HStack(spacing: 16){
                    Button(action: {
-                    API.setCollection(setId: self.itemID, params: ["want": self.wanted ? "0":"1"])
+                    API.setCollection(item:self.set, action: .want( !self.set.collection.wanted))
                    }) {
                        HStack(alignment: .lastTextBaseline) {
                            
-                           Image(systemName: wanted ? "heart.fill" : "heart").foregroundColor(.white).font(.headline)
+                        Image(systemName: set.collection.wanted ? "heart.fill" : "heart").foregroundColor(.white).font(.headline)
                            Text("I Want").fontWeight(.bold)
                        }
                            
                        .frame(minWidth: 0, maxWidth: .infinity)
                    }.buttonStyle(RoundedButtonStyle(backgroundColor: Color("purple")  ))
                    
-                   if owned {
+            if set.collection.owned {
                        Button(action: {
-                        API.setCollection(setId: self.itemID, params:
-                         ["want": "0",
-                          "qtyOwned": "\(self.qty-1)"
-                        ])
+                        API.setCollection(item:self.set,action: .qty(self.set.collection.qtyOwned-1))
+                                          
+           
                        }) {
                            Image(systemName: "minus").foregroundColor(.background).font(.title)
                            
                        }.buttonStyle(RoundedButtonStyle(backgroundColor:.backgroundAlt))
-                       Text("\(qty)").font(.title).bold()
+                       Text("\(self.set.collection.qtyOwned)").font(.title).bold()
                        Button(action: {
-                        API.setCollection(setId: self.itemID, params:
-                                                [
-                                                 "owned": "\(1)",
-                                                    "qtyOwned": "\(self.qty+1)"
-                                                    
-                                               ])
+                        API.setCollection(item:self.set,action: .qty(self.set.collection.qtyOwned+1))
 
                        }) {
                            Image(systemName: "plus").foregroundColor(.background).font(.title)
@@ -55,10 +44,7 @@ struct CollectionItemView: View {
                        }.buttonStyle(RoundedButtonStyle(backgroundColor:.backgroundAlt))
                    } else {
                        Button(action: {
-                           API.setCollection(setId: self.itemID, params:
-                            ["want": "0",
-                             "owned": "1",
-                           ])
+                        API.setCollection(item:self.set, action: .collect(true))
     
 
                        }) {

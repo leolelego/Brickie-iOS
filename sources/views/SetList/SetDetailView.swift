@@ -16,9 +16,9 @@ struct SetDetailView: View {
     
     var body: some View {
         ScrollView( showsIndicators: false){
-            Rectangle().fill(Color.background).frame( height: 64)
+            //Rectangle().fill(Color.background).frame( height: 64)
             makeThumbnail()
-            Divider()
+           // Divider()
             makeThemes()
             Spacer()
             makeHeader()
@@ -28,8 +28,9 @@ struct SetDetailView: View {
             makeInstructions()
         }
         .navigationBarItems(trailing: ShareNavButton(items: [set.bricksetURL]))
-            //            .navigationBarTitle( displayMode: .inline)
-            .edgesIgnoringSafeArea(.top)
+        .navigationBarHidden(false)
+            .navigationBarTitle("", displayMode: .inline)
+           // .edgesIgnoringSafeArea(.top)
             .onAppear {
                 API.additionalImages(setID: self.set.setID) { response in
                     
@@ -55,11 +56,12 @@ struct SetDetailView: View {
     
     func makeThumbnail() -> some View {
         ZStack(alignment: .bottomTrailing){
-            WebImage(url: URL(string:self.set.image.imageURL)).resizable().aspectRatio(contentMode: .fit).clipped()
+            WebImage(url: URL(string:self.set.image.imageURL ?? "")).resizable().aspectRatio(contentMode: .fit).clipped()
                 .frame(minWidth: 0, maxWidth: .infinity, minHeight: 200, maxHeight: 400, alignment: .center)
                 .background(Color.white)
-        }.padding()
-            .modifier(RoundedShadowMod())
+        }
+        //.padding()
+            //.modifier(RoundedShadowMod())
     }
     func makeThemes() -> some View{
         HStack(spacing: 8){
@@ -96,7 +98,7 @@ struct SetDetailView: View {
             .foregroundColor(Color.background)
             
             HStack(alignment: .bottom){
-                Text("\(set.pieces)").font(.headline)
+                Text("\(set.pieces ?? 0)").font(.headline)
                 Image.brick(height:26)
                 Text("\(set.minifigs ?? 0)").font(.headline)
                 Image.minifig_head(height:26)
@@ -107,7 +109,7 @@ struct SetDetailView: View {
             .frame(minWidth: 0, maxWidth: .infinity,alignment: .leading)
     }
     func makeButtons() -> some View {
-        CollectionItemView(isSet: true,itemID: "\(set.setID)", owned: $set.collection.owned, wanted: $set.collection.wanted, qty: $set.collection.qtyOwned).padding(.horizontal)
+        CollectionItemView(set: set).padding(.horizontal)
     }
     
     func makeImages() -> some View{
@@ -118,7 +120,7 @@ struct SetDetailView: View {
                     ScrollView (.horizontal, showsIndicators: false) {
                         HStack(spacing: 16){
                             ForEach(additionalImages, id: \.thumbnailURL){ image in
-                                WebImage(url: URL(string:image.thumbnailURL)).resizable().scaledToFill().frame(width: 100, height: 100)
+                                WebImage(url: URL(string:image.thumbnailURL ?? "")).resizable().scaledToFill().frame(width: 100, height: 100)
                                     .modifier(RoundedShadowMod())
                             }
                         }.padding(.horizontal,32)
@@ -154,11 +156,10 @@ struct SetDetailView: View {
     
 }
 
-let previewCollection = UserCollection(json: "SampleSets.json")
-
-struct SetDetailView_Previews: PreviewProvider {
-    static var previews: some View {
-        
-        SetDetailView(set:previewCollection.setsOwned.first!).previewDevice(PreviewDevice(rawValue: "iPhone 11"))
-    }
-}
+//let previewCollection = UserCollection(json: "SampleSets.json")
+//
+//struct SetDetailView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        SetDetailView(set:previewCollection.sets.first!).previewDevice(PreviewDevice(rawValue: "iPhone 11"))
+//    }
+//}

@@ -9,15 +9,8 @@
 import Foundation
 import Alamofire
 
-var offline = true
-
 var API : BrickSetAPI = {
     let api = BrickSetAPI(collection:UserCollection(),config:Configuration())
-    if offline {
-        api.collection.setsOwned = load("SampleSets.json")
-    } else {
-      //  api.synchronize()
-    }
     return api
 }()
 
@@ -31,11 +24,7 @@ struct BrickSetAPI {
     
     
     func login(username:String, password:String,completion: @escaping (Result<Void,APIError>) -> Void){
-        
-        guard offline == false else {
-            completion(.success(Void()))
-            return
-        }
+
         let params = ["apiKey":apiKey,"username":username,"password":password]
         
         AF.request(url.appendingPathComponent("login"),parameters: params)
@@ -58,44 +47,19 @@ struct BrickSetAPI {
         }
     }
     
-    func search(text:String,completion: @escaping (Result<Void,APIError>) -> Void){
-        
-        guard let hash = config.user?.token else {
-            return
-        }
-        let params : [String:Any] = ["apiKey":apiKey,"userHash":hash,"params":[
-            "query": text
-            ]]
-        AF.request(url.appendingPathComponent("getSets"),parameters: params).responseJSON { (response) in
-            switch response.result {
-            case  .success(let value):
-                log("\(value)",.debug)
-
-                guard let d = value as? [String:Any], let status = d["status"] as? String, status != "error" else {
-                    completion(.failure(.malformed))
-                    return
-                }
-                
-                
-                
-                
-                
-                completion(.success(Void()))
-            case  .failure(_):
-                completion(.failure(.badLogin))
-            }
+    func search(text:String){
+           getSets(params: ["query":text]){ sets in
+            log("Found \(sets.count)")
         }
     }
     
     func additionalImages(setID:Int,completion: @escaping (Result<[LegoSetImage],APIError>) -> Void){
         
         let params : [String:Any] = ["apiKey":apiKey,"setID":setID]
-        
-        AF.request(url.appendingPathComponent("getAdditionalImages"),parameters: params).responseJSON { (response) in
+        let req = AF.request(url.appendingPathComponent("getAdditionalImages"),parameters: params)
+        req.responseJSON { (response) in
             switch response.result {
             case  .success(let value):
-                log("\(value)",.debug)
-
                 guard let d = value as? [String:Any], let sets = d["additionalImages"] as? [[String:Any]]  else {
                     log("error : \(value)", .error)
                     return
@@ -117,50 +81,82 @@ struct BrickSetAPI {
     }
     
     func instructions(setID:Int,completion: @escaping (Result<[LegoInstruction],APIError>) -> Void){
-         
-         let params : [String:Any] = ["apiKey":apiKey,"setID":setID]
-         
-         AF.request(url.appendingPathComponent("getInstructions"),parameters: params).responseJSON { (response) in
-             switch response.result {
-             case  .success(let value):
-                 log("\(value)",.debug)
-
-                 guard let d = value as? [String:Any], let sets = d["instructions"] as? [[String:Any]]  else {
-                     log("error : \(value)", .error)
-                     return
-                 }
-                 
-                 let decoder = JSONDecoder()
-                 guard let mySets = try? decoder.decode([LegoInstruction].self, fromJSONObject: sets) else {
-                     return
-                 }
-                 completion(.success(mySets))
-                 
-                 
-             case  .failure(let err):
-                 logerror(err)
-             }
-             
-         }
-         
-     }
-    
-    func setCollection(setId:String,params:[String:String]){
-        guard let item = collection.setsOwned.first(where: { "\($0.setID)" == setId}) else {return}
-        item.objectWillChange.send()
-
-        guard offline == false else {
+        
+        let params : [String:Any] = ["apiKey":apiKey,"setID":setID]
+        
+        AF.request(url.appendingPathComponent("getInstructions"),parameters: params).responseJSON { (response) in
+            switch response.result {
+            case  .success(let value):
+                log("\(value)",.debug)
+                
+                guard let d = value as? [String:Any], let sets = d["instructions"] as? [[String:Any]]  else {
+                    log("error : \(value)", .error)
+                    return
+                }
+                
+                let decoder = JSONDecoder()
+                guard let mySets = try? decoder.decode([LegoInstruction].self, fromJSONObject: sets) else {
+                    return
+                }
+                completion(.success(mySets))
+                
+                
+            case  .failure(let err):
+                logerror(err)
+            }
             
-            item.collection.qtyOwned = item.collection.qtyOwned + 1
-            return
         }
+        
+    }
+    
+    enum SetCollectionAction {
+        case want(Bool)
+        case qty(Int)
+        case collect(Bool)
+        var params : [String:String] {
+            switch self {
+            case .want(let wanted):
+                return ["want": wanted ? "1":"0"]
+            case .collect(let col):
+                return col ? ["owned":"1","qtyOwned":"1"] : ["owned":"0","qtyOwned":"0"]
+            case .qty(let q):
+                return ["owned": "\(q < 1 ? "0":"1")","qtyOwned": "\(q)"]
+            }
+        }
+        
+        func manage(obj:LegoSet){
+            obj.objectWillChange.send()
+            API.collection.objectWillChange.send()
+            
+            switch self {
+            case .want(let wanted):
+                obj.collection.wanted = wanted
+                break
+            case .collect(let col):
+                obj.collection.qtyOwned = col ? (obj.collection.qtyOwned == 0 ? 1 : obj.collection.qtyOwned) : 0
+                obj.collection.owned = col
+                break
+            case .qty(let q):
+                obj.collection.qtyOwned = q
+                SetCollectionAction.collect( q < 1 ? false : true).manage(obj: obj)
+                break
+            }
+            
+        }
+        
+    }
+    
+    
+    
+    func setCollection(item:LegoSet,action:SetCollectionAction){
+        
         guard let hash = config.user?.token else {
             
             return
         }
         
-        var apiParams = APIParams(apiKey: apiKey, userHash: hash, params: params)
-        apiParams.setID = setId
+        var apiParams = APIParams(apiKey: apiKey, userHash: hash, params: action.params)
+        apiParams.setID = "\(item.setID)"
         var request = URLRequest(url: url.appendingPathComponent("setCollection"))
         request.method = .get
         guard let req = try? URLEncodedFormParameterEncoder().encode(apiParams, into: request) else {return}
@@ -169,42 +165,48 @@ struct BrickSetAPI {
             switch response.result {
             case  .success(let value):
                 log("\(value)",.debug)
-
-                self.synchronize()
+                action.manage(obj: item)
             case  .failure(let err):
-                logerror(err)
-                
+                logerror(err)                
             }
         }
     }
-    
-    
-    func synchronize(){
-        guard offline == false else {
-            return
-        }
-
-        getSets(params: ["owned":"1"]) { (result) in
+    func synchronizeFigs(){
+        
+        getMinifigures(params: ["owned":"1"]) { (result) in
             switch result {
-            case .success(let sets):
-                self.collection.setsOwned = sets
-            case .failure(let err):
-                logerror(err)
-            }
-        }
-        getSets(params: ["wanted":"1"]) { (result) in
-            switch result {
-            case .success(let sets):
-                self.collection.setsWanted = sets
+            case .success(let items):
+                var figs = items
+                self.getMinifigures(params: ["wanted":"1"]) { (result) in
+                    switch result {
+                    case .success(let items):
+                        figs.append(contentsOf: items)
+                        self.collection.minifigs = Array(Set(figs))
+                    case .failure(let err):
+                        logerror(err)
+                    }
+                }
             case .failure(let err):
                 logerror(err)
             }
         }
         
         
+        
     }
     
-    private func getSets(params:[String:String],completion: @escaping (Result<[LegoSet],Error>) -> Void){
+    func synchronizeSets(){
+        getSets(params: ["owned":"1"]){ sets in
+            self.collection.updateOwned(with: sets)
+            
+        }
+        getSets(params: ["wanted":"1"]){ sets in
+            self.collection.updateWanted(with: sets)
+            
+        }
+    }
+    
+    private func getSets(params:[String:String],completion:@escaping ([LegoSet])->Void){
         
         guard let hash = config.user?.token else {
             
@@ -223,12 +225,51 @@ struct BrickSetAPI {
             switch response.result {
             case  .success(let value):
                 guard let d = value as? [String:Any], let sets = d["sets"] as? [[String:Any]]  else {
+                    log("getSets : \(value)", .error)
+                    return
+                }
+                let decoder = JSONDecoder()
+                do {
+                    let mySets = try decoder.decode([LegoSet].self, fromJSONObject: sets)
+                    self.collection.append(mySets)
+                    completion(mySets)
+                } catch {
+                    logerror(error)
+                    return
+                }
+
+            case  .failure(let err):
+                logerror(err)
+                
+            }
+        }
+        
+    }
+    
+    private func getMinifigures(params:[String:String],completion: @escaping (Result<[LegoMinifig],Error>) -> Void){
+        guard let hash = config.user?.token else {
+            
+            return
+        }
+        
+        let apiParams = APIParams(apiKey: apiKey, userHash: hash, params: params)
+        var request = URLRequest(url: url.appendingPathComponent("getMinifigCollection"))
+        request.method = .get
+        guard let req = try? URLEncodedFormParameterEncoder().encode(apiParams, into: request) else {return}
+        //                    if noInternet {
+        //                        req.cachePolicy = .returnCacheDataDontLoad
+        //                    }
+        print(req)
+        AF.request(req).responseJSON { (response) in
+            switch response.result {
+            case  .success(let value):
+                guard let d = value as? [String:Any], let sets = d["minifigs"] as? [[String:Any]]  else {
                     log("error : \(value)", .error)
                     return
                 }
                 
                 let decoder = JSONDecoder()
-                guard let mySets = try? decoder.decode([LegoSet].self, fromJSONObject: sets) else {
+                guard let mySets = try? decoder.decode([LegoMinifig].self, fromJSONObject: sets) else {
                     return
                 }
                 completion(.success(mySets))
@@ -239,10 +280,7 @@ struct BrickSetAPI {
                 
             }
         }
-        
     }
-    
-    
     
     
 }

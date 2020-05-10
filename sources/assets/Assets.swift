@@ -40,6 +40,9 @@ extension Image {
     static var tab_minifig: Image {
         Image("lego_head").renderingMode(.template)
     }
+    static var tab_settings: Image {
+         Image("gear").renderingMode(.template)
+     }
     static var tab_sets: Image {
         Image("lego_brick").renderingMode(.template)
     }

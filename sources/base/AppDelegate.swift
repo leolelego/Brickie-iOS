@@ -42,12 +42,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             NSAttributedString.Key.font:UIFont(name: "LEGothicType", size: 17)!,
         ]
 
-        UINavigationBar.appearance().setBackgroundImage(UIImage(), for: .default)
         UINavigationBar.appearance().shadowImage = UIImage()
         UINavigationBar.appearance().isTranslucent = true
+        UIBarButtonItem.appearance().setTitleTextAttributes([NSAttributedString.Key.font: UIFont(name: "LEGothicType", size: 17)!], for: .normal)
 
-
-//        UINavigationBar.appearance().tintColor = .systemBa
     }
         
     
