@@ -85,7 +85,7 @@ struct SetDetailView: View {
         }.padding(.horizontal)
     }
     func makeHeader() -> some View{
-        VStack(alignment: .leading, spacing: 4) {
+        VStack(alignment: .leading, spacing: 8) {
             
             HStack {
                 Text( set.number+" ").font(.lego(size: 32)).foregroundColor(.black)

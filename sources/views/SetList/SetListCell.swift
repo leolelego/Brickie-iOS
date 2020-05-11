@@ -63,9 +63,8 @@ struct SetListCell : View {
         HStack {
             
             if set.collection.qtyOwned != 0 {
-                Text("\(set.collection.qtyOwned)").font(.body)
-                .padding(.horizontal,8).foregroundColor(.background)
-                .background(RoundedCorners(color: .backgroundAlt, tl: 16, tr: 0, bl: 0, br: 0))
+                Text("\(set.collection.qtyOwned)").font(.body).bold()
+                .padding(.horizontal,8).foregroundColor(.white)
             }
             
             if set.collection.wanted  {
