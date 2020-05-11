@@ -49,7 +49,7 @@ struct BrickSetAPI {
     
     func search(text:String){
            getSets(params: ["query":text]){ sets in
-            log("Found \(sets.count)")
+            self.collection.isLoadingData = false
         }
     }
     

@@ -1,0 +1,36 @@
+name: Build And Publish
+
+on: [push]
+
+jobs:
+  build:
+
+    runs-on: macOS-latest
+    
+    steps:
+    - uses: fusion-engineering/setup-git-credentials@v2
+      with:
+        credentials: ${{secrets.GIT_CREDENTIALS}}
+    - uses: actions/checkout@v1
+    - name: Install
+      run: |
+        bundle install
+    - name: Process
+      run: |
+        echo 'let BrickSetApiKey = "${{secrets.BRICKSET_API_KEY}}"' > sources/model/Secrets.swift
+        bundle exec fastlane beta branch:${GITHUB_REF##*/}
+      env:
+        APP_IDENTIFIER: ${{secrets.APP_IDENTIFIER}}
+        FASTLANE_USER: ${{secrets.FASTLANE_USER}}
+        FASTLANE_PASSWORD: ${{secrets.FASTLANE_PASSWORD}}
+        ITC_TEAM_ID: ${{secrets.ITC_TEAM_ID}}
+        TEAM_ID: ${{secrets.TEAM_ID}}
+        MATCH_URL: ${{secrets.MATCH_URL}}
+        MATCH_BRANCH: ${{secrets.MATCH_BRANCH}}
+        MATCH_PASSWORD: ${{secrets.MATCH_PASSWORD}}
+        KEYCHAIN_NAME: ${{secrets.KEYCHAIN_NAME}}
+        KECHAIN_PASSWORD: ${{secrets.KECHAIN_PASSWORD}}
+
+
+
+

@@ -18,14 +18,19 @@ class UserCollection : ObservableObject{
     @Published var minifigs = [LegoMinifig]()
     @Published var searchSetsText = ""
     private var searchCancellable: AnyCancellable?
-    
+    @Published var isLoadingData : Bool = false
+
     init(){
+        isLoadingData = false
         searchCancellable = $searchSetsText
+            .handleEvents(receiveOutput: { [weak self] _ in self?.isLoadingData = true })
+
             .debounce(for: .milliseconds(500), scheduler: DispatchQueue.main)
             .removeDuplicates()
             .sink{ _ in
                 if self.searchSetsText.isEmpty {
                     self.setsFilter = .owned
+                    self.isLoadingData = false
                 } else {
                     API.search(text: self.searchSetsText)
                     self.setsFilter = .search(self.searchSetsText)

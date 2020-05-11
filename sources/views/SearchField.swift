@@ -16,17 +16,21 @@ struct SearchField: View {
         HStack {
             Image(systemName: "magnifyingglass")
                 .imageScale(.large).foregroundColor(.background)
+            ZStack(alignment: .leading) {
 
-            TextField(placeholder, text: $searchText)
+            if searchText.isEmpty { Text(placeholder).foregroundColor(.gray) }
+
+            TextField("", text: $searchText)
                 .foregroundColor(Color.background)
                 .font(.headline)
                 .accentColor(.red)
+            }
 //            if !searchText.isEmpty {
                 Button(action: {
                     self.searchText = ""
                     self.isActive = false
                 }) {
-                    Image(systemName: "xmark.circle")
+                    Image(systemName: "xmark.circle.fill")
                         .font(.headline)
                         .foregroundColor(.background)
                         .imageScale(.large)
