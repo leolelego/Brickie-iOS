@@ -22,35 +22,24 @@ struct AppRootView: View {
                     SetsView()
                         .tabItem {
                             VStack {
-                                                                            Image.tab_sets
-
+                                Image.tab_sets
+                                
                                 Text("Sets".ls)
                             }
                     }
                     .tag(0)
-                    if config.uiMinifigVisible {
-                        MinifigListView()
-                                    .tabItem {
-                                        VStack {
-                                            Image.tab_minifig
-                                            Text("Minifigures".ls)
-                                        }
-                                }
-                                .tag(1)
+                    MinifigListView()
+                        .tabItem {
+                            VStack {
+                                Image.tab_minifig
+                                Text("Minifigures".ls)
+                            }
                     }
-        
-//                    SearchView()
-//                        .tabItem {
-//                            VStack {
-//                                Image("second")
-//                                Text("Search".ls)
-//                            }
-//                    }
-//                    .tag(2)
+                    .tag(1)
                     SettingsView()
                         .tabItem {
                             VStack {
-                                Image.tab_settings
+                                Image(systemName: "gear").imageScale(.large)
                                 Text("Settings".ls)
                             }
                     }
