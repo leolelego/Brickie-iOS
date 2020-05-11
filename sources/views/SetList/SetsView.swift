@@ -13,7 +13,7 @@ struct SetsView: View {
     
     @EnvironmentObject private var  collection : UserCollection
     @State var showSearchBar : Bool = false
-    
+    @State var animate : Bool = false
     var body: some View {
         NavigationView{
             VStack(alignment: .center) {
@@ -22,8 +22,12 @@ struct SetsView: View {
                 }
                 if self.collection.setsUI.count != 0   {
                     makeList()
-                } else {
-                    Text("No items found").font(.largeTitle).bold()
+                } else if collection.isLoadingData && !collection.searchSetsText.isEmpty {
+                    Text("Searching...").font(.largeTitle).bold()
+                    Image.brick(height: 22).modifier(RotateAnimation())
+                    Spacer()
+                }else {
+                    Text("No item found").font(.largeTitle).bold()
                     Spacer()
                 }
             }
