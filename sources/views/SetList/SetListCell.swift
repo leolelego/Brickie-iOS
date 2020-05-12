@@ -80,13 +80,3 @@ struct SetListCell : View {
 
     }
 }
-
-
-//struct SetListCell_Previews: PreviewProvider {
-//    static var previews: some View {
-//        List{
-//            SetListCell(set: previewCollection.setsOwned.first!)
-//        }.previewDevice("iPhone X")
-//        
-//    }
-//}

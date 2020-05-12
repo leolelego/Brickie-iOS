@@ -15,7 +15,7 @@ struct RoundedText : View {
         Text(text)
             .font(.system(.subheadline, design: .rounded))
             .fontWeight(.bold)
-            .foregroundColor(Color.textAlternate)
+            .foregroundColor(Color.background)
             .padding(.vertical, 6)
             .padding(.horizontal, 10)
             .background(Color.backgroundAlt)

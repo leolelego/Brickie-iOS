@@ -18,16 +18,16 @@ struct LegoPDFView : View {
     var body: some View {
         Group {
             if stringURL == nil {
-                Text("No File Error")
+                Text("instruction.errorfile")
             } else if localURL == nil {
-                Text("Downloading PDF... \(Int(progress * 100))%")
+                Text("instruction.downloading ") + Text("\(Int(progress * 100))%")
             } else {
                 PDFKitView(url: localURL!)
             }
         }.onAppear {
             self.download()
         }
-        .navigationBarTitle("INStRUCtIONS_",displayMode: .large)
+        .navigationBarTitle("instruction.title",displayMode: .large)
         
     }
     

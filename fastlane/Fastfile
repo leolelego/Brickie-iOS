@@ -60,6 +60,10 @@ platform :ios do
 
     brch = options[:branch] ? options[:branch] : git_branch
     if ["develop"].include? brch
+      # TestFlight when app in prod
+     
+    elsif ["master"].include? brch
+      # App Store whan app in prod NOW TestFlight
       stamp_changelog(
         section_identifier: "Version #{application_version} (#{number_of_commits})",
       )
@@ -73,9 +77,6 @@ platform :ios do
         distribute_external:true,
         changelog:changelog
       )
-     
-    elsif ["master"].include? brch
-      # App Store
     end
     
   end

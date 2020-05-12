@@ -1,11 +1,13 @@
 {
   "images" : [
     {
+      "filename" : "BrickSetApp Logo3-3.png",
       "idiom" : "iphone",
       "scale" : "2x",
       "size" : "20x20"
     },
     {
+      "filename" : "BrickSetApp Logo3-2.png",
       "idiom" : "iphone",
       "scale" : "3x",
       "size" : "20x20"
@@ -41,6 +43,18 @@
       "size" : "40x40"
     },
     {
+      "filename" : "BrickSetApp Logo_iPhoneApp_57.png",
+      "idiom" : "iphone",
+      "scale" : "1x",
+      "size" : "57x57"
+    },
+    {
+      "filename" : "BrickSetApp Logo_iPhoneApp_57@2x.png",
+      "idiom" : "iphone",
+      "scale" : "2x",
+      "size" : "57x57"
+    },
+    {
       "filename" : "BrickSetApp Logo_iPhoneApp_60@2x.png",
       "idiom" : "iphone",
       "scale" : "2x",
@@ -53,11 +67,13 @@
       "size" : "60x60"
     },
     {
+      "filename" : "BrickSetApp Logo3-4.png",
       "idiom" : "ipad",
       "scale" : "1x",
       "size" : "20x20"
     },
     {
+      "filename" : "BrickSetApp Logo3-1.png",
       "idiom" : "ipad",
       "scale" : "2x",
       "size" : "20x20"
@@ -87,6 +103,30 @@
       "size" : "40x40"
     },
     {
+      "filename" : "BrickSetApp Logo_iPadSpotlight_50.png",
+      "idiom" : "ipad",
+      "scale" : "1x",
+      "size" : "50x50"
+    },
+    {
+      "filename" : "BrickSetApp Logo_iPadSpotlight_50@2x.png",
+      "idiom" : "ipad",
+      "scale" : "2x",
+      "size" : "50x50"
+    },
+    {
+      "filename" : "BrickSetApp Logo_iPadApp_72.png",
+      "idiom" : "ipad",
+      "scale" : "1x",
+      "size" : "72x72"
+    },
+    {
+      "filename" : "BrickSetApp Logo_iPadApp_72@2x.png",
+      "idiom" : "ipad",
+      "scale" : "2x",
+      "size" : "72x72"
+    },
+    {
       "filename" : "BrickSetApp Logo_iPadApp_76.png",
       "idiom" : "ipad",
       "scale" : "1x",
@@ -105,7 +145,7 @@
       "size" : "83.5x83.5"
     },
     {
-      "filename" : "BrickSetApp Logo.png",
+      "filename" : "BrickSetApp Logo3.png",
       "idiom" : "ios-marketing",
       "scale" : "1x",
       "size" : "1024x1024"

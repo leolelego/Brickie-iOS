@@ -18,20 +18,20 @@ struct SetsView: View {
         NavigationView{
             VStack(alignment: .center) {
                 if showSearchBar {
-                    SearchField(searchText: $collection.searchSetsText,placeholder: "Search Sets",isActive: $showSearchBar).padding(.horizontal,16)
+                    SearchField(searchText: $collection.searchSetsText,isActive: $showSearchBar).padding(.horizontal,16)
                 }
                 if self.collection.setsUI.count != 0   {
                     makeList()
                 } else if collection.isLoadingData && !collection.searchSetsText.isEmpty {
-                    Text("Searching...").font(.largeTitle).bold()
+                    Text("sets.searching").font(.largeTitle).bold()
                     Image.brick(height: 22).modifier(RotateAnimation())
                     Spacer()
                 }else {
-                    Text("No item found").font(.largeTitle).bold()
+                    Text("sets.noitems").font(.largeTitle).bold()
                     Spacer()
                 }
             }
-            .navigationBarTitle("SETS_")
+            .navigationBarTitle("sets.title")
             .navigationBarItems(leading: makeSearchBarItem(), trailing: makeHeart())
             .navigationBarHidden(showSearchBar)
         }.onAppear {

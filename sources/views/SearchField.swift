@@ -10,7 +10,6 @@ import SwiftUI
 
 struct SearchField: View {
     @Binding var searchText: String
-    @State var placeholder: String = "Search..."
     @Binding var isActive : Bool
     var body: some View {
         HStack {
@@ -18,14 +17,13 @@ struct SearchField: View {
                 .imageScale(.large).foregroundColor(.background)
             ZStack(alignment: .leading) {
 
-            if searchText.isEmpty { Text(placeholder).foregroundColor(.gray) }
+            if searchText.isEmpty { Text("sets.searchplaceholder").foregroundColor(.gray) }
 
             TextField("", text: $searchText)
                 .foregroundColor(Color.background)
                 .font(.headline)
                 .accentColor(.red)
             }
-//            if !searchText.isEmpty {
                 Button(action: {
                     self.searchText = ""
                     self.isActive = false
@@ -35,7 +33,6 @@ struct SearchField: View {
                         .foregroundColor(.background)
                         .imageScale(.large)
                 }.buttonStyle(BorderlessButtonStyle())
-//            }
         }
         .padding(8)
         .background(Color.backgroundAlt)
