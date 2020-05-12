@@ -19,7 +19,7 @@ struct CollectionItemView: View {
                        HStack(alignment: .lastTextBaseline) {
                            
                         Image(systemName: set.collection.wanted ? "heart.fill" : "heart").foregroundColor(.white).font(.headline)
-                           Text("I Want").fontWeight(.bold)
+                           Text("collection.want").fontWeight(.bold)
                        }
                            
                        .frame(minWidth: 0, maxWidth: .infinity)
@@ -48,7 +48,7 @@ struct CollectionItemView: View {
     
 
                        }) {
-                           Text("Add")
+                           Text("collection.add")
                                .fontWeight(.bold).foregroundColor(.background)
                                .frame(minWidth: 0, maxWidth: .infinity)
                        }.buttonStyle(RoundedButtonStyle(backgroundColor:.backgroundAlt))

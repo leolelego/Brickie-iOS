@@ -16,9 +16,7 @@ struct SetDetailView: View {
     
     var body: some View {
         ScrollView( showsIndicators: false){
-            //Rectangle().fill(Color.background).frame( height: 64)
             makeThumbnail()
-           // Divider()
             makeThemes()
             Spacer()
             makeHeader()
@@ -30,7 +28,6 @@ struct SetDetailView: View {
         .navigationBarItems(trailing: ShareNavButton(items: [set.bricksetURL]))
         .navigationBarHidden(false)
             .navigationBarTitle("", displayMode: .inline)
-           // .edgesIgnoringSafeArea(.top)
             .onAppear {
                 API.additionalImages(setID: self.set.setID) { response in
                     
@@ -60,8 +57,7 @@ struct SetDetailView: View {
                 .frame(minWidth: 0, maxWidth: .infinity, minHeight: 200, maxHeight: 400, alignment: .center)
                 .background(Color.white)
         }
-        //.padding()
-            //.modifier(RoundedShadowMod())
+
     }
     func makeThemes() -> some View{
         HStack(spacing: 8){
@@ -116,7 +112,7 @@ struct SetDetailView: View {
         Group {
             if additionalImages.count > 0 {
                 VStack(alignment: .leading){
-                    Text("Image(s)".ls).font(.title).bold().padding()
+                    Text("sets.images").font(.title).bold().padding()
                     ScrollView (.horizontal, showsIndicators: false) {
                         HStack(spacing: 16){
                             ForEach(additionalImages, id: \.thumbnailURL){ image in
@@ -137,7 +133,7 @@ struct SetDetailView: View {
         Group {
             if self.instructions.first != nil {
                 NavigationLink(destination: LegoPDFView(stringURL: self.instructions.first!.URL)) {
-                    Text("Instruction")
+                    Text("sets.instruction")
                         .fontWeight(.bold).foregroundColor(Color.black)
                         .frame(minWidth: 0, maxWidth: .infinity)
                         .padding()

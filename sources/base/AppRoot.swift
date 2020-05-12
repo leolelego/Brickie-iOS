@@ -22,17 +22,16 @@ struct AppRootView: View {
                     SetsView()
                         .tabItem {
                             VStack {
-                                Image.tab_sets
-                                
-                                Text("Sets".ls)
+                                Image.brick
+                                Text("sets.tab")
                             }
                     }
                     .tag(0)
                     MinifigListView()
                         .tabItem {
                             VStack {
-                                Image.tab_minifig
-                                Text("Minifigures".ls)
+                                Image.minifig_head
+                                Text("minifig.tab")
                             }
                     }
                     .tag(1)
@@ -40,7 +39,7 @@ struct AppRootView: View {
                         .tabItem {
                             VStack {
                                 Image(systemName: "gear").imageScale(.large)
-                                Text("Settings".ls)
+                                Text("settings.tab")
                             }
                     }
                     .tag(3)

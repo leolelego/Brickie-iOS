@@ -20,29 +20,31 @@ struct BrickSetAPI {
     
     let apiKey = BrickSetApiKey
     let url = URL(string: "https://brickset.com/api/v3.asmx")!
+    let signupLink = "https://brickset.com/signup"
     
     
-    
-    func login(username:String, password:String,completion: @escaping (Result<Void,APIError>) -> Void){
+    func login(username:String, password:String,completion: @escaping (Result<Void,Error>) -> Void){
+        
+        
 
         let params = ["apiKey":apiKey,"username":username,"password":password]
-        
+
         AF.request(url.appendingPathComponent("login"),parameters: params)
-            
+
             .responseJSON { (response) in
                 switch response.result {
                 case  .success(let value):
                     log("\(value)",.debug)
                     guard let d = value as? [String:Any], let hash = d["hash"] as? String else {
-                        completion(.failure(.badLogin))
+                        completion(.failure(APIError.badLogin))
                         return
-                        
+
                     }
                     let user = User(username: username, token: hash)
                     self.config.user = user
                     completion(.success(Void()))
-                case  .failure(_):
-                    completion(.failure(.badLogin))
+                case  .failure(let err):
+                    completion(.failure(err))
                 }
         }
     }

@@ -22,7 +22,7 @@ struct SettingsView: View {
                         Button(action: {
                             self.config.user = nil
                         }) {
-                            Text( "logout".ls)
+                            Text( "settings.logout")
                                 .fontWeight(.bold)
                             
                             
@@ -44,7 +44,7 @@ struct SettingsView: View {
             }.listStyle(GroupedListStyle())
             .environment(\.horizontalSizeClass, .regular)
                 
-                .navigationBarTitle("SETTINGS_")
+                .navigationBarTitle("settings.title")
         }.navigationViewStyle(StackNavigationViewStyle())
         
     }
