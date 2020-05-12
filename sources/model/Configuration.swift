@@ -16,6 +16,7 @@ class Configuration : ObservableObject {
             guard let u = user else  {
                 keychain.delete(Key.username)
                 keychain.delete(Key.token)
+                API.collection.flush()
                 return
             }
             keychain.set(u.username, forKey: Key.username)

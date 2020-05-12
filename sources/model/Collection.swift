@@ -32,7 +32,7 @@ class UserCollection : ObservableObject{
                     self.setsFilter = .owned
                     self.isLoadingData = false
                 } else {
-                    API.search(text: self.searchSetsText)
+                    API.searchSets(text: self.searchSetsText)
                     self.setsFilter = .search(self.searchSetsText)
                     
                     
@@ -41,6 +41,11 @@ class UserCollection : ObservableObject{
         
         
         
+    }
+    
+    func flush(){
+        sets = []
+        minifigs = []
     }
     
     func append(_ new:[LegoSet]){

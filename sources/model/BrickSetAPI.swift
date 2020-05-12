@@ -23,93 +23,56 @@ struct BrickSetAPI {
     let signupLink = "https://brickset.com/signup"
     
     
-    func login(username:String, password:String,completion: @escaping (Result<Void,Error>) -> Void){
+    func login(username:String, password:String,onError: @escaping (Error) -> Void){
         
         
-
-        let params = ["apiKey":apiKey,"username":username,"password":password]
-
-        AF.request(url.appendingPathComponent("login"),parameters: params)
-
-            .responseJSON { (response) in
-                switch response.result {
-                case  .success(let value):
-                    log("\(value)",.debug)
-                    guard let d = value as? [String:Any], let hash = d["hash"] as? String else {
-                        completion(.failure(APIError.badLogin))
-                        return
-
-                    }
-                    let user = User(username: username, token: hash)
-                    self.config.user = user
-                    completion(.success(Void()))
-                case  .failure(let err):
-                    completion(.failure(err))
-                }
-        }
-    }
-    
-    func search(text:String){
-           getSets(params: ["query":text]){ sets in
-            self.collection.isLoadingData = false
-        }
-    }
-    
-    func additionalImages(setID:Int,completion: @escaping (Result<[LegoSetImage],APIError>) -> Void){
+        guard var components = URLComponents(url: url.appendingPathComponent("login"), resolvingAgainstBaseURL: false)
+            else {onError(APIError.badLogin);return}
+        components.queryItems = [
+            URLQueryItem(name: "apiKey", value: apiKey),
+            URLQueryItem(name: "username", value: username),
+            URLQueryItem(name: "password", value: password)
+        ]
+        guard let u = components.url
+            else {onError(APIError.badLogin);return}
         
-        let params : [String:Any] = ["apiKey":apiKey,"setID":setID]
-        let req = AF.request(url.appendingPathComponent("getAdditionalImages"),parameters: params)
-        req.responseJSON { (response) in
-            switch response.result {
-            case  .success(let value):
-                guard let d = value as? [String:Any], let sets = d["additionalImages"] as? [[String:Any]]  else {
-                    log("error : \(value)", .error)
+        URLSession.shared.dataTask(with: u){ data, response, error in
+            guard let d = data,
+                let jsonObj = try? JSONSerialization.jsonObject(with: d, options: []),
+                let dict = jsonObj as? [String:Any],
+                let hash = dict["hash"] as? String
+                else {
+                    onError(error ?? APIError.badLogin)
                     return
-                }
-                
-                let decoder = JSONDecoder()
-                guard let mySets = try? decoder.decode([LegoSetImage].self, fromJSONObject: sets) else {
-                    return
-                }
-                completion(.success(mySets))
-                
-                
-            case  .failure(let err):
-                logerror(err)
             }
-            
-        }
+            let user = User(username: username, token: hash)
+            DispatchQueue.main.async {
+                self.config.user = user
+            }
+        }.resume()
         
+        //        AF.request(url.appendingPathComponent("login"),parameters: params)
+        //
+        //            .responseJSON { (response) in
+        //                switch response.result {
+        //                case  .success(let value):
+        //                    guard let d = value as? [String:Any], let hash = d["hash"] as? String else {
+        //                        completion(.failure(APIError.badLogin))
+        //                        return
+        //
+        //                    }
+        //                    let user = User(username: username, token: hash)
+        //                    self.config.user = user
+        //                    completion(.success(Void()))
+        //                case  .failure(let err):
+        //                    completion(.failure(err))
+        //                }
+        //        }
     }
     
-    func instructions(setID:Int,completion: @escaping (Result<[LegoInstruction],APIError>) -> Void){
-        
-        let params : [String:Any] = ["apiKey":apiKey,"setID":setID]
-        
-        AF.request(url.appendingPathComponent("getInstructions"),parameters: params).responseJSON { (response) in
-            switch response.result {
-            case  .success(let value):
-                log("\(value)",.debug)
-                
-                guard let d = value as? [String:Any], let sets = d["instructions"] as? [[String:Any]]  else {
-                    log("error : \(value)", .error)
-                    return
-                }
-                
-                let decoder = JSONDecoder()
-                guard let mySets = try? decoder.decode([LegoInstruction].self, fromJSONObject: sets) else {
-                    return
-                }
-                completion(.success(mySets))
-                
-                
-            case  .failure(let err):
-                logerror(err)
-            }
-            
-        }
-        
-    }
+    
+    
+    
     
     enum SetCollectionAction {
         case want(Bool)
@@ -150,29 +113,18 @@ struct BrickSetAPI {
     
     
     
-    func setCollection(item:LegoSet,action:SetCollectionAction){
-        
-        guard let hash = config.user?.token else {
-            
-            return
-        }
-        
-        var apiParams = APIParams(apiKey: apiKey, userHash: hash, params: action.params)
-        apiParams.setID = "\(item.setID)"
-        var request = URLRequest(url: url.appendingPathComponent("setCollection"))
-        request.method = .get
-        guard let req = try? URLEncodedFormParameterEncoder().encode(apiParams, into: request) else {return}
-        print(req)
-        AF.request(req).responseJSON { (response) in
-            switch response.result {
-            case  .success(let value):
-                log("\(value)",.debug)
-                action.manage(obj: item)
-            case  .failure(let err):
-                logerror(err)                
-            }
-        }
-    }
+    
+    
+    
+    
+    
+    
+    
+}
+
+// MARK " Minigis
+
+extension BrickSetAPI {
     func synchronizeFigs(){
         
         getMinifigures(params: ["owned":"1"]) { (result) in
@@ -196,7 +148,9 @@ struct BrickSetAPI {
         
         
     }
-    
+}
+// Mark : Sets
+extension BrickSetAPI {
     func synchronizeSets(){
         getSets(params: ["owned":"1"]){ sets in
             self.collection.updateOwned(with: sets)
@@ -207,7 +161,91 @@ struct BrickSetAPI {
             
         }
     }
+    func searchSets(text:String){
+        getSets(params: ["query":text]){ sets in
+            self.collection.isLoadingData = false
+        }
+    }
+    func setCollection(item:LegoSet,action:SetCollectionAction){
+        
+        guard let hash = config.user?.token else {
+            
+            return
+        }
+        
+        var apiParams = APIParams(apiKey: apiKey, userHash: hash, params: action.params)
+        apiParams.setID = "\(item.setID)"
+        var request = URLRequest(url: url.appendingPathComponent("setCollection"))
+        request.method = .get
+        guard let req = try? URLEncodedFormParameterEncoder().encode(apiParams, into: request) else {return}
+        print(req)
+        AF.request(req).responseJSON { (response) in
+            switch response.result {
+            case  .success(let value):
+                log("\(value)",.debug)
+                action.manage(obj: item)
+            case  .failure(let err):
+                logerror(err)
+            }
+        }
+    }
+    func additionalImages(setID:Int,completion: @escaping (([LegoSetImage]) -> Void)){
+        let params : [String:Any] = ["apiKey":apiKey,"setID":setID]
+        let req = AF.request(url.appendingPathComponent("getAdditionalImages"),parameters: params)
+        req.responseJSON { (response) in
+            switch response.result {
+            case  .success(let value):
+                guard let d = value as? [String:Any], let sets = d["additionalImages"] as? [[String:Any]]  else {
+                    log("error : \(value)", .error)
+                    return
+                }
+                
+                let decoder = JSONDecoder()
+                guard let items = try? decoder.decode([LegoSetImage].self, fromJSONObject: sets) else {
+                    return
+                }
+                completion(items)
+                
+                
+            case  .failure(let err):
+                logerror(err)
+            }
+            
+        }
+        
+    }
     
+    func instructions(setID:Int,completion: @escaping (([LegoInstruction]) -> Void)){
+        
+        let params : [String:Any] = ["apiKey":apiKey,"setID":setID]
+        
+        AF.request(url.appendingPathComponent("getInstructions"),parameters: params).responseJSON { (response) in
+            switch response.result {
+            case  .success(let value):
+                log("\(value)",.debug)
+                
+                guard let d = value as? [String:Any], let sets = d["instructions"] as? [[String:Any]]  else {
+                    log("error : \(value)", .error)
+                    return
+                }
+                
+                let decoder = JSONDecoder()
+                guard let items = try? decoder.decode([LegoInstruction].self, fromJSONObject: sets) else {
+                    return
+                }
+                completion(items)
+                
+                
+            case  .failure(let err):
+                logerror(err)
+            }
+            
+        }
+        
+    }
+}
+// MARK : Private
+extension BrickSetAPI {
     private func getSets(params:[String:String],completion:@escaping ([LegoSet])->Void){
         
         guard let hash = config.user?.token else {
@@ -239,7 +277,7 @@ struct BrickSetAPI {
                     logerror(error)
                     return
                 }
-
+                
             case  .failure(let err):
                 logerror(err)
                 
@@ -283,8 +321,6 @@ struct BrickSetAPI {
             }
         }
     }
-    
-    
 }
 extension JSONDecoder {
     func decode<T>(_ type: T.Type, fromJSONObject object: Any) throws -> T where T: Decodable {
