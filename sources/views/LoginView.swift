@@ -27,8 +27,11 @@ struct LoginView: View {
             makeLoginButton().offset(y:-30)
 
             
-            if  error != nil {
-                Text(error!).font(.callout).foregroundColor(.red).lineLimit(100)
+            if  error != nil && !self.loading {
+                VStack{
+                    Text(error!).font(.callout).foregroundColor(.red)
+
+                }
             }
             if !loading {
                 makeSignup()
@@ -66,12 +69,8 @@ struct LoginView: View {
             withAnimation{
                 self.loading.toggle()
             }
-            API.login(username: self.username, password: self.password) { (result) in
-                switch result {
-                case .success():break
-                case .failure(let err):
-                    self.error = err.localizedDescription
-                }
+            API.login(username: self.username, password: self.password) { err in
+                self.error = err.localizedDescription
                 withAnimation{
                     self.loading.toggle()
                 }

@@ -25,30 +25,23 @@ struct SetDetailView: View {
             makeImages()
             makeInstructions()
         }
+            .onAppear {
+                
+                API.additionalImages(setID: self.set.setID) { items in
+                    self.additionalImages = items
+                }
+                if self.set.instructionsCount > 0{
+                    API.instructions(setID: self.set.setID) { items in
+                        self.instructions = items
+
+                    }
+                }
+                
+        }
+        .navigationBarTitle("", displayMode: .inline)
         .navigationBarItems(trailing: ShareNavButton(items: [set.bricksetURL]))
         .navigationBarHidden(false)
-            .navigationBarTitle("", displayMode: .inline)
-            .onAppear {
-                API.additionalImages(setID: self.set.setID) { response in
-                    
-                    switch response {
-                    case .success(let images):
-                        self.additionalImages = images
-                    default:
-                        break
-                        
-                    }
-                }
-                API.instructions(setID: self.set.setID) { response in
-                    switch response {
-                    case .success(let instructions):
-                        self.instructions = instructions
-                    default:
-                        break
-                        
-                    }
-                }
-        }
+
     }
     
     func makeThumbnail() -> some View {

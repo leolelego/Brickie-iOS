@@ -34,12 +34,15 @@ struct SetsView: View {
             .navigationBarTitle("sets.title")
             .navigationBarItems(leading: makeSearchBarItem(), trailing: makeHeart())
             .navigationBarHidden(showSearchBar)
+  
         }.onAppear {
             tweakTableView(on:true)
             API.synchronizeSets()
         }.onDisappear {
             tweakTableView(on:false)
-        }.modifier(DismissingKeyboardOnSwipe())
+        }
+
+        .modifier(DismissingKeyboardOnSwipe())
     }
     
     func makeHeart() -> some View{
