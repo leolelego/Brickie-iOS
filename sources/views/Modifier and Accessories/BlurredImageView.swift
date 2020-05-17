@@ -7,8 +7,9 @@
 //
 
 import SwiftUI
-import SDWebImageSwiftUI
 struct BackgroundImageView : View {
+    @Environment(\.dataCache) var cache: DataCache
+
     let imagePath : String?
     var body : some View {
         ZStack {
@@ -22,12 +23,6 @@ struct BackgroundImageView : View {
 
     }
     func makeImage() -> some View{
-            WebImage(url: URL(string: imagePath!))
-            .resizable()
-            .scaledToFill()
-        
-            //.frame(minHeight:120,maxHeight: 120)
-        
-
+        AsyncImage(url: URL(string: imagePath!)!, cache: cache, configuration: { $0.resizable()}).scaledToFill()
     }
 }

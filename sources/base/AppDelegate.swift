@@ -28,9 +28,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func tweakThatShit(){
-        
         UITableView.appearance().tableFooterView = UIView()
-        
         
         UINavigationBar.appearance().largeTitleTextAttributes = [
             NSAttributedString.Key.font:UIFont(name: "LEGothicType", size: 34)!,
