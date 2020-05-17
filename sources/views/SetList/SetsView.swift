@@ -7,7 +7,6 @@
 //
 
 import SwiftUI
-import SDWebImageSwiftUI
 import Combine
 struct SetsView: View {
     
@@ -37,7 +36,7 @@ struct SetsView: View {
   
         }.onAppear {
             tweakTableView(on:true)
-            API.synchronizeSets()
+            self.collection.synchronizeSets()
         }.onDisappear {
             tweakTableView(on:false)
         }

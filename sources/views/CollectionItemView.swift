@@ -9,12 +9,13 @@
 import SwiftUI
 
 struct CollectionItemView: View {
-    
+    @EnvironmentObject var collection : UserCollection
+
     @ObservedObject var set : LegoSet
     var body: some View {
          HStack(spacing: 16){
                    Button(action: {
-                    API.setCollection(item:self.set, action: .want( !self.set.collection.wanted))
+                    self.collection.setCollection(item: self.set, action: .want(!self.set.collection.wanted))
                    }) {
                        HStack(alignment: .lastTextBaseline) {
                            
@@ -27,7 +28,7 @@ struct CollectionItemView: View {
                    
             if set.collection.owned {
                        Button(action: {
-                        API.setCollection(item:self.set,action: .qty(self.set.collection.qtyOwned-1))
+                       self.collection.setCollection(item:self.set,action: .qty(self.set.collection.qtyOwned-1))
                                           
            
                        }) {
@@ -36,7 +37,7 @@ struct CollectionItemView: View {
                        }.buttonStyle(RoundedButtonStyle(backgroundColor:.backgroundAlt))
                        Text("\(self.set.collection.qtyOwned)").font(.title).bold()
                        Button(action: {
-                        API.setCollection(item:self.set,action: .qty(self.set.collection.qtyOwned+1))
+                       self.collection.setCollection(item:self.set,action: .qty(self.set.collection.qtyOwned+1))
 
                        }) {
                            Image(systemName: "plus").foregroundColor(.background).font(.title)
@@ -44,7 +45,7 @@ struct CollectionItemView: View {
                        }.buttonStyle(RoundedButtonStyle(backgroundColor:.backgroundAlt))
                    } else {
                        Button(action: {
-                        API.setCollection(item:self.set, action: .collect(true))
+                      self.collection.setCollection(item:self.set, action: .collect(true))
     
 
                        }) {

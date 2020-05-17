@@ -7,7 +7,6 @@
 //
 
 import SwiftUI
-import Alamofire
 struct LegoPDFView : View {
     let stringURL : String?
     var url : URL? {
@@ -32,30 +31,30 @@ struct LegoPDFView : View {
     }
     
     func download(){
-        guard let u = self.url else {return}
-        let documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
-        let fileURL = documentsURL.appendingPathComponent(u.lastPathComponent)
-        
-        if FileManager.default.fileExists(atPath: fileURL.absoluteString){
-            localURL = fileURL
-        } else {
-            
-            
-            let destination: DownloadRequest.Destination = { _, _ in
-                return (fileURL, [.removePreviousFile, .createIntermediateDirectories])
-            }
-            AF.download(u, to: destination)
-                .downloadProgress(queue: DispatchQueue.global(qos: .utility), closure: { (progress) in
-                    self.progress = progress.fractionCompleted
-                })
-                .response { res in
-                    if res.error == nil {
-                        self.localURL = res.fileURL
-                    }
-                    logerror(res.error)
-                    
-            }
-        }
+//        guard let u = self.url else {return}
+//        let documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
+//        let fileURL = documentsURL.appendingPathComponent(u.lastPathComponent)
+//
+//        if FileManager.default.fileExists(atPath: fileURL.absoluteString){
+//            localURL = fileURL
+//        } else {
+//
+//
+//            let destination: DownloadRequest.Destination = { _, _ in
+//                return (fileURL, [.removePreviousFile, .createIntermediateDirectories])
+//            }
+//            AF.download(u, to: destination)
+//                .downloadProgress(queue: DispatchQueue.global(qos: .utility), closure: { (progress) in
+//                    self.progress = progress.fractionCompleted
+//                })
+//                .response { res in
+//                    if res.error == nil {
+//                        self.localURL = res.fileURL
+//                    }
+//                    logerror(res.error)
+//
+//            }
+//        }
         
     }
     

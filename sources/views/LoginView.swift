@@ -9,6 +9,8 @@
 import SwiftUI
 
 struct LoginView: View {
+    @EnvironmentObject private var  collection : UserCollection
+
     @State var username = ""
     @State var password = ""
     @State var error : String?
@@ -69,13 +71,24 @@ struct LoginView: View {
             withAnimation{
                 self.loading.toggle()
             }
-            API.login(username: self.username, password: self.password) { err in
-                self.error = err.localizedDescription
+            APIRouter<String>.login(self.username, self.password).responseJSON { response in
+                switch response {
+                case .failure(let err):
+                                    self.error = err.localizedDescription
+
+                    break
+                case .success(let hash):
+                    let user = User(username: self.username, token: hash)
+                    DispatchQueue.main.async {
+                        self.collection.user = user
+                    }
+                    break
+                }
                 withAnimation{
                     self.loading.toggle()
                 }
-                
             }
+ 
         }) {
             Text(loading ? "login.buttonactive" : "login.button")
                 .fontWeight(.bold).foregroundColor(.background)
@@ -88,9 +101,9 @@ struct LoginView: View {
     
     func makeSignup() -> some View{
         Button(action: {
-            if let url = URL(string: API.signupLink) {
-                UIApplication.shared.open(url)
-            }
+//            if let url = URL(string: API.signupLink) {
+//                UIApplication.shared.open(url)
+//            }
         }) {
             VStack(alignment: .center, spacing: 0){
                 Text("login.donthaveaccount")

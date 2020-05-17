@@ -10,23 +10,42 @@ import SwiftUI
 
 struct SettingsView: View {
     
-    @EnvironmentObject var config : Configuration
+    @EnvironmentObject private var  collection : UserCollection
+    @Environment(\.config) var config: Configuration
+
     var body: some View {
         NavigationView{
             
             
                 Form {
                     HStack{
-                        Text("\(config.user?.username  ?? "Debug Name")").font(.title)
+                        Text("\(collection.user?.username  ?? "Debug Name")").font(.title)
                         Spacer()
                         Button(action: {
-                            self.config.user = nil
+                            self.collection.user = nil
                         }) {
                             Text( "settings.logout")
                                 .fontWeight(.bold)
                             
                             
                         }.buttonStyle(RoundedButtonStyle(backgroundColor: .red, padding:8))
+                    }
+                    
+                    if config.isDebug {
+                        HStack{
+                            Text("User Hash").font(.title)
+                            Spacer()
+                            Button(action: {
+                                let pasteboard = UIPasteboard.general
+                                pasteboard.string = self.collection.user?.token ?? ""
+                            }) {
+                                Text(collection.user?.token ?? "")
+                                    .fontWeight(.bold)
+                                
+                                
+                            }.buttonStyle(RoundedButtonStyle(backgroundColor: .red, padding:8))
+                        }
+                        
                     }
 
 //                    Section(header: Text("App")) {

@@ -7,9 +7,9 @@
 //
 
 import SwiftUI
-import SDWebImageSwiftUI
 struct SetDetailView: View {
-    
+    @Environment(\.dataCache) var cache: DataCache
+
     @ObservedObject var set : LegoSet
     @State var additionalImages = [LegoSetImage]()
     @State var instructions = [LegoInstruction]()
@@ -25,32 +25,38 @@ struct SetDetailView: View {
             makeImages()
             makeInstructions()
         }
-            .onAppear {
-                
-                API.additionalImages(setID: self.set.setID) { items in
+        .onAppear {
+            if  self.additionalImages.count == 0 {
+                APIRouter<[[String:Any]]>.additionalImages(self.set.setID).decode(ofType: [LegoSetImage].self) { (items) in
                     self.additionalImages = items
                 }
-                if self.set.instructionsCount > 0{
-                    API.instructions(setID: self.set.setID) { items in
-                        self.instructions = items
-
-                    }
+            }
+            
+            if self.set.instructionsCount > 0 && self.instructions.count == 0{
+                APIRouter<[[String:Any]]>.setInstructions(self.set.setID).decode(ofType: [LegoInstruction].self) { items in
+                    self.instructions = items
+                    
                 }
-                
+            }
+            
         }
         .navigationBarTitle("", displayMode: .inline)
         .navigationBarItems(trailing: ShareNavButton(items: [set.bricksetURL]))
         .navigationBarHidden(false)
-
+        
     }
     
     func makeThumbnail() -> some View {
         ZStack(alignment: .bottomTrailing){
-            WebImage(url: URL(string:self.set.image.imageURL ?? "")).resizable().aspectRatio(contentMode: .fit).clipped()
+            
+            AsyncImage(url: URL(string:self.set.image.imageURL ?? "")!, cache: cache, configuration: { $0.resizable()})
+                .aspectRatio(contentMode: .fit)
+                .clipped()
                 .frame(minWidth: 0, maxWidth: .infinity, minHeight: 200, maxHeight: 400, alignment: .center)
                 .background(Color.white)
+            
         }
-
+        
     }
     func makeThemes() -> some View{
         HStack(spacing: 8){
@@ -109,8 +115,11 @@ struct SetDetailView: View {
                     ScrollView (.horizontal, showsIndicators: false) {
                         HStack(spacing: 16){
                             ForEach(additionalImages, id: \.thumbnailURL){ image in
-                                WebImage(url: URL(string:image.thumbnailURL ?? "")).resizable().scaledToFill().frame(width: 100, height: 100)
+                                AsyncImage(url: URL(string:image.thumbnailURL ?? "")!, cache: self.cache, configuration: { $0.resizable()})
+                                    .scaledToFill()
+                                    .scaledToFill().frame(width: 100, height: 100)
                                     .modifier(RoundedShadowMod())
+                                
                             }
                         }.padding(.horizontal,32)
                     }.frame(height: 100).padding(.horizontal, -16)
@@ -145,10 +154,3 @@ struct SetDetailView: View {
     
 }
 
-//let previewCollection = UserCollection(json: "SampleSets.json")
-//
-//struct SetDetailView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        SetDetailView(set:previewCollection.sets.first!).previewDevice(PreviewDevice(rawValue: "iPhone 11"))
-//    }
-//}

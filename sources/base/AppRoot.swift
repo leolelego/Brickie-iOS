@@ -8,13 +8,13 @@
 
 import SwiftUI
 struct AppRootView: View {
-    
-    @EnvironmentObject var config : Configuration
+    @EnvironmentObject private var  collection : UserCollection
+
     @State private var selection = 0
     
     var body: some View {
         Group {
-            if config.user == nil  {
+            if collection.user == nil  {
                 LoginView()
                 
             } else {
