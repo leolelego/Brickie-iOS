@@ -29,7 +29,7 @@ struct AppRootView: View {
                         self.collection.synchronizeSets()
                     })
                     .tag(0)
-                    LegoListView(content: MinifigListView(), searchText: $collection.searchMinifigsText, filter: $collection.minifigFilter, title: "minifig.title")
+                    LegoListView(content: MinifigListView(), searchText: $collection.searchMinifigsText, filter: $collection.minifigFilter, title: "minifig.title") .navigationViewStyle(StackNavigationViewStyle())
                         .tabItem {
                             VStack {
                                 Image.minifig_head
