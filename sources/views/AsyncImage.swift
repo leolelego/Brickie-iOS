@@ -12,7 +12,11 @@ struct AsyncImage : View {
     @ObservedObject private var loader: DataLoader
     private let configuration: (Image) -> Image
     
-    init(url: URL, cache: DataCache? = nil, configuration: @escaping (Image) -> Image = { $0 }) {
+    init(string: String?, cache: DataCache? = nil, configuration: @escaping (Image) -> Image = { $0 }) {
+        loader = DataLoader(url: URL(string:string ?? ""), cache: cache)
+           self.configuration = configuration
+       }
+    init(url: URL?, cache: DataCache? = nil, configuration: @escaping (Image) -> Image = { $0 }) {
         loader = DataLoader(url: url, cache: cache)
         self.configuration = configuration
     }
@@ -36,7 +40,7 @@ struct AsyncImage : View {
             if loader.data != nil {
                 configuration(Image(uiImage:uiImage))
             } else {
-                Rectangle()
+                Rectangle().fill(Color.gray)//.background(Color.gray)
             }
         }
     }

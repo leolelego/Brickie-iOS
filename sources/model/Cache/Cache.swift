@@ -28,7 +28,7 @@ struct DataCache {
         }
         set {
             guard let val = newValue
-            else { cache.removeObject(forKey: key as NSURL);return}
+                else { cache.removeObject(forKey: key as NSURL);return}
             
             cache.setObject(val as NSData, forKey: key as NSURL)
             disk[key] = val
@@ -46,11 +46,16 @@ struct PersistentData {
             return try? Data(contentsOf: documentsUrl.appendingPathComponent(key.lastPathComponent))
         }
         set {
-            do {
-                try newValue?.write(to: documentsUrl.appendingPathComponent(key.lastPathComponent))
-            } catch {
-                logerror(error)
+            let path = documentsUrl.appendingPathComponent(key.lastPathComponent)
+            DispatchQueue.global().async{
+                do {
+                    try newValue?.write(to: path)
+                } catch {
+                    logerror(error)
+                }
+                
             }
+            
             
         }
     }

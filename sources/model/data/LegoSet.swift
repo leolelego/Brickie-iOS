@@ -13,7 +13,7 @@ let fomatter : NumberFormatter = {
     f.numberStyle = .currency
     return f
 }()
-class LegoSet : Codable , Equatable,Hashable{
+class LegoSet : Lego {
     var setID : Int = 0
     var number : String = ""
     var name : String = ""
@@ -38,13 +38,9 @@ class LegoSet : Codable , Equatable,Hashable{
     }
     
     static func == (lhs: LegoSet, rhs: LegoSet) -> Bool {
-        return lhs.setID == rhs.setID
+        return lhs.id == rhs.id
     }
-    func hash(into hasher: inout Hasher) {
-        hasher.combine(name)
-        hasher.combine(number)
-        hasher.combine(year)
-    }
+ 
     
     func update(from: LegoSet){
         objectWillChange.send()

@@ -47,14 +47,9 @@ struct SettingsView: View {
                         }
                         
                     }
-
-//                    Section(header: Text("App")) {
-//                        Toggle(isOn: config.$uiMinifigVisible) {
-//                                      Text("Minifig's Section")
-//                                  }
-//                        Toggle(isOn: $config.uiMinifigVisible) {
-//                                                   Text("Sets Image Background")
-//                                               }
+//
+//                    Section(header: Text("settings.credit")) {
+//                      
 //
 //                    }
                 
