@@ -49,7 +49,7 @@ struct SetDetailView: View {
     func makeThumbnail() -> some View {
         ZStack(alignment: .bottomTrailing){
             
-            AsyncImage(url: URL(string:self.set.image.imageURL ?? "")!, cache: cache, configuration: { $0.resizable()})
+            AsyncImage(string:self.set.image.imageURL, cache: cache, configuration: { $0.resizable()})
                 .aspectRatio(contentMode: .fit)
                 .clipped()
                 .frame(minWidth: 0, maxWidth: .infinity, minHeight: 200, maxHeight: 400, alignment: .center)
@@ -63,19 +63,19 @@ struct SetDetailView: View {
             
             Button(action: {
             }, label: {
-                RoundedText(text: set.theme)
+                Text( set.theme).roundText
             })
             if set.subtheme != nil {
                 Text(">")
                 Button(action: {
                 }, label: {
-                    RoundedText(text: set.subtheme!)
+                    Text( set.subtheme!).roundText
                 })
             }
             Spacer()
             Button(action: {
             }, label: {
-                RoundedText(text: "\(set.year)")
+                Text("\(set.year)").roundText
             })
         }.padding(.horizontal)
     }
@@ -115,7 +115,7 @@ struct SetDetailView: View {
                     ScrollView (.horizontal, showsIndicators: false) {
                         HStack(spacing: 16){
                             ForEach(additionalImages, id: \.thumbnailURL){ image in
-                                AsyncImage(url: URL(string:image.thumbnailURL ?? "")!, cache: self.cache, configuration: { $0.resizable()})
+                                AsyncImage(string:image.thumbnailURL , cache: self.cache, configuration: { $0.resizable()})
                                     .scaledToFill()
                                     .scaledToFill().frame(width: 100, height: 100)
                                     .modifier(RoundedShadowMod())

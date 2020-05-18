@@ -23,6 +23,6 @@ struct BackgroundImageView : View {
 
     }
     func makeImage() -> some View{
-        AsyncImage(url: URL(string: imagePath!)!, cache: cache, configuration: { $0.resizable()}).scaledToFill()
+        AsyncImage(string:imagePath, cache: cache, configuration: { $0.resizable()}).scaledToFill()
     }
 }

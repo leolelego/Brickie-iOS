@@ -23,6 +23,14 @@ class Configuration : ObservableObject {
         assert(junk == 0, "sysctl failed")
         return (info.kp_proc.p_flag & P_TRACED) != 0
     }()
+    
+//    enum Link {
+//        case signup =
+//        case brickset =
+//        case homework =
+//        case me = "https://twitter.com/leolelego"
+//
+//    }
 }
 
 

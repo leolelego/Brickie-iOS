@@ -19,21 +19,25 @@ struct AppRootView: View {
                 
             } else {
                 TabView(selection: $selection){
-                    SetsView()
+                    LegoListView(content: SetsListView(), searchText: $collection.searchSetsText, filter: $collection.setsFilter, title: "sets.title")
                         .tabItem {
                             VStack {
                                 Image.brick
                                 Text("sets.tab")
                             }
-                    }
+                    }.onAppear(perform: {
+                        self.collection.synchronizeSets()
+                    })
                     .tag(0)
-                    MinifigListView()
+                    LegoListView(content: MinifigListView(), searchText: $collection.searchMinifigsText, filter: $collection.minifigFilter, title: "minifig.title")
                         .tabItem {
                             VStack {
                                 Image.minifig_head
                                 Text("minifig.tab")
                             }
-                    }
+                    }.onAppear(perform: {
+                        self.collection.synchronizeFigs()
+                    })
                     .tag(1)
                     SettingsView()
                         .tabItem {

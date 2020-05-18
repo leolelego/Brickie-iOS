@@ -7,13 +7,13 @@ class DataLoader: ObservableObject {
     
     private(set) var isLoading = false
     
-    private let url: URL
+    private let url: URL?
     private var cache: DataCache?
     private var cancellable: AnyCancellable?
     
     private static let processingQueue = DispatchQueue(label: "file-processing")
     
-    init(url: URL, cache: DataCache? = nil) {
+    init(url: URL?, cache: DataCache? = nil) {
         self.url = url
         self.cache = cache
     }
@@ -23,14 +23,12 @@ class DataLoader: ObservableObject {
     }
     
     func load() {
-        guard !isLoading else { return }
+        guard !isLoading, let url = url else { return }
 
         if let cacheData = cache?[url] {
-            log("Data from cache  \(url.lastPathComponent)")
             self.data = cacheData
             return
         }
-        log("Data Download \(url.lastPathComponent)")
 
         cancellable = URLSession.shared.dataTaskPublisher(for: url)
             .map {$0.data }
@@ -57,6 +55,10 @@ class DataLoader: ObservableObject {
     }
     
     private func cache(_ image: Data?) {
-        image.map { cache?[url] = $0 }
+        image.map {
+            guard let url = url else {return }
+            cache?[url] = $0
+            
+        }
     }
 }

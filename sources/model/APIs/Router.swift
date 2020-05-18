@@ -18,7 +18,6 @@ enum APIRouter<T:Any> {
     case searchSets(String,String)
     
     // MARK: Set Sets Data
-    
     case setWanted(String,LegoSet,Bool)
     case setOwned(String,LegoSet,Bool)
     case setQty(String,LegoSet,Int)
@@ -27,7 +26,10 @@ enum APIRouter<T:Any> {
     case setInstructions(Int)
     case additionalImages(Int)
     
-    
+    // MARK: Get Sets Data
+    case ownedFigs(String)
+    case wantedFigs(String)
+    case searchMinifigs(String,String)
     
     var url : URL? {
         guard var components = URLComponents(url: baseURL.appendingPathComponent(method), resolvingAgainstBaseURL: false)
@@ -46,6 +48,7 @@ enum APIRouter<T:Any> {
         case .additionalImages: return "getAdditionalImages"
         case .ownedSets,.wantedSets,.searchSets : return "getSets"
         case .setWanted,.setOwned,.setQty: return "setCollection"
+        case .ownedFigs,.wantedFigs,.searchMinifigs: return "getMinifigCollection"
             
         }
     }
@@ -57,12 +60,12 @@ enum APIRouter<T:Any> {
         case .additionalImages:  return "additionalImages"
         case .ownedSets,.wantedSets,.searchSets : return "sets"
         case .setWanted,.setOwned,.setQty: return "status"
-            
+        case .ownedFigs,.wantedFigs,.searchMinifigs: return "minifigs"
+
             
         }
     }
     var querys : [URLQueryItem]? {
-        
         switch self {
         case .login(let u, let p):
             return [
@@ -76,17 +79,17 @@ enum APIRouter<T:Any> {
                 URLQueryItem(name: "apiKey", value: BrickSetApiKey),
                 URLQueryItem(name: "setID", value: String(setId)),
             ]
-        case .ownedSets(let hash) : return [
+        case .ownedSets(let hash),.ownedFigs(let hash) : return [
             URLQueryItem(name: "apiKey", value: BrickSetApiKey),
             URLQueryItem(name: "userHash", value: hash),
             URLQueryItem(name: "params", value: "{owned:1}"),
             ]
-        case .wantedSets(let hash) : return [
+        case .wantedSets(let hash),.wantedFigs(let hash) : return [
             URLQueryItem(name: "apiKey", value: BrickSetApiKey),
             URLQueryItem(name: "userHash", value: hash),
             URLQueryItem(name: "params", value: "{wanted:1}"),
             ]
-        case .searchSets(let hash, let search) : return [
+        case .searchSets(let hash, let search),.searchMinifigs(let hash, let search) : return [
             URLQueryItem(name: "apiKey", value: BrickSetApiKey),
             URLQueryItem(name: "userHash", value: hash),
             URLQueryItem(name: "params", value: "{query:\"\(search)\"}"),
@@ -113,6 +116,11 @@ enum APIRouter<T:Any> {
         
     }
     
+
+    
+}
+
+extension APIRouter {
     private func response(completion: @escaping (Result<Any,Error>) -> Void){
         guard let u = url
             else {
@@ -179,6 +187,5 @@ enum APIRouter<T:Any> {
             
         }
     }
-    
 }
 
