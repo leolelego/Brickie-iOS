@@ -39,7 +39,7 @@ struct LegoListView<ListView:View>: View {
             tweakTableView(on:true)
         }.onDisappear {
             tweakTableView(on:false)
-        }        .navigationViewStyle(StackNavigationViewStyle())
+        }       
 
 
         .modifier(DismissingKeyboardOnSwipe())
