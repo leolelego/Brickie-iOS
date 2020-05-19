@@ -12,6 +12,7 @@ protocol Lego : ObservableObject, Codable , Equatable, Identifiable {
     
     var name : String { get set }
     var category : String { get set }
+    
 
 }
 

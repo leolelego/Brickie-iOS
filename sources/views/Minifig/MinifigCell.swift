@@ -19,15 +19,15 @@ struct MinifigCell: View {
             }
             .modifier(RoundedShadowMod())
             Text(minifig.name).font(.headline)
-            Text(minifig.subCategory).font(.subheadline).foregroundColor(Color.gray)
+            Text(minifig.subtheme).font(.subheadline).foregroundColor(Color.gray)
         }
     }
     
     func makeImage() -> some View{
         AsyncImage(string: minifig.imageUrl, cache: cache, configuration: {$0.resizable()})
-        .aspectRatio(contentMode: .fill)
+        .aspectRatio(2/3, contentMode: .fill)
         .clipped()
-            .frame(height:300)
+          //  .frame(width:200, height:300)
         .background(Color.white)
     }
     func makePastil() -> some View {

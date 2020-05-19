@@ -9,7 +9,7 @@
 import SwiftUI
 struct AppRootView: View {
     @EnvironmentObject private var  collection : UserCollection
-
+    @EnvironmentObject private var config : Configuration
     @State private var selection = 0
     
     var body: some View {
@@ -26,7 +26,9 @@ struct AppRootView: View {
                                 Text("sets.tab")
                             }
                     }.onAppear(perform: {
-                        self.collection.synchronizeSets()
+                        if self.config.connection != .unavailable {
+                            self.collection.synchronizeSets()
+                        }
                     })
                     .tag(0)
                     LegoListView(content: MinifigListView(), searchText: $collection.searchMinifigsText, filter: $collection.minifigFilter, title: "minifig.title") .navigationViewStyle(StackNavigationViewStyle())
@@ -36,7 +38,11 @@ struct AppRootView: View {
                                 Text("minifig.tab")
                             }
                     }.onAppear(perform: {
+                        if self.config.connection != .unavailable {
+
                         self.collection.synchronizeFigs()
+                            }
+
                     })
                     .tag(1)
                     SettingsView()

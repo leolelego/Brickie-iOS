@@ -11,7 +11,7 @@ import SwiftUI
 struct SettingsView: View {
     
     @EnvironmentObject private var  collection : UserCollection
-    @Environment(\.config) var config: Configuration
+    @EnvironmentObject var config: Configuration
 
     var body: some View {
         NavigationView{

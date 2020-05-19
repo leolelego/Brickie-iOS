@@ -17,9 +17,9 @@ enum APIError : Error {
     var localizedDescription: String {
         switch self {
         case .badLogin:
-            return "error.badlogin".ls
+            return "error.badlogin"
         default:
-            return "error.unknown".ls
+            return "error.unknown"
         }
     }
 }

@@ -19,7 +19,7 @@ enum APIRouter<T:Any> {
     
     // MARK: Set Sets Data
     case setWanted(String,LegoSet,Bool)
-    case setOwned(String,LegoSet,Bool)
+    //    case setOwned(String,LegoSet,Bool) // Useless as it's done form the server by updating the QTY
     case setQty(String,LegoSet,Int)
     
     // MARK: Get Sets Details
@@ -30,6 +30,10 @@ enum APIRouter<T:Any> {
     case ownedFigs(String)
     case wantedFigs(String)
     case searchMinifigs(String,String)
+    
+    case minifigWanted(String,LegoMinifig,Bool)
+    //    case minifigOwned(String,LegoSet,Bool)
+    case minifigQty(String,LegoMinifig,Int)
     
     var url : URL? {
         guard var components = URLComponents(url: baseURL.appendingPathComponent(method), resolvingAgainstBaseURL: false)
@@ -47,8 +51,9 @@ enum APIRouter<T:Any> {
         case .setInstructions: return "getInstructions"
         case .additionalImages: return "getAdditionalImages"
         case .ownedSets,.wantedSets,.searchSets : return "getSets"
-        case .setWanted,.setOwned,.setQty: return "setCollection"
+        case .setWanted,.setQty: return "setCollection"
         case .ownedFigs,.wantedFigs,.searchMinifigs: return "getMinifigCollection"
+        case .minifigWanted,.minifigQty: return "setMinifigCollection"
             
         }
     }
@@ -59,9 +64,9 @@ enum APIRouter<T:Any> {
         case .setInstructions: return "instructions"
         case .additionalImages:  return "additionalImages"
         case .ownedSets,.wantedSets,.searchSets : return "sets"
-        case .setWanted,.setOwned,.setQty: return "status"
         case .ownedFigs,.wantedFigs,.searchMinifigs: return "minifigs"
-
+        case .setWanted,.setQty,.minifigWanted,.minifigQty: return "status"
+            
             
         }
     }
@@ -100,23 +105,33 @@ enum APIRouter<T:Any> {
             URLQueryItem(name: "setID", value: String(set.setID)),
             URLQueryItem(name: "params", value: "{want:\(want ? 1:0)}")
             ]
-        case .setOwned(let hash,let set, let col) : return [
-            URLQueryItem(name: "apiKey", value: BrickSetApiKey),
-            URLQueryItem(name: "userHash", value: hash),
-            URLQueryItem(name: "setID", value: String(set.setID)),
-            URLQueryItem(name: "params", value: col ? "{owned:1,qtyOwned:1}" : "{owned:0,qtyOwned:0}" )
-            ]
+            //        case .setOwned(let hash,let set, let col) : return [
+            //            URLQueryItem(name: "apiKey", value: BrickSetApiKey),
+            //            URLQueryItem(name: "userHash", value: hash),
+            //            URLQueryItem(name: "setID", value: String(set.setID)),
+            //            URLQueryItem(name: "params", value: "{own:\(col ? 1 : 0)}")//,qtyOwned:1}" : "{owned:0,qtyOwned:0}" )
+        //            ]
         case .setQty(let hash,let set, let qty) : return [
             URLQueryItem(name: "apiKey", value: BrickSetApiKey),
             URLQueryItem(name: "userHash", value: hash),
             URLQueryItem(name: "setID", value: String(set.setID)),
-            URLQueryItem(name: "params", value: "{owned:\(qty < 1 ? 0 : 1),qtyOwned:\(qty)}")
+            URLQueryItem(name: "params", value: "{qtyOwned:\(qty)}") //owned:\(qty < 1 ? 0 : 1),
+            ]
+        case .minifigWanted(let hash,let minifig, let want) : return [
+            URLQueryItem(name: "apiKey", value: BrickSetApiKey),
+            URLQueryItem(name: "userHash", value: hash),
+            URLQueryItem(name: "minifigNumber", value: minifig.minifigNumber),
+            URLQueryItem(name: "params", value: "{want:\(want ? 1:0)}") //owned:\(qty < 1 ? 0 : 1),
+            ]
+        case .minifigQty(let hash,let minifig, let qty) : return [
+            URLQueryItem(name: "apiKey", value: BrickSetApiKey),
+            URLQueryItem(name: "userHash", value: hash),
+            URLQueryItem(name: "minifigNumber", value: minifig.minifigNumber),
+            URLQueryItem(name: "params", value: "{qtyOwned:\(qty)}") //owned:\(qty < 1 ? 0 : 1),
             ]
         }
-        
     }
     
-
     
 }
 

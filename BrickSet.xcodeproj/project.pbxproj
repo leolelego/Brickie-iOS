@@ -32,6 +32,10 @@
 		964BA87F246A34D700984DCC /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = 964BA87E246A34D700984DCC /* Router.swift */; };
 		967ED17B24607BD4004712DB /* SetListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967ED17A24607BD4004712DB /* SetListCell.swift */; };
 		967ED17F24608F9F004712DB /* Legothick.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 967ED17E24608F9F004712DB /* Legothick.ttf */; };
+		96851E002473344600D9F803 /* GridStackUI2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96851DFF2473344500D9F803 /* GridStackUI2.swift */; };
+		96851E032473389800D9F803 /* Reachability in Frameworks */ = {isa = PBXBuildFile; productRef = 96851E022473389800D9F803 /* Reachability */; };
+		96851E0724734D3A00D9F803 /* MinifigDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96851E0624734D3A00D9F803 /* MinifigDetailView.swift */; };
+		96851E092473569400D9F803 /* MinifigEditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96851E082473569400D9F803 /* MinifigEditorView.swift */; };
 		969DE4A12462245A00F88ED1 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 969DE4A02462245A00F88ED1 /* Settings.swift */; };
 		96DE9243245F31CA00652E0E /* SampleSets.json in Resources */ = {isa = PBXBuildFile; fileRef = 96DE9242245F31CA00652E0E /* SampleSets.json */; };
 		96DE9245245F34AA00652E0E /* Collection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96DE9244245F34AA00652E0E /* Collection.swift */; };
@@ -53,7 +57,7 @@
 		96E78BB0245CD7330032F4E3 /* Toolbox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E78BAF245CD7330032F4E3 /* Toolbox.swift */; };
 		96E78BB2245CD79F0032F4E3 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E78BB1245CD79F0032F4E3 /* Logger.swift */; };
 		96E78BB4245CE61A0032F4E3 /* AppRoot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E78BB3245CE61A0032F4E3 /* AppRoot.swift */; };
-		96E78BB6245CE9BC0032F4E3 /* SetsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E78BB5245CE9BC0032F4E3 /* SetsView.swift */; };
+		96E78BB6245CE9BC0032F4E3 /* LegoListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E78BB5245CE9BC0032F4E3 /* LegoListView.swift */; };
 		96E78BBA245CEA1D0032F4E3 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E78BB9245CEA1D0032F4E3 /* SettingsView.swift */; };
 		96E78BBE245CF4BB0032F4E3 /* LegoSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E78BBD245CF4BB0032F4E3 /* LegoSet.swift */; };
 		96E78BC2245D15220032F4E3 /* Secrets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E78BC1245D15220032F4E3 /* Secrets.swift */; };
@@ -87,6 +91,9 @@
 		964BA87E246A34D700984DCC /* Router.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
 		967ED17A24607BD4004712DB /* SetListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetListCell.swift; sourceTree = "<group>"; };
 		967ED17E24608F9F004712DB /* Legothick.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Legothick.ttf; sourceTree = "<group>"; };
+		96851DFF2473344500D9F803 /* GridStackUI2.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GridStackUI2.swift; sourceTree = "<group>"; };
+		96851E0624734D3A00D9F803 /* MinifigDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MinifigDetailView.swift; sourceTree = "<group>"; };
+		96851E082473569400D9F803 /* MinifigEditorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MinifigEditorView.swift; sourceTree = "<group>"; };
 		969DE4A02462245A00F88ED1 /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		96DE9242245F31CA00652E0E /* SampleSets.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = SampleSets.json; sourceTree = "<group>"; };
 		96DE9244245F34AA00652E0E /* Collection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Collection.swift; sourceTree = "<group>"; };
@@ -110,7 +117,7 @@
 		96E78BAF245CD7330032F4E3 /* Toolbox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Toolbox.swift; sourceTree = "<group>"; };
 		96E78BB1245CD79F0032F4E3 /* Logger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 		96E78BB3245CE61A0032F4E3 /* AppRoot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppRoot.swift; sourceTree = "<group>"; };
-		96E78BB5245CE9BC0032F4E3 /* SetsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetsView.swift; sourceTree = "<group>"; };
+		96E78BB5245CE9BC0032F4E3 /* LegoListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LegoListView.swift; sourceTree = "<group>"; };
 		96E78BB9245CEA1D0032F4E3 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		96E78BBD245CF4BB0032F4E3 /* LegoSet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LegoSet.swift; sourceTree = "<group>"; };
 		96E78BC1245D15220032F4E3 /* Secrets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Secrets.swift; sourceTree = "<group>"; };
@@ -123,6 +130,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				96E78BA4245CC7700032F4E3 /* KeychainSwift in Frameworks */,
+				96851E032473389800D9F803 /* Reachability in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -189,6 +197,7 @@
 		96DE9248245F62E300652E0E /* Modifier and Accessories */ = {
 			isa = PBXGroup;
 			children = (
+				96851DFF2473344500D9F803 /* GridStackUI2.swift */,
 				9624E3922471FECE002F68F7 /* GridStackUI.swift */,
 				96365E6C2468700800F318C3 /* AdaptsToSoftwareKeyboard.swift */,
 				96365E6D2468700900F318C3 /* DismissingKeyboardOnSwipe.swift */,
@@ -210,6 +219,7 @@
 				967ED17A24607BD4004712DB /* SetListCell.swift */,
 				96DE9246245F3DD800652E0E /* SetDetailView.swift */,
 				960FAD8124677FD70064B458 /* PDFView.swift */,
+				960FAD58246729EE0064B458 /* CollectionItemView.swift */,
 			);
 			path = SetList;
 			sourceTree = "<group>";
@@ -261,9 +271,8 @@
 				96E78B94245CADFA0032F4E3 /* LoginView.swift */,
 				9624E38024718DC4002F68F7 /* AsyncImage.swift */,
 				960FAD7A24677CAC0064B458 /* representables */,
-				960FAD58246729EE0064B458 /* CollectionItemView.swift */,
 				96DE9248245F62E300652E0E /* Modifier and Accessories */,
-				96E78BB5245CE9BC0032F4E3 /* SetsView.swift */,
+				96E78BB5245CE9BC0032F4E3 /* LegoListView.swift */,
 				96DE9257245FB48D00652E0E /* SetList */,
 				96ED04D4246823BD00C3A8BA /* Minifig */,
 				96E78BB9245CEA1D0032F4E3 /* SettingsView.swift */,
@@ -304,6 +313,8 @@
 			children = (
 				9624E38C2471F3B5002F68F7 /* FigsListView.swift */,
 				9624E3902471F904002F68F7 /* MinifigCell.swift */,
+				96851E0624734D3A00D9F803 /* MinifigDetailView.swift */,
+				96851E082473569400D9F803 /* MinifigEditorView.swift */,
 			);
 			path = Minifig;
 			sourceTree = "<group>";
@@ -326,6 +337,7 @@
 			name = BrickSet;
 			packageProductDependencies = (
 				96E78BA3245CC7700032F4E3 /* KeychainSwift */,
+				96851E022473389800D9F803 /* Reachability */,
 			);
 			productName = BrickSet;
 			productReference = 96E78B78245CAC270032F4E3 /* BrickSet.app */;
@@ -358,6 +370,7 @@
 			mainGroup = 96E78B6F245CAC270032F4E3;
 			packageReferences = (
 				96E78BA2245CC7700032F4E3 /* XCRemoteSwiftPackageReference "keychain-swift" */,
+				96851E012473389800D9F803 /* XCRemoteSwiftPackageReference "Reachability.swift" */,
 			);
 			productRefGroup = 96E78B79245CAC270032F4E3 /* Products */;
 			projectDirPath = "";
@@ -406,11 +419,14 @@
 				960FAD7E24677CAC0064B458 /* ActivityControllerView.swift in Sources */,
 				96365E712468C5A500F318C3 /* BarButtonModifier.swift in Sources */,
 				96DE9247245F3DD800652E0E /* SetDetailView.swift in Sources */,
+				96851E0724734D3A00D9F803 /* MinifigDetailView.swift in Sources */,
 				96E78B98245CB1120032F4E3 /* RoundedButtonStyle.swift in Sources */,
 				9624E3912471F904002F68F7 /* MinifigCell.swift in Sources */,
 				9624E38F2471F79B002F68F7 /* RoundedText.swift in Sources */,
 				96365E6E2468700900F318C3 /* AdaptsToSoftwareKeyboard.swift in Sources */,
 				96DE924C245F695100652E0E /* Assets.swift in Sources */,
+				96851E002473344600D9F803 /* GridStackUI2.swift in Sources */,
+				96851E092473569400D9F803 /* MinifigEditorView.swift in Sources */,
 				96DE9245245F34AA00652E0E /* Collection.swift in Sources */,
 				96E78BB0245CD7330032F4E3 /* Toolbox.swift in Sources */,
 				9624E38724719B17002F68F7 /* DataLoader.swift in Sources */,
@@ -432,7 +448,7 @@
 				960FAD8224677FD70064B458 /* PDFView.swift in Sources */,
 				9624E38424718DC4002F68F7 /* AsyncImage.swift in Sources */,
 				9624E38D2471F3B5002F68F7 /* FigsListView.swift in Sources */,
-				96E78BB6245CE9BC0032F4E3 /* SetsView.swift in Sources */,
+				96E78BB6245CE9BC0032F4E3 /* LegoListView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -648,6 +664,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		96851E012473389800D9F803 /* XCRemoteSwiftPackageReference "Reachability.swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/ashleymills/Reachability.swift.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.0;
+			};
+		};
 		96E78BA2245CC7700032F4E3 /* XCRemoteSwiftPackageReference "keychain-swift" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/evgenyneu/keychain-swift.git";
@@ -659,6 +683,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		96851E022473389800D9F803 /* Reachability */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 96851E012473389800D9F803 /* XCRemoteSwiftPackageReference "Reachability.swift" */;
+			productName = Reachability;
+		};
 		96E78BA3245CC7700032F4E3 /* KeychainSwift */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 96E78BA2245CC7700032F4E3 /* XCRemoteSwiftPackageReference "keychain-swift" */;

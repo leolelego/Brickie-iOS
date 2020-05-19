@@ -49,7 +49,7 @@ struct SetDetailView: View {
     func makeThumbnail() -> some View {
         ZStack(alignment: .bottomTrailing){
             
-            AsyncImage(string:self.set.image.imageURL, cache: cache, configuration: { $0.resizable()})
+            AsyncImage(string:set.image.imageURL, cache: cache, configuration: { $0.resizable()})
                 .aspectRatio(contentMode: .fit)
                 .clipped()
                 .frame(minWidth: 0, maxWidth: .infinity, minHeight: 200, maxHeight: 400, alignment: .center)
@@ -104,7 +104,7 @@ struct SetDetailView: View {
             .frame(minWidth: 0, maxWidth: .infinity,alignment: .leading)
     }
     func makeButtons() -> some View {
-        CollectionItemView(set: set).padding(.horizontal)
+        SetEditorView(set: set).padding(.horizontal)
     }
     
     func makeImages() -> some View{

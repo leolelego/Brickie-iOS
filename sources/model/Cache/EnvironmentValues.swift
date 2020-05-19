@@ -12,23 +12,3 @@ extension EnvironmentValues {
     }
 }
 
-struct ConfgifurationKey: EnvironmentKey {
-    static let defaultValue: Configuration = Configuration()
-}
-
-extension EnvironmentValues {
-    var config: Configuration {
-        get { self[ConfgifurationKey.self] }
-        set { self[ConfgifurationKey.self] = newValue }
-    }
-}
-//struct UserCollectionKey: EnvironmentKey {
-//    static let defaultValue: UserCollection = UserCollection()
-//}
-//
-//extension EnvironmentValues {
-//    var collection: UserCollection {
-//        get { self[UserCollectionKey.self] }
-//        set { self[UserCollectionKey.self] = newValue }
-//    }
-//}
