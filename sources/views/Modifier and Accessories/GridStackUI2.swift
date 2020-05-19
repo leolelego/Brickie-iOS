@@ -7,7 +7,7 @@
 //
 
 import SwiftUI
-struct GridStack<Content: View,DataType>: View {
+struct GridStack2<Content: View,DataType>: View {
     let rows: Int
     let columns: Int
     let data : [DataType]

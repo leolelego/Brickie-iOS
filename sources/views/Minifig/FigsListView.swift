@@ -14,7 +14,7 @@ struct MinifigListView: View {
 
     var body: some View {
         Group {
-            if collection.setsUI.count == 0 {
+            if collection.minifigsUI.count == 0 {
                 Text("sets.noitems").font(.largeTitle).bold()
                 Spacer()
             } else {
@@ -26,14 +26,24 @@ struct MinifigListView: View {
                                 .padding(.leading, -12)
                                 .padding(.bottom, -28)
                         ) {
-                            ScrollView (.horizontal, showsIndicators: false) {
-                                HStack(spacing: 16){
-                                ForEach( self.items(for: theme, items: self.collection.minifigsUI )){ item in
-                                    MinifigCell(minifig: item).frame(width: 200)
-
-                                    }
-                                }
-                            }
+                            ForEach( self.items(for: theme, items: self.collection.minifigsUI )){ item in
+                                 NavigationLink(destination: MinifigDetailView(minifig: item)) {
+                                                                                                            MinifigCell(minifig: item)
+                                                                    
+                                                                                                        }
+                                                                
+                                                            }
+//                            ScrollView (.horizontal, showsIndicators: false) {
+//                                HStack(spacing: 16){
+//                                ForEach( self.items(for: theme, items: self.collection.minifigsUI )){ item in
+//                                    NavigationLink(destination: Text(item.name)) {
+//                                        MinifigCell(minifig: item).id(UUID().uuidString)
+//
+//                                    }.frame(width: 200).id(UUID().uuidString)
+//
+//                                    }.id(UUID().uuidString)
+//                                }
+//                            }
                                
 //                            GridStack(data: self.items(for: theme, items: self.collection.minifigsUI ), columns: self.horizontalSizeClass == .compact ? 2 : 6 ) { item in
 //                                MinifigCell(minifig: item)
@@ -57,10 +67,10 @@ struct MinifigListView: View {
 
     }
     func sections(for items:[LegoMinifig]) -> [String] {
-          return Array(Set(items.compactMap({$0.superCategory}))).sorted()
+          return Array(Set(items.compactMap({$0.theme}))).sorted()
       }
       func items(for section:String,items:[LegoMinifig]) -> [LegoMinifig] {
-          return items.filter({$0.superCategory == section}).sorted(by: {$0.subCategory < $1.subCategory && $0.name < $1.name })
+          return items.filter({$0.theme == section}).sorted(by: {$0.subtheme < $1.subtheme && $0.name < $1.name })
       }
 }
 

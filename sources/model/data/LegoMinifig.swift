@@ -15,6 +15,9 @@ class LegoMinifig : Lego {
     var wanted : Bool = false
     var name : String = "Dumny"
     var category : String = "Dumny"
+    
+    var bricksetURL : String { return "https://brickset.com/minifigs/\(minifigNumber)" }
+    
     static func == (lhs: LegoMinifig, rhs: LegoMinifig) -> Bool {
         return lhs.minifigNumber == rhs.minifigNumber
     }
@@ -26,10 +29,11 @@ class LegoMinifig : Lego {
     
     func update(from: LegoMinifig){
         objectWillChange.send()
-        self.ownedInSets = from.ownedInSets
-        self.ownedLoose = from.ownedLoose
-        self.ownedTotal = from.ownedTotal
-        self.wanted = from.wanted
+        ownedInSets = from.ownedInSets
+        ownedLoose = from.ownedLoose
+        ownedTotal = from.ownedTotal
+        wanted = from.wanted
+        
         
     }
     
@@ -42,12 +46,12 @@ class LegoMinifig : Lego {
         return matched
     }
     
-    var superCategory : String {
+    var theme : String {
         guard let str = category.components(separatedBy: "/").first else {return ""}
         //str.remove(at: str.endIndex)
         return str
     }
-    var subCategory : String {
+    var subtheme : String {
         guard var str = category.components(separatedBy: "/").last else {return ""}
         str.remove(at: str.startIndex)
         return str

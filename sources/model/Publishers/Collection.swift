@@ -77,7 +77,7 @@ class UserCollection : ObservableObject{
         
         searchMinifigsCancellable = $searchMinifigsText
             .handleEvents(receiveOutput: { [weak self] _ in self?.isLoadingData = true })
-            .debounce(for: .milliseconds(800), scheduler: DispatchQueue.main)
+            .debounce(for: .milliseconds(1300), scheduler: DispatchQueue.main)
             .removeDuplicates()
             .sink{ _ in
                 if self.searchMinifigsText.isEmpty {
@@ -127,7 +127,6 @@ class UserCollection : ObservableObject{
     enum SetCollectionAction {
         case want(Bool)
         case qty(Int)
-        case collect(Bool)
         
         func query(obj:LegoSet,user:User?,completion: @escaping (Result<String,Error>) -> Void){
             guard let token = user?.token else {return}
@@ -136,11 +135,20 @@ class UserCollection : ObservableObject{
             case .want(let wanted):
                 APIRouter<String>.setWanted(token, obj, wanted).responseJSON(completion: completion)
                 break
-            case .collect(let col):
-                APIRouter<String>.setOwned(token, obj, col).responseJSON(completion: completion)
-                break
             case .qty(let q):
                 APIRouter<String>.setQty(token, obj, q).responseJSON(completion: completion)
+                break
+            }
+        }
+        func query(obj:LegoMinifig,user:User?,completion: @escaping (Result<String,Error>) -> Void){
+            guard let token = user?.token else {return}
+            
+            switch self {
+            case .want(let wanted):
+                APIRouter<String>.minifigWanted(token, obj, wanted).responseJSON(completion: completion)
+                break
+            case .qty(let q):
+                APIRouter<String>.minifigQty(token, obj, q).responseJSON(completion: completion)
                 break
             }
         }
@@ -154,18 +162,29 @@ class UserCollection : ObservableObject{
                 case .want(let wanted):
                     obj.collection.wanted = wanted
                     break
-                case .collect(let col):
-                    obj.collection.qtyOwned = col ? (obj.collection.qtyOwned == 0 ? 1 : obj.collection.qtyOwned) : 0
-                    obj.collection.owned = col
-                    break
                 case .qty(let q):
                     obj.collection.qtyOwned = q
-                    SetCollectionAction.collect( q < 1 ? false : true).manage(obj: obj,collection: collection)
+                    obj.collection.owned = q > 0
                     break
                 }
             }
-            
-            
+        }
+        
+        func manage(obj:LegoMinifig,collection:UserCollection){
+            DispatchQueue.main.async {
+                obj.objectWillChange.send()
+                collection.objectWillChange.send()
+                
+                switch self {
+                case .want(let wanted):
+                    obj.wanted = wanted
+                    break
+                case .qty(let q):
+                    obj.ownedLoose = q
+                    obj.ownedTotal = q + obj.ownedInSets
+                    break
+                }
+            }
         }
         
     }
@@ -194,6 +213,7 @@ extension UserCollection {
                  if let idx = self.minifigs.firstIndex(of: fig){
                      self.minifigs[idx].update(from: fig)
                  } else {
+                    log("Adding \(fig.name)")
                      self.minifigs.append(fig)
                  }
              }
@@ -215,7 +235,11 @@ extension UserCollection {
             self.objectWillChange.send()
             self.append(owned)
             for item in self.minifigs {
-                item.ownedLoose = owned.first(where: {$0 == item})?.ownedLoose ?? 0
+                let dbItem = owned.first(where: {$0 == item})
+                item.ownedLoose = dbItem?.ownedLoose ?? 0
+                item.ownedInSets = dbItem?.ownedLoose ?? 0
+                item.ownedTotal = dbItem?.ownedLoose ?? 0
+
             }
         }
     }
@@ -226,6 +250,20 @@ extension UserCollection {
             self.append(sets)
         }
         
+    }
+    
+    func action(_ action:SetCollectionAction,on item:LegoMinifig){
+        
+        action.query(obj: item,user:user) { res in
+            switch res {
+            case .success:
+                action.manage(obj: item,collection: self)
+                break
+            default:
+                break
+            }
+
+        }
     }
 }
 // MARK: Call for Sets
@@ -283,7 +321,7 @@ extension UserCollection {
         
     }
     
-    func setCollection(item:LegoSet,action:SetCollectionAction){
+    func action(_ action:SetCollectionAction,on item:LegoSet){
         action.query(obj: item,user:user) { res in
             switch res {
             case .success:
@@ -324,7 +362,14 @@ extension UserCollection {
                 logerror(error)
             }
         }
-        
+        if let data = persistance[Key.figsBackupURL] {
+            do {
+                let items = try JSONDecoder().decode([LegoMinifig].self, from: data)
+                append(items)
+            } catch {
+                logerror(error)
+            }
+        }
         
     }
 }
