@@ -47,7 +47,7 @@ struct LoginView: View {
     }
     
     func makeImage() -> some View {
-        Image.minifig_head(height: 80)
+        Image.mask_head(height: 80)
             .padding(20)
             .overlay(Circle()
                 .stroke(lineWidth: 3)

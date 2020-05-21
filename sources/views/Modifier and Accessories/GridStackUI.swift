@@ -7,7 +7,7 @@
 //
 
 import SwiftUI
-struct GridStack<Content: View,DataType>: View {
+struct GridStack<Content: View,DataType:Lego>: View {
     let rows: Int
     let columns: Int
     let data : [DataType]
@@ -26,7 +26,8 @@ struct GridStack<Content: View,DataType>: View {
                     HStack(alignment: self.verticalAlignement, spacing: row != self.rows-1 ? self.horizontalSpacing : 0) {
 
                         ForEach(0 ..< self.columns, id: \.self) { column in
-                            self.cell(col: column, row: row)//.frame(width:self.frameWidth(geo))
+                            self.cell(col: column, row: row)
+                            //.frame(width:self.frameWidth(geo))
                         }//.frame(height:800)
                     }
                     
@@ -49,12 +50,19 @@ struct GridStack<Content: View,DataType>: View {
         self.content = content
     }
     
-    func cell(col:Int,row:Int) -> AnyView {
+    func cell(col:Int,row:Int) -> some View {
+        Group {
+            if item(col: col, row: row) != nil {
+                content(item(col: col, row: row)!).id(item(col: col, row: row)?.id)
+            }
+             AnyView(Text(""))
+        }
+    }
+    func item(col:Int,row:Int) -> DataType? {
         let idx = self.columns * row + col
         if idx < self.data.count {
-            let item =  data[idx]
-            return AnyView(content(item))
+          return  data[idx]
         }
-        return AnyView(Text(""))
+        return nil
     }
 }

@@ -12,22 +12,28 @@ struct MinifigCell: View {
     @ObservedObject var minifig : LegoMinifig
     @Environment(\.dataCache) var cache : DataCache
     var body: some View {
-        VStack(alignment: .leading, spacing: 8) {
+        HStack(alignment: .top, spacing: 8) {
             ZStack(alignment: .bottomTrailing){
                 self.makeImage()
                 self.makePastil()
             }
             .modifier(RoundedShadowMod())
-            Text(minifig.name).font(.headline)
-            Text(minifig.subtheme).font(.subheadline).foregroundColor(Color.gray)
-        }
+            VStack(alignment: .leading, spacing: 8) {
+                Rectangle().fill(Color.background).frame(height:16)
+                Text(minifig.name).font(.headline)
+                ForEach(minifig.subthemes, id: \.self){ sub in
+                    Text(sub).font(.subheadline).foregroundColor(Color.gray)
+                }
+                
+            }
+            
+        }.frame(height: 150)
     }
     
     func makeImage() -> some View{
         AsyncImage(string: minifig.imageUrl, cache: cache, configuration: {$0.resizable()})
-        .aspectRatio(2/3, contentMode: .fill)
+        .aspectRatio(2/3, contentMode: .fit)
         .clipped()
-          //  .frame(width:200, height:300)
         .background(Color.white)
     }
     func makePastil() -> some View {
@@ -39,14 +45,11 @@ struct MinifigCell: View {
             }
             
             if  minifig.wanted  {
-                Image(systemName: minifig.wanted ? "heart.fill":"heart").font(.footnote)//.background(Color.purple)
+                Image(systemName: minifig.wanted ? "heart.fill":"heart").font(.footnote)
                     .padding(.horizontal,8)
                     .padding(.vertical,8)
                     .foregroundColor(.white)
-            }
-            
-            
-            
+            }            
         }.background(RoundedCorners(color: Color.black, tl: 16, tr: 0, bl: 0, br: 0))
         
     }

@@ -31,7 +31,7 @@ struct AppRootView: View {
                         }
                     })
                     .tag(0)
-                    LegoListView(content: MinifigListView(), searchText: $collection.searchMinifigsText, filter: $collection.minifigFilter, title: "minifig.title") .navigationViewStyle(StackNavigationViewStyle())
+                    LegoListView(content: MinifigListView(), searchText: $collection.searchMinifigsText, filter: $collection.minifigFilter, title: "minifig.title") //.navigationViewStyle(StackNavigationViewStyle())
                         .tabItem {
                             VStack {
                                 Image.minifig_head
