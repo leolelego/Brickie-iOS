@@ -10,20 +10,20 @@ import SwiftUI
 
 struct MinifigDetailView: View {
     @Environment(\.dataCache) var cache: DataCache
-
+    
     @ObservedObject var minifig : LegoMinifig
     
     var body: some View {
-                ScrollView( showsIndicators: false){
+        ScrollView( showsIndicators: false){
             makeThumbnail()
             makeThemes()
             Spacer()
             makeHeader()
             Divider()
-                    MinifigEditorView(minifig: minifig).padding()
-
+            MinifigEditorView(minifig: minifig).padding()
+            
         }
-
+            
         .navigationBarTitle("", displayMode: .inline)
         .navigationBarItems(trailing: ShareNavButton(items: [minifig.bricksetURL]))
         .navigationBarHidden(false)
@@ -32,7 +32,7 @@ struct MinifigDetailView: View {
         ZStack(alignment: .bottomTrailing){
             
             AsyncImage(string:minifig.imageUrl , cache: cache, configuration: { $0.resizable()})
-                .aspectRatio(contentMode: .fit)
+                .aspectRatio(contentMode: .fill)
                 .clipped()
                 .frame(minWidth: 0, maxWidth: .infinity, minHeight: 200, maxHeight: 400, alignment: .center)
                 .background(Color.white)
@@ -42,16 +42,13 @@ struct MinifigDetailView: View {
     }
     func makeThemes() -> some View{
         HStack(spacing: 8){
-            
-            Button(action: {
-            }, label: {
-                Text( minifig.theme).roundText
-            })
-                Text(">")
-                Button(action: {
-                }, label: {
-                    Text( minifig.subtheme ).roundText
-                })
+            Text( minifig.theme).roundText
+            ForEach(minifig.subthemes, id: \.self){ sub in
+                HStack{
+                    Text(">")
+                    Text( sub).roundText
+                }
+            }
             Spacer()
         }.padding(.horizontal)
     }
@@ -68,7 +65,7 @@ struct MinifigDetailView: View {
             .padding(.vertical,8).padding(.horizontal,6)
             .background(BackgroundImageView(imagePath: minifig.imageUrl)).clipped().modifier(RoundedShadowMod())
             .foregroundColor(Color.background)
-
+            
         }.padding(.horizontal)
             .frame(minWidth: 0, maxWidth: .infinity,alignment: .leading)
     }

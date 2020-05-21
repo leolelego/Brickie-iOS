@@ -32,7 +32,6 @@
 		964BA87F246A34D700984DCC /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = 964BA87E246A34D700984DCC /* Router.swift */; };
 		967ED17B24607BD4004712DB /* SetListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967ED17A24607BD4004712DB /* SetListCell.swift */; };
 		967ED17F24608F9F004712DB /* Legothick.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 967ED17E24608F9F004712DB /* Legothick.ttf */; };
-		96851E002473344600D9F803 /* GridStackUI2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96851DFF2473344500D9F803 /* GridStackUI2.swift */; };
 		96851E032473389800D9F803 /* Reachability in Frameworks */ = {isa = PBXBuildFile; productRef = 96851E022473389800D9F803 /* Reachability */; };
 		96851E0724734D3A00D9F803 /* MinifigDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96851E0624734D3A00D9F803 /* MinifigDetailView.swift */; };
 		96851E092473569400D9F803 /* MinifigEditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96851E082473569400D9F803 /* MinifigEditorView.swift */; };
@@ -91,7 +90,6 @@
 		964BA87E246A34D700984DCC /* Router.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
 		967ED17A24607BD4004712DB /* SetListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetListCell.swift; sourceTree = "<group>"; };
 		967ED17E24608F9F004712DB /* Legothick.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Legothick.ttf; sourceTree = "<group>"; };
-		96851DFF2473344500D9F803 /* GridStackUI2.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GridStackUI2.swift; sourceTree = "<group>"; };
 		96851E0624734D3A00D9F803 /* MinifigDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MinifigDetailView.swift; sourceTree = "<group>"; };
 		96851E082473569400D9F803 /* MinifigEditorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MinifigEditorView.swift; sourceTree = "<group>"; };
 		969DE4A02462245A00F88ED1 /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
@@ -197,7 +195,6 @@
 		96DE9248245F62E300652E0E /* Modifier and Accessories */ = {
 			isa = PBXGroup;
 			children = (
-				96851DFF2473344500D9F803 /* GridStackUI2.swift */,
 				9624E3922471FECE002F68F7 /* GridStackUI.swift */,
 				96365E6C2468700800F318C3 /* AdaptsToSoftwareKeyboard.swift */,
 				96365E6D2468700900F318C3 /* DismissingKeyboardOnSwipe.swift */,
@@ -425,7 +422,6 @@
 				9624E38F2471F79B002F68F7 /* RoundedText.swift in Sources */,
 				96365E6E2468700900F318C3 /* AdaptsToSoftwareKeyboard.swift in Sources */,
 				96DE924C245F695100652E0E /* Assets.swift in Sources */,
-				96851E002473344600D9F803 /* GridStackUI2.swift in Sources */,
 				96851E092473569400D9F803 /* MinifigEditorView.swift in Sources */,
 				96DE9245245F34AA00652E0E /* Collection.swift in Sources */,
 				96E78BB0245CD7330032F4E3 /* Toolbox.swift in Sources */,

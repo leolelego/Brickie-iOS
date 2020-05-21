@@ -7,7 +7,7 @@
 //
 
 import Foundation
-class LegoMinifig : Lego {
+class LegoMinifig : Lego , Hashable{
     let minifigNumber : String
     var ownedInSets : Int = 0
     var ownedLoose : Int = 0
@@ -51,10 +51,15 @@ class LegoMinifig : Lego {
         //str.remove(at: str.endIndex)
         return str
     }
+    var subthemes : [String] {
+         var components = category.components(separatedBy: "/")
+            
+            components.removeFirst()
+            return components
+ 
+    }
     var subtheme : String {
-        guard var str = category.components(separatedBy: "/").last else {return ""}
-        str.remove(at: str.startIndex)
-        return str
+        return subthemes.first ?? ""
     }
     
     var imageUrl : String {
