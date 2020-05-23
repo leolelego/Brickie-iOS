@@ -32,7 +32,7 @@ struct MinifigDetailView: View {
         ZStack(alignment: .bottomTrailing){
             
             AsyncImage(string:minifig.imageUrl , cache: cache, configuration: { $0.resizable()})
-                .aspectRatio(contentMode: .fill)
+                .aspectRatio(contentMode: .fit)
                 .clipped()
                 .frame(minWidth: 0, maxWidth: .infinity, minHeight: 200, maxHeight: 400, alignment: .center)
                 .background(Color.white)

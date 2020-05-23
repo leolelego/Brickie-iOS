@@ -9,10 +9,12 @@
 import SwiftUI
 struct SetDetailView: View {
     @Environment(\.dataCache) var cache: DataCache
-
+    
     @ObservedObject var set : LegoSet
     @State var additionalImages = [LegoSetImage]()
     @State var instructions = [LegoInstruction]()
+    @State var detailImageUrl : String?
+    @State var isImageDetailPresented : Bool = false
     
     var body: some View {
         ScrollView( showsIndicators: false){
@@ -25,6 +27,7 @@ struct SetDetailView: View {
             makeImages()
             makeInstructions()
         }
+        .sheet(isPresented: $isImageDetailPresented, content: { SetAdditionalImageView(isPresented: self.$isImageDetailPresented, url: self.detailImageUrl!)})
         .onAppear {
             if  self.additionalImages.count == 0 {
                 APIRouter<[[String:Any]]>.additionalImages(self.set.setID).decode(ofType: [LegoSetImage].self) { (items) in
@@ -115,10 +118,22 @@ struct SetDetailView: View {
                     ScrollView (.horizontal, showsIndicators: false) {
                         HStack(spacing: 16){
                             ForEach(additionalImages, id: \.thumbnailURL){ image in
-                                AsyncImage(string:image.thumbnailURL , cache: self.cache, configuration: { $0.resizable()})
-                                    .scaledToFill()
-                                    .scaledToFill().frame(width: 100, height: 100)
-                                    .modifier(RoundedShadowMod())
+                                ZStack {
+                                    
+                                    AsyncImage(string:image.thumbnailURL , cache: self.cache, configuration: { $0.resizable()})
+                                        .scaledToFill().frame(width: 100, height: 100)
+                                        .modifier(RoundedShadowMod())
+                                    Button(action: {
+                                        self.detailImageUrl = image.imageURL
+                                        self.isImageDetailPresented.toggle()
+                                        
+                                    }) {
+                                        Rectangle().fill(Color.clear) .scaledToFill().frame(width: 100, height: 100)
+                                    }
+                                    
+                                }
+                                
+                                
                                 
                             }
                         }.padding(.horizontal,32)
@@ -133,8 +148,8 @@ struct SetDetailView: View {
     }
     func makeInstructions() -> some View{
         Group {
-            if self.instructions.first != nil {
-                NavigationLink(destination: LegoPDFView(stringURL: self.instructions.first!.URL)) {
+            if instructions.first != nil {
+                NavigationLink(destination: LegoPDFView(string: self.instructions.first!.URL,cache: cache)) {
                     Text("sets.instruction")
                         .fontWeight(.bold).foregroundColor(Color.black)
                         .frame(minWidth: 0, maxWidth: .infinity)

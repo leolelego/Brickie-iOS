@@ -40,7 +40,7 @@ struct AsyncImage : View {
             if loader.data != nil {
                 configuration(Image(uiImage:uiImage))
             } else {
-                Rectangle().fill(Color.gray)//.background(Color.gray)
+                Rectangle().fill(Color.background)//.background(Color.gray)
             }
         }
     }
