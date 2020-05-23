@@ -16,7 +16,8 @@ struct MinifigCell: View {
             ZStack(alignment: .bottomTrailing){
                 self.makeImage()
                 self.makePastil()
-            }
+            }.frame(width:100,height: 150)
+
             .modifier(RoundedShadowMod())
             VStack(alignment: .leading, spacing: 8) {
                 Rectangle().fill(Color.background).frame(height:16)
@@ -32,9 +33,11 @@ struct MinifigCell: View {
     
     func makeImage() -> some View{
         AsyncImage(string: minifig.imageUrl, cache: cache, configuration: {$0.resizable()})
-        .aspectRatio(2/3, contentMode: .fit)
+        
+        .aspectRatio(2/3, contentMode: .fill)
         .clipped()
         .background(Color.white)
+        
     }
     func makePastil() -> some View {
         HStack {
