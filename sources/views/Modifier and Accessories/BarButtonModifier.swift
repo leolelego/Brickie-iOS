@@ -21,7 +21,7 @@ struct BarButtonModifier: ViewModifier {
 }
 
 struct ShareNavButton : View{
-    let items : [String]
+    let items : [Any]
     @State private var showingSheet = false
     
     var body: some View {

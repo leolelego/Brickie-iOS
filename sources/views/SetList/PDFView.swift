@@ -7,56 +7,35 @@
 //
 
 import SwiftUI
+import PDFKit
+
 struct LegoPDFView : View {
-    let stringURL : String?
-    var url : URL? {
-        return stringURL == nil ? nil : URL(string: stringURL!)
+    @ObservedObject private var loader: DataLoader
+    let stringURL : String
+    init(string:String,cache:DataCache){
+        stringURL = string
+            loader = DataLoader(url: URL(string: string), cache: cache)
     }
-    @State var localURL : URL? = nil
-    @State var progress : Double = 0
+
     var body: some View {
         Group {
-            if stringURL == nil {
-                Text("instruction.errorfile")
-            } else if localURL == nil {
-                Text("instruction.downloading ") + Text("\(Int(progress * 100))%")
+            if loader.data != nil {
+                PDFKitView(document: PDFDocument(data:loader.data!))
             } else {
-                PDFKitView(url: localURL!)
+                VStack {
+                    Text("instruction.downloading")
+                }
             }
         }.onAppear {
-            self.download()
+            self.loader.load()
+        }.onDisappear{
+            self.loader.cancel()
         }
         .navigationBarTitle("instruction.title",displayMode: .large)
-        
+        .navigationBarItems(trailing: ShareNavButton(items: [URL(string:stringURL)!]))
+
     }
-    
-    func download(){
-//        guard let u = self.url else {return}
-//        let documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
-//        let fileURL = documentsURL.appendingPathComponent(u.lastPathComponent)
-//
-//        if FileManager.default.fileExists(atPath: fileURL.absoluteString){
-//            localURL = fileURL
-//        } else {
-//
-//
-//            let destination: DownloadRequest.Destination = { _, _ in
-//                return (fileURL, [.removePreviousFile, .createIntermediateDirectories])
-//            }
-//            AF.download(u, to: destination)
-//                .downloadProgress(queue: DispatchQueue.global(qos: .utility), closure: { (progress) in
-//                    self.progress = progress.fractionCompleted
-//                })
-//                .response { res in
-//                    if res.error == nil {
-//                        self.localURL = res.fileURL
-//                    }
-//                    logerror(res.error)
-//
-//            }
-//        }
-        
-    }
+
     
 }
 

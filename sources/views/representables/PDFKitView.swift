@@ -12,14 +12,15 @@ import PDFKit
 
 struct PDFKitView : UIViewRepresentable {
     
-    var url: URL?
-    
-    func makeUIView(context: Context) -> UIView {
-        let pdfView = PDFView()
+    var document: PDFDocument?
+    let pdfView = PDFView()
 
-        if let url = url {
-            pdfView.document = PDFDocument(url: url)
-        }
+    func makeUIView(context: Context) -> UIView {
+        pdfView.autoScales = true
+        pdfView.displayMode = .singlePageContinuous
+
+        pdfView.document = document
+
         
         return pdfView
     }
