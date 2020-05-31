@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		960FAD53246709C50064B458 /* BlurredImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960FAD52246709C50064B458 /* BlurredImageView.swift */; };
-		960FAD59246729EE0064B458 /* CollectionItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960FAD58246729EE0064B458 /* CollectionItemView.swift */; };
+		960FAD59246729EE0064B458 /* SetEditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960FAD58246729EE0064B458 /* SetEditorView.swift */; };
 		960FAD7D24677CAC0064B458 /* SafariView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960FAD7B24677CAC0064B458 /* SafariView.swift */; };
 		960FAD7E24677CAC0064B458 /* ActivityControllerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960FAD7C24677CAC0064B458 /* ActivityControllerView.swift */; };
 		960FAD8024677F250064B458 /* PDFKitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960FAD7F24677F250064B458 /* PDFKitView.swift */; };
@@ -64,7 +64,7 @@
 
 /* Begin PBXFileReference section */
 		960FAD52246709C50064B458 /* BlurredImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlurredImageView.swift; sourceTree = "<group>"; };
-		960FAD58246729EE0064B458 /* CollectionItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionItemView.swift; sourceTree = "<group>"; };
+		960FAD58246729EE0064B458 /* SetEditorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetEditorView.swift; sourceTree = "<group>"; };
 		960FAD7B24677CAC0064B458 /* SafariView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SafariView.swift; sourceTree = "<group>"; };
 		960FAD7C24677CAC0064B458 /* ActivityControllerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityControllerView.swift; sourceTree = "<group>"; };
 		960FAD7F24677F250064B458 /* PDFKitView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PDFKitView.swift; sourceTree = "<group>"; };
@@ -212,7 +212,7 @@
 				967ED17A24607BD4004712DB /* SetListCell.swift */,
 				96DE9246245F3DD800652E0E /* SetDetailView.swift */,
 				960FAD8124677FD70064B458 /* PDFView.swift */,
-				960FAD58246729EE0064B458 /* CollectionItemView.swift */,
+				960FAD58246729EE0064B458 /* SetEditorView.swift */,
 				9610E5C72479815F00E31B57 /* SetAdditionalImageView.swift */,
 			);
 			path = SetList;
@@ -428,7 +428,7 @@
 				964BA87F246A34D700984DCC /* Router.swift in Sources */,
 				96365E6B246863BC00F318C3 /* SearchField.swift in Sources */,
 				9624E38324718DC4002F68F7 /* Cache.swift in Sources */,
-				960FAD59246729EE0064B458 /* CollectionItemView.swift in Sources */,
+				960FAD59246729EE0064B458 /* SetEditorView.swift in Sources */,
 				9624E3892471E66B002F68F7 /* Lego.swift in Sources */,
 				96E78BB4245CE61A0032F4E3 /* AppRoot.swift in Sources */,
 				96E78B95245CADFA0032F4E3 /* LoginView.swift in Sources */,

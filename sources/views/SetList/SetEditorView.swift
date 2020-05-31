@@ -10,7 +10,7 @@ import SwiftUI
 
 struct SetEditorView: View {
     @EnvironmentObject var collection : UserCollection
-    
+    @EnvironmentObject var config : Configuration
     @ObservedObject var set : LegoSet
     var body: some View {
         HStack(spacing: 16){
@@ -24,7 +24,7 @@ struct SetEditorView: View {
                 }
                     
                 .frame(minWidth: 0, maxWidth: .infinity)
-            }.buttonStyle(RoundedButtonStyle(backgroundColor: Color("purple")  ))
+            }.buttonStyle(RoundedButtonStyle(backgroundColor: Color("purple")  )).opacity(config.connection == .unavailable ? 0.6: 1.0)
             
             if set.collection.owned {
                 Button(action: {
@@ -34,7 +34,7 @@ struct SetEditorView: View {
                 }) {
                     Image(systemName: "minus").foregroundColor(.background).font(.title)
                     
-                }.buttonStyle(RoundedButtonStyle(backgroundColor:.backgroundAlt))
+                }.buttonStyle(RoundedButtonStyle(backgroundColor:.backgroundAlt)).opacity(config.connection == .unavailable ? 0.6 : 1.0)
                 Text("\(self.set.collection.qtyOwned)").font(.title).bold()
                 Button(action: {
                     self.collection.action( .qty(self.set.collection.qtyOwned+1),on: self.set)
@@ -42,7 +42,7 @@ struct SetEditorView: View {
                 }) {
                     Image(systemName: "plus").foregroundColor(.background).font(.title)
                     
-                }.buttonStyle(RoundedButtonStyle(backgroundColor:.backgroundAlt))
+                }.buttonStyle(RoundedButtonStyle(backgroundColor:.backgroundAlt)).opacity(config.connection == .unavailable ? 0.6 : 1.0)
             } else {
                 Button(action: {
                     
@@ -51,9 +51,13 @@ struct SetEditorView: View {
                     Text("collection.add")
                         .fontWeight(.bold).foregroundColor(.background)
                         .frame(minWidth: 0, maxWidth: .infinity)
-                }.buttonStyle(RoundedButtonStyle(backgroundColor:.backgroundAlt))
+                }.buttonStyle(RoundedButtonStyle(backgroundColor:.backgroundAlt)).opacity(config.connection == .unavailable ? 0.8 : 1.0)
+            }
+            if config.connection == .unavailable {
+                Text("message.offline").font(.headline).bold().foregroundColor(.red)
             }
         }
+        
     }
 }
 

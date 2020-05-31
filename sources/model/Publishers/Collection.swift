@@ -10,6 +10,7 @@ import Foundation
 import Combine
 import SwiftUI
 import KeychainSwift
+import Reachability
 enum CollectionFilter : Equatable{
     case wanted
     case owned
@@ -21,12 +22,12 @@ class UserCollection : ObservableObject{
     
     @Published private var sets = [LegoSet]()
     @Published private var minifigs = [LegoMinifig]()
-
+    
     @Published var searchSetsText = ""
     private var searchSetsCancellable: AnyCancellable?
     @Published var searchMinifigsText = ""
     private var searchMinifigsCancellable: AnyCancellable?
-
+    
     @Published var isLoadingData : Bool = false
     
     @Published var user : User? {
@@ -70,7 +71,11 @@ class UserCollection : ObservableObject{
                     self.setsFilter = .owned
                     self.isLoadingData = false
                 } else {
-                    self.searchSets(text: self.searchSetsText)
+                    if try! Reachability().connection != . unavailable {
+                        self.searchSets(text: self.searchSetsText)
+                    } else {
+                        self.isLoadingData = false
+                    }
                     self.setsFilter = .search(self.searchSetsText)
                 }
         }
@@ -84,14 +89,18 @@ class UserCollection : ObservableObject{
                     self.minifigFilter = .owned
                     self.isLoadingData = false
                 } else {
-                    self.searchMinifigs(text: self.searchMinifigsText)
+                    if try! Reachability().connection != . unavailable {
+                        self.searchMinifigs(text: self.searchMinifigsText)
+                    } else {
+                        self.isLoadingData = false
+                    }
                     self.minifigFilter = .search(self.searchMinifigsText)
                 }
         }
     } 
     
     
-
+    
     
     var setsFilter : CollectionFilter = .owned {
         didSet{
@@ -196,29 +205,28 @@ class UserCollection : ObservableObject{
 extension UserCollection {
     func synchronizeFigs(){
         guard let token = user?.token else {return}
-               APIRouter<[[String:Any]]>.ownedFigs(token).decode(ofType: [LegoMinifig].self) { items in
-                   self.updateOwned(with: items)
-               }
-               APIRouter<[[String:Any]]>.wantedFigs(token).decode(ofType: [LegoMinifig].self) { items in
-                   self.updateWanted(with: items)
-               }
+        APIRouter<[[String:Any]]>.ownedFigs(token).decode(ofType: [LegoMinifig].self) { items in
+            self.updateOwned(with: items)
+        }
+        APIRouter<[[String:Any]]>.wantedFigs(token).decode(ofType: [LegoMinifig].self) { items in
+            self.updateWanted(with: items)
+        }
     }
-
+    
     func append(_ new:[LegoMinifig]){
-         DispatchQueue.main.async {
+        DispatchQueue.main.async {
             self.isLoadingData = false
-
-             self.objectWillChange.send()
-             for fig in new {
-                 if let idx = self.minifigs.firstIndex(of: fig){
-                     self.minifigs[idx].update(from: fig)
-                 } else {
-                    log("Adding \(fig.name)")
-                     self.minifigs.append(fig)
-                 }
-             }
-         }
-     }
+            
+            self.objectWillChange.send()
+            for fig in new {
+                if let idx = self.minifigs.firstIndex(of: fig){
+                    self.minifigs[idx].update(from: fig)
+                } else {
+                    self.minifigs.append(fig)
+                }
+            }
+        }
+    }
     
     // Remove set taht are NOT wanted
     func updateWanted(with wanted:[LegoMinifig]){
@@ -239,7 +247,7 @@ extension UserCollection {
                 item.ownedLoose = dbItem?.ownedLoose ?? 0
                 item.ownedInSets = dbItem?.ownedLoose ?? 0
                 item.ownedTotal = dbItem?.ownedLoose ?? 0
-
+                
             }
         }
     }
@@ -262,7 +270,7 @@ extension UserCollection {
             default:
                 break
             }
-
+            
         }
     }
 }
@@ -271,7 +279,7 @@ extension UserCollection {
     func append(_ new:[LegoSet]){
         DispatchQueue.main.async {
             self.isLoadingData = false
-
+            
             self.objectWillChange.send()
             for set in new {
                 if let idx = self.sets.firstIndex(of: set){
@@ -283,7 +291,7 @@ extension UserCollection {
         }
         
     }
-
+    
     // Remove set taht are NOT wanted
     func updateWanted(with wanted:[LegoSet]){
         DispatchQueue.main.async {
@@ -314,7 +322,8 @@ extension UserCollection {
         
     }
     func searchSets(text:String){
-        guard let token = user?.token else {return}
+        guard let token = user?.token else {return }
+        
         APIRouter<[[String:Any]]>.searchSets(token, text).decode(ofType: [LegoSet].self) { sets in
             self.append(sets)
         }
@@ -341,10 +350,10 @@ extension UserCollection {
             var persistance = PersistentData()
             let setsData = try JSONEncoder().encode(sets)
             let figsData = try JSONEncoder().encode(minifigs)
-
+            
             persistance[Key.setsBackupURL] = setsData
             persistance[Key.figsBackupURL] = figsData
-
+            
             
         } catch {
             logerror(error)

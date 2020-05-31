@@ -25,7 +25,7 @@ struct MinifigDetailView: View {
         }
             
         .navigationBarTitle("", displayMode: .inline)
-        .navigationBarItems(trailing: ShareNavButton(items: [minifig.bricksetURL]))
+        .navigationBarItems(trailing: ShareNavButton(items: [URL(string:minifig.bricksetURL)!]))
         .navigationBarHidden(false)
     }
     func makeThumbnail() -> some View {
@@ -58,7 +58,7 @@ struct MinifigDetailView: View {
             
             HStack {
                 Text( (minifig.minifigNumber+" ").uppercased()).font(.lego(size: 32)).foregroundColor(.black)
-                    + Text(minifig.name).font(.largeTitle).bold().foregroundColor(.black)
+                    + Text(minifig.name ?? "unknown").font(.largeTitle).bold().foregroundColor(.black)
                 Spacer()
             }
             .foregroundColor(Color.backgroundAlt)

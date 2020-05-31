@@ -41,7 +41,7 @@ struct MinifigListView: View {
         return Array(Set(items.compactMap({$0.theme}))).sorted()
     }
     func items(for section:String,items:[LegoMinifig]) -> [LegoMinifig] {
-        return items.filter({$0.theme == section}).sorted(by: {$0.subtheme < $1.subtheme && $0.name < $1.name })
+        return items.filter({$0.theme == section}).sorted(by: {$0.subtheme < $1.subtheme /*&& ($0?.name ?? "") < ($1?.name ?? "" )*/ })
     }
     
     

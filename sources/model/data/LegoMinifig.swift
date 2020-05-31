@@ -13,8 +13,8 @@ class LegoMinifig : Lego , Hashable{
     var ownedLoose : Int = 0
     var ownedTotal : Int = 0
     var wanted : Bool = false
-    var name : String = "Dumny"
-    var category : String = "Dumny"
+    var name : String?
+    var category : String?
     
     var bricksetURL : String { return "https://brickset.com/minifigs/\(minifigNumber)" }
     
@@ -39,20 +39,20 @@ class LegoMinifig : Lego , Hashable{
     
     func match(_ search:String) -> Bool{
         let lower = search.lowercased()
-        let matched = name.lowercased().contains(lower)
-            || category.lowercased().contains(lower)
+        let matched = name?.lowercased().contains(lower) ?? false
+            || category?.lowercased().contains(lower) ?? false
         || minifigNumber.lowercased().contains(lower)
 
         return matched
     }
     
     var theme : String {
-        guard let str = category.components(separatedBy: "/").first else {return ""}
+        guard let str = category?.components(separatedBy: "/").first else {return "unknown"}
         //str.remove(at: str.endIndex)
         return str
     }
     var subthemes : [String] {
-         var components = category.components(separatedBy: "/")
+         guard var components = category?.components(separatedBy: "/") else {return []}
             
             components.removeFirst()
             return components
