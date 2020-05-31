@@ -16,7 +16,7 @@ struct MinifigEditorView: View {
     var body: some View {
         VStack(spacing: 16){
             if minifig.ownedInSets > 0 {
-                Text("minifig.ownInSets").font(.title).bold()+Text("\(minifig.ownedInSets)") .font(.title).bold() .foregroundColor(.purple)
+                Text("minifig.ownInSets").font(.title).bold()+Text("\(minifig.ownedInSets)") .font(.title).bold() .foregroundColor(.blue)
             }
             HStack {
                 
