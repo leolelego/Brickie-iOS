@@ -20,8 +20,7 @@ struct MinifigCell: View {
 
             .modifier(RoundedShadowMod())
             VStack(alignment: .leading, spacing: 8) {
-                Rectangle().fill(Color.background).frame(height:16)
-                Text(minifig.name ?? minifig.minifigNumber).font(.headline)
+                Text(minifig.name ?? minifig.minifigNumber).font(.headline).padding(.top,16)
                 ForEach(minifig.subthemes, id: \.self){ sub in
                     Text(sub).font(.subheadline).foregroundColor(Color.gray)
                 }
