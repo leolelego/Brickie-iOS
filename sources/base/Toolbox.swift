@@ -9,9 +9,6 @@
 import Foundation
 import UIKit
 
-extension String {
-        var ls : String {return NSLocalizedString(self, comment: "")}
-}
 func tweakTableView(on:Bool){
     UITableView.appearance().backgroundColor = on ? .clear : .systemGroupedBackground
     UITableView.appearance().separatorColor = on ? .clear : nil
