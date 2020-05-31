@@ -10,29 +10,33 @@ import SwiftUI
 
 struct LoginView: View {
     @EnvironmentObject private var  collection : UserCollection
-
+    @EnvironmentObject var config : Configuration
     @State var username = ""
     @State var password = ""
     @State var error : String?
     @State var loading = false
-
+    
     var body: some View {
         VStack(spacing: 16){
             
             makeImage()
             
             
-            if !loading {
-                makeFields().offset(y: -30)
-
+            
+            if config.connection == .unavailable {
+                Text("login.offline").font(.headline).bold().foregroundColor(.red)
+            } else {
+                if !loading {
+                    makeFields().offset(y: -30)
+                    
+                }
+                makeLoginButton().offset(y:-30)
             }
-            makeLoginButton().offset(y:-30)
-
             
             if  error != nil && !self.loading {
                 VStack{
                     Text(error!).font(.callout).foregroundColor(.red)
-
+                    
                 }
             }
             if !loading {
@@ -74,8 +78,8 @@ struct LoginView: View {
             APIRouter<String>.login(self.username, self.password).responseJSON { response in
                 switch response {
                 case .failure(let err):
-                                    self.error = err.localizedDescription
-
+                    self.error = err.localizedDescription
+                    
                     break
                 case .success(let hash):
                     let user = User(username: self.username, token: hash)
@@ -88,7 +92,7 @@ struct LoginView: View {
                     self.loading.toggle()
                 }
             }
- 
+            
         }) {
             Text(loading ? "login.buttonactive" : "login.button")
                 .fontWeight(.bold).foregroundColor(.background)
@@ -101,9 +105,9 @@ struct LoginView: View {
     
     func makeSignup() -> some View{
         Button(action: {
-//            if let url = URL(string: API.signupLink) {
-//                UIApplication.shared.open(url)
-//            }
+            //            if let url = URL(string: API.signupLink) {
+            //                UIApplication.shared.open(url)
+            //            }
         }) {
             VStack(alignment: .center, spacing: 0){
                 Text("login.donthaveaccount")

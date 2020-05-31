@@ -11,13 +11,23 @@ import SwiftUI
 struct SearchField: View {
     @Binding var searchText: String
     @Binding var isActive : Bool
+    @EnvironmentObject var config : Configuration
     var body: some View {
         HStack {
             Image(systemName: "magnifyingglass")
                 .imageScale(.large).foregroundColor(.background)
             ZStack(alignment: .leading) {
 
-            if searchText.isEmpty { Text("sets.searchplaceholder").foregroundColor(.gray) }
+            if searchText.isEmpty {
+                if config.connection == .unavailable {
+                    Text("search.placeholderoffline").foregroundColor(.gray)
+
+                } else {
+                    Text("search.placeholder").foregroundColor(.gray)
+
+                }
+                
+                }
 
             TextField("", text: $searchText)
                 .foregroundColor(Color.background)
