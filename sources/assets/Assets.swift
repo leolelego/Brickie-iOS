@@ -7,45 +7,34 @@
 //
 import SwiftUI
 extension Color {
-    public static var appBlack: Color {
-        Color("header", bundle: nil)
-    }
     public static var background: Color {
         Color("background", bundle: nil)
     }
-    public static var header: Color {
-        Color("header", bundle: nil)
+    public static var backgroundAlt: Color {
+        Color("backgroundAlt", bundle: nil)
     }
-    public static var cellBackground: Color {
-        Color("cell", bundle: nil)
-    }
-
-    public static var title: Color {
-        Color("header", bundle: nil)
-    }
-    public static var text: Color {
-        Color("header", bundle: nil)
-    }
-    public static var textAlternate: Color {
-        Color("background", bundle: nil)
-    }
-    
     public static var purple: Color {
         Color("purple", bundle: nil)
     }
 }
 
 extension Image {
-    public static var tab_minifig: Image {
-        Image("tab_minifig")
+  
+    static var minifig_head: Image { Image("lego_head") }
+    static var brick: Image { Image("lego_brick") }
+    public static func minifig_head(height:CGFloat) -> some View {
+        Image("lego_head").resizable().frame(width: height*35.0/41.0, height: height)  // 35 × 41 pixels
     }
-    public static var tab_sets: Image {
-        Image("tab_sets")
+    public static func brick(height:CGFloat) -> some View {
+        Image("lego_brick").resizable().frame(width: height*47.0/43.0, height: height)  // 35 × 41 pixels
     }
-    public static var cell_minifig: Image {
-        Image("tab_minifig")
-    }
-    public static var cell_sets: Image {
-        Image("tab_sets")
+    public static func mask_head(height:CGFloat) -> some View {
+        Image("mask_head").resizable().frame(width: height*20.95/31.1, height: height)  // 35 × 41 pixels
+     }
+}
+
+extension Font {
+    static func lego(size:CGFloat)->Font{
+        Font.custom("LEGothicType", size: size)
     }
 }
