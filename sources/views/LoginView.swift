@@ -105,9 +105,9 @@ struct LoginView: View {
     
     func makeSignup() -> some View{
         Button(action: {
-            //            if let url = URL(string: API.signupLink) {
-            //                UIApplication.shared.open(url)
-            //            }
+                        if let url = URL(string: "https://brickset.com/signup") {
+                            UIApplication.shared.open(url)
+                        }
         }) {
             VStack(alignment: .center, spacing: 0){
                 Text("login.donthaveaccount")
