@@ -19,7 +19,7 @@ struct AppRootView: View {
                 
             } else {
                 TabView(selection: $selection){
-                    LegoListView(content: SetsListView(items: collection.setsUI), searchText: $collection.searchSetsText, filter: $collection.setsFilter, title: "sets.title")
+                    LegoListView(content: SetsListView(items: collection.setsUI), searchText: $collection.searchSetsText, filter: $collection.setsFilter, title: "sets.title", isBarCode: true)
                         .tabItem {
                             VStack {
                                 Image.brick
@@ -31,7 +31,7 @@ struct AppRootView: View {
                         }
                     })
                         .tag(0)
-                    LegoListView(content: MinifigListView(), searchText: $collection.searchMinifigsText, filter: $collection.minifigFilter, title: "minifig.title")
+                    LegoListView(content: MinifigListView(), searchText: $collection.searchMinifigsText, filter: $collection.minifigFilter, title: "minifig.title", isBarCode: false)
                         .tabItem {
                             VStack {
                                 Image.minifig_head

@@ -18,6 +18,7 @@ struct LegoListView<ListView:View>: View {
     @Binding var searchText : String
     @Binding var filter : CollectionFilter
     var title : LocalizedStringKey
+    var isBarCode : Bool
     @State private var isShowingScanner = false
     var body: some View {
         NavigationView{
@@ -45,7 +46,15 @@ struct LegoListView<ListView:View>: View {
                 }
             }
             .navigationBarTitle(title)
-            .navigationBarItems(trailing: HStack(spacing:22){makeHeart();makeScanner()})
+            .navigationBarItems(trailing:
+                HStack(spacing:22){
+                    makeHeart()
+                    if isBarCode {
+                        makeScanner()
+                    }
+                    
+                }
+            )
         }
             .sheet(isPresented: $isShowingScanner) {
                 CodeScannerView(codeTypes: [.ean8, .ean13, .pdf417], completion: self.handleScan)
@@ -93,7 +102,7 @@ struct LegoListView<ListView:View>: View {
         Button(action: {
             self.isShowingScanner.toggle()
         }, label: {
-            Image(systemName: "xmark").modifier(BarButtonModifier())
+            Image(systemName: "barcode.viewfinder").modifier(BarButtonModifier())
         })
         
     }
