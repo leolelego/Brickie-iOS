@@ -32,11 +32,11 @@ struct LegoListView<ListView:View>: View {
                 content
                 
             }
+            .navigationBarHidden(showSearchBar)
             .navigationBarTitle(title)
             .navigationBarItems(trailing: HStack(spacing:22){makeHeart();makeSearchBarItem()})
             
 //            (leading: , trailing: )
-            .navigationBarHidden(showSearchBar)
         }.onAppear {
             tweakTableView(on:true)
         }.onDisappear {
