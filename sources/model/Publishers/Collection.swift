@@ -123,6 +123,8 @@ class UserCollection : ObservableObject{
             return sets.filter({$0.match(str)})
         }
     }
+    
+
     var minifigsUI : [LegoMinifig] {
         switch minifigFilter {
         case .wanted:
@@ -133,6 +135,7 @@ class UserCollection : ObservableObject{
             return minifigs.filter({$0.match(str)})
         }
     }
+
     enum SetCollectionAction {
         case want(Bool)
         case qty(Int)
@@ -217,18 +220,28 @@ extension UserCollection {
     }
     
     func append(_ new:[LegoMinifig]){
+        
+        
         DispatchQueue.main.async {
-            self.isLoadingData = false
             
-            self.objectWillChange.send()
-            for fig in new {
-                if let idx = self.minifigs.firstIndex(of: fig){
+            self.isLoadingData = false
+        }
+        var toAppend = [LegoMinifig]()
+        for fig in new {
+            if let idx = self.minifigs.firstIndex(of: fig){
+                DispatchQueue.main.async {
                     self.minifigs[idx].update(from: fig)
-                } else {
-                    self.minifigs.append(fig)
                 }
+            } else {
+                toAppend.append(fig)
             }
         }
+        DispatchQueue.main.async {
+            self.objectWillChange.send()
+            
+            self.minifigs.append(contentsOf: toAppend)
+        }
+        
     }
     
     // Remove set taht are NOT wanted
@@ -242,10 +255,8 @@ extension UserCollection {
         }
     }
     func updateOwned(with owned:[LegoMinifig]){
-        checkThread()
         
         DispatchQueue.main.async {
-            checkThread()
             self.objectWillChange.send()
             self.append(owned)
             for item in self.minifigs {
@@ -283,17 +294,26 @@ extension UserCollection {
 extension UserCollection {
     func append(_ new:[LegoSet]){
         DispatchQueue.main.async {
-            self.isLoadingData = false
             
-            self.objectWillChange.send()
-            for set in new {
-                if let idx = self.sets.firstIndex(of: set){
+            self.isLoadingData = false
+        }
+        var toAppend = [LegoSet]()
+        for set in new {
+            if let idx = self.sets.firstIndex(of: set){
+                DispatchQueue.main.async {
                     self.sets[idx].update(from: set)
-                } else {
-                    self.sets.append(set)
                 }
+            } else {
+                toAppend.append(set)
             }
         }
+        DispatchQueue.main.async {
+            self.objectWillChange.send()
+            
+            self.sets.append(contentsOf: toAppend)
+        }
+        
+        
         
     }
     
@@ -369,25 +389,37 @@ extension UserCollection {
     func loadFromBack(){
         DispatchQueue.global(qos: .utility).async {
             let persistance = PersistentData()
-              if let data = persistance[Key.setsBackupURL] {
-                  do {
-                      let items = try JSONDecoder().decode([LegoSet].self, from: data)
+            if let data = persistance[Key.setsBackupURL] {
+                do {
+                    let items = try JSONDecoder().decode([LegoSet].self, from: data)
                     self.append(items)
-                      
-                  } catch {
-                      logerror(error)
-                  }
-              }
-              if let data = persistance[Key.figsBackupURL] {
-                  do {
-                      let items = try JSONDecoder().decode([LegoMinifig].self, from: data)
-                       self.append(items)
-                  } catch {
-                      logerror(error)
-                  }
-              }
+                    
+                } catch {
+                    logerror(error)
+                }
+            }
+            if let data = persistance[Key.figsBackupURL] {
+                do {
+                    let items = try JSONDecoder().decode([LegoMinifig].self, from: data)
+                    self.append(items)
+                } catch {
+                    logerror(error)
+                }
+            }
         }
-  
         
+        
+    }
+    
+    
+    
+    func reset(){
+        PersistentData().free()
+        DataCache().free()
+        
+        self.minifigs = [LegoMinifig]()
+        self.sets = [LegoSet]()
+        synchronizeFigs()
+        synchronizeSets()
     }
 }

@@ -64,10 +64,10 @@ struct SettingsView: View {
                         Button(action: {
                             UIApplication.shared.open(c.link)
                         }) {
-                                      HStack {
-                                                  c.image
-                                                  Text(c.text)
-                                              }
+                            HStack {
+                                c.image
+                                Text(c.text)
+                            }
                         }
                     }
                     
@@ -86,6 +86,21 @@ struct SettingsView: View {
                         }
                     }
                 }
+//                if config.connection != .unavailable {
+//                    Section(header: Text("settings.dangerzone")) {
+//                        HStack{
+//                            
+//                            Text("settings.cache").font(.title)
+//                            Spacer()
+//                            Button(action: {
+//                                self.collection.reset()
+//                            }) {
+//                                Text( "settings.free")
+//                                    .fontWeight(.bold)
+//                            }.buttonStyle(RoundedButtonStyle(backgroundColor: .red, padding:8))
+//                        }
+//                    }
+//                }
                 
                 
             }.listStyle(GroupedListStyle())

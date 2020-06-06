@@ -17,34 +17,26 @@ struct LegoListView<ListView:View>: View {
     @State var animate : Bool = false
     @Binding var searchText : String
     @Binding var filter : CollectionFilter
+    
     var title : LocalizedStringKey
     var isBarCode : Bool
+    
     @State private var isShowingScanner = false
     var body: some View {
         NavigationView{
-            Group{
-                if collection.setsUI.count == 0 {
-                    VStack(alignment: .center) {
-                        SearchField(searchText: $searchText,isActive: $showSearchBar).padding(.horizontal,16).transition(.opacity)
-                        makeLoading()
-                        if !collection.isLoadingData {
-                            Text("sets.noitems").font(.largeTitle).bold().transition(.opacity)
-                        }
-                        Spacer()
-                    }
-                } else {
-                    
-                    List {
-                        SearchField(searchText: $searchText,isActive: $showSearchBar).padding(.horizontal,16)
-                            .listRowInsets(EdgeInsets(top: 0, leading: -16, bottom: 0, trailing: -16))
-                        
-                        content.listRowInsets(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
-                        makeLoading()
-                        
-                    }
-                    .listStyle(GroupedListStyle()).environment(\.horizontalSizeClass, .regular).transition(.opacity)
-                }
+            
+            
+            List {
+                SearchField(searchText: $searchText,isActive: $showSearchBar).padding(.horizontal,16)
+                    .listRowInsets(EdgeInsets(top: 0, leading: -16, bottom: 0, trailing: -16))
+                
+                content.listRowInsets(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
+                makeLoading().transition(.opacity)
+                
             }
+            .listStyle(GroupedListStyle()).environment(\.horizontalSizeClass, .regular).transition(.opacity)
+                
+                
             .navigationBarTitle(title)
             .navigationBarItems(trailing:
                 HStack(spacing:22){
@@ -56,9 +48,9 @@ struct LegoListView<ListView:View>: View {
                 }
             )
         }
-            .sheet(isPresented: $isShowingScanner) {
-                CodeScannerView(codeTypes: [.ean8, .ean13, .pdf417], completion: self.handleScan)
-            }
+        .sheet(isPresented: $isShowingScanner) {
+            CodeScannerView(codeTypes: [.ean8, .ean13, .pdf417], completion: self.handleScan)
+        }
         .onAppear {
             tweakTableView(on:true)
         }.onDisappear {
@@ -69,20 +61,30 @@ struct LegoListView<ListView:View>: View {
     }
     
     func handleScan(result: Result<String, CodeScannerView.ScanError>) {
-       self.isShowingScanner = false
-       switch result {
-       case .success(let code):
+        self.isShowingScanner = false
+        switch result {
+        case .success(let code):
             searchText = code
-       case .failure(let error):
-           logerror(error)
-       }
+        case .failure(let error):
+            logerror(error)
+        }
     }
     
     func makeLoading() -> some View {
         Group {
             if collection.isLoadingData  {
-                Text("sets.searching").font(.largeTitle).bold()
-                Image.brick(height: 22).modifier(RotateAnimation())
+                Spacer()
+                
+                HStack {
+                    Spacer()
+                    VStack{
+                        Text("sets.searching").font(.largeTitle).bold()
+                        Image.brick(height: 22).modifier(RotateAnimation())
+                    }
+                    Spacer()
+                    
+                }
+                
             }
             else {
                 EmptyView()
@@ -106,7 +108,7 @@ struct LegoListView<ListView:View>: View {
         })
         
     }
-
+    
     func makeSearchBarItem() -> some View{
         Button(action: {
             withAnimation {

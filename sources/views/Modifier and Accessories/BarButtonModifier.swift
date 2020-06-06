@@ -47,7 +47,7 @@ struct RotateAnimation: ViewModifier {
     func body(content: Content) -> some View {
         HStack {
             content.foregroundColor(.red)
-                .offset(y: animate ? 0 : 15)
+                .offset(y: animate ? 0 : 20)
                 .animation(Animation.interpolatingSpring(stiffness: 170, damping: 5)
                     .repeatForever(autoreverses: false)
             )
@@ -55,7 +55,7 @@ struct RotateAnimation: ViewModifier {
                     self.animate.toggle()
             }
             content.foregroundColor(.yellow)
-                .offset(y: animate1 ? 0 : 15)
+                .offset(y: animate1 ? 0 : 20)
                 .animation(Animation.interpolatingSpring(stiffness: 170, damping: 5)
                     .repeatForever(autoreverses: false)
                     .delay(0.1)
@@ -64,7 +64,7 @@ struct RotateAnimation: ViewModifier {
                     self.animate1.toggle()
             }
             content.foregroundColor(.blue)
-                .offset(y: animate2 ? 0 : 15)
+                .offset(y: animate2 ? 0 : 20)
                 .animation(Animation.interpolatingSpring(stiffness: 170, damping: 5)
                     .repeatForever(autoreverses: false)
                     .delay(0.2)
@@ -74,7 +74,7 @@ struct RotateAnimation: ViewModifier {
                     self.animate2.toggle()
             }
             content.foregroundColor(.purple)
-                .offset(y: animate3 ? 0 : 15)
+                .offset(y: animate3 ? 0 : 20)
                 .animation(Animation.interpolatingSpring(stiffness: 170, damping: 5)
                     .repeatForever(autoreverses: false)
                     .delay(0.3)
@@ -84,7 +84,7 @@ struct RotateAnimation: ViewModifier {
                     self.animate3.toggle()
             }
             content.foregroundColor(.green)
-                .offset(y: animate4 ? 0 : 15)
+                .offset(y: animate4 ? 0 : 20)
                 .animation(Animation.interpolatingSpring(stiffness: 170, damping: 5)
                     .repeatForever(autoreverses: false)
                     .delay(0.4)
