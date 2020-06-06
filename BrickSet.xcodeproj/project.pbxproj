@@ -158,13 +158,6 @@
 			path = Cache;
 			sourceTree = "<group>";
 		};
-		96351F55248BC06800372A03 /* Theme List */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = "Theme List";
-			sourceTree = "<group>";
-		};
 		964BA87B246A349B00984DCC /* data */ = {
 			isa = PBXGroup;
 			children = (
@@ -221,7 +214,6 @@
 		96DE9257245FB48D00652E0E /* SetList */ = {
 			isa = PBXGroup;
 			children = (
-				96351F55248BC06800372A03 /* Theme List */,
 				9624E38A2471F2D1002F68F7 /* SetsListView.swift */,
 				967ED17A24607BD4004712DB /* SetListCell.swift */,
 				96DE9246245F3DD800652E0E /* SetDetailView.swift */,
