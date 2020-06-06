@@ -13,26 +13,14 @@ struct MinifigListView: View {
     @Environment(\.horizontalSizeClass) var horizontalSizeClass : UserInterfaceSizeClass?
     
     var body: some View {
-        Group {
-            if collection.minifigsUI.count == 0 {
-                Text("sets.noitems").font(.largeTitle).bold()
-                Spacer()
-            } else {
-                
-                List {
-                    ForEach(sections(for: collection.minifigsUI ), id: \.self){ theme in
-                        Section(header:
-                            Text(theme).roundText
-                                .padding(.leading, -12)
-                                .padding(.bottom, -28)
-                        ) {
-                            self.makeSection(theme)
-                        }
-                    }.listRowInsets(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
-                }
-                .listStyle(GroupedListStyle()).environment(\.horizontalSizeClass, .regular)
-                
-                
+        
+        ForEach(sections(for: collection.minifigsUI ), id: \.self){ theme in
+            Section(header:
+                Text(theme).roundText
+                    .padding(.leading, -12)
+                    .padding(.bottom, -28)
+            ) {
+                self.makeSection(theme)
             }
         }
         
@@ -51,8 +39,8 @@ struct MinifigListView: View {
         return ForEach(values) { value in
             
             NavigationLink(destination: MinifigDetailView(minifig: value)){
-                MinifigCell(minifig:value)
-            } .padding(.vertical, 8)
+                MinifigCell(minifig:value).id(value.minifigNumber).transition(.opacity)
+            } .padding(.vertical, 8).background(Color.background)
         }
         
     }

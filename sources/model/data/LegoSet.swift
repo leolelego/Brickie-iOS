@@ -20,7 +20,7 @@ class LegoSet : Lego {
     var year : Int = 0
     
     var theme : String = ""
-    var themeGroup : String = ""
+    var themeGroup : String? = ""
     var subtheme : String? = ""
     var category : String = ""
 //    var released : Bool = true
@@ -32,7 +32,7 @@ class LegoSet : Lego {
     let rating : Float
     let instructionsCount : Float
     let LEGOCom : [String:LegoSetPrice]
-    
+    let barcode : LegoBarCode?
     var price : String? {
         return fomatter.string(for: LEGOCom["US"]?.retailPrice) 
     }
@@ -52,10 +52,11 @@ class LegoSet : Lego {
         let matched = name.lowercased().contains(lower)
             || number.lowercased().contains(lower)
             || theme.lowercased().contains(lower)
-            || themeGroup.lowercased().contains(lower)
+            || themeGroup?.lowercased().contains(lower) ?? false
             ||   subtheme?.lowercased().contains(lower) ?? false
             || category.lowercased().contains(lower)
             || "\(year)".lowercased().contains(lower)
+            || barcode?.EAN?.contains(lower) ?? false
         
         return matched
     }
@@ -98,4 +99,8 @@ struct LegoSetPrice : Codable {
 struct LegoInstruction : Codable {
     let URL : String
     let description : String
+}
+
+struct LegoBarCode : Codable {
+    let EAN : String?
 }
