@@ -34,6 +34,7 @@ struct SearchField: View {
                 .font(.headline)
                 .accentColor(.red)
             }
+            if !searchText.isEmpty {
                 Button(action: {
                     self.searchText = ""
                     self.isActive = false
@@ -42,7 +43,9 @@ struct SearchField: View {
                         .font(.headline)
                         .foregroundColor(.background)
                         .imageScale(.large)
-                }.buttonStyle(BorderlessButtonStyle())
+                }.buttonStyle(BorderlessButtonStyle()).transition(.opacity)
+            }
+
         }
         .padding(8)
         .background(Color.backgroundAlt)

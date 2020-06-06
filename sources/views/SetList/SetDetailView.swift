@@ -19,10 +19,12 @@ struct SetDetailView: View {
     var body: some View {
         ScrollView( showsIndicators: false){
             makeThumbnail()
-            makeThemes()
+            makeThemes().zIndex(999)
+
             Spacer()
-            makeHeader()
+            makeHeader().zIndex(0)
             Divider()
+
             makeButtons()
             makeImages()
             makeInstructions()
@@ -43,7 +45,7 @@ struct SetDetailView: View {
             }
             
         }
-
+            
         .navigationBarTitle("", displayMode: .inline)
         .navigationBarItems(trailing: ShareNavButton(items: [URL(string:set.bricksetURL)!]))
         
@@ -63,23 +65,22 @@ struct SetDetailView: View {
     }
     func makeThemes() -> some View{
         HStack(spacing: 8){
-            
-            Button(action: {
-            }, label: {
+            NavigationLink(destination: SetsFilteredView(theme: set.theme)) {
                 Text( set.theme).roundText
-            })
+            }
             if set.subtheme != nil {
                 Text(">")
-                Button(action: {
-                }, label: {
+                
+                NavigationLink(destination: SetsFilteredView(theme: set.subtheme!)) {
                     Text( set.subtheme!).roundText
-                })
+                }
             }
             Spacer()
-            Button(action: {
-            }, label: {
+            
+            
+            NavigationLink(destination: SetsFilteredView(theme: "\(set.year)")) {
                 Text("\(set.year)").roundText
-            })
+            }
         }.padding(.horizontal)
     }
     func makeHeader() -> some View{
@@ -92,8 +93,9 @@ struct SetDetailView: View {
             }
             .foregroundColor(Color.backgroundAlt)
             .padding(.vertical,8).padding(.horizontal,6)
-            .background(BackgroundImageView(imagePath: set.image.imageURL)).clipped().modifier(RoundedShadowMod())
+            .background(BackgroundImageView(imagePath: set.image.imageURL)).modifier(RoundedShadowMod())
             .foregroundColor(Color.background)
+            .clipped()
             
             HStack(alignment: .bottom){
                 Text("\(set.pieces ?? 0)").font(.headline)
@@ -104,7 +106,6 @@ struct SetDetailView: View {
                 Text(set.price ?? "").font(.title).bold()
             }
         }.padding(.horizontal)
-            .frame(minWidth: 0, maxWidth: .infinity,alignment: .leading)
     }
     func makeButtons() -> some View {
         SetEditorView(set: set).padding(.horizontal)

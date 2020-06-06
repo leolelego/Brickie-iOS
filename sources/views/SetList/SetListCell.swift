@@ -13,7 +13,6 @@ let kCellHeight : CGFloat = 150
 struct SetListCell : View {
     @ObservedObject var set : LegoSet
     var body: some View {
-//        GeometryReader { geo in
             ZStack(alignment: .bottomTrailing){
                 self.makeInfos()
                 self.makePastil()
@@ -22,12 +21,7 @@ struct SetListCell : View {
                 BackgroundImageView(imagePath: self.set.image.imageURL))
                 .frame(maxWidth: .infinity/*,minHeight:geo.size.height*/)
                 .modifier(RoundedShadowMod())
-            
-            
-//                .scaleEffect(self.bottomSizeFactor(geo: geo), anchor: .bottom)
-//                .scaleEffect(self.topSizeFactor(geo: geo), anchor: .top)
 
-//        }.frame(minHeight:120, maxHeight:kCellHeight)
     }
     
     func  bottomSizeFactor(geo:GeometryProxy, height:CGFloat = kCellHeight) -> CGFloat {
