@@ -129,15 +129,6 @@ enum APIRouter<T:Any> {
     
 }
 
-func checkThread(){
-    if Thread.isMainThread {
-        print("--- MAIN THREAD ---")
-        
-    } else {
-        print("--- NOT MAIN THREAD ---")
-
-    }
-}
 
 extension APIRouter {
     private func response(completion: @escaping (Result<Any,Error>) -> Void){
@@ -161,7 +152,6 @@ extension APIRouter {
                     completion(.failure(APIError.invalid))
                     return
             }
-            checkThread()
             completion(.success(jsonObj))
             
         }.resume()
@@ -182,7 +172,6 @@ extension APIRouter {
                         completion(.failure(APIError.invalid))
                         return
                 }
-                checkThread()
 
                 completion(.success(items))
                 break
@@ -198,7 +187,6 @@ extension APIRouter {
                     
                     let json = try JSONSerialization.data(withJSONObject: object, options: [])
                     let items = try JSONDecoder().decode(ofType.self, from: json)
-                    checkThread()
 
                     completion(items)
                 } catch let DecodingError.dataCorrupted(context) {

@@ -13,14 +13,19 @@ struct MinifigListView: View {
     @Environment(\.horizontalSizeClass) var horizontalSizeClass : UserInterfaceSizeClass?
     
     var body: some View {
-        
-        ForEach(sections(for: collection.minifigsUI ), id: \.self){ theme in
-            Section(header:
-                Text(theme).roundText
-                    .padding(.leading, -12)
-                    .padding(.bottom, -28)
-            ) {
-                self.makeSection(theme)
+        Group {
+            if collection.minifigsUI.count == 0 && !collection.isLoadingData {
+                Text("sets.noitems").font(.largeTitle).bold().transition(.opacity)
+            } else {
+                ForEach(sections(for: collection.minifigsUI ), id: \.self){ theme in
+                    Section(header:
+                        Text(theme).roundText
+                            .padding(.leading, -12)
+                            .padding(.bottom, -28)
+                    ) {
+                        self.makeSection(theme)
+                    }
+                }
             }
         }
         
