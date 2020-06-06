@@ -99,7 +99,7 @@
 		96DE924D245F696700652E0E /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
 		96DE9252245F8A6800652E0E /* Blur.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Blur.swift; sourceTree = "<group>"; };
 		96DE9255245FA7BC00652E0E /* RoundedCorners.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedCorners.swift; sourceTree = "<group>"; };
-		96E78B78245CAC270032F4E3 /* BrickSet.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BrickSet.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		96E78B78245CAC270032F4E3 /* Emmet.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Emmet.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		96E78B7B245CAC270032F4E3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		96E78B7D245CAC270032F4E3 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		96E78B81245CAC290032F4E3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -229,7 +229,7 @@
 		96E78B79245CAC270032F4E3 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				96E78B78245CAC270032F4E3 /* BrickSet.app */,
+				96E78B78245CAC270032F4E3 /* Emmet.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -334,7 +334,7 @@
 				96851E022473389800D9F803 /* Reachability */,
 			);
 			productName = BrickSet;
-			productReference = 96E78B78245CAC270032F4E3 /* BrickSet.app */;
+			productReference = 96E78B78245CAC270032F4E3 /* Emmet.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -598,8 +598,8 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = family.homework.brickset;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = family.homework.brickset.dev;
+				PRODUCT_NAME = Emmet;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "";
 				SUPPORTS_MACCATALYST = NO;
@@ -624,7 +624,7 @@
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = family.homework.brickset;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = Emmet;
 				PROVISIONING_PROFILE_SPECIFIER = "match AppStore family.homework.brickset";
 				SUPPORTS_MACCATALYST = NO;
 				SWIFT_VERSION = 5.0;

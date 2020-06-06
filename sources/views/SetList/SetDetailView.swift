@@ -43,9 +43,9 @@ struct SetDetailView: View {
             }
             
         }
+
         .navigationBarTitle("", displayMode: .inline)
         .navigationBarItems(trailing: ShareNavButton(items: [URL(string:set.bricksetURL)!]))
-        .navigationBarHidden(false)
         
     }
     
