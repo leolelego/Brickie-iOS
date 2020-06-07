@@ -22,14 +22,7 @@ struct SetAdditionalImageView: View {
 
             }
          
-//            Image("mask_head")
-//                .scaleEffect(scale)
-//                                    .gesture(MagnificationGesture()
-//                                        .onChanged { value in
-//                                            self.scale = value.magnitude
-//                                        }
-//                                    )
-                .navigationBarItems(trailing: Button(action: {self.isPresented.toggle()}, label: {    Image(systemName:"xmark").foregroundColor(.backgroundAlt)}))
+            .navigationBarItems(trailing: Button(action: {self.isPresented.toggle()}, label: {    Image(systemName:"xmark").foregroundColor(.backgroundAlt)}))
             .navigationBarHidden(false)
                 .edgesIgnoringSafeArea(.all)
            

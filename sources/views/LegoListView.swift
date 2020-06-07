@@ -31,7 +31,7 @@ struct LegoListView<ListView:View>: View {
                 makeLoading()//.transition(.opacity)
                 
             }
-            .listStyle(GroupedListStyle()).environment(\.horizontalSizeClass, .regular).transition(.opacity)
+            .listStyle(GroupedListStyle()).environment(\.horizontalSizeClass, .regular)
                 
                 
             .navigationBarTitle(title)
@@ -53,6 +53,7 @@ struct LegoListView<ListView:View>: View {
         }.onDisappear {
             tweakTableView(on:false)
         }
+        .navigationViewStyle(DoubleColumnNavigationViewStyle()).padding(.leading, 1)
             
         .modifier(DismissingKeyboardOnSwipe())
     }
