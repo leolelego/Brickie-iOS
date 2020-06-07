@@ -20,7 +20,7 @@ class UserCollection : ObservableObject{
     
     let keychain = KeychainSwift()
     
-    @Published private var sets = [LegoSet]()
+    @Published private(set) var sets = [LegoSet]()
     @Published private var minifigs = [LegoMinifig]()
     
     @Published var searchSetsText = ""
@@ -44,7 +44,6 @@ class UserCollection : ObservableObject{
     }
     
     
-    
     struct Key {
         static let username = "username"
         static let password = "password"
@@ -63,15 +62,16 @@ class UserCollection : ObservableObject{
         loadFromBack()
         isLoadingData = false
         searchSetsCancellable = $searchSetsText
-            .handleEvents(receiveOutput: { [weak self] _ in self?.isLoadingData = true })
+//            .handleEvents(receiveOutput: { /*[weak self]*/ _ in  })
             .debounce(for: .milliseconds(500), scheduler: DispatchQueue.main)
             .removeDuplicates()
-            .sink{ _ in
+            .sink{  _ in
                 if self.searchSetsText.isEmpty {
                     self.setsFilter = .owned
                     self.isLoadingData = false
                 } else {
-                    if try! Reachability().connection != . unavailable {
+                    if try! Reachability().connection != . unavailable && self.searchSetsText.count > 2 {
+                        self.isLoadingData = true
                         self.searchSets(text: self.searchSetsText)
                     } else {
                         self.isLoadingData = false
@@ -81,15 +81,16 @@ class UserCollection : ObservableObject{
         }
         
         searchMinifigsCancellable = $searchMinifigsText
-            .handleEvents(receiveOutput: { [weak self] _ in self?.isLoadingData = true })
+//            .handleEvents(receiveOutput: { [weak self] _ in  })
             .debounce(for: .milliseconds(1300), scheduler: DispatchQueue.main)
             .removeDuplicates()
-            .sink{ _ in
+            .sink{  _ in
                 if self.searchMinifigsText.isEmpty {
                     self.minifigFilter = .owned
                     self.isLoadingData = false
                 } else {
-                    if try! Reachability().connection != . unavailable {
+                    if try! Reachability().connection != . unavailable  && self.searchMinifigsText.count > 2 {
+                        self.isLoadingData = true
                         self.searchMinifigs(text: self.searchMinifigsText)
                     } else {
                         self.isLoadingData = false
@@ -123,6 +124,8 @@ class UserCollection : ObservableObject{
             return sets.filter({$0.match(str)})
         }
     }
+    
+    
     var minifigsUI : [LegoMinifig] {
         switch minifigFilter {
         case .wanted:
@@ -133,6 +136,7 @@ class UserCollection : ObservableObject{
             return minifigs.filter({$0.match(str)})
         }
     }
+    
     enum SetCollectionAction {
         case want(Bool)
         case qty(Int)
@@ -203,29 +207,31 @@ class UserCollection : ObservableObject{
 // MARK: Call for Figs
 
 extension UserCollection {
-    func synchronizeFigs(){
-        guard let token = user?.token else {return}
-        APIRouter<[[String:Any]]>.ownedFigs(token).decode(ofType: [LegoMinifig].self) { items in
-            self.updateOwned(with: items)
-        }
-        APIRouter<[[String:Any]]>.wantedFigs(token).decode(ofType: [LegoMinifig].self) { items in
-            self.updateWanted(with: items)
-        }
-    }
+    
     
     func append(_ new:[LegoMinifig]){
+        
+        
         DispatchQueue.main.async {
-            self.isLoadingData = false
             
-            self.objectWillChange.send()
-            for fig in new {
-                if let idx = self.minifigs.firstIndex(of: fig){
+            self.isLoadingData = false
+        }
+        var toAppend = [LegoMinifig]()
+        for fig in new {
+            if let idx = self.minifigs.firstIndex(of: fig){
+                DispatchQueue.main.async {
                     self.minifigs[idx].update(from: fig)
-                } else {
-                    self.minifigs.append(fig)
                 }
+            } else {
+                toAppend.append(fig)
             }
         }
+        DispatchQueue.main.async {
+            self.objectWillChange.send()
+            
+            self.minifigs.append(contentsOf: toAppend)
+        }
+        
     }
     
     // Remove set taht are NOT wanted
@@ -239,6 +245,7 @@ extension UserCollection {
         }
     }
     func updateOwned(with owned:[LegoMinifig]){
+        
         DispatchQueue.main.async {
             self.objectWillChange.send()
             self.append(owned)
@@ -247,7 +254,6 @@ extension UserCollection {
                 item.ownedLoose = dbItem?.ownedLoose ?? 0
                 item.ownedInSets = dbItem?.ownedLoose ?? 0
                 item.ownedTotal = dbItem?.ownedLoose ?? 0
-                
             }
         }
     }
@@ -278,17 +284,26 @@ extension UserCollection {
 extension UserCollection {
     func append(_ new:[LegoSet]){
         DispatchQueue.main.async {
-            self.isLoadingData = false
             
-            self.objectWillChange.send()
-            for set in new {
-                if let idx = self.sets.firstIndex(of: set){
+            self.isLoadingData = false
+        }
+        var toAppend = [LegoSet]()
+        for set in new {
+            if let idx = self.sets.firstIndex(of: set){
+                DispatchQueue.main.async {
                     self.sets[idx].update(from: set)
-                } else {
-                    self.sets.append(set)
                 }
+            } else {
+                toAppend.append(set)
             }
         }
+        DispatchQueue.main.async {
+            self.objectWillChange.send()
+            
+            self.sets.append(contentsOf: toAppend)
+        }
+        
+        
         
     }
     
@@ -311,23 +326,43 @@ extension UserCollection {
             }
         }
     }
-    func synchronizeSets(){
-        guard let token = user?.token else {return}
+    
+    func synchronize(force:Bool = false){
+        if force {
+            DispatchQueue.global(qos: .userInitiated).async {
+                self.sync()
+            }
+        }
+        else {
+            DispatchQueue.global(qos: .userInitiated).asyncDeduped(target: self, after: 45) {
+                self.sync()
+            }
+        }
+    }
+    private func sync() {
+        guard let token = user?.token  else {return}
+        
         APIRouter<[[String:Any]]>.ownedSets(token).decode(ofType: [LegoSet].self) { sets in
             self.updateOwned(with: sets)
+            
         }
         APIRouter<[[String:Any]]>.wantedSets(token).decode(ofType: [LegoSet].self) { sets in
             self.updateWanted(with: sets)
         }
         
+        APIRouter<[[String:Any]]>.ownedFigs(token).decode(ofType: [LegoMinifig].self) { items in
+            self.updateOwned(with: items)
+        }
+        APIRouter<[[String:Any]]>.wantedFigs(token).decode(ofType: [LegoMinifig].self) { items in
+            self.updateWanted(with: items)
+        }
+        
     }
     func searchSets(text:String){
         guard let token = user?.token else {return }
-        
         APIRouter<[[String:Any]]>.searchSets(token, text).decode(ofType: [LegoSet].self) { sets in
             self.append(sets)
         }
-        
     }
     
     func action(_ action:SetCollectionAction,on item:LegoSet){
@@ -361,45 +396,38 @@ extension UserCollection {
     }
     
     func loadFromBack(){
-        let persistance = PersistentData()
-        if let data = persistance[Key.setsBackupURL] {
-            do {
-                let items = try JSONDecoder().decode([LegoSet].self, from: data)
-                append(items)
-                
-            } catch {
-                logerror(error)
+        DispatchQueue.global(qos: .utility).async {
+            let persistance = PersistentData()
+            if let data = persistance[Key.setsBackupURL] {
+                do {
+                    let items = try JSONDecoder().decode([LegoSet].self, from: data)
+                    self.append(items)
+                    
+                } catch {
+                    logerror(error)
+                }
             }
-        }
-        if let data = persistance[Key.figsBackupURL] {
-            do {
-                let items = try JSONDecoder().decode([LegoMinifig].self, from: data)
-                append(items)
-            } catch {
-                logerror(error)
+            if let data = persistance[Key.figsBackupURL] {
+                do {
+                    let items = try JSONDecoder().decode([LegoMinifig].self, from: data)
+                    self.append(items)
+                } catch {
+                    logerror(error)
+                }
             }
         }
         
+        
+    }
+    
+    
+    
+    func reset(){
+        PersistentData().free()
+        DataCache().free()
+        
+        self.minifigs = [LegoMinifig]()
+        self.sets = [LegoSet]()
+        synchronize()
     }
 }
-//func load<T: Decodable>(_ filename: String) -> T {
-//    let data: Data
-//
-//    guard let file = Bundle.main.url(forResource: filename, withExtension: nil)
-//        else {
-//            fatalError("Couldn't find \(filename) in main bundle.")
-//    }
-//
-//    do {
-//        data = try Data(contentsOf: file)
-//    } catch {
-//        fatalError("Couldn't load \(filename) from main bundle:\n\(error)")
-//    }
-//
-//    do {
-//        let decoder = JSONDecoder()
-//        return try decoder.decode(T.self, from: data)
-//    } catch {
-//        fatalError("Couldn't parse \(filename) as \(T.self):\n\(error)")
-//    }
-//}

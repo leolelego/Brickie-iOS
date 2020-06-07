@@ -28,9 +28,9 @@ extension Image {
     public static func brick(height:CGFloat) -> some View {
         Image("lego_brick").resizable().frame(width: height*47.0/43.0, height: height)  // 35 × 41 pixels
     }
-    public static func mask_head(height:CGFloat) -> some View {
-        Image("mask_head").resizable().frame(width: height*20.95/31.1, height: height)  // 35 × 41 pixels
-     }
+    
+    
+
 }
 
 extension Font {

@@ -19,19 +19,16 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         tweakThatShit()
-        
+        self.collection.synchronize(force: true)
+
         networkCancellable = config.$connection
-            .debounce(for: .milliseconds(500), scheduler: DispatchQueue.main)
+            .debounce(for: .seconds(2), scheduler: DispatchQueue.main)
             .filter{ !$0.cantUpdateDB }
             .sink { [weak self] connection in
-                self?.collection.synchronizeFigs()
-                self?.collection.synchronizeSets()
+                self?.collection.synchronize()
 
             }
 
-//        reachability.objectWillChange.sink { _ in
-//            self.collection.synchronizeFigs()
-//        }
         if let windowScene = scene as? UIWindowScene {
             let window = UIWindow(windowScene: windowScene)
             window.rootViewController = UIHostingController(rootView: AppRootView().environmentObject(collection).environmentObject(config))

@@ -19,7 +19,7 @@ struct AppRootView: View {
                 
             } else {
                 TabView(selection: $selection){
-                    LegoListView(content: SetsListView(), searchText: $collection.searchSetsText, filter: $collection.setsFilter, title: "sets.title")
+                    LegoListView(content: SetsListView(items: collection.setsUI), searchText: $collection.searchSetsText, filter: $collection.setsFilter, title: "sets.title", isBarCode: true)
                         .tabItem {
                             VStack {
                                 Image.brick
@@ -27,24 +27,24 @@ struct AppRootView: View {
                             }
                     }.onAppear(perform: {
                         if self.config.connection != .unavailable {
-                            self.collection.synchronizeSets()
+                            self.collection.synchronize()
                         }
                     })
-                    .tag(0)
-                    LegoListView(content: MinifigListView(), searchText: $collection.searchMinifigsText, filter: $collection.minifigFilter, title: "minifig.title") //.navigationViewStyle(StackNavigationViewStyle())
+                        .tag(0)
+                    LegoListView(content: MinifigListView(), searchText: $collection.searchMinifigsText, filter: $collection.minifigFilter, title: "minifig.title", isBarCode: false)
                         .tabItem {
                             VStack {
                                 Image.minifig_head
                                 Text("minifig.tab")
                             }
                     }.onAppear(perform: {
-                        if self.config.connection != .unavailable {
-
-                        self.collection.synchronizeFigs()
-                            }
-
+//                        if self.config.connection != .unavailable {
+//                            
+//                            self.collection.synchronize()
+//                        }
+                        
                     })
-                    .tag(1)
+                        .tag(1)
                     SettingsView()
                         .tabItem {
                             VStack {

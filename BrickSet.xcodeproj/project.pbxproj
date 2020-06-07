@@ -14,6 +14,9 @@
 		960FAD8024677F250064B458 /* PDFKitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960FAD7F24677F250064B458 /* PDFKitView.swift */; };
 		960FAD8224677FD70064B458 /* PDFView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960FAD8124677FD70064B458 /* PDFView.swift */; };
 		9610E5C82479815F00E31B57 /* SetAdditionalImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9610E5C72479815F00E31B57 /* SetAdditionalImageView.swift */; };
+		961415E9248BD0620059EEF6 /* CodeScanner in Frameworks */ = {isa = PBXBuildFile; productRef = 961415E8248BD0620059EEF6 /* CodeScanner */; };
+		961415EB248BD0D20059EEF6 /* ScannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 961415EA248BD0D20059EEF6 /* ScannerView.swift */; };
+		961415ED248C17710059EEF6 /* DispatchQueue+Dedupe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 961415EC248C17710059EEF6 /* DispatchQueue+Dedupe.swift */; };
 		9624E38124718DC4002F68F7 /* EnvironmentValues.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9624E37D24718DC4002F68F7 /* EnvironmentValues.swift */; };
 		9624E38324718DC4002F68F7 /* Cache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9624E37F24718DC4002F68F7 /* Cache.swift */; };
 		9624E38424718DC4002F68F7 /* AsyncImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9624E38024718DC4002F68F7 /* AsyncImage.swift */; };
@@ -23,6 +26,7 @@
 		9624E38D2471F3B5002F68F7 /* FigsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9624E38C2471F3B5002F68F7 /* FigsListView.swift */; };
 		9624E38F2471F79B002F68F7 /* RoundedText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9624E38E2471F79B002F68F7 /* RoundedText.swift */; };
 		9624E3912471F904002F68F7 /* MinifigCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9624E3902471F904002F68F7 /* MinifigCell.swift */; };
+		96351F57248BC09700372A03 /* SetsFilteredView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96351F56248BC09700372A03 /* SetsFilteredView.swift */; };
 		96365E6B246863BC00F318C3 /* SearchField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96365E6A246863BC00F318C3 /* SearchField.swift */; };
 		96365E6E2468700900F318C3 /* AdaptsToSoftwareKeyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96365E6C2468700800F318C3 /* AdaptsToSoftwareKeyboard.swift */; };
 		96365E6F2468700900F318C3 /* DismissingKeyboardOnSwipe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96365E6D2468700900F318C3 /* DismissingKeyboardOnSwipe.swift */; };
@@ -70,6 +74,8 @@
 		960FAD7F24677F250064B458 /* PDFKitView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PDFKitView.swift; sourceTree = "<group>"; };
 		960FAD8124677FD70064B458 /* PDFView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PDFView.swift; sourceTree = "<group>"; };
 		9610E5C72479815F00E31B57 /* SetAdditionalImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetAdditionalImageView.swift; sourceTree = "<group>"; };
+		961415EA248BD0D20059EEF6 /* ScannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScannerView.swift; sourceTree = "<group>"; };
+		961415EC248C17710059EEF6 /* DispatchQueue+Dedupe.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "DispatchQueue+Dedupe.swift"; sourceTree = "<group>"; };
 		9624E37D24718DC4002F68F7 /* EnvironmentValues.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnvironmentValues.swift; sourceTree = "<group>"; };
 		9624E37F24718DC4002F68F7 /* Cache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Cache.swift; sourceTree = "<group>"; };
 		9624E38024718DC4002F68F7 /* AsyncImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AsyncImage.swift; sourceTree = "<group>"; };
@@ -79,6 +85,7 @@
 		9624E38C2471F3B5002F68F7 /* FigsListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FigsListView.swift; sourceTree = "<group>"; };
 		9624E38E2471F79B002F68F7 /* RoundedText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedText.swift; sourceTree = "<group>"; };
 		9624E3902471F904002F68F7 /* MinifigCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MinifigCell.swift; sourceTree = "<group>"; };
+		96351F56248BC09700372A03 /* SetsFilteredView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetsFilteredView.swift; sourceTree = "<group>"; };
 		96365E6A246863BC00F318C3 /* SearchField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchField.swift; sourceTree = "<group>"; };
 		96365E6C2468700800F318C3 /* AdaptsToSoftwareKeyboard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdaptsToSoftwareKeyboard.swift; sourceTree = "<group>"; };
 		96365E6D2468700900F318C3 /* DismissingKeyboardOnSwipe.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DismissingKeyboardOnSwipe.swift; sourceTree = "<group>"; };
@@ -99,7 +106,7 @@
 		96DE924D245F696700652E0E /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
 		96DE9252245F8A6800652E0E /* Blur.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Blur.swift; sourceTree = "<group>"; };
 		96DE9255245FA7BC00652E0E /* RoundedCorners.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedCorners.swift; sourceTree = "<group>"; };
-		96E78B78245CAC270032F4E3 /* BrickSet.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BrickSet.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		96E78B78245CAC270032F4E3 /* Emmet.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Emmet.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		96E78B7B245CAC270032F4E3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		96E78B7D245CAC270032F4E3 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		96E78B81245CAC290032F4E3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -127,6 +134,7 @@
 			files = (
 				96E78BA4245CC7700032F4E3 /* KeychainSwift in Frameworks */,
 				96851E032473389800D9F803 /* Reachability in Frameworks */,
+				961415E9248BD0620059EEF6 /* CodeScanner in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -213,6 +221,7 @@
 				96DE9246245F3DD800652E0E /* SetDetailView.swift */,
 				960FAD8124677FD70064B458 /* PDFView.swift */,
 				960FAD58246729EE0064B458 /* SetEditorView.swift */,
+				96351F56248BC09700372A03 /* SetsFilteredView.swift */,
 				9610E5C72479815F00E31B57 /* SetAdditionalImageView.swift */,
 			);
 			path = SetList;
@@ -229,7 +238,7 @@
 		96E78B79245CAC270032F4E3 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				96E78B78245CAC270032F4E3 /* BrickSet.app */,
+				96E78B78245CAC270032F4E3 /* Emmet.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -248,6 +257,7 @@
 		96E78B90245CACA20032F4E3 /* model */ = {
 			isa = PBXGroup;
 			children = (
+				961415EC248C17710059EEF6 /* DispatchQueue+Dedupe.swift */,
 				9624E38524718FE4002F68F7 /* Cache */,
 				964BA87D246A34C400984DCC /* Publishers */,
 				964BA87C246A34AD00984DCC /* APIs */,
@@ -271,6 +281,7 @@
 				96ED04D4246823BD00C3A8BA /* Minifig */,
 				96E78BB9245CEA1D0032F4E3 /* SettingsView.swift */,
 				96365E6A246863BC00F318C3 /* SearchField.swift */,
+				961415EA248BD0D20059EEF6 /* ScannerView.swift */,
 			);
 			path = views;
 			sourceTree = "<group>";
@@ -332,9 +343,10 @@
 			packageProductDependencies = (
 				96E78BA3245CC7700032F4E3 /* KeychainSwift */,
 				96851E022473389800D9F803 /* Reachability */,
+				961415E8248BD0620059EEF6 /* CodeScanner */,
 			);
 			productName = BrickSet;
-			productReference = 96E78B78245CAC270032F4E3 /* BrickSet.app */;
+			productReference = 96E78B78245CAC270032F4E3 /* Emmet.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -365,6 +377,7 @@
 			packageReferences = (
 				96E78BA2245CC7700032F4E3 /* XCRemoteSwiftPackageReference "keychain-swift" */,
 				96851E012473389800D9F803 /* XCRemoteSwiftPackageReference "Reachability.swift" */,
+				961415E7248BD0620059EEF6 /* XCRemoteSwiftPackageReference "CodeScanner" */,
 			);
 			productRefGroup = 96E78B79245CAC270032F4E3 /* Products */;
 			projectDirPath = "";
@@ -408,6 +421,7 @@
 				96E78BA1245CC5AA0032F4E3 /* Configuration.swift in Sources */,
 				9610E5C82479815F00E31B57 /* SetAdditionalImageView.swift in Sources */,
 				960FAD8024677F250064B458 /* PDFKitView.swift in Sources */,
+				961415ED248C17710059EEF6 /* DispatchQueue+Dedupe.swift in Sources */,
 				96E78BC2245D15220032F4E3 /* Secrets.swift in Sources */,
 				96E78BAE245CCED40032F4E3 /* APIHelpers.swift in Sources */,
 				96365E6F2468700900F318C3 /* DismissingKeyboardOnSwipe.swift in Sources */,
@@ -417,6 +431,7 @@
 				96851E0724734D3A00D9F803 /* MinifigDetailView.swift in Sources */,
 				96E78B98245CB1120032F4E3 /* RoundedButtonStyle.swift in Sources */,
 				9624E3912471F904002F68F7 /* MinifigCell.swift in Sources */,
+				961415EB248BD0D20059EEF6 /* ScannerView.swift in Sources */,
 				9624E38F2471F79B002F68F7 /* RoundedText.swift in Sources */,
 				96365E6E2468700900F318C3 /* AdaptsToSoftwareKeyboard.swift in Sources */,
 				96DE924C245F695100652E0E /* Assets.swift in Sources */,
@@ -428,6 +443,7 @@
 				964BA87F246A34D700984DCC /* Router.swift in Sources */,
 				96365E6B246863BC00F318C3 /* SearchField.swift in Sources */,
 				9624E38324718DC4002F68F7 /* Cache.swift in Sources */,
+				96351F57248BC09700372A03 /* SetsFilteredView.swift in Sources */,
 				960FAD59246729EE0064B458 /* SetEditorView.swift in Sources */,
 				9624E3892471E66B002F68F7 /* Lego.swift in Sources */,
 				96E78BB4245CE61A0032F4E3 /* AppRoot.swift in Sources */,
@@ -598,8 +614,8 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = family.homework.brickset;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = family.homework.brickset.dev;
+				PRODUCT_NAME = Emmet;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "";
 				SUPPORTS_MACCATALYST = NO;
@@ -624,7 +640,7 @@
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = family.homework.brickset;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = Emmet;
 				PROVISIONING_PROFILE_SPECIFIER = "match AppStore family.homework.brickset";
 				SUPPORTS_MACCATALYST = NO;
 				SWIFT_VERSION = 5.0;
@@ -656,6 +672,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		961415E7248BD0620059EEF6 /* XCRemoteSwiftPackageReference "CodeScanner" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/twostraws/CodeScanner";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.6;
+			};
+		};
 		96851E012473389800D9F803 /* XCRemoteSwiftPackageReference "Reachability.swift" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/ashleymills/Reachability.swift.git";
@@ -675,6 +699,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		961415E8248BD0620059EEF6 /* CodeScanner */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 961415E7248BD0620059EEF6 /* XCRemoteSwiftPackageReference "CodeScanner" */;
+			productName = CodeScanner;
+		};
 		96851E022473389800D9F803 /* Reachability */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 96851E012473389800D9F803 /* XCRemoteSwiftPackageReference "Reachability.swift" */;
