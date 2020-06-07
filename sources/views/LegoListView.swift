@@ -24,14 +24,11 @@ struct LegoListView<ListView:View>: View {
     @State private var isShowingScanner = false
     var body: some View {
         NavigationView{
-            
-            
             List {
                 SearchField(searchText: $searchText,isActive: $showSearchBar).padding(.horizontal,16)
                     .listRowInsets(EdgeInsets(top: 0, leading: -16, bottom: 0, trailing: -16))
-                
                 content.listRowInsets(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
-                makeLoading().transition(.opacity)
+                makeLoading()//.transition(.opacity)
                 
             }
             .listStyle(GroupedListStyle()).environment(\.horizontalSizeClass, .regular).transition(.opacity)
@@ -72,7 +69,7 @@ struct LegoListView<ListView:View>: View {
     
     func makeLoading() -> some View {
         Group {
-            if collection.isLoadingData  {
+            if collection.isLoadingData   {
                 Spacer()
                 
                 HStack {

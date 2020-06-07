@@ -22,7 +22,6 @@ struct SetsListView: View {
                     Spacer()
                     Text("sets.noitems").font(.largeTitle).bold().transition(.opacity).transition(.opacity)
                     Spacer()
-
                 }
             } else {
                 ForEach(sections(for:  items ), id: \.self){ theme in

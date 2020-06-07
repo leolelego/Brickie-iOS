@@ -27,7 +27,7 @@ struct AppRootView: View {
                             }
                     }.onAppear(perform: {
                         if self.config.connection != .unavailable {
-                            self.collection.synchronizeSets()
+                            self.collection.synchronize()
                         }
                     })
                         .tag(0)
@@ -38,10 +38,10 @@ struct AppRootView: View {
                                 Text("minifig.tab")
                             }
                     }.onAppear(perform: {
-                        if self.config.connection != .unavailable {
-                            
-                            self.collection.synchronizeFigs()
-                        }
+//                        if self.config.connection != .unavailable {
+//                            
+//                            self.collection.synchronize()
+//                        }
                         
                     })
                         .tag(1)

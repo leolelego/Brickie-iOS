@@ -127,15 +127,12 @@ struct SetDetailView: View {
                                     Button(action: {
                                         self.detailImageUrl = image.imageURL
                                         self.isImageDetailPresented.toggle()
-                                        
+
                                     }) {
                                         Rectangle().fill(Color.clear) .scaledToFill().frame(width: 100, height: 100)
                                     }
                                     
                                 }
-                                
-                                
-                                
                             }
                         }.padding(.horizontal,32)
                     }.frame(height: 100).padding(.horizontal, -16)

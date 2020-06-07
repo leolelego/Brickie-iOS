@@ -18,7 +18,7 @@ struct BackgroundImageView : View {
             makeImage()
                 }
 
-            Blur(style: .light).opacity(0.92)
+            Blur(style: .light).opacity(0.75) /// 70 92
         }
 
     }
