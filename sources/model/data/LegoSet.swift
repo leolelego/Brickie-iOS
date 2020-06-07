@@ -20,7 +20,7 @@ class LegoSet : Lego {
     var year : Int = 0
     
     var theme : String = ""
-    var themeGroup : String = ""
+    var themeGroup : String? = ""
     var subtheme : String? = ""
     var category : String = ""
 //    var released : Bool = true
@@ -32,9 +32,22 @@ class LegoSet : Lego {
     let rating : Float
     let instructionsCount : Float
     let LEGOCom : [String:LegoSetPrice]
-    
+    let barcode : LegoBarCode?
     var price : String? {
-        return fomatter.string(for: LEGOCom["US"]?.retailPrice) 
+        let currentlocale = Locale.current
+        switch Locale(identifier: currentlocale.regionCode!).identifier {
+        case "ca":
+            return fomatter.string(for: LEGOCom["CA"]?.retailPrice)
+        case "us":
+            return fomatter.string(for: LEGOCom["US"]?.retailPrice)
+        case "gb":
+            return fomatter.string(for: LEGOCom["UK"]?.retailPrice)
+        default:
+            fomatter.currencyCode = "EUR"
+            return fomatter.string(for: LEGOCom["DE"]?.retailPrice)
+        }
+        
+        
     }
     
     static func == (lhs: LegoSet, rhs: LegoSet) -> Bool {
@@ -52,10 +65,11 @@ class LegoSet : Lego {
         let matched = name.lowercased().contains(lower)
             || number.lowercased().contains(lower)
             || theme.lowercased().contains(lower)
-            || themeGroup.lowercased().contains(lower)
+            || themeGroup?.lowercased().contains(lower) ?? false
             ||   subtheme?.lowercased().contains(lower) ?? false
             || category.lowercased().contains(lower)
             || "\(year)".lowercased().contains(lower)
+            || barcode?.EAN?.contains(lower) ?? false
         
         return matched
     }
@@ -98,4 +112,8 @@ struct LegoSetPrice : Codable {
 struct LegoInstruction : Codable {
     let URL : String
     let description : String
+}
+
+struct LegoBarCode : Codable {
+    let EAN : String?
 }

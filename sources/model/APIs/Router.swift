@@ -105,12 +105,6 @@ enum APIRouter<T:Any> {
             URLQueryItem(name: "setID", value: String(set.setID)),
             URLQueryItem(name: "params", value: "{want:\(want ? 1:0)}")
             ]
-            //        case .setOwned(let hash,let set, let col) : return [
-            //            URLQueryItem(name: "apiKey", value: BrickSetApiKey),
-            //            URLQueryItem(name: "userHash", value: hash),
-            //            URLQueryItem(name: "setID", value: String(set.setID)),
-            //            URLQueryItem(name: "params", value: "{own:\(col ? 1 : 0)}")//,qtyOwned:1}" : "{owned:0,qtyOwned:0}" )
-        //            ]
         case .setQty(let hash,let set, let qty) : return [
             URLQueryItem(name: "apiKey", value: BrickSetApiKey),
             URLQueryItem(name: "userHash", value: hash),
@@ -134,6 +128,7 @@ enum APIRouter<T:Any> {
     
     
 }
+
 
 extension APIRouter {
     private func response(completion: @escaping (Result<Any,Error>) -> Void){
@@ -177,6 +172,7 @@ extension APIRouter {
                         completion(.failure(APIError.invalid))
                         return
                 }
+
                 completion(.success(items))
                 break
             }
@@ -191,9 +187,21 @@ extension APIRouter {
                     
                     let json = try JSONSerialization.data(withJSONObject: object, options: [])
                     let items = try JSONDecoder().decode(ofType.self, from: json)
+
                     completion(items)
+                } catch let DecodingError.dataCorrupted(context) {
+                    print(context)
+                } catch let DecodingError.keyNotFound(key, context) {
+                    print("Key '\(key)' not found:", context.debugDescription)
+                    print("codingPath:", context.codingPath)
+                } catch let DecodingError.valueNotFound(value, context) {
+                    print("Value '\(value)' not found:", context.debugDescription)
+                    print("codingPath:", context.codingPath)
+                } catch let DecodingError.typeMismatch(type, context)  {
+                    print("Type '\(type)' mismatch:", context.debugDescription)
+                    print("codingPath:", context.codingPath)
                 } catch {
-                    logerror(error)
+                    print("error: ", error)
                 }
                 break
             case .failure(_):

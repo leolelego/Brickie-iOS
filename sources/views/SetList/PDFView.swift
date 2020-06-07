@@ -31,7 +31,7 @@ struct LegoPDFView : View {
         }.onDisappear{
             self.loader.cancel()
         }
-        .navigationBarTitle("instruction.title",displayMode: .large)
+        .navigationBarTitle("instruction.title",displayMode: .inline)
         .navigationBarItems(trailing: ShareNavButton(items: [URL(string:stringURL)!]))
 
     }
