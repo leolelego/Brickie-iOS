@@ -44,7 +44,6 @@ class UserCollection : ObservableObject{
     }
     
     
-    
     struct Key {
         static let username = "username"
         static let password = "password"
@@ -63,15 +62,16 @@ class UserCollection : ObservableObject{
         loadFromBack()
         isLoadingData = false
         searchSetsCancellable = $searchSetsText
-            .handleEvents(receiveOutput: { [weak self] _ in self?.isLoadingData = true })
+//            .handleEvents(receiveOutput: { /*[weak self]*/ _ in  })
             .debounce(for: .milliseconds(500), scheduler: DispatchQueue.main)
             .removeDuplicates()
-            .sink{ _ in
+            .sink{  _ in
                 if self.searchSetsText.isEmpty {
                     self.setsFilter = .owned
                     self.isLoadingData = false
                 } else {
-                    if try! Reachability().connection != . unavailable {
+                    if try! Reachability().connection != . unavailable && self.searchSetsText.count > 2 {
+                        self.isLoadingData = true
                         self.searchSets(text: self.searchSetsText)
                     } else {
                         self.isLoadingData = false
@@ -81,15 +81,16 @@ class UserCollection : ObservableObject{
         }
         
         searchMinifigsCancellable = $searchMinifigsText
-            .handleEvents(receiveOutput: { [weak self] _ in self?.isLoadingData = true })
+//            .handleEvents(receiveOutput: { [weak self] _ in  })
             .debounce(for: .milliseconds(1300), scheduler: DispatchQueue.main)
             .removeDuplicates()
-            .sink{ _ in
+            .sink{  _ in
                 if self.searchMinifigsText.isEmpty {
                     self.minifigFilter = .owned
                     self.isLoadingData = false
                 } else {
-                    if try! Reachability().connection != . unavailable {
+                    if try! Reachability().connection != . unavailable  && self.searchMinifigsText.count > 2 {
+                        self.isLoadingData = true
                         self.searchMinifigs(text: self.searchMinifigsText)
                     } else {
                         self.isLoadingData = false
@@ -124,7 +125,7 @@ class UserCollection : ObservableObject{
         }
     }
     
-
+    
     var minifigsUI : [LegoMinifig] {
         switch minifigFilter {
         case .wanted:
@@ -135,7 +136,7 @@ class UserCollection : ObservableObject{
             return minifigs.filter({$0.match(str)})
         }
     }
-
+    
     enum SetCollectionAction {
         case want(Bool)
         case qty(Int)
@@ -206,18 +207,7 @@ class UserCollection : ObservableObject{
 // MARK: Call for Figs
 
 extension UserCollection {
-    func synchronizeFigs(){
-        guard let token = user?.token else {return}
-        
-        DispatchQueue.global(qos: .background).async {
-            APIRouter<[[String:Any]]>.ownedFigs(token).decode(ofType: [LegoMinifig].self) { items in
-                self.updateOwned(with: items)
-            }
-            APIRouter<[[String:Any]]>.wantedFigs(token).decode(ofType: [LegoMinifig].self) { items in
-                self.updateWanted(with: items)
-            }
-        }
-    }
+    
     
     func append(_ new:[LegoMinifig]){
         
@@ -336,16 +326,35 @@ extension UserCollection {
             }
         }
     }
-    func synchronizeSets(){
-        guard let token = user?.token else {return}
-        DispatchQueue.global(qos: .background).async {
-            APIRouter<[[String:Any]]>.ownedSets(token).decode(ofType: [LegoSet].self) { sets in
-                self.updateOwned(with: sets)
+    
+    func synchronize(force:Bool = false){
+        if force {
+            DispatchQueue.global(qos: .userInitiated).async {
+                self.sync()
             }
-            APIRouter<[[String:Any]]>.wantedSets(token).decode(ofType: [LegoSet].self) { sets in
-                self.updateWanted(with: sets)
+        }
+        else {
+            DispatchQueue.global(qos: .userInitiated).asyncDeduped(target: self, after: 45) {
+                self.sync()
             }
+        }
+    }
+    private func sync() {
+        guard let token = user?.token  else {return}
+        
+        APIRouter<[[String:Any]]>.ownedSets(token).decode(ofType: [LegoSet].self) { sets in
+            self.updateOwned(with: sets)
             
+        }
+        APIRouter<[[String:Any]]>.wantedSets(token).decode(ofType: [LegoSet].self) { sets in
+            self.updateWanted(with: sets)
+        }
+        
+        APIRouter<[[String:Any]]>.ownedFigs(token).decode(ofType: [LegoMinifig].self) { items in
+            self.updateOwned(with: items)
+        }
+        APIRouter<[[String:Any]]>.wantedFigs(token).decode(ofType: [LegoMinifig].self) { items in
+            self.updateWanted(with: items)
         }
         
     }
@@ -419,7 +428,6 @@ extension UserCollection {
         
         self.minifigs = [LegoMinifig]()
         self.sets = [LegoSet]()
-        synchronizeFigs()
-        synchronizeSets()
+        synchronize()
     }
 }

@@ -49,7 +49,7 @@ struct SetListCell : View {
     func makeInfos() -> some View {
         HStack(alignment: .top){
             VStack(alignment:.leading) {
-                Text(set.name).font(.title)
+                Text(set.name).font(.title).bold()
                 if set.subtheme != nil {
                     Text(set.subtheme!).font(.subheadline)
                 }

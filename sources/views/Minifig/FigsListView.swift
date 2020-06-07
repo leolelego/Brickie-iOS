@@ -15,7 +15,13 @@ struct MinifigListView: View {
     var body: some View {
         Group {
             if collection.minifigsUI.count == 0 && !collection.isLoadingData {
-                Text("sets.noitems").font(.largeTitle).bold().transition(.opacity)
+                Spacer()
+                HStack(alignment: .center){
+                    Spacer()
+                    Text("sets.noitems").font(.largeTitle).bold().transition(.opacity).transition(.opacity)
+                    Spacer()
+                    
+                }
             } else {
                 ForEach(sections(for: collection.minifigsUI ), id: \.self){ theme in
                     Section(header:
