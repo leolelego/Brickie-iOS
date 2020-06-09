@@ -15,7 +15,7 @@ extension Text {
                   .fontWeight(.bold)
                   .foregroundColor(Color.background)
                   .padding(.vertical, 6)
-                  .padding(.horizontal, 10)
+                  .padding(.horizontal, 6)
                   .background(Color.backgroundAlt)
                   .mask(RoundedRectangle(cornerRadius: 14, style: .continuous))
             

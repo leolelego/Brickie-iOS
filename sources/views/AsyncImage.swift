@@ -7,41 +7,25 @@
 //
 
 import SwiftUI
+import SDWebImageSwiftUI
 
 struct AsyncImage : View {
-    @ObservedObject private var loader: DataLoader
-    private let configuration: (Image) -> Image
+
+    let url : URL?
     
-    init(string: String?, cache: DataCache? = nil, configuration: @escaping (Image) -> Image = { $0 }) {
-        loader = DataLoader(url: URL(string:string ?? ""), cache: cache)
-           self.configuration = configuration
-       }
-    init(url: URL?, cache: DataCache? = nil, configuration: @escaping (Image) -> Image = { $0 }) {
-        loader = DataLoader(url: url, cache: cache)
-        self.configuration = configuration
-    }
+    public init(path: String?) {
+         self.url = URL(string: path ?? "")
+     }
     
     var body: some View {
-        image
-            .onAppear(perform: loader.load)
-            .onDisappear(perform: loader.cancel)
+        
+        WebImage(url: url)
+                .resizable()
+                .renderingMode(.original)
+                .indicator(.activity)
+                .transition(.fade)
+                .aspectRatio(contentMode: .fit)
+
     }
-    
-    var uiImage : UIImage {
-        guard let data = loader.data,
-            let image = UIImage(data:data)
-            else {
-                return UIImage()
-        }
-        return image
-    }
-    private var image: some View {
-        Group {
-            if loader.data != nil {
-                configuration(Image(uiImage:uiImage))
-            } else {
-                Rectangle().fill(Color(UIColor.systemBackground))//.background(Color.gray)
-            }
-        }
-    }
+
 }
