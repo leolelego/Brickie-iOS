@@ -107,8 +107,6 @@ struct SetListCell : View {
                     .foregroundColor(.white)
             }
             
-            
-            
         }.background(RoundedCorners(color: Color.black, tl: 16, tr: 0, bl: 0, br: 0))
         
     }

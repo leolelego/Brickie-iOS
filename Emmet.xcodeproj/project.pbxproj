@@ -327,9 +327,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		96E78B77245CAC270032F4E3 /* BrickSet */ = {
+		96E78B77245CAC270032F4E3 /* Emmet */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 96E78B8C245CAC290032F4E3 /* Build configuration list for PBXNativeTarget "BrickSet" */;
+			buildConfigurationList = 96E78B8C245CAC290032F4E3 /* Build configuration list for PBXNativeTarget "Emmet" */;
 			buildPhases = (
 				96E78B74245CAC270032F4E3 /* Sources */,
 				96E78B75245CAC270032F4E3 /* Frameworks */,
@@ -339,7 +339,7 @@
 			);
 			dependencies = (
 			);
-			name = BrickSet;
+			name = Emmet;
 			packageProductDependencies = (
 				96E78BA3245CC7700032F4E3 /* KeychainSwift */,
 				96851E022473389800D9F803 /* Reachability */,
@@ -364,7 +364,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 96E78B73245CAC270032F4E3 /* Build configuration list for PBXProject "BrickSet" */;
+			buildConfigurationList = 96E78B73245CAC270032F4E3 /* Build configuration list for PBXProject "Emmet" */;
 			compatibilityVersion = "Xcode 11.4";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -383,7 +383,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				96E78B77245CAC270032F4E3 /* BrickSet */,
+				96E78B77245CAC270032F4E3 /* Emmet */,
 			);
 		};
 /* End PBXProject section */
@@ -651,7 +651,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		96E78B73245CAC270032F4E3 /* Build configuration list for PBXProject "BrickSet" */ = {
+		96E78B73245CAC270032F4E3 /* Build configuration list for PBXProject "Emmet" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				96E78B8A245CAC290032F4E3 /* Debug */,
@@ -660,7 +660,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		96E78B8C245CAC290032F4E3 /* Build configuration list for PBXNativeTarget "BrickSet" */ = {
+		96E78B8C245CAC290032F4E3 /* Build configuration list for PBXNativeTarget "Emmet" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				96E78B8D245CAC290032F4E3 /* Debug */,

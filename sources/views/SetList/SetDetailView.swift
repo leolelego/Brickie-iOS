@@ -34,13 +34,17 @@ struct SetDetailView: View {
         .onAppear {
             if  self.additionalImages.count == 0 {
                 APIRouter<[[String:Any]]>.additionalImages(self.set.setID).decode(ofType: [LegoSetImage].self) { (items) in
-                    self.additionalImages = items
+                    withAnimation {
+                        self.additionalImages = items
+
+                    }
                 }
             }
             
             if self.set.instructionsCount > 0 && self.instructions.count == 0{
                 APIRouter<[[String:Any]]>.setInstructions(self.set.setID).decode(ofType: [LegoInstruction].self) { items in
-                    self.instructions = items
+                        self.instructions = items
+                    
                     
                 }
             }
@@ -53,16 +57,22 @@ struct SetDetailView: View {
     }
     
     func makeThumbnail() -> some View {
-        ZStack(alignment: .bottomTrailing){
-            
-            //            AsyncImage(string:set.image.imageURL, cache: cache, configuration: { $0.resizable()})
-            AsyncImage(path: set.image.imageURL)
-                .aspectRatio(contentMode: .fit)
+       Button(action: {
+        self.detailImageUrl = self.set.image.imageURL
+           self.isImageDetailPresented.toggle()
+           
+       }) {
+        WebImage(url: URL(string: set.image.imageURL ?? ""))
+        .resizable()
+        .renderingMode(.original)
+        .aspectRatio(contentMode: .fit)
                 .clipped()
-                .frame(minWidth: 0, maxWidth: .infinity, minHeight: 200, maxHeight: 400, alignment: .center)
+               
                 .background(Color.white)
+         .frame(minWidth: 0, maxWidth: .infinity, minHeight: 200, maxHeight: 400, alignment: .center)
+       }
             
-        }
+        
         
     }
     func makeThemes() -> some View{
@@ -130,13 +140,14 @@ struct SetDetailView: View {
                                         .indicator(.activity)
                                         .transition(.fade)
                                         .aspectRatio(contentMode: .fill)
+                                    .modifier(RoundedShadowMod())
                                 }
                                 
                             }
                         }.padding(.horizontal,32)
                     }.frame(height: 100).padding(.horizontal, -16)
                     
-                }
+                }.transition(.fade)
             } else {
                 EmptyView()
             }
@@ -154,7 +165,7 @@ struct SetDetailView: View {
                         .mask(RoundedRectangle(cornerRadius: 12))
                         .padding()
                     
-                }
+                }.transition(.fade)
                 
             } else {
                 EmptyView()
