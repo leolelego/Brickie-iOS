@@ -328,9 +328,8 @@ extension UserCollection {
     }
     
     func synchronize(force:Bool = false){
-        
         if force {
-            DispatchQueue.global(qos: .userInitiated).async {
+            DispatchQueue.global(qos: .background).async {
                 self.sync()
             }
         }
@@ -341,7 +340,7 @@ extension UserCollection {
         }
     }
     private func sync() {
-        
+//
         if Configuration.isDebug && self.sets.count > 0 {
             return
         }

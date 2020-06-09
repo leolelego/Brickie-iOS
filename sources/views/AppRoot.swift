@@ -48,6 +48,8 @@ struct AppRootView: View {
                             }
                     }
                     .tag(3)
+                }.onAppear {
+                    self.collection.synchronize(force: true)
                 }
             }
             
