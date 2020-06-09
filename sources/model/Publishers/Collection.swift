@@ -328,18 +328,22 @@ extension UserCollection {
     }
     
     func synchronize(force:Bool = false){
+        
         if force {
             DispatchQueue.global(qos: .userInitiated).async {
                 self.sync()
             }
         }
         else {
-            DispatchQueue.global(qos: .userInitiated).asyncDeduped(target: self, after: 45) {
+            DispatchQueue.global(qos: .background).asyncDeduped(target: self, after: 30) {
                 self.sync()
             }
         }
     }
     private func sync() {
+        if Configuration.isDebug {
+            return
+        }
         guard let token = user?.token  else {return}
         
         APIRouter<[[String:Any]]>.ownedSets(token).decode(ofType: [LegoSet].self) { sets in

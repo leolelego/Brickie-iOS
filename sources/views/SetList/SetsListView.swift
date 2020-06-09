@@ -34,10 +34,12 @@ struct SetsListView: View {
                             NavigationLink(destination: SetDetailView(set: item)) {
                                 SetListCell(set:item)
                             }
-                            .padding(.vertical, 8)
+                           
                             
-                        }
-                    }
+                        }                .listRowBackground(Color.red.opacity(0.0))
+                      
+
+                    }.background(Color.clear)
                 }
             }
             
@@ -45,7 +47,13 @@ struct SetsListView: View {
         
         
     }
-
+    
+//    func contectMenu(_ set:LegoSet) -> some View {
+//        Text("add")
+//        Text("add")
+//
+//    }
+    
     func sections(for items:[LegoSet]) -> [String] {
         return Array(Set(items.compactMap({$0.theme}))).sorted()
     }

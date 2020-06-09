@@ -12,39 +12,56 @@ let kCellHeight : CGFloat = 150
 
 struct SetListCell : View {
     @ObservedObject var set : LegoSet
-    var body: some View {
-            ZStack(alignment: .bottomTrailing){
-                self.makeInfos()
-                self.makePastil()
-            }
-            .background(
-                BackgroundImageView(imagePath: self.set.image.imageURL))
-                .frame(maxWidth: .infinity/*,minHeight:geo.size.height*/)
-                .modifier(RoundedShadowMod())
-
-    }
+    @EnvironmentObject private var  collection : UserCollection
     
-    func  bottomSizeFactor(geo:GeometryProxy, height:CGFloat = kCellHeight) -> CGFloat {
-        let y =  geo.frame(in: .global).maxY
-        let bottomHeight = height + 64 // I want to anim at 1 cell + TabBar
-        let bottomMargin = UIScreen.main.bounds.size.height - bottomHeight
-        guard y > bottomMargin else {return 1}
+    var body: some View {
+        ZStack(alignment: .bottomTrailing){
+            self.makeInfos()
+            self.makePastil()
+        }
+        .background(
+            BackgroundImageView(imagePath: self.set.image.imageURL))
+            .frame(maxWidth: .infinity/*,minHeight:geo.size.height*/)
+            .modifier(RoundedShadowMod())
         
-        let minFactor : CGFloat = 0.8 // the smallest you want it
-        let f =  1 - (y - bottomMargin)/bottomHeight + minFactor
-        return f > 1 ? 1 : f
-    }
-    func  topSizeFactor(geo:GeometryProxy,height:CGFloat = kCellHeight) -> CGFloat {
-        let y =  geo.frame(in: .global).minY
-        let margin = kCellHeight
-        guard y < margin else {return 1}
-        
-        let minFactor : CGFloat = 0.8 // the smallest you want it
-        let f =  1 - (margin - y)/margin + minFactor
-        print(" \(margin) \(y) - \(f)")
+        .contextMenu {
+                                      
+                                               
+                                               Button(action: {
+                                                self.collection.action(.qty(self.set.collection.qtyOwned+1),on: self.set)
 
-        return f > 1 ? 1 : f
+                                               }) {
+                                                   HStack(alignment: .lastTextBaseline) {
+                                                       Image(systemName: "plus.circle" ).foregroundColor(.white).font(.headline)
+                                                       Text("collection.increment").fontWeight(.bold)
+                                                   }
+                                               }
+                                               if self.set.collection.qtyOwned > 0 {
+                                                   Button(action: {
+                                                       self.collection.action(.qty(self.set.collection.qtyOwned-1),on: self.set)
+
+                                                   }) {
+                                                       HStack(alignment: .lastTextBaseline) {
+                                                           Image(systemName: "minus.circle" ).foregroundColor(.white).font(.headline)
+                                                           Text("collection.decrement").fontWeight(.bold)
+                                                       }
+                                                   }
+                                               }
+                                               
+                                               Button(action: {
+                                                          self.collection.action(.want(!self.set.collection.wanted),on: self.set)
+                                                      }) {
+                                                          HStack(alignment: .lastTextBaseline) {
+                                                              Image(systemName: self.set.collection.wanted ? "heart.fill" : "heart").foregroundColor(.white).font(.headline)
+                                                              Text("collection.want").fontWeight(.bold)
+                                                          }
+                                                      }
+                                               
+                                       }
+        
+        
     }
+
     
     func makeInfos() -> some View {
         HStack(alignment: .top){
@@ -63,6 +80,7 @@ struct SetListCell : View {
             .padding(.horizontal, 16)
             .foregroundColor(Color.black)
             .frame(maxWidth: .infinity,maxHeight: .infinity,alignment:.topLeading)
+        
         //            .background(Blur(style: .light).opacity(0.92))
     }
     func makeDetails() -> some View{

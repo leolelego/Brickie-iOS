@@ -25,7 +25,8 @@ struct AppRootView: View {
                                 Image.brick
                                 Text("sets.tab")
                             }
-                    }.onAppear(perform: {
+                    }
+                    .onAppear(perform: {
                         if self.config.connection != .unavailable {
                             self.collection.synchronize()
                         }
@@ -37,13 +38,7 @@ struct AppRootView: View {
                                 Image.minifig_head
                                 Text("minifig.tab")
                             }
-                    }.onAppear(perform: {
-//                        if self.config.connection != .unavailable {
-//                            
-//                            self.collection.synchronize()
-//                        }
-                        
-                    })
+                    }
                         .tag(1)
                     SettingsView()
                         .tabItem {

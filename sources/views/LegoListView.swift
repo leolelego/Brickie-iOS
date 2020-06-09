@@ -8,7 +8,7 @@
 
 import SwiftUI
 import Combine
-import CodeScanner
+//import CodeScanner
 struct LegoListView<ListView:View>: View {
     
     @EnvironmentObject private var  collection : UserCollection
@@ -25,13 +25,13 @@ struct LegoListView<ListView:View>: View {
     var body: some View {
         NavigationView{
             List {
-                SearchField(searchText: $searchText,isActive: $showSearchBar).padding(.horizontal,16)
-                    .listRowInsets(EdgeInsets(top: 0, leading: -16, bottom: 0, trailing: -16))
-                content.listRowInsets(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
+                SearchField(searchText: $searchText,isActive: $showSearchBar)//.padding(.horizontal,16)
+                //    .listRowInsets(EdgeInsets(top: 0, leading: -16, bottom: 0, trailing: -16))
+                content//.listRowInsets(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
                 makeLoading()//.transition(.opacity)
                 
-            }
-            .listStyle(GroupedListStyle()).environment(\.horizontalSizeClass, .regular)
+            }.background(Color.clear)
+            //.listStyle(GroupedListStyle()).environment(\.horizontalSizeClass, .regular)
                 
                 
             .navigationBarTitle(title)
@@ -53,7 +53,7 @@ struct LegoListView<ListView:View>: View {
         }.onDisappear {
             tweakTableView(on:false)
         }
-        .navigationViewStyle(DoubleColumnNavigationViewStyle()).padding(.leading, 1)
+        .navigationViewStyle(DoubleColumnNavigationViewStyle()).padding(.trailing, 1)
             
         .modifier(DismissingKeyboardOnSwipe())
     }
