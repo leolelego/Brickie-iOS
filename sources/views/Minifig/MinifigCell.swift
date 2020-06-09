@@ -9,6 +9,8 @@
 import SwiftUI
 
 struct MinifigCell: View {
+    @EnvironmentObject private var  collection : UserCollection
+
     @ObservedObject var minifig : LegoMinifig
     @Environment(\.dataCache) var cache : DataCache
     var body: some View {
@@ -28,7 +30,40 @@ struct MinifigCell: View {
             }
             
         }.frame(height: 150)
+        
+        .contextMenu {
+
+            Button(action: {
+                self.collection.action(.qty(self.minifig.ownedLoose+1),on: self.minifig)
+
+            }) {
+                HStack(alignment: .lastTextBaseline) {
+                    Image(systemName: "plus.circle" ).foregroundColor(.white).font(.headline)
+                    Text("collection.increment").fontWeight(.bold)
+                }
+            }
+            if self.minifig.ownedLoose > 0 {
+                Button(action: {
+                    self.collection.action(.qty(self.minifig.ownedLoose-1),on: self.minifig)
+
+                }) {
+                    HStack(alignment: .lastTextBaseline) {
+                        Image(systemName: "minus.circle" ).foregroundColor(.white).font(.headline)
+                        Text("collection.decrement").fontWeight(.bold)
+                    }
+                }
+            }
+            Button(action: {
+                self.collection.action(.want(!self.minifig.wanted), on: self.minifig)
+            }) {
+                HStack(alignment: .lastTextBaseline) {
+                    Image(systemName: minifig.wanted ? "heart.fill" : "heart").foregroundColor(.white).font(.headline)
+                    Text("collection.want").fontWeight(.bold)
+                }
+            }
+        }
     }
+    
     
     func makeImage() -> some View{
         AsyncImage(string: minifig.imageUrl, cache: cache, configuration: {$0.resizable()})

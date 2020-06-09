@@ -21,8 +21,10 @@ struct SettingsView: View {
         Credit(text: "credit.github", link: URL(string: "https://github.com/leolelego/BrickSet")!,image: Image("github")),
         Credit(text: "credit.instagram", link: URL(string: "https://instagram.com/leolelego")!,image: Image("instagram")),
         Credit(text: "credit.twitter", link: URL(string: "https://twitter.com/leolelego")!,image: Image("twitter")),
-        
+        Credit(text: "credit.testflight", link: URL(string: "https://testflight.apple.com/join/9IE197Mt")!,image: Image("lego_head")),
+
     ]
+
     
     var body: some View {
         NavigationView{
@@ -42,7 +44,7 @@ struct SettingsView: View {
                     }.buttonStyle(RoundedButtonStyle(backgroundColor: .red, padding:8))
                 }
                 
-                if config.isDebug {
+                if Configuration.isDebug {
                     HStack{
                         Text("User Hash").font(.title)
                         Spacer()
