@@ -56,7 +56,7 @@ platform :ios do
   lane :beta do |options|
     version_update
     certificates
-    build_app(scheme: "BrickSet")
+    build_app(scheme: "Emmet")
 
     brch = options[:branch] ? options[:branch] : git_branch
     if ["develop"].include? brch
