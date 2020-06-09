@@ -11,19 +11,21 @@ import SwiftUI
 struct SetsListView: View {
     var items : [LegoSet]
     @EnvironmentObject private var  collection : UserCollection
-
+    
     var body: some View {
         
         Group {
             if items.count == 0 && !collection.isLoadingData {
                 Spacer()
-
+                
                 HStack(alignment: .center){
                     Spacer()
                     Text("sets.noitems").font(.largeTitle).bold().transition(.opacity).transition(.opacity)
                     Spacer()
                 }
             } else {
+                
+                
                 ForEach(sections(for:  items ), id: \.self){ theme in
                     Section(header:
                         Text(theme).roundText
@@ -34,25 +36,17 @@ struct SetsListView: View {
                             NavigationLink(destination: SetDetailView(set: item)) {
                                 SetListCell(set:item)
                             }
-                           
                             
-                        }                .listRowBackground(Color.red.opacity(0.0))
-                      
-
-                    }.background(Color.clear)
+                            
+                        }
+                        
+                        
+                    }
                 }
             }
             
         }
-        
-        
     }
-    
-//    func contectMenu(_ set:LegoSet) -> some View {
-//        Text("add")
-//        Text("add")
-//
-//    }
     
     func sections(for items:[LegoSet]) -> [String] {
         return Array(Set(items.compactMap({$0.theme}))).sorted()

@@ -7,7 +7,7 @@
 //
 
 import SwiftUI
-
+import SDWebImageSwiftUI
 struct SetAdditionalImageView: View {
     @Environment(\.dataCache) var cache : DataCache
     @Binding var isPresented : Bool
@@ -17,11 +17,15 @@ struct SetAdditionalImageView: View {
         NavigationView{
             VStack{
                 Spacer()
-                AsyncImage(string:url, cache: cache, configuration: { $0.resizable()}).scaledToFit()
+                WebImage(url: URL(string: url))
+                .resizable()
+                .renderingMode(.original)
+                .indicator(.activity)
+                .transition(.fade)
+                .aspectRatio(contentMode: .fit)
                 Spacer()
 
             }
-         
             .navigationBarItems(trailing: Button(action: {self.isPresented.toggle()}, label: {    Image(systemName:"xmark").foregroundColor(.backgroundAlt)}))
             .navigationBarHidden(false)
                 .edgesIgnoringSafeArea(.all)

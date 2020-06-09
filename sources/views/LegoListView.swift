@@ -30,7 +30,7 @@ struct LegoListView<ListView:View>: View {
                 content//.listRowInsets(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
                 makeLoading()//.transition(.opacity)
                 
-            }.background(Color.clear)
+            }
             //.listStyle(GroupedListStyle()).environment(\.horizontalSizeClass, .regular)
                 
                 
@@ -113,7 +113,6 @@ struct LegoListView<ListView:View>: View {
                 self.showSearchBar = !self.showSearchBar
                 self.searchText = ""
             }
-            
         }, label: {
             Image(systemName: "magnifyingglass").modifier(BarButtonModifier()).transition(.opacity)
         })

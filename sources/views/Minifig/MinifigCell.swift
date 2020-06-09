@@ -7,10 +7,10 @@
 //
 
 import SwiftUI
-
+import SDWebImageSwiftUI
 struct MinifigCell: View {
     @EnvironmentObject private var  collection : UserCollection
-
+    
     @ObservedObject var minifig : LegoMinifig
     @Environment(\.dataCache) var cache : DataCache
     var body: some View {
@@ -19,23 +19,32 @@ struct MinifigCell: View {
                 self.makeImage()
                 self.makePastil()
             }.frame(width:100,height: 150)
-
-            .modifier(RoundedShadowMod())
+                
+                .modifier(RoundedShadowMod())
             VStack(alignment: .leading, spacing: 8) {
                 Text(minifig.name ?? minifig.minifigNumber).font(.headline).padding(.top,16)
                 ForEach(minifig.subthemes, id: \.self){ sub in
                     Text(sub).font(.subheadline).foregroundColor(Color.gray)
                 }
+                if minifig.name != nil {
+                    Text( minifig.minifigNumber).font(.subheadline).foregroundColor(.gray)
+                }
                 
             }
             
         }.frame(height: 150)
-        
-        .contextMenu {
-
+            
+            .contextMenu {
+                
+                menu()
+        }
+    }
+    
+    func menu() -> some View {
+        VStack {
             Button(action: {
                 self.collection.action(.qty(self.minifig.ownedLoose+1),on: self.minifig)
-
+                
             }) {
                 HStack(alignment: .lastTextBaseline) {
                     Image(systemName: "plus.circle" ).foregroundColor(.white).font(.headline)
@@ -45,7 +54,7 @@ struct MinifigCell: View {
             if self.minifig.ownedLoose > 0 {
                 Button(action: {
                     self.collection.action(.qty(self.minifig.ownedLoose-1),on: self.minifig)
-
+                    
                 }) {
                     HStack(alignment: .lastTextBaseline) {
                         Image(systemName: "minus.circle" ).foregroundColor(.white).font(.headline)
@@ -63,14 +72,15 @@ struct MinifigCell: View {
             }
         }
     }
-    
-    
     func makeImage() -> some View{
-        AsyncImage(string: minifig.imageUrl, cache: cache, configuration: {$0.resizable()})
-        
-        .aspectRatio(2/3, contentMode: .fill)
-        .clipped()
-        .background(Color.white)
+        WebImage(url: URL(string:minifig.imageUrl))
+            .resizable()
+            .renderingMode(.original)
+            .indicator(.activity)
+            .transition(.fade)
+            .aspectRatio(contentMode: .fill)
+            .frame(width:100,height: 150)
+            .background(Color.white)
         
     }
     func makePastil() -> some View {
@@ -88,16 +98,6 @@ struct MinifigCell: View {
                     .foregroundColor(.white)
             }            
         }.background(RoundedCorners(color: Color.black, tl: 16, tr: 0, bl: 0, br: 0))
-        
-    }
-}
-
-
-struct MinifigCell_Previews: PreviewProvider {
-    static var previews: some View {
-
-            MinifigCell(minifig: LegoMinifig()).previewLayout(.fixed(width: 180, height: 320))
-
         
     }
 }

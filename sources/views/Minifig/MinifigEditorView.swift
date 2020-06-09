@@ -19,8 +19,6 @@ struct MinifigEditorView: View {
                 Text("minifig.ownInSets").font(.title).bold()+Text("\(minifig.ownedInSets)") .font(.title).bold() .foregroundColor(.blue)
             }
             HStack {
-                
-                
                 Button(action: {
                     self.collection.action(.want(!self.minifig.wanted), on: self.minifig)
                 }) {

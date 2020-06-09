@@ -7,6 +7,8 @@
 //
 
 import SwiftUI
+
+import SDWebImageSwiftUI
 struct BackgroundImageView : View {
     @Environment(\.dataCache) var cache: DataCache
 
@@ -14,15 +16,17 @@ struct BackgroundImageView : View {
     var body : some View {
         ZStack {
             if imagePath != nil {
+                
+                WebImage(url: URL(string: imagePath ?? ""))
+                .resizable()
+                .transition(.fade)
+                .aspectRatio(contentMode: .fill)
 
-            makeImage()
-                }
+            }
 
             Blur(style: .light).opacity(0.75) /// 70 92
         }
 
     }
-    func makeImage() -> some View{
-        AsyncImage(string:imagePath, cache: cache, configuration: { $0.resizable()}).scaledToFill()
-    }
+
 }

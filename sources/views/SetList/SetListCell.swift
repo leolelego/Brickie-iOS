@@ -21,47 +21,45 @@ struct SetListCell : View {
         }
         .background(
             BackgroundImageView(imagePath: self.set.image.imageURL))
-            .frame(maxWidth: .infinity/*,minHeight:geo.size.height*/)
             .modifier(RoundedShadowMod())
-        
-        .contextMenu {
-                                      
-                                               
-                                               Button(action: {
-                                                self.collection.action(.qty(self.set.collection.qtyOwned+1),on: self.set)
-
-                                               }) {
-                                                   HStack(alignment: .lastTextBaseline) {
-                                                       Image(systemName: "plus.circle" ).foregroundColor(.white).font(.headline)
-                                                       Text("collection.increment").fontWeight(.bold)
-                                                   }
-                                               }
-                                               if self.set.collection.qtyOwned > 0 {
-                                                   Button(action: {
-                                                       self.collection.action(.qty(self.set.collection.qtyOwned-1),on: self.set)
-
-                                                   }) {
-                                                       HStack(alignment: .lastTextBaseline) {
-                                                           Image(systemName: "minus.circle" ).foregroundColor(.white).font(.headline)
-                                                           Text("collection.decrement").fontWeight(.bold)
-                                                       }
-                                                   }
-                                               }
-                                               
-                                               Button(action: {
-                                                          self.collection.action(.want(!self.set.collection.wanted),on: self.set)
-                                                      }) {
-                                                          HStack(alignment: .lastTextBaseline) {
-                                                              Image(systemName: self.set.collection.wanted ? "heart.fill" : "heart").foregroundColor(.white).font(.headline)
-                                                              Text("collection.want").fontWeight(.bold)
-                                                          }
-                                                      }
-                                               
-                                       }
-        
-        
+            .contextMenu {
+                menu()
+        }
     }
-
+    
+    func menu() -> some View {
+        VStack{
+            Button(action: {
+                self.collection.action(.qty(self.set.collection.qtyOwned+1),on: self.set)
+                
+            }) {
+                HStack(alignment: .lastTextBaseline) {
+                    Image(systemName: "plus.circle" ).foregroundColor(.white).font(.headline)
+                    Text("collection.increment").fontWeight(.bold)
+                }
+            }
+            if self.set.collection.qtyOwned > 0 {
+                Button(action: {
+                    self.collection.action(.qty(self.set.collection.qtyOwned-1),on: self.set)
+                    
+                }) {
+                    HStack(alignment: .lastTextBaseline) {
+                        Image(systemName: "minus.circle" ).foregroundColor(.white).font(.headline)
+                        Text("collection.decrement").fontWeight(.bold)
+                    }
+                }
+            }
+            
+            Button(action: {
+                self.collection.action(.want(!self.set.collection.wanted),on: self.set)
+            }) {
+                HStack(alignment: .lastTextBaseline) {
+                    Image(systemName: self.set.collection.wanted ? "heart.fill" : "heart").foregroundColor(.white).font(.headline)
+                    Text("collection.want").fontWeight(.bold)
+                }
+            }
+        }
+    }
     
     func makeInfos() -> some View {
         HStack(alignment: .top){

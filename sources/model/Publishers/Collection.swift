@@ -341,7 +341,8 @@ extension UserCollection {
         }
     }
     private func sync() {
-        if Configuration.isDebug {
+        
+        if Configuration.isDebug && self.sets.count > 0 {
             return
         }
         guard let token = user?.token  else {return}

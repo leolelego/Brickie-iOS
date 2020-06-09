@@ -38,6 +38,8 @@ struct SearchField: View {
                 Button(action: {
                     self.searchText = ""
                     self.isActive = false
+                    self.closeKeyboard()
+
                 }) {
                     Image(systemName: "xmark.circle.fill")
                         .font(.headline)
@@ -50,5 +52,15 @@ struct SearchField: View {
         .padding(8)
         .background(Color.backgroundAlt)
         .mask(RoundedRectangle(cornerRadius: 8, style: .continuous))
+    }
+    
+    func closeKeyboard(){
+        UIApplication.shared.connectedScenes
+                       .filter {$0.activationState == .foregroundActive}
+                       .map {$0 as? UIWindowScene}
+                       .compactMap({$0})
+                       .first?.windows
+                       .filter {$0.isKeyWindow}
+                       .first?.endEditing(true)
     }
 }

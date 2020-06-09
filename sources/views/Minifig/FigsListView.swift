@@ -50,8 +50,8 @@ struct MinifigListView: View {
         return ForEach(values) { value in
             
             NavigationLink(destination: MinifigDetailView(minifig: value)){
-                MinifigCell(minifig:value).id(value.minifigNumber).transition(.opacity)
-            } .padding(.vertical, 8)//.background(Color(UIColor.systemGroupedBackground))
+                MinifigCell(minifig:value)
+            } .padding(.vertical, 8)
         }
         
     }

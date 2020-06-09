@@ -37,6 +37,7 @@
 		96851E0724734D3A00D9F803 /* MinifigDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96851E0624734D3A00D9F803 /* MinifigDetailView.swift */; };
 		96851E092473569400D9F803 /* MinifigEditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96851E082473569400D9F803 /* MinifigEditorView.swift */; };
 		9694B588248FE881008D0508 /* CodeScanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9694B587248FE881008D0508 /* CodeScanner.swift */; };
+		9694B58B24900E21008D0508 /* SDWebImageSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = 9694B58A24900E21008D0508 /* SDWebImageSwiftUI */; };
 		969DE4A12462245A00F88ED1 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 969DE4A02462245A00F88ED1 /* Settings.swift */; };
 		96DE9243245F31CA00652E0E /* SampleSets.json in Resources */ = {isa = PBXBuildFile; fileRef = 96DE9242245F31CA00652E0E /* SampleSets.json */; };
 		96DE9245245F34AA00652E0E /* Collection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96DE9244245F34AA00652E0E /* Collection.swift */; };
@@ -131,6 +132,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9694B58B24900E21008D0508 /* SDWebImageSwiftUI in Frameworks */,
 				96E78BA4245CC7700032F4E3 /* KeychainSwift in Frameworks */,
 				96851E032473389800D9F803 /* Reachability in Frameworks */,
 			);
@@ -341,6 +343,7 @@
 			packageProductDependencies = (
 				96E78BA3245CC7700032F4E3 /* KeychainSwift */,
 				96851E022473389800D9F803 /* Reachability */,
+				9694B58A24900E21008D0508 /* SDWebImageSwiftUI */,
 			);
 			productName = BrickSet;
 			productReference = 96E78B78245CAC270032F4E3 /* Emmet.app */;
@@ -374,6 +377,7 @@
 			packageReferences = (
 				96E78BA2245CC7700032F4E3 /* XCRemoteSwiftPackageReference "keychain-swift" */,
 				96851E012473389800D9F803 /* XCRemoteSwiftPackageReference "Reachability.swift" */,
+				9694B58924900E21008D0508 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */,
 			);
 			productRefGroup = 96E78B79245CAC270032F4E3 /* Products */;
 			projectDirPath = "";
@@ -676,6 +680,14 @@
 				minimumVersion = 5.0.0;
 			};
 		};
+		9694B58924900E21008D0508 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SDWebImage/SDWebImageSwiftUI";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.5.0;
+			};
+		};
 		96E78BA2245CC7700032F4E3 /* XCRemoteSwiftPackageReference "keychain-swift" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/evgenyneu/keychain-swift.git";
@@ -691,6 +703,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 96851E012473389800D9F803 /* XCRemoteSwiftPackageReference "Reachability.swift" */;
 			productName = Reachability;
+		};
+		9694B58A24900E21008D0508 /* SDWebImageSwiftUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 9694B58924900E21008D0508 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */;
+			productName = SDWebImageSwiftUI;
 		};
 		96E78BA3245CC7700032F4E3 /* KeychainSwift */ = {
 			isa = XCSwiftPackageProductDependency;

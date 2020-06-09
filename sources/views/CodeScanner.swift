@@ -188,13 +188,6 @@ public struct CodeScannerView: UIViewControllerRepresentable {
            
         }
 
-//        override public func viewDidAppear(_ animated: Bool) {
-//            super.viewDidAppear(animated)
-//
-//
-//
-//        }
-
         override public func viewWillAppear(_ animated: Bool) {
             super.viewWillAppear(animated)
 
@@ -245,13 +238,5 @@ public struct CodeScannerView: UIViewControllerRepresentable {
 
     public func updateUIViewController(_ uiViewController: ScannerViewController, context: Context) {
 
-    }
-}
-
-struct CodeScannerView_Previews: PreviewProvider {
-    static var previews: some View {
-        CodeScannerView(codeTypes: [.qr]) { result in
-            // do nothing
-        }
     }
 }
