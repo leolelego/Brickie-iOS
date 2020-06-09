@@ -19,7 +19,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         tweakThatShit()
-        self.collection.synchronize(force: true)
 
         networkCancellable = config.$connection
             .debounce(for: .seconds(2), scheduler: DispatchQueue.main)

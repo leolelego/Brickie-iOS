@@ -31,7 +31,7 @@ struct LoginView: View {
             
             if  error != nil && !self.loading {
                 VStack{
-                    Text(error!).font(.callout).foregroundColor(.red)
+                    Text("login.failed").font(.callout).foregroundColor(.red)
                     
                 }
             }
