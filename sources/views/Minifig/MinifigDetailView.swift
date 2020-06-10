@@ -7,64 +7,89 @@
 //
 
 import SwiftUI
-
+import SDWebImageSwiftUI
 struct MinifigDetailView: View {
     @Environment(\.dataCache) var cache: DataCache
     
     @ObservedObject var minifig : LegoMinifig
+    @State var detailImageUrl : String?
+    @State var isImageDetailPresented : Bool = false
     
     var body: some View {
         ScrollView( showsIndicators: false){
-            makeThumbnail()
-            makeThemes()
+            makeThumbnail().zIndex(80)
+            makeThemes().zIndex(999)
             Spacer()
-            makeHeader()
+            makeHeader().zIndex(0)
             Divider()
             MinifigEditorView(minifig: minifig).padding()
             
         }
+        .sheet(isPresented: $isImageDetailPresented, content: { SetAdditionalImageView(isPresented: self.$isImageDetailPresented, url: self.detailImageUrl!)})
             
         .navigationBarTitle("", displayMode: .inline)
         .navigationBarItems(trailing: ShareNavButton(items: [URL(string:minifig.bricksetURL)!]))
         .navigationBarHidden(false)
     }
     func makeThumbnail() -> some View {
-        ZStack(alignment: .bottomTrailing){
-            AsyncImage(path: minifig.imageUrl)
+        
+        Button(action: {
+            self.detailImageUrl = self.minifig.imageUrl
+            self.isImageDetailPresented.toggle()
+            
+        }) {
+            WebImage(url: URL(string: self.minifig.imageUrl))
+                .resizable()
+                .renderingMode(.original)
                 .aspectRatio(contentMode: .fit)
                 .clipped()
-                .frame(minWidth: 0, maxWidth: .infinity, minHeight: 200, maxHeight: 400, alignment: .center)
                 .background(Color.white)
-            
+                .frame(minWidth: 0, maxWidth: .infinity, minHeight: 300, maxHeight: 300, alignment: .center)
         }
+        
+        
         
     }
     func makeThemes() -> some View{
+        
         HStack(spacing: 8){
-            Text( minifig.theme).roundText
+            
+            NavigationLink(destination: MinifigFilteredView(theme: minifig.theme)) {
+                Text(  minifig.theme).roundText
+            }
             ForEach(minifig.subthemes, id: \.self){ sub in
                 HStack{
                     Text(">")
-                    Text( sub).roundText
+                    NavigationLink(destination: MinifigFilteredView(theme: sub)) {
+                        Text(sub).roundText
+                    }
+                    
                 }
+                
+                
             }
-            Spacer()
-        }.padding(.horizontal)
+        }
+        .padding(.horizontal)
+        .frame(minWidth: 0, maxWidth: .infinity,alignment: .leading)
+        
     }
     
     func makeHeader() -> some View{
-        VStack(alignment: .leading, spacing: 8) {
+        VStack(alignment: .center, spacing: 8) {
             
             HStack {
-                Text( (minifig.minifigNumber+" ").uppercased()).font(.lego(size: 32)).foregroundColor(.black)
-                    + Text(minifig.name ?? "unknown").font(.largeTitle).bold().foregroundColor(.black)
-                Spacer()
+                Text( (minifig.minifigNumber+" ").uppercased()).font(.lego(size: 26)).foregroundColor(.black)
+                    + Text(minifig.nameUI).font(.title).bold().foregroundColor(.black)
             }
+            .frame(minWidth: 0, maxWidth: .infinity,alignment: .leading)
             .foregroundColor(Color.backgroundAlt)
             .padding(.vertical,8).padding(.horizontal,6)
             .background(BackgroundImageView(imagePath: minifig.imageUrl)).clipped().modifier(RoundedShadowMod())
             .foregroundColor(Color.background)
             
+            ForEach(minifig.subNames, id: \.self){ sub in
+                Text(sub).font(.subheadline)
+            }
         }.padding(.horizontal)
             .frame(minWidth: 0, maxWidth: .infinity,alignment: .leading)
     }

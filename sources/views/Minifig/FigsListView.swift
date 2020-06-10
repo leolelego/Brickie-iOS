@@ -9,12 +9,16 @@
 import SwiftUI
 
 struct MinifigListView: View {
+    
+    var items : [LegoMinifig]
+
+    
     @EnvironmentObject private var  collection : UserCollection
     @Environment(\.horizontalSizeClass) var horizontalSizeClass : UserInterfaceSizeClass?
     
     var body: some View {
         Group {
-            if collection.minifigsUI.count == 0 && !collection.isLoadingData {
+            if items.count == 0 && !collection.isLoadingData {
                 Spacer()
                 HStack(alignment: .center){
                     Spacer()
@@ -23,7 +27,7 @@ struct MinifigListView: View {
                     
                 }
             } else {
-                ForEach(sections(for: collection.minifigsUI ), id: \.self){ theme in
+                ForEach(sections(for: items ), id: \.self){ theme in
                     Section(header:
                         Text(theme).roundText
                             .padding(.leading, -12)

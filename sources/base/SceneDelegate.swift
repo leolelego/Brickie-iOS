@@ -13,20 +13,13 @@ import Combine
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
-    let collection = UserCollection()
-    var config = Configuration()
+
     var networkCancellable :AnyCancellable?
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         tweakThatShit()
 
-        networkCancellable = config.$connection
-            .debounce(for: .seconds(2), scheduler: DispatchQueue.main)
-            .filter{ !$0.cantUpdateDB }
-            .sink { [weak self] connection in
-                self?.collection.synchronize()
-
-            }
+      
 
         if let windowScene = scene as? UIWindowScene {
             let window = UIWindow(windowScene: windowScene)
