@@ -34,10 +34,10 @@ struct SetDetailView: View {
         .onAppear {
             if  self.additionalImages.count == 0 {
                 APIRouter<[[String:Any]]>.additionalImages(self.set.setID).decode(ofType: [LegoSetImage].self) { (items) in
-                    withAnimation {
+//                    withAnimation {
                         self.additionalImages = items
 
-                    }
+//                    }
                 }
             }
             
