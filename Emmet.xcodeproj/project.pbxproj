@@ -39,6 +39,7 @@
 		9694B588248FE881008D0508 /* CodeScanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9694B587248FE881008D0508 /* CodeScanner.swift */; };
 		9694B58B24900E21008D0508 /* SDWebImageSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = 9694B58A24900E21008D0508 /* SDWebImageSwiftUI */; };
 		969DE4A12462245A00F88ED1 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 969DE4A02462245A00F88ED1 /* Settings.swift */; };
+		96CD88742490F2C100343CB6 /* MinifigFilteredView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96CD88732490F2C100343CB6 /* MinifigFilteredView.swift */; };
 		96DE9243245F31CA00652E0E /* SampleSets.json in Resources */ = {isa = PBXBuildFile; fileRef = 96DE9242245F31CA00652E0E /* SampleSets.json */; };
 		96DE9245245F34AA00652E0E /* Collection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96DE9244245F34AA00652E0E /* Collection.swift */; };
 		96DE9247245F3DD800652E0E /* SetDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96DE9246245F3DD800652E0E /* SetDetailView.swift */; };
@@ -98,6 +99,7 @@
 		96851E082473569400D9F803 /* MinifigEditorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MinifigEditorView.swift; sourceTree = "<group>"; };
 		9694B587248FE881008D0508 /* CodeScanner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CodeScanner.swift; sourceTree = "<group>"; };
 		969DE4A02462245A00F88ED1 /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
+		96CD88732490F2C100343CB6 /* MinifigFilteredView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MinifigFilteredView.swift; sourceTree = "<group>"; };
 		96DE9242245F31CA00652E0E /* SampleSets.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = SampleSets.json; sourceTree = "<group>"; };
 		96DE9244245F34AA00652E0E /* Collection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Collection.swift; sourceTree = "<group>"; };
 		96DE9246245F3DD800652E0E /* SetDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetDetailView.swift; sourceTree = "<group>"; };
@@ -319,6 +321,7 @@
 				9624E38C2471F3B5002F68F7 /* FigsListView.swift */,
 				9624E3902471F904002F68F7 /* MinifigCell.swift */,
 				96851E0624734D3A00D9F803 /* MinifigDetailView.swift */,
+				96CD88732490F2C100343CB6 /* MinifigFilteredView.swift */,
 				96851E082473569400D9F803 /* MinifigEditorView.swift */,
 			);
 			path = Minifig;
@@ -453,6 +456,7 @@
 				969DE4A12462245A00F88ED1 /* Settings.swift in Sources */,
 				9624E38B2471F2D1002F68F7 /* SetsListView.swift in Sources */,
 				96DE924A245F62FF00652E0E /* RoundedShadowMod.swift in Sources */,
+				96CD88742490F2C100343CB6 /* MinifigFilteredView.swift in Sources */,
 				960FAD8224677FD70064B458 /* PDFView.swift in Sources */,
 				9624E38424718DC4002F68F7 /* AsyncImage.swift in Sources */,
 				9624E38D2471F3B5002F68F7 /* FigsListView.swift in Sources */,
@@ -630,6 +634,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = sources/assets/BrickSet.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Distribution";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_ASSET_PATHS = "sources/assets/Preview\\ Content";
 				DEVELOPMENT_TEAM = Z22Q8S6MMK;
@@ -642,6 +647,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = family.homework.brickset;
 				PRODUCT_NAME = Emmet;
 				PROVISIONING_PROFILE_SPECIFIER = "match AppStore family.homework.brickset";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "Brickset Mac Catalyst";
 				SUPPORTS_MACCATALYST = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

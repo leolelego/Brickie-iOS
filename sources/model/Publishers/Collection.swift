@@ -21,7 +21,7 @@ class UserCollection : ObservableObject{
     let keychain = KeychainSwift()
     
     @Published private(set) var sets = [LegoSet]()
-    @Published private var minifigs = [LegoMinifig]()
+    @Published private(set) var minifigs = [LegoMinifig]()
     
     @Published var searchSetsText = ""
     private var searchSetsCancellable: AnyCancellable?

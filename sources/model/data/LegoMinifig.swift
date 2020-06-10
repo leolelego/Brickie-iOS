@@ -41,22 +41,33 @@ class LegoMinifig : Lego , Hashable{
         let lower = search.lowercased()
         let matched = name?.lowercased().contains(lower) ?? false
             || category?.lowercased().contains(lower) ?? false
-        || minifigNumber.lowercased().contains(lower)
-
+            || minifigNumber.lowercased().contains(lower)
+        
         return matched
     }
     
+    var nameUI : String {
+        guard let str = name?.components(separatedBy: " - ").first else {return minifigNumber}
+        return str
+    }
+    var subNames : [String] {
+        guard var components = name?.components(separatedBy: " - ") else {return []}
+        
+        components.removeFirst()
+        return components
+        
+    }
     var theme : String {
-        guard let str = category?.components(separatedBy: "/").first else {return "unknown"}
+        guard let str = category?.components(separatedBy: " / ").first else {return ""}
         //str.remove(at: str.endIndex)
         return str
     }
     var subthemes : [String] {
-         guard var components = category?.components(separatedBy: "/") else {return []}
-            
-            components.removeFirst()
-            return components
- 
+        guard var components = category?.components(separatedBy: " / ") else {return []}
+        
+        components.removeFirst()
+        return components
+        
     }
     var subtheme : String {
         return subthemes.first ?? ""
@@ -66,8 +77,8 @@ class LegoMinifig : Lego , Hashable{
         return "https://www.bricklink.com/ML/\(minifigNumber).jpg"
     }
     var tumbnailUrl : String {
-           return "https://img.bricklink.com/ItemImage/MT/0/\(minifigNumber).t1.png"
-       }
+        return "https://img.bricklink.com/ItemImage/MT/0/\(minifigNumber).t1.png"
+    }
     
     init(){
         minifigNumber = "col359"
@@ -76,12 +87,12 @@ class LegoMinifig : Lego , Hashable{
         
     }
     
-
+    
 }
 
 extension LegoMinifig : Identifiable {
     var id: String {minifigNumber}
 }
 extension LegoMinifig{
- 
+    
 }
