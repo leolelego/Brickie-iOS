@@ -51,7 +51,7 @@ extension DispatchQueue {
         let dedupeIdentifier = DispatchQueue.dedupeIdentifierFor(target)
         if let existingWorkItem = DispatchQueue.workItems.removeValue(forKey: dedupeIdentifier) {
             existingWorkItem.cancel()
-            NSLog("Deduped work item: \(dedupeIdentifier)")
+            //NSLog("Deduped work item: \(dedupeIdentifier)")
         }
         let workItem = DispatchWorkItem {
             DispatchQueue.workItems.removeValue(forKey: dedupeIdentifier)
@@ -59,7 +59,7 @@ extension DispatchQueue {
             for ptr in DispatchQueue.weakTargets.allObjects {
                 if dedupeIdentifier == DispatchQueue.dedupeIdentifierFor(ptr as AnyObject) {
                     work()
-                    NSLog("Ran work item: \(dedupeIdentifier)")
+                    //NSLog("Ran work item: \(dedupeIdentifier)")
                     break
                 }
             }

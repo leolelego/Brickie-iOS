@@ -11,6 +11,8 @@ import UIKit
 
 func tweakTableView(on:Bool){
     UITableView.appearance().backgroundColor = on ? .clear : .systemGroupedBackground
+    UITableViewHeaderFooterView.appearance().tintColor = UIColor.clear
+
     UITableView.appearance().separatorColor = on ? .clear : nil
     UITableViewCell.appearance().backgroundColor = on ? .clear : .secondarySystemGroupedBackground
     UITableViewCell.appearance().selectionStyle = on ? .none : .default

@@ -139,7 +139,8 @@ extension APIRouter {
                 
         }
         log("URL CALL: \(u)")
-        URLSession.shared.dataTask(with: u){ data, response, error in
+//        URLSession.shared.configuration.requestCachePolicy = .returnCacheDataElseLoad
+       URLSession.shared.dataTask(with: u){ data, response, error in
             guard error == nil else {
                 logerror(error)
                 completion(.failure(error!))

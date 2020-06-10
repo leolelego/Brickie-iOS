@@ -1,6 +1,6 @@
-# BrickSet iOS
+# Emmet: Your BrickSet Companion for iOS
 
-BrickSet is an iOS application powered by the BrickSet API which permit to make a collection of your LEGO sets and minifigures. 
+Emmet is an iOS application powered by the BrickSet API which permit to make a collection of your LEGO sets and minifigures. 
 
 ## Open Source, Technologies and Privacy
 
@@ -16,8 +16,10 @@ You don't know sh*t about iOS, no worries, tell me any ideas you have thought a 
 **We do not collect any of your data**. The only data collected is collected from within the app itself and only stored locally like your owned and wanted sets.figs. 
 We don't dislay any ads or send anything to any server. So we don't track you using an advertising identifier or anything of the sort. 
 
+### Screenshots
 
-
+![Home](https://www.dropbox.com/s/01rb1io6bh8f5e0/1%20-%20home.png?raw=1)
+![Home](https://www.dropbox.com/s/xr5651otlmkma2y/2%20-%20set%20detail.png?raw=1)
 ## How to Compile and Run
 
 #### Pre-requisits
@@ -28,7 +30,6 @@ We don't dislay any ads or send anything to any server. So we don't track you us
 - an Apple Developer Account (even Free) 
 
 #### Build
-
 
 - clone the project
 - add a `Secrets.swift` file at this path : `./sources/model` with the following content
