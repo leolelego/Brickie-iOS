@@ -7,6 +7,7 @@
 //
 
 import SwiftUI
+import  SDWebImageSwiftUI
 struct SetDetailView: View {
     @Environment(\.dataCache) var cache: DataCache
     
@@ -20,11 +21,11 @@ struct SetDetailView: View {
         ScrollView( showsIndicators: false){
             makeThumbnail()
             makeThemes().zIndex(999)
-
+            
             Spacer()
             makeHeader().zIndex(0)
             Divider()
-
+            
             makeButtons()
             makeImages()
             makeInstructions()
@@ -33,13 +34,17 @@ struct SetDetailView: View {
         .onAppear {
             if  self.additionalImages.count == 0 {
                 APIRouter<[[String:Any]]>.additionalImages(self.set.setID).decode(ofType: [LegoSetImage].self) { (items) in
-                    self.additionalImages = items
+                    withAnimation {
+                        self.additionalImages = items
+
+                    }
                 }
             }
             
             if self.set.instructionsCount > 0 && self.instructions.count == 0{
                 APIRouter<[[String:Any]]>.setInstructions(self.set.setID).decode(ofType: [LegoInstruction].self) { items in
-                    self.instructions = items
+                        self.instructions = items
+                    
                     
                 }
             }
@@ -52,15 +57,22 @@ struct SetDetailView: View {
     }
     
     func makeThumbnail() -> some View {
-        ZStack(alignment: .bottomTrailing){
-            
-            AsyncImage(string:set.image.imageURL, cache: cache, configuration: { $0.resizable()})
-                .aspectRatio(contentMode: .fit)
+       Button(action: {
+        self.detailImageUrl = self.set.image.imageURL
+           self.isImageDetailPresented.toggle()
+           
+       }) {
+        WebImage(url: URL(string: set.image.imageURL ?? ""))
+        .resizable()
+        .renderingMode(.original)
+        .aspectRatio(contentMode: .fit)
                 .clipped()
-                .frame(minWidth: 0, maxWidth: .infinity, minHeight: 200, maxHeight: 400, alignment: .center)
+               
                 .background(Color.white)
+         .frame(minWidth: 0, maxWidth: .infinity, minHeight: 200, maxHeight: 400, alignment: .center)
+       }
             
-        }
+        
         
     }
     func makeThemes() -> some View{
@@ -70,14 +82,11 @@ struct SetDetailView: View {
             }
             if set.subtheme != nil {
                 Text(">")
-                
                 NavigationLink(destination: SetsFilteredView(theme: set.subtheme!)) {
                     Text( set.subtheme!).roundText
                 }
             }
             Spacer()
-            
-            
             NavigationLink(destination: SetsFilteredView(theme: "\(set.year)")) {
                 Text("\(set.year)").roundText
             }
@@ -110,7 +119,6 @@ struct SetDetailView: View {
     func makeButtons() -> some View {
         SetEditorView(set: set).padding(.horizontal)
     }
-    
     func makeImages() -> some View{
         Group {
             if additionalImages.count > 0 {
@@ -119,30 +127,31 @@ struct SetDetailView: View {
                     ScrollView (.horizontal, showsIndicators: false) {
                         HStack(spacing: 16){
                             ForEach(additionalImages, id: \.thumbnailURL){ image in
-                                ZStack {
+                                
+                                Button(action: {
+                                    self.detailImageUrl = image.imageURL
+                                    self.isImageDetailPresented.toggle()
                                     
-                                    AsyncImage(string:image.thumbnailURL , cache: self.cache, configuration: { $0.resizable()})
-                                        .scaledToFill().frame(width: 100, height: 100)
-                                        .modifier(RoundedShadowMod())
-                                    Button(action: {
-                                        self.detailImageUrl = image.imageURL
-                                        self.isImageDetailPresented.toggle()
-
-                                    }) {
-                                        Rectangle().fill(Color.clear) .scaledToFill().frame(width: 100, height: 100)
-                                    }
+                                }) {
                                     
+                                    WebImage(url: URL(string: image.thumbnailURL ?? ""))
+                                        .resizable()
+                                        .renderingMode(.original)
+                                        .indicator(.activity)
+                                        .transition(.fade)
+                                        .aspectRatio(contentMode: .fill)
+                                    .modifier(RoundedShadowMod())
                                 }
+                                
                             }
                         }.padding(.horizontal,32)
                     }.frame(height: 100).padding(.horizontal, -16)
                     
-                }
+                }.transition(.fade)
             } else {
                 EmptyView()
             }
         }
-        
     }
     func makeInstructions() -> some View{
         Group {
@@ -156,7 +165,7 @@ struct SetDetailView: View {
                         .mask(RoundedRectangle(cornerRadius: 12))
                         .padding()
                     
-                }
+                }.transition(.fade)
                 
             } else {
                 EmptyView()

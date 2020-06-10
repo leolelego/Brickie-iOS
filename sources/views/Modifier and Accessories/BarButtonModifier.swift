@@ -12,11 +12,11 @@ struct BarButtonModifier: ViewModifier {
     func body(content: Content) -> some View {
         content
             .imageScale(.large)
-            .foregroundColor(.background)
-            .background(Circle()
-                .fill(Color.backgroundAlt)
-                .frame(width:38,height: 38)
-        )
+            .foregroundColor(.backgroundAlt)
+//            .background(Circle()
+//                .fill(Color.backgroundAlt)
+//                .frame(width:38,height: 38)
+//        )
     }
 }
 
