@@ -100,21 +100,7 @@ struct LoginView: View {
         ).disabled(username.isEmpty || password.isEmpty || loading)
     }
     
-//    func makeSignup() -> some View{
-//        Button(action: {
-//            if let url = URL(string: "https://brickset.com/signup") {
-//                UIApplication.shared.open(url)
-//            }
-//        }) {
-//            VStack(alignment: .center, spacing: 0){
-//                Text("login.donthaveaccount")
-//                    .bold()
-//                Text("login.signup").font(.title)
-//                    .bold()
-//                    .foregroundColor(.blue)
-//            }
-//        }
-//    }
+
     func makeBrickSet() -> some View {
         VStack(alignment: .leading, spacing: 0){
             Text("login.powerby").bold().foregroundColor(.backgroundAlt)
