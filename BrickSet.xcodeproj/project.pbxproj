@@ -40,7 +40,6 @@
 		9694B58B24900E21008D0508 /* SDWebImageSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = 9694B58A24900E21008D0508 /* SDWebImageSwiftUI */; };
 		969DE4A12462245A00F88ED1 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 969DE4A02462245A00F88ED1 /* Settings.swift */; };
 		96CD88742490F2C100343CB6 /* MinifigFilteredView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96CD88732490F2C100343CB6 /* MinifigFilteredView.swift */; };
-		96DE9243245F31CA00652E0E /* SampleSets.json in Resources */ = {isa = PBXBuildFile; fileRef = 96DE9242245F31CA00652E0E /* SampleSets.json */; };
 		96DE9245245F34AA00652E0E /* Collection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96DE9244245F34AA00652E0E /* Collection.swift */; };
 		96DE9247245F3DD800652E0E /* SetDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96DE9246245F3DD800652E0E /* SetDetailView.swift */; };
 		96DE924A245F62FF00652E0E /* RoundedShadowMod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96DE9249245F62FF00652E0E /* RoundedShadowMod.swift */; };
@@ -100,7 +99,6 @@
 		9694B587248FE881008D0508 /* CodeScanner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CodeScanner.swift; sourceTree = "<group>"; };
 		969DE4A02462245A00F88ED1 /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		96CD88732490F2C100343CB6 /* MinifigFilteredView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MinifigFilteredView.swift; sourceTree = "<group>"; };
-		96DE9242245F31CA00652E0E /* SampleSets.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = SampleSets.json; sourceTree = "<group>"; };
 		96DE9244245F34AA00652E0E /* Collection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Collection.swift; sourceTree = "<group>"; };
 		96DE9246245F3DD800652E0E /* SetDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetDetailView.swift; sourceTree = "<group>"; };
 		96DE9249245F62FF00652E0E /* RoundedShadowMod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedShadowMod.swift; sourceTree = "<group>"; };
@@ -194,7 +192,6 @@
 		96DE9241245F31A800652E0E /* Preview Content */ = {
 			isa = PBXGroup;
 			children = (
-				96DE9242245F31CA00652E0E /* SampleSets.json */,
 			);
 			path = "Preview Content";
 			sourceTree = "<group>";
@@ -398,7 +395,6 @@
 			files = (
 				967ED17F24608F9F004712DB /* Legothick.ttf in Resources */,
 				964BA877246A1FFE00984DCC /* Localizable.strings in Resources */,
-				96DE9243245F31CA00652E0E /* SampleSets.json in Resources */,
 				96DE924E245F696700652E0E /* Colors.xcassets in Resources */,
 				96E78B88245CAC290032F4E3 /* LaunchScreen.storyboard in Resources */,
 				96E78B82245CAC290032F4E3 /* Assets.xcassets in Resources */,
