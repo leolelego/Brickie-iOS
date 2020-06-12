@@ -112,7 +112,7 @@ struct SetDetailView: View {
                 Text("\(set.minifigs ?? 0)").font(.headline)
                 Image.minifig_head(height:26)
                 Spacer()
-                Text(set.price ?? "").font(.title).bold()
+                //Text(set.price ?? "").font(.title).bold()
             }
         }.padding(.horizontal)
     }
