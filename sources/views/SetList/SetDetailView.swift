@@ -52,7 +52,7 @@ struct SetDetailView: View {
         }
             
         .navigationBarTitle("", displayMode: .inline)
-        .navigationBarItems(trailing: ShareNavButton(items: [URL(string:set.bricksetURL)!]))
+//        .navigationBarItems(trailing: ShareNavButton(items: [URL(string:set.bricksetURL)!]))
         
     }
     

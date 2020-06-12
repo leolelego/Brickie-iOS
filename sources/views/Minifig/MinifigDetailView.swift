@@ -28,7 +28,7 @@ struct MinifigDetailView: View {
         .sheet(isPresented: $isImageDetailPresented, content: { SetAdditionalImageView(isPresented: self.$isImageDetailPresented, url: self.detailImageUrl!)})
             
         .navigationBarTitle("", displayMode: .inline)
-        .navigationBarItems(trailing: ShareNavButton(items: [URL(string:minifig.bricksetURL)!]))
+//        .navigationBarItems(trailing: ShareNavButton(items: [URL(string:minifig.bricksetURL)!]))
         .navigationBarHidden(false)
     }
     func makeThumbnail() -> some View {
