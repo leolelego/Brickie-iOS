@@ -19,7 +19,7 @@ struct SettingsView: View {
     ]
     let feedbacks = [
         Credit(text: "credit.github", link: URL(string: "https://github.com/leolelego/BrickSet")!,image: Image("github")),
-        Credit(text: "credit.instagram", link: URL(string: "https://instagram.com/leolelego")!,image: Image("instagram")),
+        //Credit(text: "credit.instagram", link: URL(string: "https://instagram.com/leolelego")!,image: Image("instagram")),
         Credit(text: "credit.twitter", link: URL(string: "https://twitter.com/leolelego")!,image: Image("twitter")),
         Credit(text: "credit.testflight", link: URL(string: "https://testflight.apple.com/join/9IE197Mt")!,image: Image("lego_head")),
 
@@ -63,13 +63,13 @@ struct SettingsView: View {
                 
                 Section(header: Text("settings.credits")) {
                     ForEach(credits){ c in
-                        Button(action: {
-                            UIApplication.shared.open(c.link)
-                        }) {
+//                        Button(action: {
+//                            UIApplication.shared.open(c.link)
+//                        }) {
                             HStack {
                                 c.image
                                 Text(c.text)
-                            }
+//                            }
                         }
                     }
                     

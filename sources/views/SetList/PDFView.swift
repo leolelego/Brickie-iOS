@@ -32,7 +32,7 @@ struct LegoPDFView : View {
             self.loader.cancel()
         }
         .navigationBarTitle("instruction.title",displayMode: .inline)
-        .navigationBarItems(trailing: ShareNavButton(items: [URL(string:stringURL)!]))
+//        .navigationBarItems(trailing: ShareNavButton(items: [URL(string:stringURL)!]))
 
     }
 

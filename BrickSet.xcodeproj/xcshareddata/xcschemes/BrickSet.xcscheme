@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "96E78B77245CAC270032F4E3"
-               BuildableName = "Emmet.app"
-               BlueprintName = "Emmet"
-               ReferencedContainer = "container:Emmet.xcodeproj">
+               BuildableName = "Brickies.app"
+               BlueprintName = "BrickSet"
+               ReferencedContainer = "container:BrickSet.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -45,9 +45,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "96E78B77245CAC270032F4E3"
-            BuildableName = "Emmet.app"
-            BlueprintName = "Emmet"
-            ReferencedContainer = "container:Emmet.xcodeproj">
+            BuildableName = "Brickies.app"
+            BlueprintName = "BrickSet"
+            ReferencedContainer = "container:BrickSet.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
@@ -62,9 +62,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "96E78B77245CAC270032F4E3"
-            BuildableName = "Emmet.app"
-            BlueprintName = "Emmet"
-            ReferencedContainer = "container:Emmet.xcodeproj">
+            BuildableName = "Brickies.app"
+            BlueprintName = "BrickSet"
+            ReferencedContainer = "container:BrickSet.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>
