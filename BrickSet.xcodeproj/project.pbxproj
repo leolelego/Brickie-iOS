@@ -606,7 +606,6 @@
 				CODE_SIGN_ENTITLEMENTS = sources/assets/BrickSet.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_ASSET_PATHS = "sources/assets/Preview\\ Content";
 				DEVELOPMENT_TEAM = Z22Q8S6MMK;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = sources/assets/Info.plist;
@@ -632,7 +631,6 @@
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Distribution";
 				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_ASSET_PATHS = "sources/assets/Preview\\ Content";
 				DEVELOPMENT_TEAM = Z22Q8S6MMK;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = sources/assets/Info.plist;
