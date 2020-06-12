@@ -13,10 +13,10 @@ struct SettingsView: View {
     @EnvironmentObject private var  collection : UserCollection
     @EnvironmentObject var config: Configuration
     
-    let credits = [
-        Credit(text: "credit.brickset", link: URL(string: "https://brickset.com")!,image: Image("brickset_small")),
-        Credit(text: "credit.homework", link: URL(string: "https://homework.family")!,image: Image("homework")),
-    ]
+//    let credits = [
+//        Credit(text: "credit.brickset", link: URL(string: "https://brickset.com")!,image: Image("brickset_small")),
+//        Credit(text: "credit.homework", link: URL(string: "https://homework.family")!,image: Image("homework")),
+//    ]
     let feedbacks = [
         //Credit(text: "credit.github", link: URL(string: "https://github.com/leolelego/BrickSet")!,image: Image("github")),
         //Credit(text: "credit.instagram", link: URL(string: "https://instagram.com/leolelego")!,image: Image("instagram")),
