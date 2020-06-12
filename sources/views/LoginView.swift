@@ -23,21 +23,21 @@ struct LoginView: View {
                 Text("login.offline").font(.headline).bold().foregroundColor(.red)
             } else {
                 if !loading {
-                    makeFields().offset(y: -30)
+                    makeFields().offset(y: -60)
                     
                 }
-                makeLoginButton().offset(y:-30)
+                makeLoginButton().offset(y:-60)
             }
             
             if  error != nil && !self.loading {
                 VStack{
-                    Text("login.failed").font(.callout).foregroundColor(.red)
+                    Text("login.failed").font(.callout).multilineTextAlignment(.center).foregroundColor(.red).lineLimit(10)
                     
                 }
             }
-            if !loading {
-                makeSignup()
-            }
+//            if !loading {
+//                makeSignup()
+//            }
             makeBrickSet()
             
         }
@@ -53,12 +53,13 @@ struct LoginView: View {
                 .stroke(lineWidth: 3)
                 .stroke(Color.backgroundAlt))
             .rotationEffect(Angle(degrees:loading ? 30 : 320))
-            .offset(y: loading ? -600 : -30)
+            .offset(y: loading ? -600 : -60)
             .animation(Animation.interpolatingSpring(stiffness: 170, damping: 5))
     }
     
     func makeFields() -> some View {
-        VStack{
+        VStack(alignment: .leading,spacing: 16){
+            Text("login.info").font(.subheadline).foregroundColor(.gray)//.bold()
             TextField("login.username", text: $username).textContentType(.username).autocapitalization(.none)
             Divider()
             SecureField("login.password", text: $password).textContentType(.password).transition(.move(edge: .bottom))

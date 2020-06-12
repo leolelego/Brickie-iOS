@@ -1,6 +1,6 @@
-# Emmet: Your BrickSet Companion for iOS
+# Brickie: Your BrickSet Companion for iOS
 
-Emmet is an iOS application powered by the BrickSet API which permit to make a collection of your LEGO sets and minifigures. 
+Brickie is an iOS application powered by the BrickSet API which permit to make a collection of your LEGO sets and minifigures. 
 
 ## Open Source, Technologies and Privacy
 
