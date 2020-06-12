@@ -87,7 +87,7 @@ struct SetListCell : View {
             Image.brick(height:20)
             Text("\(set.minifigs ?? 0)").font(.headline)
             Image.minifig_head(height:20)
-            Text(set.price ?? "").font(.headline)
+            //Text(set.price ?? "").font(.headline)
             
         }
     }

@@ -58,8 +58,8 @@ struct LoginView: View {
     }
     
     func makeFields() -> some View {
-        VStack(alignment: .leading,spacing: 16){
-            Text("login.info").font(.subheadline).foregroundColor(.gray)//.bold()
+        VStack(alignment: .leading,spacing: 8){
+//            Text("login.info").font(.subheadline).foregroundColor(.gray)//.bold()
             TextField("login.username", text: $username).textContentType(.username).autocapitalization(.none)
             Divider()
             SecureField("login.password", text: $password).textContentType(.password).transition(.move(edge: .bottom))
@@ -100,21 +100,21 @@ struct LoginView: View {
         ).disabled(username.isEmpty || password.isEmpty || loading)
     }
     
-    func makeSignup() -> some View{
-        Button(action: {
-            if let url = URL(string: "https://brickset.com/signup") {
-                UIApplication.shared.open(url)
-            }
-        }) {
-            VStack(alignment: .center, spacing: 0){
-                Text("login.donthaveaccount")
-                    .bold()
-                Text("login.signup").font(.title)
-                    .bold()
-                    .foregroundColor(.blue)
-            }
-        }
-    }
+//    func makeSignup() -> some View{
+//        Button(action: {
+//            if let url = URL(string: "https://brickset.com/signup") {
+//                UIApplication.shared.open(url)
+//            }
+//        }) {
+//            VStack(alignment: .center, spacing: 0){
+//                Text("login.donthaveaccount")
+//                    .bold()
+//                Text("login.signup").font(.title)
+//                    .bold()
+//                    .foregroundColor(.blue)
+//            }
+//        }
+//    }
     func makeBrickSet() -> some View {
         VStack(alignment: .leading, spacing: 0){
             Text("login.powerby").bold().foregroundColor(.backgroundAlt)
