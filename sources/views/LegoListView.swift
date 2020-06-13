@@ -8,6 +8,11 @@
 
 import SwiftUI
 import Combine
+
+enum SheetType  {
+    case scanner
+    case settings
+}
 //import CodeScanner
 struct LegoListView<ListView:View>: View {
     
@@ -17,7 +22,7 @@ struct LegoListView<ListView:View>: View {
     @State var animate : Bool = false
     @Binding var searchText : String
     @Binding var filter : CollectionFilter
-    
+    @State var sheetType : SheetType = .scanner
     var title : LocalizedStringKey
     var isBarCode : Bool
     
@@ -25,17 +30,17 @@ struct LegoListView<ListView:View>: View {
     var body: some View {
         NavigationView{
             List {
-                SearchField(searchText: $searchText,isActive: $showSearchBar)//.padding(.horizontal,16)
-                //    .listRowInsets(EdgeInsets(top: 0, leading: -16, bottom: 0, trailing: -16))
-                content//.listRowInsets(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
-                makeLoading()//.transition(.opacity)
+                SearchField(searchText: $searchText,isActive: $showSearchBar)
+                content
+                makeLoading()
                 
             }
-            //.listStyle(GroupedListStyle()).environment(\.horizontalSizeClass, .regular)
-                
-                
             .navigationBarTitle(title)
-            .navigationBarItems(trailing:
+            .navigationBarItems(
+                leading: HStack(spacing: 22, content: {
+                    makeSettings()
+                }),
+                trailing:
                 HStack(spacing:22){
                     makeHeart()
                     if isBarCode {
@@ -46,8 +51,9 @@ struct LegoListView<ListView:View>: View {
             )
         }
         .sheet(isPresented: $isShowingScanner) {
-            CodeScannerView(codeTypes: [.ean8, .ean13, .pdf417], completion: self.handleScan)
+            self.makeSheet()
         }
+            
         .onAppear {
             tweakTableView(on:true)
         }.onDisappear {
@@ -68,6 +74,17 @@ struct LegoListView<ListView:View>: View {
         }
     }
     
+    func makeSheet()-> AnyView {
+        
+        switch sheetType{
+        case .scanner :
+            return AnyView(CodeScannerView(codeTypes: [.ean8, .ean13, .pdf417], completion: self.handleScan))
+        case .settings:
+            return AnyView(SettingsView().environmentObject(collection))
+            
+        }
+
+    }
     func makeLoading() -> some View {
         Group {
             if collection.isLoadingData   {
@@ -97,9 +114,19 @@ struct LegoListView<ListView:View>: View {
             Image(systemName: filter == .wanted ? "heart.fill" : "heart").modifier(BarButtonModifier())
         })
     }
+    func makeSettings() -> some View{
+        Button(action: {
+            self.sheetType = .settings
+
+            self.isShowingScanner.toggle()
+        }, label: {
+            Image(systemName: "gear").modifier(BarButtonModifier())
+        })
+    }
     
     func makeScanner() -> some View{
         Button(action: {
+            self.sheetType = .scanner
             self.isShowingScanner.toggle()
         }, label: {
             Image(systemName: "barcode.viewfinder").modifier(BarButtonModifier())
