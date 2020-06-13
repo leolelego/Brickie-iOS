@@ -40,14 +40,7 @@ struct AppRootView: View {
                             }
                     }
                         .tag(1)
-                    SettingsView()
-                        .tabItem {
-                            VStack {
-                                Image(systemName: "gear").imageScale(.large)
-                                Text("settings.tab")
-                            }
-                    }
-                    .tag(3)
+
                 }.onAppear {
                     self.collection.synchronize(force: true)
                 }

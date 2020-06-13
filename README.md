@@ -1,4 +1,4 @@
-# Brickie: Your BrickSet Companion for iOS
+# Brickie: The BrickSet Companion for iOS
 
 Brickie is an iOS application powered by the BrickSet API which permit to make a collection of your LEGO sets and minifigures. 
 
@@ -49,4 +49,4 @@ We don't dislay any ads or send anything to any server. So we don't track you us
  
 ## Credits and Thanks
 
-Thanks first to **BrickSet** and Huw for is support in this implementation. Thanks to Will from HMWK.fr for is help and Testflight account. 
+Thanks first to **BrickSet** and Huw for is support in this implementation. Thanks to Will from HMWK Family for is help and Testflight account. 
