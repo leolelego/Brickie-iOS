@@ -35,9 +35,6 @@ struct LoginView: View {
                     
                 }
             }
-            //            if !loading {
-            //                makeSignup()
-            //            }
             makeBrickSet()
             
         }
@@ -51,7 +48,6 @@ struct LoginView: View {
             Image("app_logo")
                 .padding(20)
                             .background(Circle()
-//                                .stroke(lineWidth: 3)
                                 .fill(Color.white))
                 .rotationEffect(Angle(degrees:loading ? 320 : 0))
                 .offset(y: loading ? -600 : 0)
@@ -68,7 +64,6 @@ struct LoginView: View {
     
     func makeFields() -> some View {
         VStack(alignment: .leading,spacing: 8){
-            //            Text("login.info").font(.subheadline).foregroundColor(.gray)//.bold()
             TextField("login.username", text: $username).textContentType(.username).autocapitalization(.none)
             Divider()
             SecureField("login.password", text: $password).textContentType(.password).transition(.move(edge: .bottom))

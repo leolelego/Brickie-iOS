@@ -13,10 +13,6 @@ struct BarButtonModifier: ViewModifier {
         content
             .imageScale(.large)
             .foregroundColor(.backgroundAlt)
-//            .background(Circle()
-//                .fill(Color.backgroundAlt)
-//                .frame(width:38,height: 38)
-//        )
     }
 }
 
