@@ -11,6 +11,7 @@ import SwiftUI
 struct SettingsView: View {
     
     @EnvironmentObject private var  collection : UserCollection
+    
     @Environment(\.presentationMode) var presentationMode
     
     let feedbacks = [
@@ -54,8 +55,18 @@ struct SettingsView: View {
                             }.buttonStyle(RoundedButtonStyle(backgroundColor: .red, padding:8))
                         }
                         
+                        
                     }
+                    
+                    HStack{
+                        Text(String(collection.sets.qtyOwned)+" ").font(.lego(size: 20))
+                        Image.brick
+                        Text(String(collection.minifigs.qtyOwned)+" ").font(.lego(size: 20))
+                        Image.minifig_head
+                    }
+                    
                 }
+                
                 
                 Section(header: Text("settings.feedbacks"),footer: makeBrickSet()) {
                     ForEach(feedbacks){ c in

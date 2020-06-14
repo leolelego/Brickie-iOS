@@ -9,8 +9,8 @@
 import UIKit
 import Combine
 
-let collection = UserCollection()
-var config = Configuration()
+let kCollection = UserCollection()
+var kConfig = Configuration()
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
     var networkCancellable :AnyCancellable?
@@ -21,11 +21,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func linkNetwork(){
-        networkCancellable = config.$connection
+        networkCancellable = kConfig.$connection
                   .debounce(for: .seconds(2), scheduler: DispatchQueue.main)
                   .filter{ !$0.cantUpdateDB }
                   .sink { _ in
-                      collection.synchronize()
+                      kCollection.requestForSync = true
 
                   }
     }
@@ -39,14 +39,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func applicationWillResignActive(_ application: UIApplication) {
-        collection.backup()
+        kCollection.backup()
     }
     func applicationDidEnterBackground(_ application: UIApplication) {
-        collection.backup()
+        kCollection.backup()
     }
     
     func applicationWillTerminate(_ application: UIApplication) {
-        collection.backup()
+        kCollection.backup()
 
     }
 }

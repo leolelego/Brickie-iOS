@@ -28,9 +28,10 @@ class UserCollection : ObservableObject{
     private var searchSetsCancellable: AnyCancellable?
     @Published var searchMinifigsText = ""
     private var searchMinifigsCancellable: AnyCancellable?
-    
-    @Published var isLoadingData : Bool = false
-    
+    private var syncronizeCancellable: AnyCancellable?
+    @Published var requestForSync : Bool = false
+    @Published var isLoadingData : Bool = true
+    var lastsync = Date()
     @Published var user : User? {
         didSet{
             guard let u = user else  {
@@ -60,12 +61,13 @@ class UserCollection : ObservableObject{
         log("Init Collection")
         if let username = keychain.get(Key.username), let hash = keychain.get(Key.token){
             self.user = User(username: username, token: hash)
+            sync()
         }
         loadFromBack()
         isLoadingData = false
         searchSetsCancellable = $searchSetsText
             .handleEvents(receiveOutput: { [weak self] _ in  self?.isLoadingData = true })
-            .debounce(for: .milliseconds(500), scheduler: DispatchQueue.main)
+            .debounce(for: .milliseconds(1200), scheduler: DispatchQueue.main)
             .removeDuplicates()
             .sink{  _ in
                 if self.searchSetsText.isEmpty {
@@ -73,7 +75,7 @@ class UserCollection : ObservableObject{
                     self.isLoadingData = false
                 } else {
                     if try! Reachability().connection != . unavailable && self.searchSetsText.count > 2 {
-//                        self.isLoadingData = true
+                        self.isLoadingData = true
                         self.searchSets(text: self.searchSetsText)
                     } else {
                         self.isLoadingData = false
@@ -83,7 +85,7 @@ class UserCollection : ObservableObject{
         }
         
         searchMinifigsCancellable = $searchMinifigsText
-//            .handleEvents(receiveOutput: { [weak self] _ in  })
+            //            .handleEvents(receiveOutput: { [weak self] _ in  })
             .debounce(for: .milliseconds(1300), scheduler: DispatchQueue.main)
             .removeDuplicates()
             .sink{  _ in
@@ -100,6 +102,17 @@ class UserCollection : ObservableObject{
                     self.minifigFilter = .search(self.searchMinifigsText)
                 }
         }
+        
+        syncronizeCancellable = $requestForSync
+            .debounce(for: .seconds(3), scheduler: DispatchQueue.main)
+            //            .removeDuplicates()
+            .filter{ $0 == true }
+            .sink { _ in
+                self.sync()
+        }
+        
+        requestForSync = self.user != nil
+        
     } 
     
     var setsFilter : CollectionFilter = .owned {
@@ -274,7 +287,7 @@ extension UserCollection {
 }
 // MARK: Call for Sets
 extension UserCollection {
-    func append(_ new:[LegoSet]){
+    func append(_ new:[LegoSet],thead : Bool = true){
         var toAppend = [LegoSet]()
         for set in new {
             if let idx = self.sets.firstIndex(of: set){
@@ -285,11 +298,17 @@ extension UserCollection {
                 toAppend.append(set)
             }
         }
-        DispatchQueue.main.async {
+        
+        func u(){
             self.objectWillChange.send()
             self.sets.append(contentsOf: toAppend)
             self.isLoadingData = false
         }
+        thead ?
+            DispatchQueue.main.async {
+                u()
+            }
+            : u()
         
         
         
@@ -299,48 +318,64 @@ extension UserCollection {
     func updateWanted(with wanted:[LegoSet]){
         DispatchQueue.main.async {
             self.objectWillChange.send()
-            self.append(wanted)
             for set in self.sets {
                 set.collection.wanted = wanted.contains(set)
             }
+            self.append(wanted)
+            
         }
     }
     func updateOwned(with owned:[LegoSet]){
         DispatchQueue.main.async {
             self.objectWillChange.send()
-            self.append(owned)
             for set in self.sets {
-                set.collection.owned = owned.contains(set)
+                let owned = owned.contains(set)
+                
+                set.collection.owned = owned
+                if owned == false {
+                    set.collection.qtyOwned = 0
+                    
+                }
+                 
             }
+            self.append(owned)
+            
         }
     }
     
-    func synchronize(force:Bool = false){
-        if force {
-            DispatchQueue.global(qos: .background).async {
-                self.sync()
-            }
-        }
-        else {
-            DispatchQueue.global(qos: .background).asyncDeduped(target: self, after: 30) {
-                self.sync()
-            }
-        }
-    }
+    
     private func sync() {
-//
-        if Configuration.isDebug && self.sets.count > 0 {
-            return
-        }
+        //        if Configuration.isDebug && self.sets.count > 0 {
+        //            log("Fake sync done")
+        //            return
+        //        }
         guard let token = user?.token  else {return}
         
-        APIRouter<[[String:Any]]>.ownedSets(token).decode(ofType: [LegoSet].self) { sets in
-            self.updateOwned(with: sets)
-            
+        
+        func ownedSets(page:Int,  incrmentatl_sets:  [LegoSet]){
+            APIRouter<[[String:Any]]>.ownedSets(token,page).decode(ofType: [LegoSet].self) { sets in
+                var sets2 = incrmentatl_sets
+                sets2.append(contentsOf: sets)
+                if sets .count >= pageSizeSet {
+                    ownedSets(page: page+1,incrmentatl_sets:sets2)
+                } else {
+                    self.updateOwned(with: sets2)
+                }
+            }
         }
-        APIRouter<[[String:Any]]>.wantedSets(token).decode(ofType: [LegoSet].self) { sets in
-            self.updateWanted(with: sets)
+        func wantedSets(page:Int,  incrmentatl_sets:  [LegoSet]){
+            APIRouter<[[String:Any]]>.wantedSets(token,page).decode(ofType: [LegoSet].self) { sets in
+                var sets2 = incrmentatl_sets
+                sets2.append(contentsOf: sets)
+                if sets .count >= pageSizeSet {
+                    wantedSets(page: page+1,incrmentatl_sets:sets2)
+                } else {
+                    self.updateWanted(with: sets)
+                }
+            }
         }
+        ownedSets(page: 1,incrmentatl_sets: [LegoSet]())
+        wantedSets(page: 1,incrmentatl_sets: [LegoSet]())
         
         APIRouter<[[String:Any]]>.ownedFigs(token).decode(ofType: [LegoMinifig].self) { items in
             self.updateOwned(with: items)
@@ -352,9 +387,18 @@ extension UserCollection {
     }
     func searchSets(text:String){
         guard let token = user?.token else {return }
-        APIRouter<[[String:Any]]>.searchSets(token, text).decode(ofType: [LegoSet].self) { sets in
-            self.append(sets)
+        
+        func search(page:Int){
+            APIRouter<[[String:Any]]>.searchSets(token, text,page).decode(ofType: [LegoSet].self) { sets in
+                if sets .count >= pageSizeSearch {
+                    search(page: page+1)
+                }
+                self.append(sets)
+                
+            }
         }
+        search(page: 1)
+        
     }
     
     func action(_ action:SetCollectionAction,on item:LegoSet){
@@ -368,6 +412,19 @@ extension UserCollection {
             }
             
         }
+    }
+    
+}
+
+extension Array where  Element:LegoSet {
+    var qtyOwned : Int {
+        return self.compactMap { return $0.collection.qtyOwned}.reduce(0, +)
+    }
+}
+
+extension Array where  Element:LegoMinifig {
+    var qtyOwned : Int {
+        return self.compactMap { return $0.ownedTotal}.reduce(0, +)
     }
 }
 
@@ -388,24 +445,21 @@ extension UserCollection {
     }
     
     func loadFromBack(){
-        DispatchQueue.global(qos: .utility).async {
-            let persistance = PersistentData()
-            if let data = persistance[Key.setsBackupURL] {
-                do {
-                    let items = try JSONDecoder().decode([LegoSet].self, from: data)
-                    self.append(items)
-                    
-                } catch {
-                    logerror(error)
-                }
+        let persistance = PersistentData()
+        if let data = persistance[Key.setsBackupURL] {
+            do {
+                let items = try JSONDecoder().decode([LegoSet].self, from: data)
+                self.append(items,thead: false)                
+            } catch {
+                logerror(error)
             }
-            if let data = persistance[Key.figsBackupURL] {
-                do {
-                    let items = try JSONDecoder().decode([LegoMinifig].self, from: data)
-                    self.append(items)
-                } catch {
-                    logerror(error)
-                }
+        }
+        if let data = persistance[Key.figsBackupURL] {
+            do {
+                let items = try JSONDecoder().decode([LegoMinifig].self, from: data)
+                self.append(items)
+            } catch {
+                logerror(error)
             }
         }
         
@@ -425,6 +479,6 @@ extension UserCollection {
     }
     func reset(){
         wipe()
-        synchronize()
+        requestForSync = true
     }
 }
