@@ -10,8 +10,6 @@ import SwiftUI
 
 import SDWebImageSwiftUI
 struct BackgroundImageView : View {
-    @Environment(\.dataCache) var cache: DataCache
-
     let imagePath : String?
     var body : some View {
         ZStack {

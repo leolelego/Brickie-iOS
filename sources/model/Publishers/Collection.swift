@@ -11,6 +11,7 @@ import Combine
 import SwiftUI
 import KeychainSwift
 import Reachability
+import SDWebImage
 enum CollectionFilter : Equatable{
     case wanted
     case owned
@@ -35,6 +36,7 @@ class UserCollection : ObservableObject{
             guard let u = user else  {
                 keychain.delete(Key.username)
                 keychain.delete(Key.token)
+                wipe()
                 return
             }
             keychain.set(u.username, forKey: Key.username)
@@ -62,7 +64,7 @@ class UserCollection : ObservableObject{
         loadFromBack()
         isLoadingData = false
         searchSetsCancellable = $searchSetsText
-//            .handleEvents(receiveOutput: { /*[weak self]*/ _ in  })
+            .handleEvents(receiveOutput: { [weak self] _ in  self?.isLoadingData = true })
             .debounce(for: .milliseconds(500), scheduler: DispatchQueue.main)
             .removeDuplicates()
             .sink{  _ in
@@ -71,7 +73,7 @@ class UserCollection : ObservableObject{
                     self.isLoadingData = false
                 } else {
                     if try! Reachability().connection != . unavailable && self.searchSetsText.count > 2 {
-                        self.isLoadingData = true
+//                        self.isLoadingData = true
                         self.searchSets(text: self.searchSetsText)
                     } else {
                         self.isLoadingData = false
@@ -99,9 +101,6 @@ class UserCollection : ObservableObject{
                 }
         }
     } 
-    
-    
-    
     
     var setsFilter : CollectionFilter = .owned {
         didSet{
@@ -210,12 +209,6 @@ extension UserCollection {
     
     
     func append(_ new:[LegoMinifig]){
-        
-        
-        DispatchQueue.main.async {
-            
-            self.isLoadingData = false
-        }
         var toAppend = [LegoMinifig]()
         for fig in new {
             if let idx = self.minifigs.firstIndex(of: fig){
@@ -228,10 +221,9 @@ extension UserCollection {
         }
         DispatchQueue.main.async {
             self.objectWillChange.send()
-            
             self.minifigs.append(contentsOf: toAppend)
+            self.isLoadingData = false
         }
-        
     }
     
     // Remove set taht are NOT wanted
@@ -283,10 +275,6 @@ extension UserCollection {
 // MARK: Call for Sets
 extension UserCollection {
     func append(_ new:[LegoSet]){
-        DispatchQueue.main.async {
-            
-            self.isLoadingData = false
-        }
         var toAppend = [LegoSet]()
         for set in new {
             if let idx = self.sets.firstIndex(of: set){
@@ -299,8 +287,8 @@ extension UserCollection {
         }
         DispatchQueue.main.async {
             self.objectWillChange.send()
-            
             self.sets.append(contentsOf: toAppend)
+            self.isLoadingData = false
         }
         
         
@@ -425,13 +413,18 @@ extension UserCollection {
     }
     
     
-    
-    func reset(){
+    func wipe(){
         PersistentData().free()
         DataCache().free()
-        
+        SDImageCache.shared.clearMemory()
+        SDImageCache.shared.clearDisk(onCompletion: nil)
         self.minifigs = [LegoMinifig]()
         self.sets = [LegoSet]()
+        
+        
+    }
+    func reset(){
+        wipe()
         synchronize()
     }
 }

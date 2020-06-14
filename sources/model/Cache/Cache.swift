@@ -71,7 +71,7 @@ struct PersistentData {
                        
                         
                     }
-                    userDefaults.set(key, forKey: "file_cache")
+                    userDefaults.set(array, forKey: "file_cache")
                     userDefaults.synchronize()
                 } catch {
                     logerror(error)
