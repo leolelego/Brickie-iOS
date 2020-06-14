@@ -106,7 +106,7 @@
 		96DE924D245F696700652E0E /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
 		96DE9252245F8A6800652E0E /* Blur.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Blur.swift; sourceTree = "<group>"; };
 		96DE9255245FA7BC00652E0E /* RoundedCorners.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedCorners.swift; sourceTree = "<group>"; };
-		96E78B78245CAC270032F4E3 /* Brickie.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Brickie.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		96E78B78245CAC270032F4E3 /* Brickie Debug.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Brickie Debug.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		96E78B7B245CAC270032F4E3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		96E78B7D245CAC270032F4E3 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		96E78B81245CAC290032F4E3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -237,7 +237,7 @@
 		96E78B79245CAC270032F4E3 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				96E78B78245CAC270032F4E3 /* Brickie.app */,
+				96E78B78245CAC270032F4E3 /* Brickie Debug.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -327,9 +327,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		96E78B77245CAC270032F4E3 /* BrickSet */ = {
+		96E78B77245CAC270032F4E3 /* Brickie */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 96E78B8C245CAC290032F4E3 /* Build configuration list for PBXNativeTarget "BrickSet" */;
+			buildConfigurationList = 96E78B8C245CAC290032F4E3 /* Build configuration list for PBXNativeTarget "Brickie" */;
 			buildPhases = (
 				96E78B74245CAC270032F4E3 /* Sources */,
 				96E78B75245CAC270032F4E3 /* Frameworks */,
@@ -339,14 +339,14 @@
 			);
 			dependencies = (
 			);
-			name = BrickSet;
+			name = Brickie;
 			packageProductDependencies = (
 				96E78BA3245CC7700032F4E3 /* KeychainSwift */,
 				96851E022473389800D9F803 /* Reachability */,
 				9694B58A24900E21008D0508 /* SDWebImageSwiftUI */,
 			);
 			productName = BrickSet;
-			productReference = 96E78B78245CAC270032F4E3 /* Brickie.app */;
+			productReference = 96E78B78245CAC270032F4E3 /* Brickie Debug.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -364,7 +364,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 96E78B73245CAC270032F4E3 /* Build configuration list for PBXProject "BrickSet" */;
+			buildConfigurationList = 96E78B73245CAC270032F4E3 /* Build configuration list for PBXProject "Brickie" */;
 			compatibilityVersion = "Xcode 11.4";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -383,7 +383,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				96E78B77245CAC270032F4E3 /* BrickSet */,
+				96E78B77245CAC270032F4E3 /* Brickie */,
 			);
 		};
 /* End PBXProject section */
@@ -614,10 +614,10 @@
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = family.homework.brickset.dev;
-				PRODUCT_NAME = Brickie;
+				PRODUCT_NAME = "Brickie Debug";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "";
-				SUPPORTS_MACCATALYST = YES;
+				SUPPORTS_MACCATALYST = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -642,7 +642,7 @@
 				PRODUCT_NAME = Brickie;
 				PROVISIONING_PROFILE_SPECIFIER = "match AppStore family.homework.brickset";
 				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "Brickset Mac Catalyst";
-				SUPPORTS_MACCATALYST = YES;
+				SUPPORTS_MACCATALYST = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -651,7 +651,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		96E78B73245CAC270032F4E3 /* Build configuration list for PBXProject "BrickSet" */ = {
+		96E78B73245CAC270032F4E3 /* Build configuration list for PBXProject "Brickie" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				96E78B8A245CAC290032F4E3 /* Debug */,
@@ -660,7 +660,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		96E78B8C245CAC290032F4E3 /* Build configuration list for PBXNativeTarget "BrickSet" */ = {
+		96E78B8C245CAC290032F4E3 /* Build configuration list for PBXNativeTarget "Brickie" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				96E78B8D245CAC290032F4E3 /* Debug */,

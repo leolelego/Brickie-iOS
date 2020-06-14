@@ -18,7 +18,7 @@ jobs:
     - name: Process
       run: |
         echo 'let BrickSetApiKey = "${{secrets.BRICKSET_API_KEY}}"' > sources/model/Secrets.swift
-        bundle exec fastlane beta branch:${GITHUB_REF##*/}
+        bundle exec fastlane process branch:${GITHUB_REF##*/}
       env:
         APP_IDENTIFIER: ${{secrets.APP_IDENTIFIER}}
         FASTLANE_USER: ${{secrets.FASTLANE_USER}}

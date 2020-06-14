@@ -1,5 +1,5 @@
 default_platform(:ios)
-application_version = "1.0"
+application_version = "1.1"
 
 platform :ios do
   ENV['FASTLANE_XCODEBUILD_SETTINGS_TIMEOUT']='2000'
@@ -53,23 +53,20 @@ platform :ios do
     )
   end
 
-  lane :beta do |options|
+  lane :process do |options|
     version_update
     certificates
-    build_app(scheme: "BrickSet")
+    build_app
 
     brch = options[:branch] ? options[:branch] : git_branch
-    if ["develop"].include? brch
-      # TestFlight when app in prod
-     
-    elsif ["master"].include? brch
-      # App Store whan app in prod NOW TestFlight
+    if ["master"].include? brch
       stamp_changelog(
         section_identifier: "Version #{application_version} (#{number_of_commits})",
       )
       changelog = read_changelog(
           excluded_markdown_elements: ['-', '##','###']	# Specify which markdown elements should be excluded
       )
+      
       upload_to_testflight(
         reject_build_waiting_for_review:true,
         #skip_waiting_for_build_processing:false
@@ -78,20 +75,9 @@ platform :ios do
         changelog:changelog
       )
     end
-    
   end
 
   lane :test do 
-
-    UI.message ENV["FASTLANE_USER"][0...5]
-    UI.message ENV["FASTLANE_PASSWORD"][0...5]
-
-    upload_to_testflight(
-      reject_build_waiting_for_review:true,
-      #skip_waiting_for_build_processing:false
-      groups:["Beta Public"],
-      distribute_external:true,
-      #changelog:changelog
-    )
+    build_app
   end
 end

@@ -8,9 +8,7 @@
 
 import SwiftUI
 import SDWebImageSwiftUI
-struct MinifigDetailView: View {
-    @Environment(\.dataCache) var cache: DataCache
-    
+struct MinifigDetailView: View {    
     @ObservedObject var minifig : LegoMinifig
     @State var detailImageUrl : String?
     @State var isImageDetailPresented : Bool = false
