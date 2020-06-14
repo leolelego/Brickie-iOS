@@ -14,7 +14,6 @@
 		960FAD8024677F250064B458 /* PDFKitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960FAD7F24677F250064B458 /* PDFKitView.swift */; };
 		960FAD8224677FD70064B458 /* PDFView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960FAD8124677FD70064B458 /* PDFView.swift */; };
 		9610E5C82479815F00E31B57 /* SetAdditionalImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9610E5C72479815F00E31B57 /* SetAdditionalImageView.swift */; };
-		961415ED248C17710059EEF6 /* DispatchQueue+Dedupe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 961415EC248C17710059EEF6 /* DispatchQueue+Dedupe.swift */; };
 		9624E38124718DC4002F68F7 /* EnvironmentValues.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9624E37D24718DC4002F68F7 /* EnvironmentValues.swift */; };
 		9624E38324718DC4002F68F7 /* Cache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9624E37F24718DC4002F68F7 /* Cache.swift */; };
 		9624E38424718DC4002F68F7 /* AsyncImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9624E38024718DC4002F68F7 /* AsyncImage.swift */; };
@@ -38,7 +37,6 @@
 		96851E092473569400D9F803 /* MinifigEditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96851E082473569400D9F803 /* MinifigEditorView.swift */; };
 		9694B588248FE881008D0508 /* CodeScanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9694B587248FE881008D0508 /* CodeScanner.swift */; };
 		9694B58B24900E21008D0508 /* SDWebImageSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = 9694B58A24900E21008D0508 /* SDWebImageSwiftUI */; };
-		969DE4A12462245A00F88ED1 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 969DE4A02462245A00F88ED1 /* Settings.swift */; };
 		96CD88742490F2C100343CB6 /* MinifigFilteredView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96CD88732490F2C100343CB6 /* MinifigFilteredView.swift */; };
 		96DE9245245F34AA00652E0E /* Collection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96DE9244245F34AA00652E0E /* Collection.swift */; };
 		96DE9247245F3DD800652E0E /* SetDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96DE9246245F3DD800652E0E /* SetDetailView.swift */; };
@@ -74,7 +72,6 @@
 		960FAD7F24677F250064B458 /* PDFKitView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PDFKitView.swift; sourceTree = "<group>"; };
 		960FAD8124677FD70064B458 /* PDFView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PDFView.swift; sourceTree = "<group>"; };
 		9610E5C72479815F00E31B57 /* SetAdditionalImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetAdditionalImageView.swift; sourceTree = "<group>"; };
-		961415EC248C17710059EEF6 /* DispatchQueue+Dedupe.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "DispatchQueue+Dedupe.swift"; sourceTree = "<group>"; };
 		9624E37D24718DC4002F68F7 /* EnvironmentValues.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnvironmentValues.swift; sourceTree = "<group>"; };
 		9624E37F24718DC4002F68F7 /* Cache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Cache.swift; sourceTree = "<group>"; };
 		9624E38024718DC4002F68F7 /* AsyncImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AsyncImage.swift; sourceTree = "<group>"; };
@@ -97,7 +94,6 @@
 		96851E0624734D3A00D9F803 /* MinifigDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MinifigDetailView.swift; sourceTree = "<group>"; };
 		96851E082473569400D9F803 /* MinifigEditorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MinifigEditorView.swift; sourceTree = "<group>"; };
 		9694B587248FE881008D0508 /* CodeScanner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CodeScanner.swift; sourceTree = "<group>"; };
-		969DE4A02462245A00F88ED1 /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		96CD88732490F2C100343CB6 /* MinifigFilteredView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MinifigFilteredView.swift; sourceTree = "<group>"; };
 		96DE9244245F34AA00652E0E /* Collection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Collection.swift; sourceTree = "<group>"; };
 		96DE9246245F3DD800652E0E /* SetDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetDetailView.swift; sourceTree = "<group>"; };
@@ -256,13 +252,11 @@
 		96E78B90245CACA20032F4E3 /* model */ = {
 			isa = PBXGroup;
 			children = (
-				961415EC248C17710059EEF6 /* DispatchQueue+Dedupe.swift */,
 				9624E38524718FE4002F68F7 /* Cache */,
 				964BA87D246A34C400984DCC /* Publishers */,
 				964BA87C246A34AD00984DCC /* APIs */,
 				964BA87B246A349B00984DCC /* data */,
 				96E78BC1245D15220032F4E3 /* Secrets.swift */,
-				969DE4A02462245A00F88ED1 /* Settings.swift */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -420,7 +414,6 @@
 				96E78BA1245CC5AA0032F4E3 /* Configuration.swift in Sources */,
 				9610E5C82479815F00E31B57 /* SetAdditionalImageView.swift in Sources */,
 				960FAD8024677F250064B458 /* PDFKitView.swift in Sources */,
-				961415ED248C17710059EEF6 /* DispatchQueue+Dedupe.swift in Sources */,
 				96E78BC2245D15220032F4E3 /* Secrets.swift in Sources */,
 				96E78BAE245CCED40032F4E3 /* APIHelpers.swift in Sources */,
 				96365E6F2468700900F318C3 /* DismissingKeyboardOnSwipe.swift in Sources */,
@@ -449,7 +442,6 @@
 				96E78B95245CADFA0032F4E3 /* LoginView.swift in Sources */,
 				960FAD53246709C50064B458 /* BlurredImageView.swift in Sources */,
 				967ED17B24607BD4004712DB /* SetListCell.swift in Sources */,
-				969DE4A12462245A00F88ED1 /* Settings.swift in Sources */,
 				9624E38B2471F2D1002F68F7 /* SetsListView.swift in Sources */,
 				96DE924A245F62FF00652E0E /* RoundedShadowMod.swift in Sources */,
 				96CD88742490F2C100343CB6 /* MinifigFilteredView.swift in Sources */,

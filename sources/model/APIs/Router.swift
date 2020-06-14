@@ -7,15 +7,18 @@
 //
 
 import Foundation
+let pageSizeSearch = 150
+let pageSizeSet = 350
+
 enum APIRouter<T:Any> {
     
     // MARK: Base
     case login(String,String)
     
     // MARK: Get Sets Data
-    case ownedSets(String)
-    case wantedSets(String)
-    case searchSets(String,String)
+    case ownedSets(String,Int)
+    case wantedSets(String,Int)
+    case searchSets(String,String,Int)
     
     // MARK: Set Sets Data
     case setWanted(String,LegoSet,Bool)
@@ -84,17 +87,32 @@ enum APIRouter<T:Any> {
                 URLQueryItem(name: "apiKey", value: BrickSetApiKey),
                 URLQueryItem(name: "setID", value: String(setId)),
             ]
-        case .ownedSets(let hash),.ownedFigs(let hash) : return [
+        case .ownedSets(let hash, let page): return [
+            URLQueryItem(name: "apiKey", value: BrickSetApiKey),
+            URLQueryItem(name: "userHash", value: hash),
+            URLQueryItem(name: "params", value: "{owned:1,pageNumber:\(page),pageSize:\(pageSizeSet)}"),
+            ]
+            case .ownedFigs(let hash) : return [
             URLQueryItem(name: "apiKey", value: BrickSetApiKey),
             URLQueryItem(name: "userHash", value: hash),
             URLQueryItem(name: "params", value: "{owned:1}"),
             ]
-        case .wantedSets(let hash),.wantedFigs(let hash) : return [
+        case .wantedSets(let hash, let page) : return [
+            URLQueryItem(name: "apiKey", value: BrickSetApiKey),
+            URLQueryItem(name: "userHash", value: hash),
+            URLQueryItem(name: "params", value: "{wanted:1,pageNumber:\(page),pageSize:\(pageSizeSet)}"),
+            ]
+            case .wantedFigs(let hash) : return [
             URLQueryItem(name: "apiKey", value: BrickSetApiKey),
             URLQueryItem(name: "userHash", value: hash),
             URLQueryItem(name: "params", value: "{wanted:1}"),
             ]
-        case .searchSets(let hash, let search),.searchMinifigs(let hash, let search) : return [
+        case .searchSets(let hash, let search, let page) : return [
+            URLQueryItem(name: "apiKey", value: BrickSetApiKey),
+            URLQueryItem(name: "userHash", value: hash),
+            URLQueryItem(name: "params", value: "{query:\"\(search)\",pageNumber:\(page),pageSize:\(pageSizeSearch)}"),
+            ]
+        case .searchMinifigs(let hash, let search) : return [
             URLQueryItem(name: "apiKey", value: BrickSetApiKey),
             URLQueryItem(name: "userHash", value: hash),
             URLQueryItem(name: "params", value: "{query:\"\(search)\"}"),
@@ -115,13 +133,13 @@ enum APIRouter<T:Any> {
             URLQueryItem(name: "apiKey", value: BrickSetApiKey),
             URLQueryItem(name: "userHash", value: hash),
             URLQueryItem(name: "minifigNumber", value: minifig.minifigNumber),
-            URLQueryItem(name: "params", value: "{want:\(want ? 1:0)}") //owned:\(qty < 1 ? 0 : 1),
+            URLQueryItem(name: "params", value: "{want:\(want ? 1:0)}")
             ]
         case .minifigQty(let hash,let minifig, let qty) : return [
             URLQueryItem(name: "apiKey", value: BrickSetApiKey),
             URLQueryItem(name: "userHash", value: hash),
             URLQueryItem(name: "minifigNumber", value: minifig.minifigNumber),
-            URLQueryItem(name: "params", value: "{qtyOwned:\(qty)}") //owned:\(qty < 1 ? 0 : 1),
+            URLQueryItem(name: "params", value: "{qtyOwned:\(qty)}")
             ]
         }
     }
@@ -139,8 +157,7 @@ extension APIRouter {
                 
         }
         log("URL CALL: \(u)")
-//        URLSession.shared.configuration.requestCachePolicy = .returnCacheDataElseLoad
-       URLSession.shared.dataTask(with: u){ data, response, error in
+        URLSession.shared.dataTask(with: u){ data, response, error in
             guard error == nil else {
                 logerror(error)
                 completion(.failure(error!))
@@ -173,7 +190,7 @@ extension APIRouter {
                         completion(.failure(APIError.invalid))
                         return
                 }
-
+                
                 completion(.success(items))
                 break
             }
@@ -188,7 +205,7 @@ extension APIRouter {
                     
                     let json = try JSONSerialization.data(withJSONObject: object, options: [])
                     let items = try JSONDecoder().decode(ofType.self, from: json)
-
+                    
                     completion(items)
                 } catch let DecodingError.dataCorrupted(context) {
                     print(context)

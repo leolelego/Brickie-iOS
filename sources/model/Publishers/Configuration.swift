@@ -47,10 +47,7 @@ class Configuration : ObservableObject {
             logerror(error)
         }
     }
-//    
-//    @Published var uiMinifigVisible: Bool = true
-//    @Published var uiSetThumbail = true
-//    
+    
     static let isDebug: Bool = {
         var info = kinfo_proc()
         var mib: [Int32] = [CTL_KERN, KERN_PROC, KERN_PROC_PID, getpid()]
@@ -59,16 +56,6 @@ class Configuration : ObservableObject {
         assert(junk == 0, "sysctl failed")
         return (info.kp_proc.p_flag & P_TRACED) != 0
     }()
-    
-//    enum Link {
-//        case signup =
-//        case brickset =
-//        case homework =
-//        case me = "https://twitter.com/leolelego"
-//
-//    }
-    
-    
 }
 
 

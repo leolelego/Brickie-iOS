@@ -27,8 +27,9 @@ struct AppRootView: View {
                             }
                     }
                     .onAppear(perform: {
+                        
                         if self.config.connection != .unavailable {
-                            self.collection.synchronize()
+                            self.collection.requestForSync = true
                         }
                     })
                         .tag(0)
@@ -41,8 +42,6 @@ struct AppRootView: View {
                     }
                         .tag(1)
 
-                }.onAppear {
-                    self.collection.synchronize(force: true)
                 }
             }
             

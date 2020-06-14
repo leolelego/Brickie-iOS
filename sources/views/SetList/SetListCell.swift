@@ -99,7 +99,7 @@ struct SetListCell : View {
                     .padding(.horizontal,8).foregroundColor(.white)
             }
             if set.collection.wanted  {
-                Image(systemName: set.collection.wanted ? "heart.fill":"heart").font(.footnote)//.background(Color.purple)
+                Image(systemName: set.collection.wanted ? "heart.fill":"heart").font(.footnote)
                     .padding(.horizontal,8)
                     .padding(.vertical,8)
                     .foregroundColor(.white)
