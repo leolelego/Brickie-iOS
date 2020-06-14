@@ -74,7 +74,7 @@ platform :ios do
         distribute_external:true,
         changelog:changelog
       )
-    
+    end
   end
 
   lane :test do 
