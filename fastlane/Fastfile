@@ -66,13 +66,14 @@ platform :ios do
       changelog = read_changelog(
           excluded_markdown_elements: ['-', '##','###']	# Specify which markdown elements should be excluded
       )
-      upload_to_testflight(
-        reject_build_waiting_for_review:true,
-        #skip_waiting_for_build_processing:false
-        groups:["Beta Public"],
-        distribute_external:true,
-        changelog:changelog
-      )
+      upload_to_app_store
+      # upload_to_testflight(
+      #   reject_build_waiting_for_review:true,
+      #   #skip_waiting_for_build_processing:false
+      #   groups:["Beta Public"],
+      #   distribute_external:true,
+      #   changelog:changelog
+      # )
     elsif ["master"].include? brch
       upload_to_app_store
     end
