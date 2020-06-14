@@ -18,7 +18,7 @@ struct LoginView: View {
     
     var body: some View {
         VStack(spacing: 16){
-            makeImage()
+            makeImage().offset(y: -80)
             if config.connection == .unavailable {
                 Text("login.offline").font(.headline).bold().foregroundColor(.red)
             } else {
@@ -35,9 +35,9 @@ struct LoginView: View {
                     
                 }
             }
-//            if !loading {
-//                makeSignup()
-//            }
+            //            if !loading {
+            //                makeSignup()
+            //            }
             makeBrickSet()
             
         }
@@ -47,19 +47,28 @@ struct LoginView: View {
     }
     
     func makeImage() -> some View {
-        Image("app_logo")
-            .padding(20)
-            .overlay(Circle()
-                .stroke(lineWidth: 3)
-                .stroke(Color.backgroundAlt))
-            .rotationEffect(Angle(degrees:loading ? 30 : 320))
-            .offset(y: loading ? -600 : -60)
-            .animation(Animation.interpolatingSpring(stiffness: 170, damping: 5))
+        VStack{
+            Image("app_logo")
+                .padding(20)
+                            .background(Circle()
+//                                .stroke(lineWidth: 3)
+                                .fill(Color.white))
+                .rotationEffect(Angle(degrees:loading ? 320 : 0))
+                .offset(y: loading ? -600 : 0)
+                .animation(Animation.interpolatingSpring(stiffness: 170, damping: 5))
+            Text("login.welcome").bold()
+            Text(" BRICKIE ").font(.lego(size: 32)).foregroundColor(.white)
+                .padding(.top,4)
+                .background(LinearGradient(gradient: Gradient(colors:[Color(red: 0/255, green: 28/255, blue: 200/255), Color(red: 89/255, green: 235/255, blue: 255/255)]), startPoint: .leading, endPoint: .trailing))
+                .cornerRadius(12)
+        }
+        
+        
     }
     
     func makeFields() -> some View {
         VStack(alignment: .leading,spacing: 8){
-//            Text("login.info").font(.subheadline).foregroundColor(.gray)//.bold()
+            //            Text("login.info").font(.subheadline).foregroundColor(.gray)//.bold()
             TextField("login.username", text: $username).textContentType(.username).autocapitalization(.none)
             Divider()
             SecureField("login.password", text: $password).textContentType(.password).transition(.move(edge: .bottom))
@@ -100,7 +109,7 @@ struct LoginView: View {
         ).disabled(username.isEmpty || password.isEmpty || loading)
     }
     
-
+    
     func makeBrickSet() -> some View {
         VStack(alignment: .leading, spacing: 0){
             Text("login.powerby").bold().foregroundColor(.backgroundAlt)

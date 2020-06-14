@@ -9,7 +9,6 @@
 import SwiftUI
 import SDWebImageSwiftUI
 struct SetAdditionalImageView: View {
-    @Environment(\.dataCache) var cache : DataCache
     @Binding var isPresented : Bool
     let url : String
     @State var scale: CGFloat = 1.0

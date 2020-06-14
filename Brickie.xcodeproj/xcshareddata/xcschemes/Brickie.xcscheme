@@ -16,8 +16,8 @@
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "96E78B77245CAC270032F4E3"
                BuildableName = "Brickie.app"
-               BlueprintName = "BrickSet"
-               ReferencedContainer = "container:BrickSet.xcodeproj">
+               BlueprintName = "Brickie"
+               ReferencedContainer = "container:Brickie.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -46,8 +46,8 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "96E78B77245CAC270032F4E3"
             BuildableName = "Brickie.app"
-            BlueprintName = "BrickSet"
-            ReferencedContainer = "container:BrickSet.xcodeproj">
+            BlueprintName = "Brickie"
+            ReferencedContainer = "container:Brickie.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
@@ -63,8 +63,8 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "96E78B77245CAC270032F4E3"
             BuildableName = "Brickie.app"
-            BlueprintName = "BrickSet"
-            ReferencedContainer = "container:BrickSet.xcodeproj">
+            BlueprintName = "Brickie"
+            ReferencedContainer = "container:Brickie.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>
