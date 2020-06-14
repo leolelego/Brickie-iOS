@@ -20,9 +20,17 @@ struct SetsListView: View {
                 
                 HStack(alignment: .center){
                     Spacer()
-                    Text("sets.noitems").font(.largeTitle).bold().transition(.opacity).transition(.opacity)
+                    Text("sets.noitems").font(.largeTitle).bold()
                     Spacer()
                 }
+                if collection.sets.count == 0 {
+                    HStack(alignment: .center){
+                        Spacer()
+                        Text("sets.firstsync").multilineTextAlignment(.center).font(.footnote)
+                        Spacer()
+                    }
+                }
+                
             } else {
                 
                 
@@ -52,6 +60,10 @@ struct SetsListView: View {
         return Array(Set(items.compactMap({$0.theme}))).sorted()
     }
     func items(for section:String,items:[LegoSet]) -> [LegoSet] {
-        return items.filter({$0.theme == section}).sorted(by: {$0.name < $1.name})
+        return items.filter({$0.theme == section})
+            .sorted(by: {
+                $0.subtheme ?? "" < $1.subtheme ?? ""
+            && $0.name < $1.name}
+        )
     }
 }
