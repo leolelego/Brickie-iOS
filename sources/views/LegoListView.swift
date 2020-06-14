@@ -34,7 +34,7 @@ struct LegoListView<ListView:View>: View {
                 content
                 makeLoading()
                 
-            }
+                }
             .navigationBarTitle(title)
             .navigationBarItems(
                 leading: HStack(spacing: 22, content: {

@@ -10,10 +10,8 @@ import SwiftUI
 import  SDWebImageSwiftUI
 struct SetDetailView: View {
     @Environment(\.dataCache) var cache: DataCache
-    
+    @EnvironmentObject var config : Configuration
     @ObservedObject var set : LegoSet
-    @State var additionalImages = [LegoSetImage]()
-    @State var instructions = [LegoInstruction]()
     @State var detailImageUrl : String?
     @State var isImageDetailPresented : Bool = false
     
@@ -32,18 +30,22 @@ struct SetDetailView: View {
         }
         .sheet(isPresented: $isImageDetailPresented, content: { SetAdditionalImageView(isPresented: self.$isImageDetailPresented, url: self.detailImageUrl!)})
         .onAppear {
-            if  self.additionalImages.count == 0 {
+            if  self.set.additionalImages == nil {
                 APIRouter<[[String:Any]]>.additionalImages(self.set.setID).decode(ofType: [LegoSetImage].self) { (items) in
-//                    withAnimation {
-                        self.additionalImages = items
-
-//                    }
+                    
+                    DispatchQueue.main.async {
+                        self.set.objectWillChange.send()
+                        self.set.additionalImages = items
+                    }
                 }
             }
             
-            if self.set.instructionsCount > 0 && self.instructions.count == 0{
+            if self.set.instructionsCount > 0 && self.set.instrucctions == nil{
                 APIRouter<[[String:Any]]>.setInstructions(self.set.setID).decode(ofType: [LegoInstruction].self) { items in
-                        self.instructions = items
+                    DispatchQueue.main.async {
+                        self.set.objectWillChange.send()
+                        self.set.instrucctions = items
+                    }
                     
                     
                 }
@@ -88,7 +90,7 @@ struct SetDetailView: View {
             }
             Spacer()
             NavigationLink(destination: SetsFilteredView(theme: "\(set.year)")) {
-                Text("\(set.year)").roundText
+                Text(String(set.year)).roundText
             }
         }.padding(.horizontal)
     }
@@ -121,27 +123,28 @@ struct SetDetailView: View {
     }
     func makeImages() -> some View{
         Group {
-            if additionalImages.count > 0 {
+            if set.additionalImages?.count ?? 0 > 0 {
                 VStack(alignment: .leading){
                     Text("sets.images").font(.title).bold().padding()
                     ScrollView (.horizontal, showsIndicators: false) {
                         HStack(spacing: 16){
-                            ForEach(additionalImages, id: \.thumbnailURL){ image in
+                            ForEach(set.additionalImages!, id: \.thumbnailURL){ image in
                                 
                                 Button(action: {
-                                    self.detailImageUrl = image.imageURL
-                                    self.isImageDetailPresented.toggle()
+                                        self.detailImageUrl = image.imageURL
+                                        self.isImageDetailPresented.toggle()
                                     
                                 }) {
-                                    
+                            
                                     WebImage(url: URL(string: image.thumbnailURL ?? ""))
+                                    
                                         .resizable()
                                         .renderingMode(.original)
                                         .indicator(.activity)
                                         .transition(.fade)
                                         .aspectRatio(contentMode: .fill)
                                     .modifier(RoundedShadowMod())
-                                }
+                                }.disabled(!SDImageCache.shared.diskImageDataExists(withKey: image.imageURL) && self.config.connection == .unavailable)
                                 
                             }
                         }.padding(.horizontal,32)
@@ -155,24 +158,28 @@ struct SetDetailView: View {
     }
     func makeInstructions() -> some View{
         Group {
-            if instructions.first != nil {
-                NavigationLink(destination: LegoPDFView(string: self.instructions.first!.URL,cache: cache)) {
-                    Text("sets.instruction")
-                        .fontWeight(.bold).foregroundColor(Color.black)
-                        .frame(minWidth: 0, maxWidth: .infinity)
-                        .padding()
-                        .background(Color.yellow)
-                        .mask(RoundedRectangle(cornerRadius: 12))
-                        .padding()
+            if set.instrucctions?.first != nil{
+                NavigationLink(destination: LegoPDFView(string: set.instrucctions!.first!.URL,cache: cache)) {
+                    makeInstructionButton().opacity((cache[URL(string:set.instrucctions!.first!.URL)!] == nil && self.config.connection == .unavailable) ?  0.4 : 1.0)
                     
-                }.transition(.fade)
-                
+                    }.disabled(cache[URL(string:set.instrucctions!.first!.URL)!] == nil && self.config.connection == .unavailable)
+                .transition(.fade)
+
             } else {
                 EmptyView()
             }
         }
         
     }
+    
+    func makeInstructionButton()-> some View {
+        Text("sets.instruction")
+        .fontWeight(.bold).foregroundColor(Color.black)
+        .frame(minWidth: 0, maxWidth: .infinity)
+        .padding()
+        .background(Color.yellow)
+        .mask(RoundedRectangle(cornerRadius: 12))
+        .padding()    }
     
 }
 

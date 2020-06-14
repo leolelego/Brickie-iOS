@@ -8,7 +8,7 @@
 
 import Foundation
 //import RealmSwift
-let fomatter : NumberFormatter = {
+let currencyFormatter : NumberFormatter = {
     let f = NumberFormatter()
     f.numberStyle = .currency
     return f
@@ -37,18 +37,22 @@ class LegoSet : Lego {
         let currentlocale = Locale.current
         switch Locale(identifier: currentlocale.regionCode!).identifier {
         case "ca":
-            return fomatter.string(for: LEGOCom["CA"]?.retailPrice)
+            return currencyFormatter.string(for: LEGOCom["CA"]?.retailPrice)
         case "us":
-            return fomatter.string(for: LEGOCom["US"]?.retailPrice)
+            return currencyFormatter.string(for: LEGOCom["US"]?.retailPrice)
         case "gb":
-            return fomatter.string(for: LEGOCom["UK"]?.retailPrice)
+            return currencyFormatter.string(for: LEGOCom["UK"]?.retailPrice)
         default:
-            fomatter.currencyCode = "EUR"
-            return fomatter.string(for: LEGOCom["DE"]?.retailPrice)
+            currencyFormatter.currencyCode = "EUR"
+            return currencyFormatter.string(for: LEGOCom["DE"]?.retailPrice)
         }
         
         
     }
+    
+    var additionalImages : [LegoSetImage]?
+    var instrucctions : [LegoInstruction]?
+
     
     static func == (lhs: LegoSet, rhs: LegoSet) -> Bool {
         return lhs.id == rhs.id
@@ -60,16 +64,15 @@ class LegoSet : Lego {
         self.collection = from.collection
     }
     
-    func match(_ search:String) -> Bool{
-        let lower = search.lowercased()
-        let matched = name.lowercased().contains(lower)
-            || number.lowercased().contains(lower)
-            || theme.lowercased().contains(lower)
-            || themeGroup?.lowercased().contains(lower) ?? false
-            ||   subtheme?.lowercased().contains(lower) ?? false
-            || category.lowercased().contains(lower)
-            || "\(year)".lowercased().contains(lower)
-            || barcode?.EAN?.contains(lower) ?? false
+    func matchString(_ search: String) -> Bool {
+        let matched = name.lowercased().contains(search)
+            || number.lowercased().contains(search)
+            || theme.lowercased().contains(search)
+            || themeGroup?.lowercased().contains(search) ?? false
+            ||   subtheme?.lowercased().contains(search) ?? false
+            || category.lowercased().contains(search)
+            || "\(year)".lowercased().contains(search)
+            || barcode?.EAN?.contains(search) ?? false
         
         return matched
     }

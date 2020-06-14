@@ -8,6 +8,8 @@
 
 import Foundation
 class LegoMinifig : Lego , Hashable{
+ 
+    
     let minifigNumber : String
     var ownedInSets : Int = 0
     var ownedLoose : Int = 0
@@ -36,16 +38,14 @@ class LegoMinifig : Lego , Hashable{
         
         
     }
+
     
-    func match(_ search:String) -> Bool{
-        let lower = search.lowercased()
-        let matched = name?.lowercased().contains(lower) ?? false
-            || category?.lowercased().contains(lower) ?? false
-            || minifigNumber.lowercased().contains(lower)
-        
-        return matched
-    }
-    
+    func matchString(_ search: String) -> Bool {
+         let matched = name?.lowercased().contains(search) ?? false
+             || category?.lowercased().contains(search) ?? false
+             || minifigNumber.lowercased().contains(search)
+         return matched
+     }
     var nameUI : String {
         guard let str = name?.components(separatedBy: " - ").first else {return minifigNumber}
         return str

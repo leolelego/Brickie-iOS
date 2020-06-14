@@ -94,19 +94,16 @@ struct SetListCell : View {
     
     func makePastil() -> some View {
         HStack {
-            
             if set.collection.qtyOwned != 0 {
                 Text("\(set.collection.qtyOwned)").font(.body).bold()
                     .padding(.horizontal,8).foregroundColor(.white)
             }
-            
             if set.collection.wanted  {
                 Image(systemName: set.collection.wanted ? "heart.fill":"heart").font(.footnote)//.background(Color.purple)
                     .padding(.horizontal,8)
                     .padding(.vertical,8)
                     .foregroundColor(.white)
             }
-            
         }.background(RoundedCorners(color: Color.black, tl: 16, tr: 0, bl: 0, br: 0))
         
     }
