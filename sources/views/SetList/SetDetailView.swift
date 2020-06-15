@@ -17,7 +17,7 @@ struct SetDetailView: View {
     
     var body: some View {
         ScrollView( showsIndicators: false){
-            makeThumbnail()
+            makeThumbnail().zIndex(500)
             makeThemes().zIndex(999)
             
             Spacer()
@@ -64,14 +64,15 @@ struct SetDetailView: View {
            self.isImageDetailPresented.toggle()
            
        }) {
-        WebImage(url: URL(string: set.image.imageURL ?? ""))
-        .resizable()
-        .renderingMode(.original)
-        .aspectRatio(contentMode: .fit)
-                .clipped()
-               
-                .background(Color.white)
-         .frame(minWidth: 0, maxWidth: .infinity, minHeight: 200, maxHeight: 400, alignment: .center)
+        
+        
+        WebImage(url: URL(string: set.image.imageURL ?? ""), options: [.progressiveLoad, .delayPlaceholder])
+            .resizable()
+            .renderingMode(.original)
+            .placeholder(.wifiError)
+            .indicator(.progress)
+            .aspectRatio(contentMode: .fit)
+            .frame(minWidth: 0, maxWidth: .infinity, minHeight: 200, maxHeight: 400, alignment: .center)
        }
             
         
@@ -79,17 +80,16 @@ struct SetDetailView: View {
     }
     func makeThemes() -> some View{
         HStack(spacing: 8){
-            NavigationLink(destination: SetsFilteredView(theme: set.theme)) {
+            NavigationLink(destination: SetsFilteredView(text: set.theme,filter:.theme)) {
                 Text( set.theme).roundText
             }
             if set.subtheme != nil {
-                Text(">")
-                NavigationLink(destination: SetsFilteredView(theme: set.subtheme!)) {
+                NavigationLink(destination: SetsFilteredView(text: set.subtheme!,filter:.subtheme)) {
                     Text( set.subtheme!).roundText
                 }
             }
             Spacer()
-            NavigationLink(destination: SetsFilteredView(theme: "\(set.year)")) {
+            NavigationLink(destination: SetsFilteredView(text: "\(set.year)",filter:.year)) {
                 Text(String(set.year)).roundText
             }
         }.padding(.horizontal)

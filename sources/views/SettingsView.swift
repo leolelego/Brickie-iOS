@@ -59,10 +59,17 @@ struct SettingsView: View {
                     }
                     
                     HStack{
+                        Text("settings.collection")
+                        Spacer()
                         Text(String(collection.sets.qtyOwned)+" ").font(.lego(size: 20))
                         Image.brick
                         Text(String(collection.minifigs.qtyOwned)+" ").font(.lego(size: 20))
                         Image.minifig_head
+                    }
+                    HStack{
+                        Text("settings.pricecollection")
+                        Spacer()
+                        Text(currencyFormatter.string(for:collection.sets.priceOwned) ?? "")
                     }
                     
                 }

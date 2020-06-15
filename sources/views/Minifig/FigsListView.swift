@@ -18,15 +18,18 @@ struct MinifigListView: View {
     
     var body: some View {
         Group {
-            if items.count == 0 && !collection.isLoadingData {
+            if items.count == 0 {
                 Spacer()
+                
                 HStack(alignment: .center){
                     Spacer()
-                    Text("sets.noitems").font(.largeTitle).bold().transition(.opacity).transition(.opacity)
+                    Text( collection.isLoadingData ? "sets.searching" : "sets.noitems").font(.largeTitle).bold()
                     Spacer()
-                    
                 }
             } else {
+                if Configuration.isDebug{
+                    Text(String(items.count))
+                }
                 ForEach(sections(for: items ), id: \.self){ theme in
                     Section(header:
                         Text(theme).roundText
@@ -47,12 +50,9 @@ struct MinifigListView: View {
         return items.filter({$0.theme == section}).sorted(by: {$0.subtheme < $1.subtheme /*&& ($0?.name ?? "") < ($1?.name ?? "" )*/ })
     }
     
-    
-    
     func makeSection(_ theme:String) -> some View {
-        let values =  items(for: theme, items: self.collection.minifigsUI)
+        let values =  items(for: theme, items: items)
         return ForEach(values) { value in
-            
             NavigationLink(destination: MinifigDetailView(minifig: value)){
                 MinifigCell(minifig:value)
             } .padding(.vertical, 8)

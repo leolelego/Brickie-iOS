@@ -16,7 +16,6 @@
 		9610E5C82479815F00E31B57 /* SetAdditionalImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9610E5C72479815F00E31B57 /* SetAdditionalImageView.swift */; };
 		9624E38124718DC4002F68F7 /* EnvironmentValues.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9624E37D24718DC4002F68F7 /* EnvironmentValues.swift */; };
 		9624E38324718DC4002F68F7 /* Cache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9624E37F24718DC4002F68F7 /* Cache.swift */; };
-		9624E38424718DC4002F68F7 /* AsyncImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9624E38024718DC4002F68F7 /* AsyncImage.swift */; };
 		9624E38724719B17002F68F7 /* DataLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9624E38624719B17002F68F7 /* DataLoader.swift */; };
 		9624E3892471E66B002F68F7 /* Lego.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9624E3882471E66B002F68F7 /* Lego.swift */; };
 		9624E38B2471F2D1002F68F7 /* SetsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9624E38A2471F2D1002F68F7 /* SetsListView.swift */; };
@@ -30,6 +29,7 @@
 		96365E712468C5A500F318C3 /* BarButtonModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96365E702468C5A500F318C3 /* BarButtonModifier.swift */; };
 		964BA877246A1FFE00984DCC /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 964BA879246A1FFE00984DCC /* Localizable.strings */; };
 		964BA87F246A34D700984DCC /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = 964BA87E246A34D700984DCC /* Router.swift */; };
+		96519AD52496FC4E002B0354 /* ActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96519AD42496FC4E002B0354 /* ActivityIndicator.swift */; };
 		967ED17B24607BD4004712DB /* SetListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967ED17A24607BD4004712DB /* SetListCell.swift */; };
 		967ED17F24608F9F004712DB /* Legothick.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 967ED17E24608F9F004712DB /* Legothick.ttf */; };
 		96851E032473389800D9F803 /* Reachability in Frameworks */ = {isa = PBXBuildFile; productRef = 96851E022473389800D9F803 /* Reachability */; };
@@ -74,7 +74,6 @@
 		9610E5C72479815F00E31B57 /* SetAdditionalImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetAdditionalImageView.swift; sourceTree = "<group>"; };
 		9624E37D24718DC4002F68F7 /* EnvironmentValues.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnvironmentValues.swift; sourceTree = "<group>"; };
 		9624E37F24718DC4002F68F7 /* Cache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Cache.swift; sourceTree = "<group>"; };
-		9624E38024718DC4002F68F7 /* AsyncImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AsyncImage.swift; sourceTree = "<group>"; };
 		9624E38624719B17002F68F7 /* DataLoader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataLoader.swift; sourceTree = "<group>"; };
 		9624E3882471E66B002F68F7 /* Lego.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Lego.swift; sourceTree = "<group>"; };
 		9624E38A2471F2D1002F68F7 /* SetsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetsListView.swift; sourceTree = "<group>"; };
@@ -89,6 +88,7 @@
 		964BA878246A1FFE00984DCC /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		964BA87A246A200700984DCC /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
 		964BA87E246A34D700984DCC /* Router.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
+		96519AD42496FC4E002B0354 /* ActivityIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityIndicator.swift; sourceTree = "<group>"; };
 		967ED17A24607BD4004712DB /* SetListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetListCell.swift; sourceTree = "<group>"; };
 		967ED17E24608F9F004712DB /* Legothick.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Legothick.ttf; sourceTree = "<group>"; };
 		96851E0624734D3A00D9F803 /* MinifigDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MinifigDetailView.swift; sourceTree = "<group>"; };
@@ -143,6 +143,7 @@
 				960FAD7B24677CAC0064B458 /* SafariView.swift */,
 				960FAD7C24677CAC0064B458 /* ActivityControllerView.swift */,
 				960FAD7F24677F250064B458 /* PDFKitView.swift */,
+				96519AD42496FC4E002B0354 /* ActivityIndicator.swift */,
 			);
 			path = representables;
 			sourceTree = "<group>";
@@ -266,7 +267,6 @@
 			children = (
 				96E78BB3245CE61A0032F4E3 /* AppRoot.swift */,
 				96E78B94245CADFA0032F4E3 /* LoginView.swift */,
-				9624E38024718DC4002F68F7 /* AsyncImage.swift */,
 				960FAD7A24677CAC0064B458 /* representables */,
 				96DE9248245F62E300652E0E /* Modifier and Accessories */,
 				96E78BB5245CE9BC0032F4E3 /* LegoListView.swift */,
@@ -423,6 +423,7 @@
 				96851E0724734D3A00D9F803 /* MinifigDetailView.swift in Sources */,
 				96E78B98245CB1120032F4E3 /* RoundedButtonStyle.swift in Sources */,
 				9624E3912471F904002F68F7 /* MinifigCell.swift in Sources */,
+				96519AD52496FC4E002B0354 /* ActivityIndicator.swift in Sources */,
 				9624E38F2471F79B002F68F7 /* RoundedText.swift in Sources */,
 				96365E6E2468700900F318C3 /* AdaptsToSoftwareKeyboard.swift in Sources */,
 				96DE924C245F695100652E0E /* Assets.swift in Sources */,
@@ -446,7 +447,6 @@
 				96DE924A245F62FF00652E0E /* RoundedShadowMod.swift in Sources */,
 				96CD88742490F2C100343CB6 /* MinifigFilteredView.swift in Sources */,
 				960FAD8224677FD70064B458 /* PDFView.swift in Sources */,
-				9624E38424718DC4002F68F7 /* AsyncImage.swift in Sources */,
 				9624E38D2471F3B5002F68F7 /* FigsListView.swift in Sources */,
 				96E78BB6245CE9BC0032F4E3 /* LegoListView.swift in Sources */,
 			);

@@ -36,12 +36,12 @@ struct MinifigDetailView: View {
             self.isImageDetailPresented.toggle()
             
         }) {
-            WebImage(url: URL(string: self.minifig.imageUrl))
+            WebImage(url: URL(string: self.minifig.imageUrl), options: [.progressiveLoad, .delayPlaceholder])
                 .resizable()
                 .renderingMode(.original)
+                .placeholder(.wifiError)
+                .indicator(.progress)
                 .aspectRatio(contentMode: .fit)
-                .clipped()
-                .background(Color.white)
                 .frame(minWidth: 0, maxWidth: .infinity, minHeight: 300, maxHeight: 300, alignment: .center)
         }
         
@@ -52,19 +52,13 @@ struct MinifigDetailView: View {
         
         HStack(spacing: 8){
             
-            NavigationLink(destination: MinifigFilteredView(theme: minifig.theme)) {
+            NavigationLink(destination: MinifigFilteredView(theme: minifig.theme, filter: .theme)) {
                 Text(  minifig.theme).roundText
             }
             ForEach(minifig.subthemes, id: \.self){ sub in
-                HStack{
-                    Text(">")
-                    NavigationLink(destination: MinifigFilteredView(theme: sub)) {
+                NavigationLink(destination: MinifigFilteredView(theme: sub, filter: .subtheme)) {
                         Text(sub).roundText
                     }
-                    
-                }
-                
-                
             }
         }
         .padding(.horizontal)
