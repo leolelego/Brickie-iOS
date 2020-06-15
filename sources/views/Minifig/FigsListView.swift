@@ -50,12 +50,9 @@ struct MinifigListView: View {
         return items.filter({$0.theme == section}).sorted(by: {$0.subtheme < $1.subtheme /*&& ($0?.name ?? "") < ($1?.name ?? "" )*/ })
     }
     
-    
-    
     func makeSection(_ theme:String) -> some View {
-        let values =  items(for: theme, items: self.collection.minifigsUI)
+        let values =  items(for: theme, items: items)
         return ForEach(values) { value in
-            
             NavigationLink(destination: MinifigDetailView(minifig: value)){
                 MinifigCell(minifig:value)
             } .padding(.vertical, 8)
