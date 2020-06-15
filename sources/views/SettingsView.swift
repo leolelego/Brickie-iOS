@@ -115,7 +115,9 @@ struct SettingsView: View {
         }.onDisappear {
             tweakTableView(on:true)
             if self.logout {
+                
                 self.collection.user = nil
+                self.collection.reset()
             }
         }
         .navigationViewStyle(StackNavigationViewStyle())

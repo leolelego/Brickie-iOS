@@ -26,6 +26,13 @@ struct MinifigListView: View {
                     Text( collection.isLoadingData ? "sets.searching" : "sets.noitems").font(.largeTitle).bold()
                     Spacer()
                 }
+                if collection.minifigs.count == 0 {
+                    HStack(alignment: .center){
+                        Spacer()
+                        Text("sets.firstsync").multilineTextAlignment(.center).font(.footnote)
+                        Spacer()
+                    }
+                }
             } else {
                 if Configuration.isDebug{
                     Text(String(items.count))
