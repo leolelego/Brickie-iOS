@@ -35,7 +35,11 @@ struct SetsListView: View {
             } else {
                 
                 if Configuration.isDebug{
-                    Text(String(items.count))
+                    HStack{
+                        Spacer()
+                        Text(String(items.count)).roundText
+                        Spacer()
+                    }
                 }
                 ForEach(sections(for:  items ), id: \.self){ theme in
                     Section(header:

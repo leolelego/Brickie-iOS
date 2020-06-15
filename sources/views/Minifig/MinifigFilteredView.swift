@@ -35,19 +35,26 @@ struct MinifigFilteredView: View {
             }
             MinifigListView(items: items)
         }
-        .navigationBarTitle(theme.uppercased()+"_")
-        .onAppear {
-            if self.requestSent == false {
-                self.requestSent = true
-                if self.theme.lowercased().contains("series") || self.theme.lowercased().contains("minifigure"){
-                    self.collection.searchMinifigs(text:"Minifigure")
-                } else if self.theme.lowercased().contains("classic") {
-                    self.collection.searchMinifigs(text:"classic")
+        .navigationBarItems(trailing:
+            HStack(alignment: .center){
+                Text("\(items.filter{$0.ownedTotal > 0}.count)/\(items.count) ").font(.lego(size: 17))
+                ActivityIndicator(isAnimating: $collection.isLoadingData, style: .medium)
 
-                } else {
-                    self.collection.searchMinifigs(text:self.theme)
-                }
             }
+        )
+            .navigationBarTitle(theme.uppercased()+"_")
+            .onAppear {
+                if self.requestSent == false {
+                    self.requestSent = true
+                    if self.theme.lowercased().contains("series") || self.theme.lowercased().contains("minifigure"){
+                        self.collection.searchMinifigs(text:"Minifigure")
+                    } else if self.theme.lowercased().contains("classic") {
+                        self.collection.searchMinifigs(text:"classic")
+                        
+                    } else {
+                        self.collection.searchMinifigs(text:self.theme)
+                    }
+                }
         }
     }
 }

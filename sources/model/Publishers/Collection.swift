@@ -102,7 +102,7 @@ class UserCollection : ObservableObject{
         syncronizeCancellable = $requestForSync
             .debounce(for: .seconds(3), scheduler: DispatchQueue.main)
             //            .removeDuplicates()
-            .filter{ $0 == true }
+            .filter{ $0 }
             .sink { _ in
                 self.sync()
         }
@@ -125,9 +125,9 @@ class UserCollection : ObservableObject{
     var setsUI : [LegoSet] {
         switch setsFilter {
         case .wanted:
-            return  sets.filter({$0.collection.wanted == true})
+            return  sets.filter({$0.collection.wanted})
         case .owned:
-            return sets.filter({$0.collection.owned == true})
+            return sets.filter({$0.collection.owned})
         case .search(let str):
             return sets.filter({$0.match(str)})
         }
@@ -137,7 +137,7 @@ class UserCollection : ObservableObject{
     var minifigsUI : [LegoMinifig] {
         switch minifigFilter {
         case .wanted:
-            return  minifigs.filter({$0.wanted == true})
+            return  minifigs.filter({$0.wanted})
         case .owned:
             return minifigs.filter({$0.ownedTotal > 0})
         case .search(let str):
@@ -241,6 +241,10 @@ extension UserCollection {
             self.append(wanted)
 
         }
+        
+        
+        let urls = wanted.compactMap { return URL(string:$0.imageUrl) }
+        fetchImages(urls)
     }
     func updateOwned(with owned:[LegoMinifig]){
         
@@ -255,6 +259,10 @@ extension UserCollection {
             self.append(owned)
 
         }
+        
+        let urls = owned.compactMap { return URL(string:$0.imageUrl) }
+        fetchImages(urls)
+
     }
     
     func searchMinifigs(text:String){
@@ -318,6 +326,9 @@ extension UserCollection {
             self.append(wanted)
             
         }
+        let urls = wanted.compactMap { return $0.image.thumbnailURL != nil ? URL(string:$0.image.thumbnailURL!) : nil }
+        fetchImages(urls)
+
     }
     func updateOwned(with owned:[LegoSet]){
         DispatchQueue.main.async {
@@ -333,6 +344,10 @@ extension UserCollection {
             self.append(owned)
             
         }
+        
+        let urls = owned.compactMap { return $0.image.thumbnailURL != nil ? URL(string:$0.image.thumbnailURL!) : nil }
+        fetchImages(urls)
+
     }
     
     
@@ -487,5 +502,16 @@ extension UserCollection {
     func reset(){
         wipe()
         requestForSync = true
+    }
+    
+    func fetchImages(_ urls:[URL]){
+        
+        if try! Reachability().connection == .wifi && ProcessInfo.processInfo.isLowPowerModeEnabled == false {
+            SDWebImagePrefetcher.shared.prefetchURLs(urls, progress: { (a, b) in
+                log("\(a) - \(b)")
+            }) { (a, b) in
+                log("ok \(a) - \(b)")
+            }
+        }
     }
 }
