@@ -19,6 +19,9 @@ enum APIRouter<T:Any> {
     case ownedSets(String,Int)
     case wantedSets(String,Int)
     case searchSets(String,String,Int)
+    case searchSetsTheme(String,String,Int)
+    case searchSetsSubTheme(String,String,Int)
+    case searchSetsYear(String,String,Int)
     
     // MARK: Set Sets Data
     case setWanted(String,LegoSet,Bool)
@@ -53,7 +56,7 @@ enum APIRouter<T:Any> {
         case .login: return "login"
         case .setInstructions: return "getInstructions"
         case .additionalImages: return "getAdditionalImages"
-        case .ownedSets,.wantedSets,.searchSets : return "getSets"
+        case .ownedSets,.wantedSets,.searchSets,.searchSetsTheme,.searchSetsSubTheme,.searchSetsYear : return "getSets"
         case .setWanted,.setQty: return "setCollection"
         case .ownedFigs,.wantedFigs,.searchMinifigs: return "getMinifigCollection"
         case .minifigWanted,.minifigQty: return "setMinifigCollection"
@@ -66,7 +69,7 @@ enum APIRouter<T:Any> {
         case .login: return "hash"
         case .setInstructions: return "instructions"
         case .additionalImages:  return "additionalImages"
-        case .ownedSets,.wantedSets,.searchSets : return "sets"
+        case .ownedSets,.wantedSets,.searchSets,.searchSetsTheme,.searchSetsSubTheme,.searchSetsYear : return "sets"
         case .ownedFigs,.wantedFigs,.searchMinifigs: return "minifigs"
         case .setWanted,.setQty,.minifigWanted,.minifigQty: return "status"
             
@@ -92,7 +95,7 @@ enum APIRouter<T:Any> {
             URLQueryItem(name: "userHash", value: hash),
             URLQueryItem(name: "params", value: "{owned:1,pageNumber:\(page),pageSize:\(pageSizeSet)}"),
             ]
-            case .ownedFigs(let hash) : return [
+        case .ownedFigs(let hash) : return [
             URLQueryItem(name: "apiKey", value: BrickSetApiKey),
             URLQueryItem(name: "userHash", value: hash),
             URLQueryItem(name: "params", value: "{owned:1}"),
@@ -102,7 +105,7 @@ enum APIRouter<T:Any> {
             URLQueryItem(name: "userHash", value: hash),
             URLQueryItem(name: "params", value: "{wanted:1,pageNumber:\(page),pageSize:\(pageSizeSet)}"),
             ]
-            case .wantedFigs(let hash) : return [
+        case .wantedFigs(let hash) : return [
             URLQueryItem(name: "apiKey", value: BrickSetApiKey),
             URLQueryItem(name: "userHash", value: hash),
             URLQueryItem(name: "params", value: "{wanted:1}"),
@@ -111,6 +114,21 @@ enum APIRouter<T:Any> {
             URLQueryItem(name: "apiKey", value: BrickSetApiKey),
             URLQueryItem(name: "userHash", value: hash),
             URLQueryItem(name: "params", value: "{query:\"\(search)\",pageNumber:\(page),pageSize:\(pageSizeSearch)}"),
+            ]
+        case .searchSetsTheme(let hash, let search, let page) : return [
+            URLQueryItem(name: "apiKey", value: BrickSetApiKey),
+            URLQueryItem(name: "userHash", value: hash),
+            URLQueryItem(name: "params", value: "{theme:\"\(search)\",pageNumber:\(page),pageSize:\(pageSizeSearch)}"),
+            ]
+        case .searchSetsSubTheme(let hash, let search, let page) : return [
+            URLQueryItem(name: "apiKey", value: BrickSetApiKey),
+            URLQueryItem(name: "userHash", value: hash),
+            URLQueryItem(name: "params", value: "{subtheme:\"\(search)\",pageNumber:\(page),pageSize:\(pageSizeSearch)}"),
+            ]
+        case .searchSetsYear(let hash, let search, let page) : return [
+            URLQueryItem(name: "apiKey", value: BrickSetApiKey),
+            URLQueryItem(name: "userHash", value: hash),
+            URLQueryItem(name: "params", value: "{year:\"\(search)\",pageNumber:\(page),pageSize:\(pageSizeSearch)}"),
             ]
         case .searchMinifigs(let hash, let search) : return [
             URLQueryItem(name: "apiKey", value: BrickSetApiKey),

@@ -16,7 +16,6 @@ struct AppRootView: View {
         Group {
             if collection.user == nil  {
                 LoginView()
-                
             } else {
                 TabView(selection: $selection){
                     LegoListView(content: SetsListView(items: collection.setsUI), searchText: $collection.searchSetsText, filter: $collection.setsFilter, title: "sets.title", isBarCode: true)

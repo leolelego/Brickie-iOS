@@ -32,9 +32,7 @@ struct LegoListView<ListView:View>: View {
             List {
                 SearchField(searchText: $searchText,isActive: $showSearchBar)
                 content
-                makeLoading()
-                
-                }
+            }
             .navigationBarTitle(title)
             .navigationBarItems(
                 leading: HStack(spacing: 22, content: {
@@ -42,6 +40,7 @@ struct LegoListView<ListView:View>: View {
                 }),
                 trailing:
                 HStack(spacing:22){
+                    makeLoading()
                     makeHeart()
                     if isBarCode {
                         makeScanner()
@@ -64,6 +63,7 @@ struct LegoListView<ListView:View>: View {
         .modifier(DismissingKeyboardOnSwipe())
     }
     
+
     func handleScan(result: Result<String, CodeScannerView.ScanError>) {
         self.isShowingScanner = false
         switch result {
@@ -86,26 +86,7 @@ struct LegoListView<ListView:View>: View {
 
     }
     func makeLoading() -> some View {
-        Group {
-            if collection.isLoadingData   {
-                Spacer()
-                
-                HStack {
-                    Spacer()
-                    VStack{
-                        Text("sets.searching").font(.largeTitle).bold()
-                        Image.brick(height: 22).modifier(RotateAnimation())
-                    }
-                    Spacer()
-                    
-                }
-                
-            }
-            else {
-                EmptyView()
-            }
-        }
-        
+        ActivityIndicator(isAnimating: $collection.isLoadingData, style: .medium)
     }
     func makeHeart() -> some View{
         Button(action: {
@@ -123,7 +104,7 @@ struct LegoListView<ListView:View>: View {
             Image(systemName: "gear").modifier(BarButtonModifier())
         })
     }
-    
+
     func makeScanner() -> some View{
         Button(action: {
             self.sheetType = .scanner

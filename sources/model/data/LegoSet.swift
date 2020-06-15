@@ -11,6 +11,16 @@ import Foundation
 let currencyFormatter : NumberFormatter = {
     let f = NumberFormatter()
     f.numberStyle = .currency
+    
+    let currentlocale = Locale.current
+    
+    switch Locale(identifier: currentlocale.regionCode!).identifier {
+    case "ca": break
+    case "us": break
+    case "gb": break
+    default:
+        f.currencyCode = "EUR"
+    }
     return f
 }()
 class LegoSet : Lego {
@@ -46,9 +56,22 @@ class LegoSet : Lego {
             currencyFormatter.currencyCode = "EUR"
             return currencyFormatter.string(for: LEGOCom["DE"]?.retailPrice)
         }
-        
-        
     }
+    
+    var priceFloat : Float {
+           let currentlocale = Locale.current
+           switch Locale(identifier: currentlocale.regionCode!).identifier {
+           case "ca":
+               return LEGOCom["CA"]?.retailPrice ?? 0
+           case "us":
+               return LEGOCom["US"]?.retailPrice ?? 0
+           case "gb":
+               return LEGOCom["UK"]?.retailPrice ?? 0
+           default:
+               return LEGOCom["DE"]?.retailPrice ?? 0
+           }
+       }
+    
     
     var additionalImages : [LegoSetImage]?
     var instrucctions : [LegoInstruction]?
@@ -83,12 +106,20 @@ extension LegoSet : CustomStringConvertible {
         return "\(name) - O:\(collection.owned) - W:\(collection.wanted) - Q:\(collection.qtyOwned)"
     }
 }
+
 extension LegoSet : Identifiable {
     var id: Int {setID}
 }
 extension LegoSet : ObservableObject{}
 
-
+extension Array where  Element:LegoSet {
+    var qtyOwned : Int {
+        return self.compactMap { return $0.collection.qtyOwned}.reduce(0, +)
+    }
+    var priceOwned : Float {
+        return self.compactMap { return Float($0.collection.qtyOwned) * $0.priceFloat}.reduce(0, +)
+    }
+}
 
 struct LegoSetImage : Codable {
     var thumbnailURL : String?
