@@ -71,7 +71,6 @@ class UserCollection : ObservableObject{
             sync()
         }
         loadFromBack()
-        isLoadingData = false
         searchSetsCancellable = $searchSetsText
             //            .handleEvents(receiveOutput: { [weak self] _ in  self?.isLoadingData = true })
             .debounce(for: .milliseconds(850), scheduler: DispatchQueue.main)
@@ -221,14 +220,13 @@ extension UserCollection {
         var toAppend = [LegoMinifig]()
         for fig in new {
             if let idx = self.minifigs.firstIndex(of: fig){
-                    self.minifigs[idx].update(from: fig)
+                self.minifigs[idx].update(from: fig)
             } else {
                 toAppend.append(fig)
             }
         }
-            self.objectWillChange.send()
-            self.minifigs.append(contentsOf: toAppend)
-            self.isLoadingData = false
+        self.objectWillChange.send()
+        self.minifigs.append(contentsOf: toAppend)
     }
     
     // Remove set taht are NOT wanted
@@ -239,7 +237,7 @@ extension UserCollection {
                 item.wanted = wanted.contains(item)
             }
             self.append(wanted)
-
+            
         }
         
         
@@ -249,7 +247,6 @@ extension UserCollection {
     func updateOwned(with owned:[LegoMinifig]){
         
         DispatchQueue.main.async {
-            self.objectWillChange.send()
             for item in self.minifigs {
                 let dbItem = owned.first(where: {$0 == item})
                 item.ownedLoose = dbItem?.ownedLoose ?? 0
@@ -257,12 +254,11 @@ extension UserCollection {
                 item.ownedTotal = dbItem?.ownedLoose ?? 0
             }
             self.append(owned)
-
         }
         
         let urls = owned.compactMap { return URL(string:$0.imageUrl) }
         fetchImages(urls)
-
+        
     }
     
     func searchMinifigs(text:String){
@@ -270,7 +266,7 @@ extension UserCollection {
         DispatchQueue.main.async {self.isLoadingData = true}
         APIRouter<[[String:Any]]>.searchMinifigs(token, text).decode(ofType: [LegoMinifig].self) { sets in
             DispatchQueue.main.async {
-                 self.append(sets)
+                self.append(sets)
                 self.isLoadingData = false
             }
         }
@@ -310,7 +306,7 @@ extension UserCollection {
             self.objectWillChange.send()
             self.sets.append(contentsOf: toAppend)
         }
-     
+        
         
         
         
@@ -328,26 +324,30 @@ extension UserCollection {
         }
         let urls = wanted.compactMap { return $0.image.thumbnailURL != nil ? URL(string:$0.image.thumbnailURL!) : nil }
         fetchImages(urls)
-
+        
     }
     func updateOwned(with owned:[LegoSet]){
-        DispatchQueue.main.async {
-            self.objectWillChange.send()
-            for set in self.sets {
-                let owned = owned.contains(set)
+        //        DispatchQueue.main.async {
+        //            self.objectWillChange.send()
+        for set in self.sets {
+            let owned = owned.contains(set)
+            DispatchQueue.main.async {
+                set.objectWillChange.send()
                 set.collection.owned = owned
                 if owned == false {
                     set.collection.qtyOwned = 0
                 }
-                
             }
-            self.append(owned)
+        }
+        self.append(owned)
+        DispatchQueue.main.async {
             
+            self.isLoadingData = false
         }
         
         let urls = owned.compactMap { return $0.image.thumbnailURL != nil ? URL(string:$0.image.thumbnailURL!) : nil }
         fetchImages(urls)
-
+        
     }
     
     
@@ -358,7 +358,10 @@ extension UserCollection {
         //        }
         guard let token = user?.token  else {return}
         
-        
+        DispatchQueue.main.async {
+            self.isLoadingData = true
+            
+        }
         func ownedSets(page:Int,  incrmentatl_sets:  [LegoSet]){
             APIRouter<[[String:Any]]>.ownedSets(token,page).decode(ofType: [LegoSet].self) { sets in
                 var sets2 = incrmentatl_sets
@@ -418,7 +421,7 @@ extension UserCollection {
                 DispatchQueue.global(qos: .userInitiated).async {
                     self.append(sets)
                 }
-
+                
                 DispatchQueue.main.async {
                     self.isLoadingData = false
                 }
@@ -507,11 +510,7 @@ extension UserCollection {
     func fetchImages(_ urls:[URL]){
         
         if try! Reachability().connection == .wifi && ProcessInfo.processInfo.isLowPowerModeEnabled == false {
-            SDWebImagePrefetcher.shared.prefetchURLs(urls, progress: { (a, b) in
-                log("\(a) - \(b)")
-            }) { (a, b) in
-                log("ok \(a) - \(b)")
-            }
+            SDWebImagePrefetcher.shared.prefetchURLs(urls)
         }
     }
 }

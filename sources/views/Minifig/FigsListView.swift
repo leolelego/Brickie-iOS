@@ -29,7 +29,7 @@ struct MinifigListView: View {
                 if collection.minifigs.count == 0 {
                     HStack(alignment: .center){
                         Spacer()
-                        Text("sets.firstsync").multilineTextAlignment(.center).font(.footnote)
+                        Text("sets.firstsync").multilineTextAlignment(.center).font(.subheadline)
                         Spacer()
                     }
                 }
