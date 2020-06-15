@@ -21,13 +21,18 @@ struct SetsListView: View {
                 
                 HStack(alignment: .center){
                     Spacer()
-                    Text( collection.isLoadingData ? "sets.searching" : "sets.noitems").font(.largeTitle).bold()
+                    if collection.isLoadingData {
+                        ActivityIndicator(isAnimating: .constant(true), style: .large)
+                    } else {
+                        Text("sets.noitems").font(.largeTitle).bold()
+
+                    }
                     Spacer()
                 }
-                if collection.sets.count == 0 {
+                if collection.sets.filter({$0.collection.owned}).count == 0 {
                     HStack(alignment: .center){
                         Spacer()
-                        Text("sets.firstsync").multilineTextAlignment(.center).font(.footnote)
+                        Text("sets.firstsync").multilineTextAlignment(.center).font(.subheadline)
                         Spacer()
                     }
                 }
@@ -51,8 +56,6 @@ struct SetsListView: View {
                             NavigationLink(destination: SetDetailView(set: item)) {
                                 SetListCell(set:item)
                             }
-                            
-                            
                         }
                         
                         
