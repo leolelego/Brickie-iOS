@@ -24,5 +24,7 @@ extension Lego {
 //            }
 //        }
 //        return false
+        // Mieux
+//        search.lowercased().split(separator: " ").contains(where: { self.matchString(String($0)) })
     }
 }

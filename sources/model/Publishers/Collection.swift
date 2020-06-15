@@ -286,20 +286,22 @@ extension UserCollection {
 // MARK: Call for Sets
 extension UserCollection {
     func append(_ new:[LegoSet]){
-        // This should be called in main thread 
+        // This should be called in main thread
+        
         var toAppend = [LegoSet]()
         for set in new {
             if let idx = self.sets.firstIndex(of: set){
+                DispatchQueue.main.async {
                     self.sets[idx].update(from: set)
+                }
             } else {
                 toAppend.append(set)
             }
         }
-        
+        DispatchQueue.main.async {
             self.objectWillChange.send()
             self.sets.append(contentsOf: toAppend)
-            self.isLoadingData = false
-        
+        }
      
         
         
@@ -322,11 +324,9 @@ extension UserCollection {
             self.objectWillChange.send()
             for set in self.sets {
                 let owned = owned.contains(set)
-                
                 set.collection.owned = owned
                 if owned == false {
                     set.collection.qtyOwned = 0
-                    
                 }
                 
             }
@@ -400,15 +400,17 @@ extension UserCollection {
                 if sets .count >= pageSizeSearch {
                     search(page: page+1)
                 }
-                DispatchQueue.main.async {
+                DispatchQueue.global(qos: .userInitiated).async {
                     self.append(sets)
+                }
+
+                DispatchQueue.main.async {
                     self.isLoadingData = false
                 }
                 
             }
         }
         search(page: 1)
-        
     }
     
     func action(_ action:SetCollectionAction,on item:LegoSet){
@@ -420,16 +422,9 @@ extension UserCollection {
             default:
                 break
             }
-            
         }
     }
     
-}
-
-extension Array where  Element:LegoSet {
-    var qtyOwned : Int {
-        return self.compactMap { return $0.collection.qtyOwned}.reduce(0, +)
-    }
 }
 
 extension Array where  Element:LegoMinifig {
