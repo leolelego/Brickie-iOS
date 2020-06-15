@@ -18,15 +18,18 @@ struct MinifigListView: View {
     
     var body: some View {
         Group {
-            if items.count == 0 && !collection.isLoadingData {
+            if items.count == 0 {
                 Spacer()
+                
                 HStack(alignment: .center){
                     Spacer()
-                    Text("sets.noitems").font(.largeTitle).bold().transition(.opacity).transition(.opacity)
+                    Text( collection.isLoadingData ? "sets.searching" : "sets.noitems").font(.largeTitle).bold()
                     Spacer()
-                    
                 }
             } else {
+                if Configuration.isDebug{
+                    Text(String(items.count))
+                }
                 ForEach(sections(for: items ), id: \.self){ theme in
                     Section(header:
                         Text(theme).roundText

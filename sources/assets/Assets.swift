@@ -22,6 +22,7 @@ extension Image {
   
     static var minifig_head: Image { Image("lego_head") }
     static var brick: Image { Image("lego_brick") }
+    static var wifiError : Image {Image(systemName:"wifi.slash")}
     public static func minifig_head(height:CGFloat) -> some View {
         Image("lego_head").resizable().frame(width: height*35.0/41.0, height: height)  // 35 × 41 pixels
     }

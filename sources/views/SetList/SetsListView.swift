@@ -15,12 +15,13 @@ struct SetsListView: View {
     var body: some View {
         
         Group {
-            if items.count == 0 && !collection.isLoadingData {
+            
+            if items.count == 0 {
                 Spacer()
                 
                 HStack(alignment: .center){
                     Spacer()
-                    Text("sets.noitems").font(.largeTitle).bold()
+                    Text( collection.isLoadingData ? "sets.searching" : "sets.noitems").font(.largeTitle).bold()
                     Spacer()
                 }
                 if collection.sets.count == 0 {
@@ -33,7 +34,9 @@ struct SetsListView: View {
                 
             } else {
                 
-                
+                if Configuration.isDebug{
+                    Text(String(items.count))
+                }
                 ForEach(sections(for:  items ), id: \.self){ theme in
                     Section(header:
                         Text(theme).roundText
