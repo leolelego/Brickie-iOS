@@ -36,12 +36,9 @@ struct SetsFilteredView: View {
         }
         .navigationBarItems(trailing:
             HStack{
-                ActivityIndicator(isAnimating: $collection.isLoadingData, style: .medium)
+                Text("\(items.filter{$0.collection.owned}.count)/\(items.count) ").font(.lego(size: 15))
                 makeCheck()
-
             }
-            
-
         )
         .navigationBarTitle(text.uppercased()+"_")
         .onAppear {
@@ -56,7 +53,7 @@ struct SetsFilteredView: View {
     func makeCheck() -> some View{
         Group{
             if collection.isLoadingData {
-                EmptyView()
+                ActivityIndicator(isAnimating: .constant(true), style: .medium)
             } else if config.connection == .unavailable {
                 Image.wifiError.imageScale(.large)
             }else {
