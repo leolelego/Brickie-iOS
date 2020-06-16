@@ -68,7 +68,6 @@ class UserCollection : ObservableObject{
         log("Init Collection")
         if let username = keychain.get(Key.username), let hash = keychain.get(Key.token){
             self.user = User(username: username, token: hash)
-            sync()
         }
         loadFromBack()
         searchSetsCancellable = $searchSetsText
@@ -99,9 +98,8 @@ class UserCollection : ObservableObject{
         }
         
         syncronizeCancellable = $requestForSync
-            .debounce(for: .seconds(3), scheduler: DispatchQueue.main)
-            //            .removeDuplicates()
             .filter{ $0 }
+            .debounce(for: .seconds(2), scheduler: DispatchQueue.main)
             .sink { _ in
                 self.sync()
         }
