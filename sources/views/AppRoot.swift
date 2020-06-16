@@ -25,12 +25,6 @@ struct AppRootView: View {
                                 Text("sets.tab")
                             }
                     }
-                    .onAppear(perform: {
-                        
-                        if self.config.connection != .unavailable {
-                            self.collection.requestForSync = true
-                        }
-                    })
                         .tag(0)
                     LegoListView(content: MinifigListView(items: collection.minifigsUI), searchText: $collection.searchMinifigsText, filter: $collection.minifigFilter, title: "minifig.title", isBarCode: false)
                         .tabItem {

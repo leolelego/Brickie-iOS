@@ -86,6 +86,7 @@ struct LoginView: View {
                     let user = User(username: self.username, token: hash)
                     DispatchQueue.main.async {
                         self.collection.user = user
+                        self.collection.requestForSync = true
                     }
                     break
                 }
