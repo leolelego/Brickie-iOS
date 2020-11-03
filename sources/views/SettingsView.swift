@@ -110,10 +110,7 @@ struct SettingsView: View {
             .environment(\.horizontalSizeClass, .regular)
             .navigationBarTitle("settings.title")
         }
-        .onAppear {
-            tweakTableView(on:false)
-        }.onDisappear {
-            tweakTableView(on:true)
+        .onDisappear {
             if self.logout {
                 
                 self.collection.user = nil

@@ -49,13 +49,13 @@ struct SetsListView: View {
                 ForEach(sections(for:  items ), id: \.self){ theme in
                     Section(header:
                         Text(theme).roundText
-                            .padding(.leading, -12)
+//                            .padding(.leading, -12)
                             .padding(.bottom, -28)
                     ) {
                         ForEach(self.items(for: theme, items: self.items ), id: \.setID) { item in
                             NavigationLink(destination: SetDetailView(set: item)) {
                                 SetListCell(set:item)
-                            }
+                            }.padding(.leading,16)
                         }
                         
                         

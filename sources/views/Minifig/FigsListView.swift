@@ -40,7 +40,7 @@ struct MinifigListView: View {
                 ForEach(sections(for: items ), id: \.self){ theme in
                     Section(header:
                         Text(theme).roundText
-                            .padding(.leading, -12)
+//                            .padding(.leading, -12)
                             .padding(.bottom, -28)
                     ) {
                         self.makeSection(theme)
@@ -62,7 +62,7 @@ struct MinifigListView: View {
         return ForEach(values) { value in
             NavigationLink(destination: MinifigDetailView(minifig: value)){
                 MinifigCell(minifig:value)
-            } .padding(.vertical, 8)
+            } .padding(8)
         }
         
     }

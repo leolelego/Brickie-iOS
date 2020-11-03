@@ -29,9 +29,11 @@ struct LegoListView<ListView:View>: View {
     @State private var isShowingScanner = false
     var body: some View {
         NavigationView{
-            List {
-                SearchField(searchText: $searchText,isActive: $showSearchBar)
-                content
+            ScrollView {
+                LazyVStack(alignment: .leading, spacing: 16, pinnedViews: [.sectionHeaders]) {
+                    SearchField(searchText: $searchText,isActive: $showSearchBar)
+                    content
+                }
             }
             .navigationBarTitle(title)
             .navigationBarItems(
@@ -52,14 +54,7 @@ struct LegoListView<ListView:View>: View {
         .sheet(isPresented: $isShowingScanner) {
             self.makeSheet()
         }
-            
-        .onAppear {
-            tweakTableView(on:true)
-        }.onDisappear {
-            tweakTableView(on:false)
-        }
         .navigationViewStyle(DoubleColumnNavigationViewStyle()).padding(.trailing, 1)
-            
         .modifier(DismissingKeyboardOnSwipe())
     }
     
