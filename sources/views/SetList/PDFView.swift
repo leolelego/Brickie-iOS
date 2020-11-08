@@ -14,7 +14,7 @@ struct LegoPDFView : View {
     let stringURL : String
     init(string:String,cache:DataCache){
         stringURL = string
-            loader = DataLoader(url: URL(string: string), cache: cache)
+        loader = DataLoader(url: URL(string: string), cache: cache)
     }
 
     var body: some View {

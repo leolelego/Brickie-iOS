@@ -31,8 +31,10 @@ struct SetsFilteredView: View {
     }
     
     var body: some View {
-        List{
-            SetsListView(items: items)
+        ScrollView {
+            LazyVStack(alignment: .leading, spacing: 16, pinnedViews: [.sectionHeaders]) {
+                SetsListView(items: items)
+            }
         }
         .navigationBarItems(trailing:
             HStack{
@@ -53,7 +55,7 @@ struct SetsFilteredView: View {
     func makeCheck() -> some View{
         Group{
             if collection.isLoadingData {
-                ActivityIndicator(isAnimating: .constant(true), style: .medium)
+                ProgressView().progressViewStyle(CircularProgressViewStyle())
             } else if config.connection == .unavailable {
                 Image.wifiError.imageScale(.large)
             }else {
