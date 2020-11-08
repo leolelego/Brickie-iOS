@@ -66,7 +66,6 @@ class Store : ObservableObject{
         }
         loadFromBack()
         searchSetsCancellable = $searchSetsText
-            //            .handleEvents(receiveOutput: { [weak self] _ in  self?.isLoadingData = true })
             .debounce(for: .milliseconds(850), scheduler: DispatchQueue.main)
             .removeDuplicates()
             .sink{  _ in
@@ -80,12 +79,11 @@ class Store : ObservableObject{
         }
         
         searchMinifigsCancellable = $searchMinifigsText
-            //            .handleEvents(receiveOutput: { [weak self] _ in  })
             .debounce(for: .milliseconds(850), scheduler: DispatchQueue.main)
             .removeDuplicates()
             .sink{  _ in
                 guard !self.searchMinifigsText.isEmpty else {self.minifigFilter = .owned;return}
-                if try! Reachability().connection != . unavailable  && self.searchMinifigsText.count > 2 {
+                if self.searchMinifigsText.count > 2 {
                     self.searchMinifigs(text: self.searchMinifigsText)
                 }
                 self.minifigFilter = .search(self.searchMinifigsText)
@@ -257,11 +255,11 @@ extension Store {
     
     func searchMinifigs(text:String){
         guard let token = user?.token else {return}
-        DispatchQueue.main.async { withAnimation {self.isLoadingData = true }}
+        DispatchQueue.main.async { self.isLoadingData = true}
         APIRouter<[[String:Any]]>.searchMinifigs(token, text).decode(ofType: [LegoMinifig].self) { sets in
             DispatchQueue.main.async {
                 self.append(sets)
-                withAnimation {self.isLoadingData = false}
+                self.isLoadingData = false
             }
         }
         
@@ -336,7 +334,7 @@ extension Store {
         self.append(owned)
         DispatchQueue.main.async {
             
-            withAnimation {self.isLoadingData = false}
+            self.isLoadingData = false
         }
         
         let urls = owned.compactMap { return $0.image.thumbnailURL != nil ? URL(string:$0.image.thumbnailURL!) : nil }
@@ -349,7 +347,7 @@ extension Store {
         guard let token = user?.token  else {return}
         
         DispatchQueue.main.async {
-            withAnimation {self.isLoadingData = true}
+            self.isLoadingData = true
             
         }
         func ownedSets(page:Int,  incrmentatl_sets:  [LegoSet]){
@@ -403,7 +401,7 @@ extension Store {
             case .year:
                 request = APIRouter<[[String:Any]]>.searchSetsYear(token, text,page)
             }
-            DispatchQueue.main.async {withAnimation {self.isLoadingData = true}}
+            DispatchQueue.main.async {self.isLoadingData = true}
             request.decode(ofType: [LegoSet].self) { sets in
                 if sets .count >= pageSizeSearch {
                     search(page: page+1)
@@ -413,7 +411,7 @@ extension Store {
                 }
                 
                 DispatchQueue.main.async {
-                    withAnimation {self.isLoadingData = false}
+                    self.isLoadingData = false
                 }
                 
             }

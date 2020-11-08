@@ -33,6 +33,8 @@ enum LegoListFilter : String, CaseIterable{
         case .owned:return "textformat.abc"
         }
     }
+    
+    static let home : [LegoListFilter] = [.all,.wanted]
 }
 
 enum LegoListSorter : String, CaseIterable{
@@ -68,14 +70,10 @@ struct LegoListView<ListView:View>: View {
     
     @EnvironmentObject private var  store : Store
     let content : ListView
+    let filterSorter : FilterSorterMenu
     @State var showSearchBar : Bool = false
     @State var animate : Bool = false
     @Binding var searchText : String
-    @Binding var sorter : LegoListSorter
-    @Binding var filter : LegoListFilter
-    
-    var sorterAvailable : [LegoListSorter]
-    var filterAvailable : [LegoListFilter]  { self.searchText.isEmpty ? [.all,.wanted] : LegoListFilter.allCases }
 
     @State var sheetType : SheetType = .scanner
     var title : LocalizedStringKey
@@ -94,13 +92,12 @@ struct LegoListView<ListView:View>: View {
                 ToolbarItem(placement: .navigation){
                     makeSettings()
                 }
-                //
                 ToolbarItemGroup(placement: .navigationBarTrailing){
                     if store.isLoadingData {
                         ProgressView()
                             .progressViewStyle(CircularProgressViewStyle())
                     } else {
-                        makeMenu()
+                        filterSorter
                     }
                     
                     if isBarCode {
@@ -114,7 +111,7 @@ struct LegoListView<ListView:View>: View {
         .sheet(isPresented: $isShowingScanner) {
             self.makeSheet()
         }
-        .navigationViewStyle(DoubleColumnNavigationViewStyle()).padding(.trailing, 1)
+//        .navigationViewStyle(DoubleColumnNavigationViewStyle()).padding(.trailing, 1)
         .modifier(DismissingKeyboardOnSwipe())
     }
     
@@ -141,13 +138,6 @@ struct LegoListView<ListView:View>: View {
         
     }
     
-    //    func makeHeart() -> some View{
-    ////        Button(action: {
-    ////            self.filter = self.filter == .wanted ? .owned : .wanted
-    ////        }, label: {
-    ////            Image(systemName: filter == .wanted ? "heart.fill" : "heart").modifier(BarButtonModifier())
-    ////        })
-    //    }
     func makeSettings() -> some View{
         Button(action: {
             self.sheetType = .settings
@@ -167,36 +157,6 @@ struct LegoListView<ListView:View>: View {
         })
         
     }
-    
-    func makeMenu() -> some View{
-        Menu {
-            Section(header: Text("menu.filter")) {
-                Picker(selection: $filter, label: Text("Filter")) {
-                    ForEach(filterAvailable, id: \.self) { item in
-                        HStack{
-                            Image(systemName:item.systemImage)
-                            Text(item.local)
-                        }.tag(item)
-                        
-                    }
-                }
-            }
-            Section(header: Text("menu.order")) {
-                Picker(selection: $sorter, label: Text("Sorting")) {
-                    ForEach(sorterAvailable, id: \.self) { item in
-                        HStack{
-                            Image(systemName:item.systemImage)
-                            Text(item.local)
-                        }.tag(item)
-                        
-                    }
-                }
-            }
-        } label: {
-            Image(systemName: "line.horizontal.3.circle").modifier(BarButtonModifier())
-        }
-    }
-    
     
     func makeSearchBarItem() -> some View{
         Button(action: {

@@ -10,7 +10,7 @@ import SwiftUI
 
 struct MinifigListView: View {
     
-    var items : [LegoMinifig]
+    var figs : [LegoMinifig]
     @Binding var sorter : LegoListSorter
     @Binding var filter : LegoListFilter
 
@@ -53,18 +53,19 @@ struct MinifigListView: View {
         
     }
     func sections(for items:[LegoMinifig]) -> [String] {
-        switch sorter {
-        case .alphabetical:return Array(Set(items.compactMap({String(($0.name ?? "").prefix(1))}))).sorted()
-        default: return Array(Set(items.compactMap({$0.theme}))).sorted()
-        }
+//        switch sorter {
+//        case .alphabetical:return Array(Set(items.compactMap({String(($0.name ?? "").prefix(1))}))).sorted()
+//        default: return Array(Set(items.compactMap({$0.theme}))).sorted()
+//        }
+        return Array(Set(items.compactMap({$0.theme}))).sorted()
         
     }
     func items(for section:String,items:[LegoMinifig]) -> [LegoMinifig] {
-        switch sorter {
-        case .alphabetical: return items.filter({($0.name ?? "").prefix(1) == section}).sorted(by: {$0.name ?? "" < $1.name ?? "" /*&& ($0?.name ?? "") < ($1?.name ?? "" )*/ })
-        default: return items.filter({$0.theme == section}).sorted(by: {$0.subtheme < $1.subtheme /*&& ($0?.name ?? "") < ($1?.name ?? "" )*/ })
-        }
-        
+//        switch sorter {
+//        case .alphabetical: return items.filter({($0.name ?? "").prefix(1) == section}).sorted(by: {$0.name ?? "" < $1.name ?? "" /*&& ($0?.name ?? "") < ($1?.name ?? "" )*/ })
+//        default: return items.filter({$0.theme == section}).sorted(by: {$0.subtheme < $1.subtheme /*&& ($0?.name ?? "") < ($1?.name ?? "" )*/ })
+//        }
+        return items.filter({$0.theme == section}).sorted(by: {$0.subtheme < $1.subtheme /*&& ($0?.name ?? "") < ($1?.name ?? "" )*/ })
     }
     
     func makeSection(_ theme:String) -> some View {
@@ -79,11 +80,11 @@ struct MinifigListView: View {
     var toShow : [LegoMinifig] {
         switch filter {
         case .all:
-            return  items
+            return  figs
         case .wanted:
-            return items.filter({$0.wanted})
+            return figs.filter({$0.wanted})
         case .owned:
-            return items.filter({$0.ownedTotal > 0})
+            return figs.filter({$0.ownedTotal > 0})
         }
     }
 }

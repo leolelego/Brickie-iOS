@@ -23,10 +23,12 @@ struct AppRootView: View {
             } else {
                 TabView(selection: $selection){
                     LegoListView(content: SetsListView(items: store.mainSets,sorter:$setsOrderer,filter: $setsFilters),
+                                 filterSorter:FilterSorterMenu(sorter: $setsOrderer,
+                                                               filter: $setsFilters,
+                                                               sorterAvailable: [.default,.year,.alphabetical],
+                                                               filterAvailable: store.searchSetsText.isEmpty ? [.all,.wanted] : [.all,.wanted,.owned]
+                                 ),
                                  searchText: $store.searchSetsText,
-                                 sorter: $setsOrderer,
-                                 filter: $setsFilters,
-                                 sorterAvailable:[.default,.year,.alphabetical],
                                  title: "sets.title",
                                  isBarCode: true)
                         .tabItem {
@@ -35,11 +37,13 @@ struct AppRootView: View {
                                 Text("sets.tab")
                             }
                     }.tag(0)
-                    LegoListView(content: MinifigListView(items: store.minifigsUI,sorter:$figsOrderer,filter: $figsFilters),
+                    LegoListView(content: MinifigListView(figs: store.minifigsUI ,sorter:$figsOrderer,filter: $figsFilters),
+                                 filterSorter:                                 FilterSorterMenu(sorter: $figsOrderer,
+                                                               filter: $figsFilters,
+                                                               sorterAvailable: [.default,.alphabetical],
+                                                               filterAvailable:  [.all,.wanted]//store.searchMinifigsText.isEmpty ? [.all,.wanted] //: [.all,.wanted,.owned]
+                                 ),
                                  searchText: $store.searchMinifigsText,
-                                 sorter: $figsOrderer,
-                                 filter: $figsFilters,
-                                 sorterAvailable:[.default,.alphabetical],
                                  title: "minifig.title",
                                  isBarCode: false)
                         .tabItem {
