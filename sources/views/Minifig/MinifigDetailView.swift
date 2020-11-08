@@ -10,7 +10,6 @@ import SwiftUI
 import SDWebImageSwiftUI
 struct MinifigDetailView: View {    
     @ObservedObject var minifig : LegoMinifig
-    @State var detailImageUrl : String?
     @State var isImageDetailPresented : Bool = false
     
     var body: some View {
@@ -23,7 +22,7 @@ struct MinifigDetailView: View {
             MinifigEditorView(minifig: minifig).padding()
             
         }
-        .sheet(isPresented: $isImageDetailPresented, content: { SetAdditionalImageView(isPresented: self.$isImageDetailPresented, url: self.detailImageUrl!)})
+        .sheet(isPresented: $isImageDetailPresented, content: { SetAdditionalImageView(isPresented: $isImageDetailPresented, url: minifig.imageUrl)})
             
         .navigationBarTitle("", displayMode: .inline)
 //        .navigationBarItems(trailing: ShareNavButton(items: [URL(string:minifig.bricksetURL)!]))
@@ -32,11 +31,10 @@ struct MinifigDetailView: View {
     func makeThumbnail() -> some View {
         
         Button(action: {
-            self.detailImageUrl = self.minifig.imageUrl
-            self.isImageDetailPresented.toggle()
+            isImageDetailPresented.toggle()
             
         }) {
-            WebImage(url: URL(string: self.minifig.imageUrl), options: [.progressiveLoad, .delayPlaceholder])
+            WebImage(url: URL(string: minifig.imageUrl), options: [.progressiveLoad, .delayPlaceholder])
                 .resizable()
                 .renderingMode(.original)
                 .placeholder(.wifiError)

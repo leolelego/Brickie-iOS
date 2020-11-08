@@ -22,7 +22,8 @@ struct SetsListView: View {
                 HStack(alignment: .center){
                     Spacer()
                     if collection.isLoadingData {
-                        ActivityIndicator(isAnimating: .constant(true), style: .large)
+                        ProgressView()
+                            .progressViewStyle(CircularProgressViewStyle())
                     } else {
                         Text("sets.noitems").font(.largeTitle).bold()
 
@@ -49,13 +50,13 @@ struct SetsListView: View {
                 ForEach(sections(for:  items ), id: \.self){ theme in
                     Section(header:
                         Text(theme).roundText
-//                            .padding(.leading, -12)
-                            .padding(.bottom, -28)
+                            .padding(.leading, 4)
+                            .padding(.bottom, -26)
                     ) {
                         ForEach(self.items(for: theme, items: self.items ), id: \.setID) { item in
                             NavigationLink(destination: SetDetailView(set: item)) {
                                 SetListCell(set:item)
-                            }.padding(.leading,16)
+                            }.padding(.leading,16).padding(.trailing,8)
                         }
                         
                         

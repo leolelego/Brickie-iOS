@@ -28,7 +28,7 @@ struct SetDetailView: View {
             makeImages()
             makeInstructions()
         }
-        .sheet(isPresented: $isImageDetailPresented, content: { SetAdditionalImageView(isPresented: self.$isImageDetailPresented, url: self.detailImageUrl!)})
+        .sheet(isPresented: $isImageDetailPresented, content: { SetAdditionalImageView(isPresented: self.$isImageDetailPresented, url: self.detailImageUrl ?? "https://images.brickset.com/sets/images/40391-1.jpg")})
         .onAppear {
             if  self.set.additionalImages == nil {
                 APIRouter<[[String:Any]]>.additionalImages(self.set.setID).decode(ofType: [LegoSetImage].self) { (items) in
@@ -61,7 +61,8 @@ struct SetDetailView: View {
     func makeThumbnail() -> some View {
        Button(action: {
         self.detailImageUrl = self.set.image.imageURL
-           self.isImageDetailPresented.toggle()
+        guard detailImageUrl != nil else {return}
+        self.isImageDetailPresented.toggle()
            
        }) {
         
@@ -131,7 +132,10 @@ struct SetDetailView: View {
                             ForEach(set.additionalImages!, id: \.thumbnailURL){ image in
                                 
                                 Button(action: {
+                                    
                                         self.detailImageUrl = image.imageURL
+                                        guard self.detailImageUrl != nil else {return}
+
                                         self.isImageDetailPresented.toggle()
                                     
                                 }) {

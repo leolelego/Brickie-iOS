@@ -31,7 +31,7 @@ struct LegoListView<ListView:View>: View {
         NavigationView{
             ScrollView {
                 LazyVStack(alignment: .leading, spacing: 16, pinnedViews: [.sectionHeaders]) {
-                    SearchField(searchText: $searchText,isActive: $showSearchBar)
+                    SearchField(searchText: $searchText,isActive: $showSearchBar).padding(.horizontal,8)
                     content
                 }
             }
@@ -42,7 +42,14 @@ struct LegoListView<ListView:View>: View {
                 }),
                 trailing:
                 HStack(spacing:22){
-                    makeLoading()
+                    if collection.isLoadingData {
+                        ProgressView()
+                            .progressViewStyle(CircularProgressViewStyle())
+                    } else {
+                        ProgressView()
+                            .progressViewStyle(CircularProgressViewStyle()).hidden()
+                    }
+
                     makeHeart()
                     if isBarCode {
                         makeScanner()
@@ -80,9 +87,7 @@ struct LegoListView<ListView:View>: View {
         }
 
     }
-    func makeLoading() -> some View {
-        ActivityIndicator(isAnimating: $collection.isLoadingData, style: .medium)
-    }
+    
     func makeHeart() -> some View{
         Button(action: {
             self.filter = self.filter == .wanted ? .owned : .wanted
