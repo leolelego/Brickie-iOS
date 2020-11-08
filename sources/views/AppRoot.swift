@@ -15,7 +15,7 @@ struct AppRootView: View {
     @State var figsOrderer : LegoListSorter = .default
     @State var setsFilters : LegoListFilter = .all
     @State var figsFilters : LegoListFilter = .all
-
+    
     var body: some View {
         Group {
             if store.user == nil  {
@@ -36,12 +36,12 @@ struct AppRootView: View {
                                 Image.brick
                                 Text("sets.tab")
                             }
-                    }.tag(0)
+                        }.tag(0)
                     LegoListView(content: MinifigListView(figs: store.minifigsUI ,sorter:$figsOrderer,filter: $figsFilters),
                                  filterSorter:                                 FilterSorterMenu(sorter: $figsOrderer,
-                                                               filter: $figsFilters,
-                                                               sorterAvailable: [.default,.alphabetical],
-                                                               filterAvailable:  [.all,.wanted]//store.searchMinifigsText.isEmpty ? [.all,.wanted] //: [.all,.wanted,.owned]
+                                                                                                filter: $figsFilters,
+                                                                                                sorterAvailable: [.default,.alphabetical],
+                                                                                                filterAvailable:  store.searchMinifigsText.isEmpty ? [.all,.wanted] : [.all,.wanted,.owned]
                                  ),
                                  searchText: $store.searchMinifigsText,
                                  title: "minifig.title",
@@ -51,7 +51,7 @@ struct AppRootView: View {
                                 Image.minifig_head
                                 Text("minifig.tab")
                             }
-                    }.tag(1)
+                        }.tag(1)
                 }
             }
             

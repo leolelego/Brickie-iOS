@@ -319,8 +319,6 @@ extension Store {
         
     }
     func updateOwned(with owned:[LegoSet]){
-        //        DispatchQueue.main.async {
-        //            self.objectWillChange.send()
         for set in self.sets {
             let owned = owned.contains(set)
             DispatchQueue.main.async {
