@@ -9,13 +9,13 @@
 import SwiftUI
 
 struct MinifigFilteredView: View {
-    @EnvironmentObject private var  collection : UserCollection
+    @EnvironmentObject private var  store : Store
     var theme : String
-    let filter: UserCollection.SearchFilter
+    let filter: Store.SearchFilter
     @State var requestSent : Bool = false
     
     var items : [LegoMinifig] {
-        return collection.minifigs.filter({
+        return store.minifigs.filter({
             switch filter {
             case .theme,.none,.year:
                 return $0.theme == theme
@@ -37,7 +37,7 @@ struct MinifigFilteredView: View {
                 .background(Color.backgroundAlt)
                 .modifier(RoundedShadowMod())
                 .padding(8)
-                MinifigListView(items: items)
+                MinifigListView(items: items,sorter: .constant(.default),filter: .constant(.all))
             }
         }
         .navigationBarItems(trailing:
@@ -52,12 +52,12 @@ struct MinifigFilteredView: View {
                 if self.requestSent == false {
                     self.requestSent = true
                     if self.theme.lowercased().contains("series") || self.theme.lowercased().contains("minifigure"){
-                        self.collection.searchMinifigs(text:"Minifigure")
+                        self.store.searchMinifigs(text:"Minifigure")
                     } else if self.theme.lowercased().contains("classic") {
-                        self.collection.searchMinifigs(text:"classic")
+                        self.store.searchMinifigs(text:"classic")
                         
                     } else {
-                        self.collection.searchMinifigs(text:self.theme)
+                        self.store.searchMinifigs(text:self.theme)
                     }
                 }
         }

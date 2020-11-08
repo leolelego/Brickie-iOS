@@ -12,7 +12,7 @@ let kCellHeight : CGFloat = 150
 
 struct SetListCell : View {
     @ObservedObject var set : LegoSet
-    @EnvironmentObject private var  collection : UserCollection
+    @EnvironmentObject private var  store : Store
     
     var body: some View {
         ZStack(alignment: .bottomTrailing){
@@ -30,7 +30,7 @@ struct SetListCell : View {
     func menu() -> some View {
         VStack{
             Button(action: {
-                self.collection.action(.qty(self.set.collection.qtyOwned+1),on: self.set)
+                self.store.action(.qty(self.set.collection.qtyOwned+1),on: self.set)
                 
             }) {
                 HStack(alignment: .lastTextBaseline) {
@@ -40,7 +40,7 @@ struct SetListCell : View {
             }
             if self.set.collection.qtyOwned > 0 {
                 Button(action: {
-                    self.collection.action(.qty(self.set.collection.qtyOwned-1),on: self.set)
+                    self.store.action(.qty(self.set.collection.qtyOwned-1),on: self.set)
                     
                 }) {
                     HStack(alignment: .lastTextBaseline) {
@@ -51,7 +51,7 @@ struct SetListCell : View {
             }
             
             Button(action: {
-                self.collection.action(.want(!self.set.collection.wanted),on: self.set)
+                self.store.action(.want(!self.set.collection.wanted),on: self.set)
             }) {
                 HStack(alignment: .lastTextBaseline) {
                     Image(systemName: self.set.collection.wanted ? "heart.fill" : "heart").foregroundColor(.white).font(.headline)

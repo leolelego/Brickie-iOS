@@ -1,5 +1,5 @@
 //
-//  Collection.swift
+//  Store.swift
 //  BrickSet
 //
 //  Created by Work on 03/05/2020.
@@ -12,12 +12,8 @@ import SwiftUI
 import KeychainSwift
 import Reachability
 import SDWebImage
-enum CollectionFilter : Equatable{
-    case wanted
-    case owned
-    case search(String)
-}
-class UserCollection : ObservableObject{
+
+class Store : ObservableObject{
     
     let keychain = KeychainSwift()
     
@@ -65,7 +61,6 @@ class UserCollection : ObservableObject{
     }
     
     init(){
-        log("Init Collection")
         if let username = keychain.get(Key.username), let hash = keychain.get(Key.token){
             self.user = User(username: username, token: hash)
         }
@@ -106,35 +101,36 @@ class UserCollection : ObservableObject{
         
         requestForSync = self.user != nil
         
-    } 
+    }
     
-    var setsFilter : CollectionFilter = .owned {
+    enum Filter : Equatable{
+        case owned
+        case search(String)
+        
+    }
+    
+    var setsFilter : Filter = .owned {
         didSet{
             objectWillChange.send()
         }
     }
-    var minifigFilter : CollectionFilter = .owned {
+    var minifigFilter : Filter = .owned {
         didSet{
             objectWillChange.send()
         }
     }
     
-    var setsUI : [LegoSet] {
+    var mainSets : [LegoSet] {
         switch setsFilter {
-        case .wanted:
-            return  sets.filter({$0.collection.wanted})
         case .owned:
             return sets.filter({$0.collection.owned})
         case .search(let str):
             return sets.filter({$0.match(str)})
         }
     }
-    
-    
+        
     var minifigsUI : [LegoMinifig] {
         switch minifigFilter {
-        case .wanted:
-            return  minifigs.filter({$0.wanted})
         case .owned:
             return minifigs.filter({$0.ownedTotal > 0})
         case .search(let str):
@@ -142,7 +138,7 @@ class UserCollection : ObservableObject{
         }
     }
     
-    enum SetCollectionAction {
+    enum Action {
         case want(Bool)
         case qty(Int)
         
@@ -171,10 +167,10 @@ class UserCollection : ObservableObject{
             }
         }
         
-        func manage(obj:LegoSet,collection:UserCollection){
+        func manage(obj:LegoSet,store:Store){
             DispatchQueue.main.async {
                 obj.objectWillChange.send()
-                collection.objectWillChange.send()
+                store.objectWillChange.send()
                 
                 switch self {
                 case .want(let wanted):
@@ -188,10 +184,10 @@ class UserCollection : ObservableObject{
             }
         }
         
-        func manage(obj:LegoMinifig,collection:UserCollection){
+        func manage(obj:LegoMinifig,store:Store){
             DispatchQueue.main.async {
                 obj.objectWillChange.send()
-                collection.objectWillChange.send()
+                store.objectWillChange.send()
                 
                 switch self {
                 case .want(let wanted):
@@ -211,7 +207,7 @@ class UserCollection : ObservableObject{
 
 // MARK: Call for Figs
 
-extension UserCollection {
+extension Store {
     
     
     func append(_ new:[LegoMinifig]){
@@ -261,22 +257,22 @@ extension UserCollection {
     
     func searchMinifigs(text:String){
         guard let token = user?.token else {return}
-        DispatchQueue.main.async {self.isLoadingData = true}
+        DispatchQueue.main.async { withAnimation {self.isLoadingData = true }}
         APIRouter<[[String:Any]]>.searchMinifigs(token, text).decode(ofType: [LegoMinifig].self) { sets in
             DispatchQueue.main.async {
                 self.append(sets)
-                self.isLoadingData = false
+                withAnimation {self.isLoadingData = false}
             }
         }
         
     }
     
-    func action(_ action:SetCollectionAction,on item:LegoMinifig){
+    func action(_ action:Action,on item:LegoMinifig){
         
         action.query(obj: item,user:user) { res in
             switch res {
             case .success:
-                action.manage(obj: item,collection: self)
+                action.manage(obj: item,store:self)
                 break
             default:
                 break
@@ -286,7 +282,7 @@ extension UserCollection {
     }
 }
 // MARK: Call for Sets
-extension UserCollection {
+extension Store {
     func append(_ new:[LegoSet]){
         // This should be called in main thread
         
@@ -340,7 +336,7 @@ extension UserCollection {
         self.append(owned)
         DispatchQueue.main.async {
             
-            self.isLoadingData = false
+            withAnimation {self.isLoadingData = false}
         }
         
         let urls = owned.compactMap { return $0.image.thumbnailURL != nil ? URL(string:$0.image.thumbnailURL!) : nil }
@@ -350,14 +346,10 @@ extension UserCollection {
     
     
     private func sync() {
-        //        if Configuration.isDebug && self.sets.count > 0 {
-        //            log("Fake sync done")
-        //            return
-        //        }
         guard let token = user?.token  else {return}
         
         DispatchQueue.main.async {
-            self.isLoadingData = true
+            withAnimation {self.isLoadingData = true}
             
         }
         func ownedSets(page:Int,  incrmentatl_sets:  [LegoSet]){
@@ -411,7 +403,7 @@ extension UserCollection {
             case .year:
                 request = APIRouter<[[String:Any]]>.searchSetsYear(token, text,page)
             }
-            DispatchQueue.main.async {self.isLoadingData = true}
+            DispatchQueue.main.async {withAnimation {self.isLoadingData = true}}
             request.decode(ofType: [LegoSet].self) { sets in
                 if sets .count >= pageSizeSearch {
                     search(page: page+1)
@@ -421,7 +413,7 @@ extension UserCollection {
                 }
                 
                 DispatchQueue.main.async {
-                    self.isLoadingData = false
+                    withAnimation {self.isLoadingData = false}
                 }
                 
             }
@@ -429,11 +421,11 @@ extension UserCollection {
         search(page: 1)
     }
     
-    func action(_ action:SetCollectionAction,on item:LegoSet){
+    func action(_ action:Action,on item:LegoSet){
         action.query(obj: item,user:user) { res in
             switch res {
             case .success:
-                action.manage(obj: item,collection: self)
+                action.manage(obj: item,store: self)
                 break
             default:
                 break
@@ -451,7 +443,7 @@ extension Array where  Element:LegoMinifig {
     }
 }
 
-extension UserCollection {
+extension Store {
     func backup(){
         do {
             var persistance = PersistentData()
@@ -512,3 +504,5 @@ extension UserCollection {
         }
     }
 }
+
+
