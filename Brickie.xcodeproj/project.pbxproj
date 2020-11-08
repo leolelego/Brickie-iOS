@@ -45,8 +45,6 @@
 		96DE924E245F696700652E0E /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 96DE924D245F696700652E0E /* Colors.xcassets */; };
 		96DE9253245F8A6800652E0E /* Blur.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96DE9252245F8A6800652E0E /* Blur.swift */; };
 		96DE9256245FA7BC00652E0E /* RoundedCorners.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96DE9255245FA7BC00652E0E /* RoundedCorners.swift */; };
-		96E78B7C245CAC270032F4E3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E78B7B245CAC270032F4E3 /* AppDelegate.swift */; };
-		96E78B7E245CAC270032F4E3 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E78B7D245CAC270032F4E3 /* SceneDelegate.swift */; };
 		96E78B82245CAC290032F4E3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 96E78B81245CAC290032F4E3 /* Assets.xcassets */; };
 		96E78B88245CAC290032F4E3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 96E78B86245CAC290032F4E3 /* LaunchScreen.storyboard */; };
 		96E78B95245CADFA0032F4E3 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E78B94245CADFA0032F4E3 /* LoginView.swift */; };
@@ -54,13 +52,13 @@
 		96E78BA1245CC5AA0032F4E3 /* Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E78BA0245CC5AA0032F4E3 /* Configuration.swift */; };
 		96E78BA4245CC7700032F4E3 /* KeychainSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 96E78BA3245CC7700032F4E3 /* KeychainSwift */; };
 		96E78BAE245CCED40032F4E3 /* APIHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E78BAD245CCED40032F4E3 /* APIHelpers.swift */; };
-		96E78BB0245CD7330032F4E3 /* Toolbox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E78BAF245CD7330032F4E3 /* Toolbox.swift */; };
 		96E78BB2245CD79F0032F4E3 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E78BB1245CD79F0032F4E3 /* Logger.swift */; };
 		96E78BB4245CE61A0032F4E3 /* AppRoot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E78BB3245CE61A0032F4E3 /* AppRoot.swift */; };
 		96E78BB6245CE9BC0032F4E3 /* LegoListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E78BB5245CE9BC0032F4E3 /* LegoListView.swift */; };
 		96E78BBA245CEA1D0032F4E3 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E78BB9245CEA1D0032F4E3 /* SettingsView.swift */; };
 		96E78BBE245CF4BB0032F4E3 /* LegoSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E78BBD245CF4BB0032F4E3 /* LegoSet.swift */; };
 		96E78BC2245D15220032F4E3 /* Secrets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E78BC1245D15220032F4E3 /* Secrets.swift */; };
+		96EBF9252551E384004C1786 /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96EBF9242551E384004C1786 /* App.swift */; };
 		96ED04D6246823DA00C3A8BA /* LegoMinifig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96ED04D5246823DA00C3A8BA /* LegoMinifig.swift */; };
 /* End PBXBuildFile section */
 
@@ -103,8 +101,6 @@
 		96DE9252245F8A6800652E0E /* Blur.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Blur.swift; sourceTree = "<group>"; };
 		96DE9255245FA7BC00652E0E /* RoundedCorners.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedCorners.swift; sourceTree = "<group>"; };
 		96E78B78245CAC270032F4E3 /* Brickie Debug.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Brickie Debug.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		96E78B7B245CAC270032F4E3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		96E78B7D245CAC270032F4E3 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		96E78B81245CAC290032F4E3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		96E78B87245CAC290032F4E3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		96E78B89245CAC290032F4E3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -113,13 +109,13 @@
 		96E78B97245CB1120032F4E3 /* RoundedButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedButtonStyle.swift; sourceTree = "<group>"; };
 		96E78BA0245CC5AA0032F4E3 /* Configuration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Configuration.swift; sourceTree = "<group>"; };
 		96E78BAD245CCED40032F4E3 /* APIHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIHelpers.swift; sourceTree = "<group>"; };
-		96E78BAF245CD7330032F4E3 /* Toolbox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Toolbox.swift; sourceTree = "<group>"; };
 		96E78BB1245CD79F0032F4E3 /* Logger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 		96E78BB3245CE61A0032F4E3 /* AppRoot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppRoot.swift; sourceTree = "<group>"; };
 		96E78BB5245CE9BC0032F4E3 /* LegoListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LegoListView.swift; sourceTree = "<group>"; };
 		96E78BB9245CEA1D0032F4E3 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		96E78BBD245CF4BB0032F4E3 /* LegoSet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LegoSet.swift; sourceTree = "<group>"; };
 		96E78BC1245D15220032F4E3 /* Secrets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Secrets.swift; sourceTree = "<group>"; };
+		96EBF9242551E384004C1786 /* App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = App.swift; sourceTree = "<group>"; };
 		96ED04D5246823DA00C3A8BA /* LegoMinifig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LegoMinifig.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -283,9 +279,7 @@
 			isa = PBXGroup;
 			children = (
 				96E78BB1245CD79F0032F4E3 /* Logger.swift */,
-				96E78B7B245CAC270032F4E3 /* AppDelegate.swift */,
-				96E78B7D245CAC270032F4E3 /* SceneDelegate.swift */,
-				96E78BAF245CD7330032F4E3 /* Toolbox.swift */,
+				96EBF9242551E384004C1786 /* App.swift */,
 			);
 			path = base;
 			sourceTree = "<group>";
@@ -350,7 +344,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1140;
-				LastUpgradeCheck = 1140;
+				LastUpgradeCheck = 1210;
 				ORGANIZATIONNAME = Homework;
 				TargetAttributes = {
 					96E78B77245CAC270032F4E3 = {
@@ -405,12 +399,10 @@
 				96DE9253245F8A6800652E0E /* Blur.swift in Sources */,
 				96E78BBA245CEA1D0032F4E3 /* SettingsView.swift in Sources */,
 				96DE9256245FA7BC00652E0E /* RoundedCorners.swift in Sources */,
-				96E78B7C245CAC270032F4E3 /* AppDelegate.swift in Sources */,
 				9624E38124718DC4002F68F7 /* EnvironmentValues.swift in Sources */,
 				960FAD7D24677CAC0064B458 /* SafariView.swift in Sources */,
 				96ED04D6246823DA00C3A8BA /* LegoMinifig.swift in Sources */,
 				96E78BB2245CD79F0032F4E3 /* Logger.swift in Sources */,
-				96E78B7E245CAC270032F4E3 /* SceneDelegate.swift in Sources */,
 				96E78BA1245CC5AA0032F4E3 /* Configuration.swift in Sources */,
 				9610E5C82479815F00E31B57 /* SetAdditionalImageView.swift in Sources */,
 				960FAD8024677F250064B458 /* PDFKitView.swift in Sources */,
@@ -429,12 +421,12 @@
 				96DE924C245F695100652E0E /* Assets.swift in Sources */,
 				96851E092473569400D9F803 /* MinifigEditorView.swift in Sources */,
 				96DE9245245F34AA00652E0E /* Collection.swift in Sources */,
-				96E78BB0245CD7330032F4E3 /* Toolbox.swift in Sources */,
 				9624E38724719B17002F68F7 /* DataLoader.swift in Sources */,
 				96E78BBE245CF4BB0032F4E3 /* LegoSet.swift in Sources */,
 				964BA87F246A34D700984DCC /* Router.swift in Sources */,
 				96365E6B246863BC00F318C3 /* SearchField.swift in Sources */,
 				9624E38324718DC4002F68F7 /* Cache.swift in Sources */,
+				96EBF9252551E384004C1786 /* App.swift in Sources */,
 				9694B588248FE881008D0508 /* CodeScanner.swift in Sources */,
 				96351F57248BC09700372A03 /* SetsFilteredView.swift in Sources */,
 				960FAD59246729EE0064B458 /* SetEditorView.swift in Sources */,
@@ -502,6 +494,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -563,6 +556,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -601,6 +595,7 @@
 				DEVELOPMENT_TEAM = Z22Q8S6MMK;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = sources/assets/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -626,6 +621,7 @@
 				DEVELOPMENT_TEAM = Z22Q8S6MMK;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = sources/assets/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

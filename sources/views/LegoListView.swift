@@ -29,9 +29,11 @@ struct LegoListView<ListView:View>: View {
     @State private var isShowingScanner = false
     var body: some View {
         NavigationView{
-            List {
-                SearchField(searchText: $searchText,isActive: $showSearchBar)
-                content
+            ScrollView {
+                LazyVStack(alignment: .leading, spacing: 16, pinnedViews: [.sectionHeaders]) {
+                    SearchField(searchText: $searchText,isActive: $showSearchBar).padding(.horizontal,8)
+                    content
+                }
             }
             .navigationBarTitle(title)
             .navigationBarItems(
@@ -40,7 +42,14 @@ struct LegoListView<ListView:View>: View {
                 }),
                 trailing:
                 HStack(spacing:22){
-                    makeLoading()
+                    if collection.isLoadingData {
+                        ProgressView()
+                            .progressViewStyle(CircularProgressViewStyle())
+                    } else {
+                        ProgressView()
+                            .progressViewStyle(CircularProgressViewStyle()).hidden()
+                    }
+
                     makeHeart()
                     if isBarCode {
                         makeScanner()
@@ -52,14 +61,7 @@ struct LegoListView<ListView:View>: View {
         .sheet(isPresented: $isShowingScanner) {
             self.makeSheet()
         }
-            
-        .onAppear {
-            tweakTableView(on:true)
-        }.onDisappear {
-            tweakTableView(on:false)
-        }
         .navigationViewStyle(DoubleColumnNavigationViewStyle()).padding(.trailing, 1)
-            
         .modifier(DismissingKeyboardOnSwipe())
     }
     
@@ -85,9 +87,7 @@ struct LegoListView<ListView:View>: View {
         }
 
     }
-    func makeLoading() -> some View {
-        ActivityIndicator(isAnimating: $collection.isLoadingData, style: .medium)
-    }
+    
     func makeHeart() -> some View{
         Button(action: {
             self.filter = self.filter == .wanted ? .owned : .wanted

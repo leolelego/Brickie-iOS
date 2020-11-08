@@ -27,18 +27,23 @@ struct MinifigFilteredView: View {
     }
     
     var body: some View {
-        List{
-            HStack{
-                Spacer()
-                Text("minifig.local").font(.callout).multilineTextAlignment(.center)
-                Spacer()
+        ScrollView {
+            LazyVStack(alignment: .leading, spacing: 8, pinnedViews: [.sectionHeaders]) {
+                HStack{
+                    Spacer()
+                    Text("minifig.local").foregroundColor(.background).font(.callout).bold().multilineTextAlignment(.center)
+                    Spacer()
+                }
+                .background(Color.backgroundAlt)
+                .modifier(RoundedShadowMod())
+                .padding(8)
+                MinifigListView(items: items)
             }
-            MinifigListView(items: items)
         }
         .navigationBarItems(trailing:
             HStack(alignment: .center){
                 Text("\(items.filter{$0.ownedTotal > 0}.count)/\(items.count) ").font(.lego(size: 17))
-                ActivityIndicator(isAnimating: $collection.isLoadingData, style: .medium)
+                ProgressView().progressViewStyle(CircularProgressViewStyle())
 
             }
         )
