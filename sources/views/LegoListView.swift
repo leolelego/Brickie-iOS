@@ -9,61 +9,6 @@
 import SwiftUI
 import Combine
 
-enum SheetType  {
-    case scanner
-    case settings
-}
-//import CodeScanner
-enum LegoListFilter : String, CaseIterable{
-    case all
-    case wanted
-    case owned
-    
-    var local : LocalizedStringKey {
-        switch self {
-        case .all:return "filter.all"
-        case .wanted:return "filter.wanted"
-        case .owned:return "filter.owned"
-        }
-    }
-    var systemImage : String {
-        switch self {
-        case .all:return "number"
-        case .wanted:return "clock"
-        case .owned:return "textformat.abc"
-        }
-    }
-    
-    static let home : [LegoListFilter] = [.all,.wanted]
-}
-
-enum LegoListSorter : String, CaseIterable{
-    case `default` // theme
-    case number
-    case year
-    case alphabetical
-    case rating
-    
-    var local : LocalizedStringKey {
-        switch self {
-        case .number:return "orderer.number"
-        case .year:return "orderer.year"
-        case .alphabetical:return "orderer.alphabetical"
-        case .rating:return "orderer.rating"
-        default: return "orderer.default"
-        }
-    }
-    var systemImage : String {
-        switch self {
-        case .number:return "number"
-        case .year:return "clock"
-        case .alphabetical:return "textformat.abc"
-        case .rating:return "star.leadinghalf.fill"
-        default: return "staroflife"
-        }
-    }
-}
-
 
 struct LegoListView<ListView:View>: View {
     
@@ -83,10 +28,10 @@ struct LegoListView<ListView:View>: View {
     var body: some View {
         NavigationView{
             ScrollView {
-                LazyVStack(alignment: .leading, spacing: 16, pinnedViews: [.sectionHeaders]) {
-                    SearchField(searchText: $searchText,isActive: $showSearchBar).padding(.horizontal,8)
+                SearchField(searchText: $searchText,isActive: $showSearchBar).padding(.horizontal,8)
+                    
                     content
-                }
+                
             }
             .toolbar{
                 ToolbarItem(placement: .navigation){

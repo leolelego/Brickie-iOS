@@ -10,16 +10,15 @@ import SwiftUI
 struct AppRootView: View {
     @EnvironmentObject private var  store : Store
     @EnvironmentObject private var config : Configuration
-    @State private var selection = 0
-    @State var setsOrderer : LegoListSorter = .default
-    @State var figsOrderer : LegoListSorter = .default
+    @SceneStorage(Settings.rootTabSelected) private var selection = 0
+    @AppStorage(Settings.setsListSorter) var setsOrderer : LegoListSorter = .default
+    @AppStorage(Settings.figsListSorter) var figsOrderer : LegoListSorter = .default
     @State var setsFilters : LegoListFilter = .all
     @State var figsFilters : LegoListFilter = .all
     
     var body: some View {
-        Group {
             if store.user == nil  {
-                LoginView()
+                LoginView().accentColor(.backgroundAlt)
             } else {
                 TabView(selection: $selection){
                     LegoListView(content: SetsListView(items: store.mainSets,sorter:$setsOrderer,filter: $setsFilters),
@@ -52,10 +51,9 @@ struct AppRootView: View {
                                 Text("minifig.tab")
                             }
                         }.tag(1)
-                }
+                }.accentColor(.backgroundAlt)
             }
-            
-        }.accentColor(.backgroundAlt)
+ 
     }
     
 }

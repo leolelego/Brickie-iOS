@@ -13,43 +13,44 @@ struct MinifigListView: View {
     var figs : [LegoMinifig]
     @Binding var sorter : LegoListSorter
     @Binding var filter : LegoListFilter
-
+    
     
     @EnvironmentObject private var  store : Store
     @Environment(\.horizontalSizeClass) var horizontalSizeClass : UserInterfaceSizeClass?
     
     var body: some View {
-        Group {
-            if toShow.count == 0 {
+        if toShow.count == 0 {
+            Spacer()
+            
+            HStack(alignment: .center){
                 Spacer()
-                
+                Text( store.isLoadingData ? "sets.searching" : "sets.noitems").font(.largeTitle).bold()
+                Spacer()
+            }
+            if store.minifigs.count == 0 {
                 HStack(alignment: .center){
                     Spacer()
-                    Text( store.isLoadingData ? "sets.searching" : "sets.noitems").font(.largeTitle).bold()
+                    Text("sets.firstsync").multilineTextAlignment(.center).font(.subheadline)
                     Spacer()
                 }
-                if store.minifigs.count == 0 {
-                    HStack(alignment: .center){
-                        Spacer()
-                        Text("sets.firstsync").multilineTextAlignment(.center).font(.subheadline)
-                        Spacer()
-                    }
-                }
-            } else {
-                if isDebug{
-                    Text(String(toShow.count))
-                }
+            }
+        } else {
+            if isDebug{
+                Text(String(toShow.count))
+            }
+            LazyVStack(alignment: .leading, spacing: 16, pinnedViews: [.sectionHeaders]) {
                 ForEach(sections(for: toShow ), id: \.self){ theme in
                     Section(header:
-                        Text(theme).roundText
-                            .padding(.leading, 4)
-                            .padding(.bottom, -26)
+                                Text(theme).roundText
+                                .padding(.leading, 4)
+                                .padding(.bottom, -26)
                     ) {
                         self.makeSection(theme)
                     }
                 }
             }
         }
+        
         
     }
     func sections(for items:[LegoMinifig]) -> [String] {

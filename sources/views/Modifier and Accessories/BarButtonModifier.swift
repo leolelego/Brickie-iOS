@@ -27,7 +27,7 @@ struct ShareNavButton : View{
             Image(systemName: "square.and.arrow.up").modifier(BarButtonModifier())
         }
         .sheet(isPresented: $showingSheet) {
-            AnyView(ActivityControllerView(activityItems: self.items,applicationActivities: nil))
+            ActivityControllerView(activityItems: self.items,applicationActivities: nil)
         }
     }
 }

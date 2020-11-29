@@ -10,7 +10,7 @@ import SwiftUI
 
 struct SetsListView: View {
     
-
+    
     
     var items : [LegoSet]
     @EnvironmentObject private var  store : Store
@@ -18,45 +18,42 @@ struct SetsListView: View {
     @Binding var filter : LegoListFilter 
     
     var body: some View {
-        
-        Group {
-            
-            if setsToShow.count == 0 {
+        if setsToShow.count == 0 {
+            Spacer()
+            HStack(alignment: .center){
                 Spacer()
-                
+                if store.isLoadingData {
+                    ProgressView()
+                        .progressViewStyle(CircularProgressViewStyle())
+                } else {
+                    Text("sets.noitems").font(.largeTitle).bold()
+                    
+                }
+                Spacer()
+            }
+            if store.sets.filter({$0.collection.owned}).count == 0 {
                 HStack(alignment: .center){
                     Spacer()
-                    if store.isLoadingData {
-                        ProgressView()
-                            .progressViewStyle(CircularProgressViewStyle())
-                    } else {
-                        Text("sets.noitems").font(.largeTitle).bold()
-
-                    }
+                    Text("sets.firstsync").multilineTextAlignment(.center).font(.subheadline)
                     Spacer()
                 }
-                if store.sets.filter({$0.collection.owned}).count == 0 {
-                    HStack(alignment: .center){
-                        Spacer()
-                        Text("sets.firstsync").multilineTextAlignment(.center).font(.subheadline)
-                        Spacer()
-                    }
+            }
+            
+        } else {
+            
+            if isDebug{
+                HStack{
+                    Spacer()
+                    Text(String(setsToShow.count)).roundText
+                    Spacer()
                 }
-                
-            } else {
-                
-                if isDebug{
-                    HStack{
-                        Spacer()
-                        Text(String(setsToShow.count)).roundText
-                        Spacer()
-                    }
-                }
+            }
+            LazyVStack(alignment: .leading, spacing: 16, pinnedViews: [.sectionHeaders]) {
                 ForEach(sections(for:  setsToShow ), id: \.self){ theme in
                     Section(header:
-                        Text(theme).roundText
-                            .padding(.leading, 4)
-                            .padding(.bottom, -26)
+                                Text(theme).roundText
+                                .padding(.leading, 4)
+                                .padding(.bottom, -26)
                     ) {
                         ForEach(self.items(for: theme, items: self.setsToShow ), id: \.setID) { item in
                             NavigationLink(destination: SetDetailView(set: item)) {
@@ -68,8 +65,9 @@ struct SetsListView: View {
                     }
                 }
             }
-            
         }
+        
+        
     }
     
     func sections(for items:[LegoSet]) -> [String] {
