@@ -10,7 +10,6 @@ import SwiftUI
 
 struct SearchField: View {
     @Binding var searchText: String
-    @Binding var isActive : Bool
     @EnvironmentObject var config : Configuration
     var body: some View {
         HStack {
@@ -37,7 +36,6 @@ struct SearchField: View {
             if !searchText.isEmpty {
                 Button(action: {
                     self.searchText = ""
-                    self.isActive = false
                     self.closeKeyboard()
 
                 }) {

@@ -11,6 +11,8 @@ enum Settings {
     static let setsListSorter = "setsListSorter"
     static let figsListSorter = "figsListSorter"
     static let rootTabSelected = "tabSelected"
+    static let figsDisplayMode = "figsDisplayMode"
+
 }
 enum SheetType  {
     case scanner
@@ -67,3 +69,21 @@ enum LegoListSorter : String, CaseIterable{
     }
 }
 
+enum DisplayMode: String, CaseIterable{
+    case `default` = "default"
+    case grid = "grid"
+    
+    var systemImage : String {
+        switch self {
+        case .grid:return "rectangle.grid.2x2"
+        default: return "text.justify"
+        }
+    }
+    
+    func next() -> DisplayMode{
+        switch self {
+        case .grid: return .default
+        default: return .grid
+        }
+    }
+}

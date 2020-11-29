@@ -19,35 +19,8 @@ struct SetsListView: View {
     
     var body: some View {
         if setsToShow.count == 0 {
-            Spacer()
-            HStack(alignment: .center){
-                Spacer()
-                if store.isLoadingData {
-                    ProgressView()
-                        .progressViewStyle(CircularProgressViewStyle())
-                } else {
-                    Text("sets.noitems").font(.largeTitle).bold()
-                    
-                }
-                Spacer()
-            }
-            if store.sets.filter({$0.collection.owned}).count == 0 {
-                HStack(alignment: .center){
-                    Spacer()
-                    Text("sets.firstsync").multilineTextAlignment(.center).font(.subheadline)
-                    Spacer()
-                }
-            }
-            
+            TrySyncView(count: store.sets.filter({$0.collection.owned}).count)
         } else {
-            
-            if isDebug{
-                HStack{
-                    Spacer()
-                    Text(String(setsToShow.count)).roundText
-                    Spacer()
-                }
-            }
             LazyVStack(alignment: .leading, spacing: 16, pinnedViews: [.sectionHeaders]) {
                 ForEach(sections(for:  setsToShow ), id: \.self){ theme in
                     Section(header:
@@ -59,6 +32,15 @@ struct SetsListView: View {
                             NavigationLink(destination: SetDetailView(set: item)) {
                                 SetListCell(set:item)
                             }.padding(.leading,16).padding(.trailing,8)
+                            .contextMenu {
+                                CellContextMenu(owned: item.collection.qtyOwned, wanted: item.collection.wanted) {
+                                    self.store.action(.qty(item.collection.qtyOwned+1),on: item)
+                                } remove: {
+                                    self.store.action(.qty(item.collection.qtyOwned-1),on: item)
+                                } want: {
+                                    self.store.action(.want(!item.collection.wanted),on: item)
+                                }
+                            }
                         }
                         
                         
@@ -105,4 +87,5 @@ struct SetsListView: View {
             return items.filter({$0.collection.owned})
         }
     }
+
 }

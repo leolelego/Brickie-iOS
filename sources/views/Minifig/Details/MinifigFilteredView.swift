@@ -37,7 +37,7 @@ struct MinifigFilteredView: View {
                 .background(Color.backgroundAlt)
                 .modifier(RoundedShadowMod())
                 .padding(8)
-                MinifigListView(figs: items,sorter: .constant(.default),filter: .constant(.all))
+                MinifigListView(figs: items,sorter: .constant(.default))
             }
         }
         .navigationBarItems(trailing:

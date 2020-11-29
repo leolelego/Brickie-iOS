@@ -12,34 +12,12 @@ struct MinifigListView: View {
     
     var figs : [LegoMinifig]
     @Binding var sorter : LegoListSorter
-    @Binding var filter : LegoListFilter
-    
-    
     @EnvironmentObject private var  store : Store
-    @Environment(\.horizontalSizeClass) var horizontalSizeClass : UserInterfaceSizeClass?
-    
+
     var body: some View {
-        if toShow.count == 0 {
-            Spacer()
-            
-            HStack(alignment: .center){
-                Spacer()
-                Text( store.isLoadingData ? "sets.searching" : "sets.noitems").font(.largeTitle).bold()
-                Spacer()
-            }
-            if store.minifigs.count == 0 {
-                HStack(alignment: .center){
-                    Spacer()
-                    Text("sets.firstsync").multilineTextAlignment(.center).font(.subheadline)
-                    Spacer()
-                }
-            }
-        } else {
-            if isDebug{
-                Text(String(toShow.count))
-            }
+     
             LazyVStack(alignment: .leading, spacing: 16, pinnedViews: [.sectionHeaders]) {
-                ForEach(sections(for: toShow ), id: \.self){ theme in
+                ForEach(sections(for: figs ), id: \.self){ theme in
                     Section(header:
                                 Text(theme).roundText
                                 .padding(.leading, 4)
@@ -49,9 +27,6 @@ struct MinifigListView: View {
                     }
                 }
             }
-        }
-        
-        
     }
     func sections(for items:[LegoMinifig]) -> [String] {
         switch sorter {
@@ -68,23 +43,24 @@ struct MinifigListView: View {
     }
     
     func makeSection(_ theme:String) -> some View {
-        let values =  items(for: theme, items: toShow)
+        let values =  items(for: theme, items: figs)
         return ForEach(values) { value in
             NavigationLink(destination: MinifigDetailView(minifig: value)){
-                MinifigCell(minifig:value)
+                MinifigListCell(minifig:value)
+                    
             } .padding(16)
+            .contextMenu{
+                CellContextMenu(owned: value.ownedLoose, wanted: value.wanted) {
+                    store.action(.qty(value.ownedLoose+1),on: value)
+                } remove: {
+                    store.action(.qty(value.ownedLoose-1),on: value)
+                } want: {
+                    store.action(.want(!value.wanted), on: value)
+                }
+            }
+            
         }
         
     }
-    var toShow : [LegoMinifig] {
-        switch filter {
-        case .all:
-            return  figs
-        case .wanted:
-            return figs.filter({$0.wanted})
-        case .owned:
-            return figs.filter({$0.ownedTotal > 0})
-        }
-    }
+    
 }
-
