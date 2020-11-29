@@ -10,38 +10,40 @@ import SwiftUI
 
 struct MinifigListView: View {
     
-    var items : [LegoMinifig]
-
+    var figs : [LegoMinifig]
+    @Binding var sorter : LegoListSorter
+    @Binding var filter : LegoListFilter
     
-    @EnvironmentObject private var  collection : UserCollection
+    
+    @EnvironmentObject private var  store : Store
     @Environment(\.horizontalSizeClass) var horizontalSizeClass : UserInterfaceSizeClass?
     
     var body: some View {
-        Group {
-            if items.count == 0 {
+        if toShow.count == 0 {
+            Spacer()
+            
+            HStack(alignment: .center){
                 Spacer()
-                
+                Text( store.isLoadingData ? "sets.searching" : "sets.noitems").font(.largeTitle).bold()
+                Spacer()
+            }
+            if store.minifigs.count == 0 {
                 HStack(alignment: .center){
                     Spacer()
-                    Text( collection.isLoadingData ? "sets.searching" : "sets.noitems").font(.largeTitle).bold()
+                    Text("sets.firstsync").multilineTextAlignment(.center).font(.subheadline)
                     Spacer()
                 }
-                if collection.minifigs.count == 0 {
-                    HStack(alignment: .center){
-                        Spacer()
-                        Text("sets.firstsync").multilineTextAlignment(.center).font(.subheadline)
-                        Spacer()
-                    }
-                }
-            } else {
-                if Configuration.isDebug{
-                    Text(String(items.count))
-                }
-                ForEach(sections(for: items ), id: \.self){ theme in
+            }
+        } else {
+            if isDebug{
+                Text(String(toShow.count))
+            }
+            LazyVStack(alignment: .leading, spacing: 16, pinnedViews: [.sectionHeaders]) {
+                ForEach(sections(for: toShow ), id: \.self){ theme in
                     Section(header:
-                        Text(theme).roundText
-                            .padding(.leading, 4)
-                            .padding(.bottom, -26)
+                                Text(theme).roundText
+                                .padding(.leading, 4)
+                                .padding(.bottom, -26)
                     ) {
                         self.makeSection(theme)
                     }
@@ -49,22 +51,40 @@ struct MinifigListView: View {
             }
         }
         
+        
     }
     func sections(for items:[LegoMinifig]) -> [String] {
-        return Array(Set(items.compactMap({$0.theme}))).sorted()
+        switch sorter {
+        case .alphabetical:return Array(Set(items.compactMap({String(($0.name ?? "").prefix(1))}))).sorted()
+        default: return Array(Set(items.compactMap({$0.theme}))).sorted()
+        }
+        
     }
     func items(for section:String,items:[LegoMinifig]) -> [LegoMinifig] {
-        return items.filter({$0.theme == section}).sorted(by: {$0.subtheme < $1.subtheme /*&& ($0?.name ?? "") < ($1?.name ?? "" )*/ })
+        switch sorter {
+        case .alphabetical: return items.filter({($0.name ?? "").prefix(1) == section}).sorted(by: {$0.name ?? "" < $1.name ?? "" /*&& ($0?.name ?? "") < ($1?.name ?? "" )*/ })
+        default: return items.filter({$0.theme == section}).sorted(by: {$0.subtheme < $1.subtheme /*&& ($0?.name ?? "") < ($1?.name ?? "" )*/ })
+        }
     }
     
     func makeSection(_ theme:String) -> some View {
-        let values =  items(for: theme, items: items)
+        let values =  items(for: theme, items: toShow)
         return ForEach(values) { value in
             NavigationLink(destination: MinifigDetailView(minifig: value)){
                 MinifigCell(minifig:value)
             } .padding(16)
         }
         
+    }
+    var toShow : [LegoMinifig] {
+        switch filter {
+        case .all:
+            return  figs
+        case .wanted:
+            return figs.filter({$0.wanted})
+        case .owned:
+            return figs.filter({$0.ownedTotal > 0})
+        }
     }
 }
 

@@ -9,19 +9,17 @@
 import SwiftUI
 import Combine
 
-enum SheetType  {
-    case scanner
-    case settings
-}
-//import CodeScanner
+
 struct LegoListView<ListView:View>: View {
     
-    @EnvironmentObject private var  collection : UserCollection
+    
+    @EnvironmentObject private var  store : Store
     let content : ListView
+    let filterSorter : FilterSorterMenu
     @State var showSearchBar : Bool = false
     @State var animate : Bool = false
     @Binding var searchText : String
-    @Binding var filter : CollectionFilter
+
     @State var sheetType : SheetType = .scanner
     var title : LocalizedStringKey
     var isBarCode : Bool
@@ -30,42 +28,39 @@ struct LegoListView<ListView:View>: View {
     var body: some View {
         NavigationView{
             ScrollView {
-                LazyVStack(alignment: .leading, spacing: 16, pinnedViews: [.sectionHeaders]) {
-                    SearchField(searchText: $searchText,isActive: $showSearchBar).padding(.horizontal,8)
+                SearchField(searchText: $searchText,isActive: $showSearchBar).padding(.horizontal,8)
+                    
                     content
-                }
+                
             }
-            .navigationBarTitle(title)
-            .navigationBarItems(
-                leading: HStack(spacing: 22, content: {
+            .toolbar{
+                ToolbarItem(placement: .navigation){
                     makeSettings()
-                }),
-                trailing:
-                HStack(spacing:22){
-                    if collection.isLoadingData {
+                }
+                ToolbarItemGroup(placement: .navigationBarTrailing){
+                    if store.isLoadingData {
                         ProgressView()
                             .progressViewStyle(CircularProgressViewStyle())
                     } else {
-                        ProgressView()
-                            .progressViewStyle(CircularProgressViewStyle()).hidden()
+                        filterSorter
                     }
-
-                    makeHeart()
+                    
                     if isBarCode {
                         makeScanner()
                     }
-                    
                 }
-            )
+                
+            }
+            .navigationBarTitle(title)
         }
         .sheet(isPresented: $isShowingScanner) {
             self.makeSheet()
         }
-        .navigationViewStyle(DoubleColumnNavigationViewStyle()).padding(.trailing, 1)
+//        .navigationViewStyle(DoubleColumnNavigationViewStyle()).padding(.trailing, 1)
         .modifier(DismissingKeyboardOnSwipe())
     }
     
-
+    
     func handleScan(result: Result<String, CodeScannerView.ScanError>) {
         self.isShowingScanner = false
         switch result {
@@ -82,29 +77,22 @@ struct LegoListView<ListView:View>: View {
         case .scanner :
             return AnyView(CodeScannerView(codeTypes: [.ean8, .ean13, .pdf417], completion: self.handleScan))
         case .settings:
-            return AnyView(SettingsView().environmentObject(collection))
+            return AnyView(SettingsView().environmentObject(store))
             
         }
-
+        
     }
     
-    func makeHeart() -> some View{
-        Button(action: {
-            self.filter = self.filter == .wanted ? .owned : .wanted
-        }, label: {
-            Image(systemName: filter == .wanted ? "heart.fill" : "heart").modifier(BarButtonModifier())
-        })
-    }
     func makeSettings() -> some View{
         Button(action: {
             self.sheetType = .settings
-
+            
             self.isShowingScanner.toggle()
         }, label: {
             Image(systemName: "gear").modifier(BarButtonModifier())
         })
     }
-
+    
     func makeScanner() -> some View{
         Button(action: {
             self.sheetType = .scanner

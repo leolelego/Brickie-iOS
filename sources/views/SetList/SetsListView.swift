@@ -9,51 +9,53 @@
 import SwiftUI
 
 struct SetsListView: View {
+    
+    
+    
     var items : [LegoSet]
-    @EnvironmentObject private var  collection : UserCollection
+    @EnvironmentObject private var  store : Store
+    @Binding var sorter : LegoListSorter
+    @Binding var filter : LegoListFilter 
     
     var body: some View {
-        
-        Group {
-            
-            if items.count == 0 {
+        if setsToShow.count == 0 {
+            Spacer()
+            HStack(alignment: .center){
                 Spacer()
-                
+                if store.isLoadingData {
+                    ProgressView()
+                        .progressViewStyle(CircularProgressViewStyle())
+                } else {
+                    Text("sets.noitems").font(.largeTitle).bold()
+                    
+                }
+                Spacer()
+            }
+            if store.sets.filter({$0.collection.owned}).count == 0 {
                 HStack(alignment: .center){
                     Spacer()
-                    if collection.isLoadingData {
-                        ProgressView()
-                            .progressViewStyle(CircularProgressViewStyle())
-                    } else {
-                        Text("sets.noitems").font(.largeTitle).bold()
-
-                    }
+                    Text("sets.firstsync").multilineTextAlignment(.center).font(.subheadline)
                     Spacer()
                 }
-                if collection.sets.filter({$0.collection.owned}).count == 0 {
-                    HStack(alignment: .center){
-                        Spacer()
-                        Text("sets.firstsync").multilineTextAlignment(.center).font(.subheadline)
-                        Spacer()
-                    }
+            }
+            
+        } else {
+            
+            if isDebug{
+                HStack{
+                    Spacer()
+                    Text(String(setsToShow.count)).roundText
+                    Spacer()
                 }
-                
-            } else {
-                
-                if Configuration.isDebug{
-                    HStack{
-                        Spacer()
-                        Text(String(items.count)).roundText
-                        Spacer()
-                    }
-                }
-                ForEach(sections(for:  items ), id: \.self){ theme in
+            }
+            LazyVStack(alignment: .leading, spacing: 16, pinnedViews: [.sectionHeaders]) {
+                ForEach(sections(for:  setsToShow ), id: \.self){ theme in
                     Section(header:
-                        Text(theme).roundText
-                            .padding(.leading, 4)
-                            .padding(.bottom, -26)
+                                Text(theme).roundText
+                                .padding(.leading, 4)
+                                .padding(.bottom, -26)
                     ) {
-                        ForEach(self.items(for: theme, items: self.items ), id: \.setID) { item in
+                        ForEach(self.items(for: theme, items: self.setsToShow ), id: \.setID) { item in
                             NavigationLink(destination: SetDetailView(set: item)) {
                                 SetListCell(set:item)
                             }.padding(.leading,16).padding(.trailing,8)
@@ -63,18 +65,44 @@ struct SetsListView: View {
                     }
                 }
             }
-            
         }
+        
+        
     }
     
     func sections(for items:[LegoSet]) -> [String] {
-        return Array(Set(items.compactMap({$0.theme}))).sorted()
+        switch sorter {
+        case .number:
+            return []
+        case .alphabetical:
+            return Array(Set(items.compactMap({String($0.name.prefix(1))}))).sorted()
+        case .year:
+            return Array(Set(items.compactMap({"\($0.year)"}))).sorted()
+        default:
+            return Array(Set(items.compactMap({$0.theme}))).sorted()
+        }
     }
     func items(for section:String,items:[LegoSet]) -> [LegoSet] {
-        return items.filter({$0.theme == section})
-            .sorted(by: {
-                $0.subtheme ?? "" < $1.subtheme ?? ""
-            && $0.name < $1.name}
-        )
+        switch sorter {
+        case .number:
+            return items.sorted(by: {$0.number < $1.number})
+        case .alphabetical:
+            return items.filter({String($0.name.prefix(1)) == section}).sorted(by: {$0.name < $1.name})
+        case .year:
+            return items.filter({"\($0.year)" == section}).sorted(by: {$0.name < $1.name})
+        default:
+            return items.filter({$0.theme == section}).sorted(by: {$0.subtheme ?? "" < $1.subtheme ?? "" && $0.name < $1.name})
+        }
+    }
+    
+    var setsToShow : [LegoSet] {
+        switch filter {
+        case .all:
+            return  items
+        case .wanted:
+            return items.filter({$0.collection.wanted})
+        case .owned:
+            return items.filter({$0.collection.owned})
+        }
     }
 }

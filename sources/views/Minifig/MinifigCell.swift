@@ -9,7 +9,7 @@
 import SwiftUI
 import SDWebImageSwiftUI
 struct MinifigCell: View {
-    @EnvironmentObject private var  collection : UserCollection
+    @EnvironmentObject private var  store : Store
     
     @ObservedObject var minifig : LegoMinifig
     @Environment(\.dataCache) var cache : DataCache
@@ -46,7 +46,7 @@ struct MinifigCell: View {
     func menu() -> some View {
         VStack {
             Button(action: {
-                self.collection.action(.qty(self.minifig.ownedLoose+1),on: self.minifig)
+                self.store.action(.qty(self.minifig.ownedLoose+1),on: self.minifig)
                 
             }) {
                 HStack(alignment: .lastTextBaseline) {
@@ -56,7 +56,7 @@ struct MinifigCell: View {
             }
             if self.minifig.ownedLoose > 0 {
                 Button(action: {
-                    self.collection.action(.qty(self.minifig.ownedLoose-1),on: self.minifig)
+                    self.store.action(.qty(self.minifig.ownedLoose-1),on: self.minifig)
                     
                 }) {
                     HStack(alignment: .lastTextBaseline) {
@@ -66,7 +66,7 @@ struct MinifigCell: View {
                 }
             }
             Button(action: {
-                self.collection.action(.want(!self.minifig.wanted), on: self.minifig)
+                self.store.action(.want(!self.minifig.wanted), on: self.minifig)
             }) {
                 HStack(alignment: .lastTextBaseline) {
                     Image(systemName: minifig.wanted ? "heart.fill" : "heart").foregroundColor(.white).font(.headline)
