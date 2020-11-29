@@ -10,7 +10,7 @@ import SwiftUI
 
 struct SettingsView: View {
     
-    @EnvironmentObject private var  collection : UserCollection
+    @EnvironmentObject private var  store : Store
     
     @Environment(\.presentationMode) var presentationMode
     
@@ -27,12 +27,11 @@ struct SettingsView: View {
                 Section(header:makeThanks()){
                     
                     HStack{
-                        Text("\(collection.user?.username  ?? "Debug Name")").font(.title)
+                        Text("\(store.user?.username  ?? "Debug Name")").font(.title)
                         Spacer()
                         Button(action: {
                             self.presentationMode.wrappedValue.dismiss()
                             self.logout = true
-                            // self.collection.user = nil
                         }) {
                             Text( "settings.logout")
                                 .fontWeight(.bold)
@@ -42,15 +41,15 @@ struct SettingsView: View {
                     }
                     
                     
-                    if Configuration.isDebug {
+                    if isDebug {
                         HStack{
                             Text("User Hash").font(.title)
                             Spacer()
                             Button(action: {
                                 let pasteboard = UIPasteboard.general
-                                pasteboard.string = self.collection.user?.token ?? ""
+                                pasteboard.string = self.store.user?.token ?? ""
                             }) {
-                                Text(collection.user?.token ?? "")
+                                Text(store.user?.token ?? "")
                                     .fontWeight(.bold)
                             }.buttonStyle(RoundedButtonStyle(backgroundColor: .red, padding:8))
                         }
@@ -61,15 +60,15 @@ struct SettingsView: View {
                     HStack{
                         Text("settings.collection")
                         Spacer()
-                        Text(String(collection.sets.qtyOwned)+" ").font(.lego(size: 20))
+                        Text(String(store.sets.qtyOwned)+" ").font(.lego(size: 20))
                         Image.brick
-                        Text(String(collection.minifigs.qtyOwned)+" ").font(.lego(size: 20))
+                        Text(String(store.minifigs.qtyOwned)+" ").font(.lego(size: 20))
                         Image.minifig_head
                     }
                     HStack{
                         Text("settings.pricecollection")
                         Spacer()
-                        Text(currencyFormatter.string(for:collection.sets.priceOwned) ?? "")
+                        Text(currencyFormatter.string(for:store.sets.priceOwned) ?? "")
                     }
                     
                 }
@@ -87,24 +86,6 @@ struct SettingsView: View {
                         }
                     }
                 }
-                
-                //                if config.connection != .unavailable {
-                //                    Section(header: Text("settings.dangerzone")) {
-                //                        HStack{
-                //
-                //                            Text("settings.cache").font(.title)
-                //                            Spacer()
-                //                            Button(action: {
-                //                                self.collection.reset()
-                //                            }) {
-                //                                Text( "settings.free")
-                //                                    .fontWeight(.bold)
-                //                            }.buttonStyle(RoundedButtonStyle(backgroundColor: .red, padding:8))
-                //                        }
-                //                    }
-                //                }
-                
-                
             }
             .listStyle(GroupedListStyle())
             .environment(\.horizontalSizeClass, .regular)
@@ -113,8 +94,8 @@ struct SettingsView: View {
         .onDisappear {
             if self.logout {
                 
-                self.collection.user = nil
-                self.collection.reset()
+                self.store.user = nil
+                self.store.reset()
             }
         }
         .navigationViewStyle(StackNavigationViewStyle())

@@ -25,7 +25,7 @@ struct LegoPDFView : View {
                 VStack {
                     Text("instruction.downloading")
                 }
-            }
+        }
         }.onAppear {
             self.loader.load()
         }.onDisappear{

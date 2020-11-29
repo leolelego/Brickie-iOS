@@ -9,15 +9,15 @@
 import SwiftUI
 
 struct SetsFilteredView: View {
-    @EnvironmentObject private var  collection : UserCollection
+    @EnvironmentObject private var  store : Store
     @EnvironmentObject private var  config : Configuration
 
     let text : String
-    let filter: UserCollection.SearchFilter
+    let filter: Store.SearchFilter
     @State var requestSent : Bool = false
     
     var items : [LegoSet] {
-        return collection.sets.filter({
+        return store.sets.filter({
             switch filter {
             case .theme,.none:
                 return $0.theme == text
@@ -33,7 +33,7 @@ struct SetsFilteredView: View {
     var body: some View {
         ScrollView {
             LazyVStack(alignment: .leading, spacing: 16, pinnedViews: [.sectionHeaders]) {
-                SetsListView(items: items)
+                SetsListView(items: items,sorter:.constant(.default),filter: .constant(.all))
             }
         }
         .navigationBarItems(trailing:
@@ -45,7 +45,7 @@ struct SetsFilteredView: View {
         .navigationBarTitle(text.uppercased()+"_")
         .onAppear {
             if self.requestSent == false {
-                self.collection.searchSets(text: self.text,by:self.filter)
+                self.store.searchSets(text: self.text,by:self.filter)
                 self.requestSent = true
             }
                    
@@ -54,7 +54,7 @@ struct SetsFilteredView: View {
     
     func makeCheck() -> some View{
         Group{
-            if collection.isLoadingData {
+            if store.isLoadingData {
                 ProgressView().progressViewStyle(CircularProgressViewStyle())
             } else if config.connection == .unavailable {
                 Image.wifiError.imageScale(.large)

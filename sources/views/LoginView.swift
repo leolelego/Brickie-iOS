@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct LoginView: View {
-    @EnvironmentObject private var  collection : UserCollection
+    @EnvironmentObject private var  store : Store
     @EnvironmentObject var config : Configuration
     @State var username = ""
     @State var password = ""
@@ -85,8 +85,8 @@ struct LoginView: View {
                 case .success(let hash):
                     let user = User(username: self.username, token: hash)
                     DispatchQueue.main.async {
-                        self.collection.user = user
-                        self.collection.requestForSync = true
+                        self.store.user = user
+                        self.store.requestForSync = true
                     }
                     break
                 }
