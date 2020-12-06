@@ -24,7 +24,7 @@ struct AppRootView: View {
                     LegoListView(content: SetsListView(items: store.mainSets,sorter:$setsOrderer,filter: $setsFilters),
                                  filterSorter:FilterSorterMenu(sorter: $setsOrderer,
                                                                filter: $setsFilters,
-                                                               sorterAvailable: [.default,.year,.alphabetical],
+                                                               sorterAvailable: [.default,.year,.alphabetical,.piece,.price,.number],
                                                                filterAvailable: store.searchSetsText.isEmpty ? [.all,.wanted] : [.all,.wanted,.owned]
                                  ),
                                  searchText: $store.searchSetsText,

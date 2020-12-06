@@ -15,7 +15,7 @@ struct LoginView: View {
     @State var password = ""
     @State var error : String?
     @State var loading = false
-    
+    let loginURL = URL(string:"https://brickset.com/signup")!
     var body: some View {
         VStack(spacing: 16){
             makeImage().offset(y: -80)
@@ -28,7 +28,10 @@ struct LoginView: View {
                 }
                 makeLoginButton().offset(y:-60)
             }
-            
+            Link("login.create", destination: loginURL)
+                .foregroundColor(.gray)
+                .offset(y:-60)
+
             if  error != nil && !self.loading {
                 VStack{
                     Text("login.failed").font(.callout).multilineTextAlignment(.center).foregroundColor(.red).lineLimit(10)
