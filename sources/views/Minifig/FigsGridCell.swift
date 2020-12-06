@@ -15,7 +15,7 @@ struct FigsGridCell: View {
     @Environment(\.dataCache) var cache : DataCache
         
     var body: some View {
-        VStack{
+        VStack(){
             ZStack(alignment: .bottomTrailing){
                 makeImage()
 //                VStack(alignment: .trailing){
@@ -30,9 +30,14 @@ struct FigsGridCell: View {
 
             }.frame(height: 200)
             .modifier(RoundedShadowMod())
-            Spacer()
+           // Spacer()
             Text(minifig.nameUI).minimumScaleFactor(0.5).font(.headline).lineLimit(3).multilineTextAlignment(.center)
-
+            
+            if minifig.subNames.first != nil {
+                Text(minifig.subNames.first!).font(.caption).foregroundColor(.gray)
+            }
+            Spacer()
+            
         }
             .contextMenu{
                 Button("menu") {

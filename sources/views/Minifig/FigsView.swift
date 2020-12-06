@@ -43,7 +43,7 @@ struct FigsView: View {
                     DisplayModeView(mode: $displayMode)
                 }
             }
-            .navigationBarTitle("sets.title")
+            .navigationBarTitle("minifig.title")
         }
        
         .modifier(DismissingKeyboardOnSwipe())
