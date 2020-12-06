@@ -48,6 +48,8 @@ enum LegoListSorter : String, CaseIterable{
     case year = "year"
     case alphabetical = "alphabetical"
     case rating = "rating"
+    case piece = "piece"
+    case price = "price"
     
     var local : LocalizedStringKey {
         switch self {
@@ -55,6 +57,8 @@ enum LegoListSorter : String, CaseIterable{
         case .year:return "sorter.year"
         case .alphabetical:return "sorter.alphabetical"
         case .rating:return "sorter.rating"
+        case .piece:return "sorter.piece"
+        case .price:return "sorter.price"
         default: return "sorter.default"
         }
     }
@@ -64,6 +68,8 @@ enum LegoListSorter : String, CaseIterable{
         case .year:return "clock"
         case .alphabetical:return "textformat.abc"
         case .rating:return "star.leadinghalf.fill"
+        case .piece:return "puzzlepiece"
+        case .price:return "dollarsign.circle"
         default: return "staroflife"
         }
     }
