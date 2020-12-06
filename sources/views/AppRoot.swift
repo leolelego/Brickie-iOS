@@ -33,7 +33,7 @@ struct AppRootView: View {
         
     }
     
-    @ViewBuilder var iPhoneView: some View {
+    var iPhoneView: some View {
         TabView(selection: $selection){
             ForEach(AppPanel.allCases, id: \.self){ item in
                 NavigationView {
@@ -51,7 +51,7 @@ struct AppRootView: View {
 
     }
     
-    @ViewBuilder var iPadMacView : some View {
+    var iPadMacView : some View {
         NavigationView {
             List(){
                 ForEach(AppPanel.allCases, id: \.self){ item in
