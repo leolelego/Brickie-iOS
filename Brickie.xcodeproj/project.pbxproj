@@ -68,7 +68,6 @@
 		B3D827F42573D09500CAC606 /* SettingsButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D827F32573D09500CAC606 /* SettingsButton.swift */; };
 		B3D827F72573D1EB00CAC606 /* ScannerButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D827F62573D1EB00CAC606 /* ScannerButton.swift */; };
 		B3D827FA2573D2F000CAC606 /* DisplayModeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D827F92573D2F000CAC606 /* DisplayModeView.swift */; };
-		B3D828002573D4DD00CAC606 /* FigsGridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D827FF2573D4DD00CAC606 /* FigsGridView.swift */; };
 		B3D828042573D97500CAC606 /* FigsGridCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D828032573D97500CAC606 /* FigsGridCell.swift */; };
 		B3D828072573DA3B00CAC606 /* PastilView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D828062573DA3B00CAC606 /* PastilView.swift */; };
 		B3D8280A2573F1C000CAC606 /* CellContextMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D828092573F1C000CAC606 /* CellContextMenu.swift */; };
@@ -137,7 +136,6 @@
 		B3D827F32573D09500CAC606 /* SettingsButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsButton.swift; sourceTree = "<group>"; };
 		B3D827F62573D1EB00CAC606 /* ScannerButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScannerButton.swift; sourceTree = "<group>"; };
 		B3D827F92573D2F000CAC606 /* DisplayModeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplayModeView.swift; sourceTree = "<group>"; };
-		B3D827FF2573D4DD00CAC606 /* FigsGridView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FigsGridView.swift; sourceTree = "<group>"; };
 		B3D828032573D97500CAC606 /* FigsGridCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FigsGridCell.swift; sourceTree = "<group>"; };
 		B3D828062573DA3B00CAC606 /* PastilView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PastilView.swift; sourceTree = "<group>"; };
 		B3D828092573F1C000CAC606 /* CellContextMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellContextMenu.swift; sourceTree = "<group>"; };
@@ -327,9 +325,9 @@
 			isa = PBXGroup;
 			children = (
 				B3D827EE2573C4FE00CAC606 /* FigsView.swift */,
-				B3D827FF2573D4DD00CAC606 /* FigsGridView.swift */,
+				9624E38C2471F3B5002F68F7 /* FigsListView.swift */,
+				9624E3902471F904002F68F7 /* MinifigListCell.swift */,
 				B3D828032573D97500CAC606 /* FigsGridCell.swift */,
-				B3D827FD2573D4C800CAC606 /* List */,
 				B3D827E42573BF0E00CAC606 /* Details */,
 			);
 			path = Minifig;
@@ -369,15 +367,6 @@
 				B3D828092573F1C000CAC606 /* CellContextMenu.swift */,
 			);
 			path = Reusable;
-			sourceTree = "<group>";
-		};
-		B3D827FD2573D4C800CAC606 /* List */ = {
-			isa = PBXGroup;
-			children = (
-				9624E38C2471F3B5002F68F7 /* FigsListView.swift */,
-				9624E3902471F904002F68F7 /* MinifigListCell.swift */,
-			);
-			path = List;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -504,7 +493,6 @@
 				96365E6B246863BC00F318C3 /* SearchField.swift in Sources */,
 				9624E38324718DC4002F68F7 /* Cache.swift in Sources */,
 				96EBF9252551E384004C1786 /* App.swift in Sources */,
-				B3D828002573D4DD00CAC606 /* FigsGridView.swift in Sources */,
 				9694B588248FE881008D0508 /* CodeScanner.swift in Sources */,
 				96351F57248BC09700372A03 /* SetsFilteredView.swift in Sources */,
 				B3D828042573D97500CAC606 /* FigsGridCell.swift in Sources */,

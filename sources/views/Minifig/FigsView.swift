@@ -21,10 +21,8 @@ struct FigsView: View {
                 SearchField(searchText: $store.searchMinifigsText).padding(.horizontal,8)
                 if toShow.count == 0 {
                     TrySyncView(count: store.minifigs.count)
-                } else if displayMode == .grid {
-                    FigsGridView(figs: toShow ,sorter:$sorter)
                 } else {
-                    MinifigListView(figs: toShow ,sorter:$sorter)
+                    MinifigListView(figs: toShow ,sorter:$sorter, displayMode: displayMode)
 
                 }
             }

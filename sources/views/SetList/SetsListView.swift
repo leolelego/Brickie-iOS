@@ -31,7 +31,10 @@ struct SetsListView: View {
                         ForEach(self.items(for: theme, items: self.setsToShow ), id: \.setID) { item in
                             NavigationLink(destination: SetDetailView(set: item)) {
                                 SetListCell(set:item)
-                            }.padding(.leading,16).padding(.trailing,8)
+
+                            }
+                            .contentShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
+                            .padding(.leading,16).padding(.trailing,8)
                             .contextMenu {
                                 CellContextMenu(owned: item.collection.qtyOwned, wanted: item.collection.wanted) {
                                     self.store.action(.qty(item.collection.qtyOwned+1),on: item)
@@ -41,6 +44,7 @@ struct SetsListView: View {
                                     self.store.action(.want(!item.collection.wanted),on: item)
                                 }
                             }
+
                         }
                         
                         

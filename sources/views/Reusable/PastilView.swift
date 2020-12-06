@@ -20,7 +20,6 @@ struct PastilView: View {
                 if wanted  {
                     Image(systemName: wanted ? "heart.fill":"heart").font(.footnote)
                         .padding(.horizontal,8)
-                        .padding(.vertical,8)
                         .foregroundColor(.white)
                 }
             }.background(RoundedCorners(color: Color.black, tl: 16, tr: 0, bl: 0, br: 0))

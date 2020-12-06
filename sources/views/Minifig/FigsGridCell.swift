@@ -15,8 +15,24 @@ struct FigsGridCell: View {
     @Environment(\.dataCache) var cache : DataCache
         
     var body: some View {
-        HStack{
-            makeImage()
+        VStack{
+            ZStack(alignment: .bottomTrailing){
+                makeImage()
+//                VStack(alignment: .trailing){
+//                    HStack{
+//                        Spacer()
+//                        Text(minifig.nameUI).minimumScaleFactor(0.5).font(.headline).lineLimit(3).multilineTextAlignment(.center)
+//                        Spacer()
+//                    }
+//                }.background(Blur(style: .prominent))
+                PastilView(owned: minifig.ownedTotal, wanted:  minifig.wanted)
+
+
+            }.frame(height: 200)
+            .modifier(RoundedShadowMod())
+            Spacer()
+            Text(minifig.nameUI).minimumScaleFactor(0.5).font(.headline).lineLimit(3).multilineTextAlignment(.center)
+
         }
             .contextMenu{
                 Button("menu") {
