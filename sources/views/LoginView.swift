@@ -19,18 +19,27 @@ struct LoginView: View {
     var body: some View {
         VStack(spacing: 16){
             makeImage().offset(y: -80)
+
             if config.connection == .unavailable {
                 Text("login.offline").font(.headline).bold().foregroundColor(.red)
             } else {
                 if !loading {
+                    Text("login.howto")
+                        .font(.caption)
+                        .foregroundColor(.gray).offset(y: -60)
                     makeFields().offset(y: -60)
                     
                 }
                 makeLoginButton().offset(y:-60)
+                if !loading {
+                    Text("login.create")
+        //            Link("login.create", destination: loginURL)
+                        .font(.caption)
+                        .foregroundColor(.gray)
+                        .offset(y:-60)
+                }
             }
-            Link("login.create", destination: loginURL)
-                .foregroundColor(.gray)
-                .offset(y:-60)
+            
 
             if  error != nil && !self.loading {
                 VStack{
