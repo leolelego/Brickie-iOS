@@ -16,7 +16,6 @@ struct FigsView: View {
 
 
     var body: some View {
-        NavigationView{
             ScrollView {
                 SearchField(searchText: $store.searchMinifigsText).padding(.horizontal,8)
                 if toShow.count == 0 {
@@ -44,9 +43,6 @@ struct FigsView: View {
                 }
             }
             .navigationBarTitle("minifig.title")
-        }
-       
-        .modifier(DismissingKeyboardOnSwipe())
     }
     
     var toShow : [LegoMinifig] {

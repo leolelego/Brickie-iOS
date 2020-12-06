@@ -9,10 +9,10 @@
 import SwiftUI
 
 struct MinifigListView: View {
-    let columns = [
-        GridItem(.flexible()),
-        GridItem(.flexible()),
-    ]
+    @Environment(\.horizontalSizeClass) var horizontalSizeClass
+    @Environment(\.verticalSizeClass) var verticalSizeClass
+
+   
     var figs : [LegoMinifig]
     @Binding var sorter : LegoListSorter
     @EnvironmentObject private var  store : Store
@@ -47,6 +47,17 @@ struct MinifigListView: View {
     
     func makeSection(_ theme:String) -> some View {
         let values =  items(for: theme, items: figs)
+        let columns : [GridItem]
+        
+        if horizontalSizeClass == .compact {
+            columns = [GridItem(.flexible()),GridItem(.flexible())]
+        } else  if verticalSizeClass == .compact {
+            columns = [GridItem(.flexible()),GridItem(.flexible()),GridItem(.flexible()),GridItem(.flexible())]
+        } else {
+            columns = [GridItem(.flexible()),GridItem(.flexible()),GridItem(.flexible()),GridItem(.flexible()),GridItem(.flexible())]
+        }
+        
+
         return Group {
             if displayMode == .grid {
                 

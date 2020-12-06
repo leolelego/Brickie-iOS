@@ -15,7 +15,6 @@ struct SetsView: View {
 
     
     var body: some View {
-        NavigationView{
             ScrollView {
                 SearchField(searchText: $store.searchSetsText).padding(.horizontal,8)
                 SetsListView(items: store.mainSets,sorter:$sorter,filter: $filter)
@@ -39,8 +38,6 @@ struct SetsView: View {
                 }
             }
             .navigationBarTitle("sets.title")
-        }
-        .modifier(DismissingKeyboardOnSwipe())
     }
 
 }

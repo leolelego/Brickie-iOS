@@ -28,7 +28,7 @@ struct FigsGridCell: View {
                 PastilView(owned: minifig.ownedTotal, wanted:  minifig.wanted)
 
 
-            }.frame(height: 200)
+            }//.frame(height: 200)
             .modifier(RoundedShadowMod())
            // Spacer()
             Text(minifig.nameUI).minimumScaleFactor(0.5).font(.headline).lineLimit(3).multilineTextAlignment(.center)
@@ -52,7 +52,7 @@ struct FigsGridCell: View {
             .renderingMode(.original)
             .indicator(.activity)
             .transition(.fade)
-            .aspectRatio(contentMode: .fill)
+            .aspectRatio(contentMode: .fit)
             .frame(height: 200)
             .background(Color.white)
         
