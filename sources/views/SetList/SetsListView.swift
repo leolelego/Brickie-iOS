@@ -72,8 +72,8 @@ struct SetsListView: View {
     
     func sections(for items:[LegoSet]) -> [String] {
         switch sorter {
-        case .number:
-            return []
+        case .number,.piece,.price:
+            return [""]
         case .alphabetical:
             return Array(Set(items.compactMap({String($0.name.prefix(1))}))).sorted()
         case .year:
@@ -85,7 +85,11 @@ struct SetsListView: View {
     func items(for section:String,items:[LegoSet]) -> [LegoSet] {
         switch sorter {
         case .number:
-            return items.sorted(by: {$0.number < $1.number})
+            return items.sorted(by: {Int($0.number) ?? 0 < Int($1.number) ?? 0})
+        case .piece:
+            return items.sorted(by: {$0.pieces ?? 0 < $1.pieces ?? 0})
+        case .price:
+            return items.sorted(by: {$0.priceFloat  < $1.priceFloat})
         case .alphabetical:
             return items.filter({String($0.name.prefix(1)) == section}).sorted(by: {$0.name < $1.name})
         case .year:
