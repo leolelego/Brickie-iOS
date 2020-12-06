@@ -49,7 +49,10 @@ enum LegoListSorter : String, CaseIterable{
     case alphabetical = "alphabetical"
     case rating = "rating"
     case piece = "piece"
+    case pieceDesc = "pieceDesc"
     case price = "price"
+    case priceDesc = "priceDesc"
+    case owned
     
     var local : LocalizedStringKey {
         switch self {
@@ -58,18 +61,24 @@ enum LegoListSorter : String, CaseIterable{
         case .alphabetical:return "sorter.alphabetical"
         case .rating:return "sorter.rating"
         case .piece:return "sorter.piece"
+        case .pieceDesc:return "sorter.pieceDesc"
         case .price:return "sorter.price"
+        case .priceDesc:return "sorter.priceDesc"
+        case .owned:return "filter.owned"
         default: return "sorter.default"
         }
     }
+
+    
     var systemImage : String {
         switch self {
         case .number:return "number"
         case .year:return "clock"
         case .alphabetical:return "textformat.abc"
         case .rating:return "star.leadinghalf.fill"
-        case .piece:return "puzzlepiece"
-        case .price:return "dollarsign.circle"
+        case .piece,.pieceDesc:return "puzzlepiece"
+        case .price,.priceDesc:return "dollarsign.circle"
+        case .owned:return "textformat.abc"
         default: return "staroflife"
         }
     }
@@ -81,8 +90,8 @@ enum DisplayMode: String, CaseIterable{
     
     var systemImage : String {
         switch self {
-        case .grid:return "rectangle.grid.2x2"
-        default: return "text.justify"
+        case .grid:return "text.justify"
+        default: return "rectangle.grid.2x2"
         }
     }
     
