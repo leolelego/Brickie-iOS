@@ -81,7 +81,7 @@ struct MinifigListView: View {
         case .all:
             return  figs
         case .wanted:
-            return figs.filter({$0.wanted})
+            return store.searchMinifigsText.isEmpty ? store.minifigs.filter({$0.wanted}) : figs.filter({$0.wanted})
         case .owned:
             return figs.filter({$0.ownedTotal > 0})
         }
