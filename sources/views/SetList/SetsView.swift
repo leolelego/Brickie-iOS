@@ -31,7 +31,7 @@ struct SetsView: View {
                     } else {
                         FilterSorterMenu(sorter: $sorter,
                                             filter: $filter,
-                                            sorterAvailable: [.default,.year,.alphabetical],
+                                            sorterAvailable: [.default,.year,.alphabetical,.piece,.price,.number],
                                             filterAvailable: store.searchSetsText.isEmpty ? [.all,.wanted] : [.all,.wanted,.owned]
                         )
                     }
