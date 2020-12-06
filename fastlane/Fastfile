@@ -1,5 +1,5 @@
 default_platform(:ios)
-application_version = "1.2.1"
+application_version = "1.2"
 
 platform :ios do
   ENV['FASTLANE_XCODEBUILD_SETTINGS_TIMEOUT']='2000'
