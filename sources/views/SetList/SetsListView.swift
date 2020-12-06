@@ -104,7 +104,7 @@ struct SetsListView: View {
         case .all:
             return  items
         case .wanted:
-            return items.filter({$0.collection.wanted})
+            return  store.searchSetsText.isEmpty ? store.sets.filter({$0.collection.wanted}) : items.filter({$0.collection.wanted})
         case .owned:
             return items.filter({$0.collection.owned})
         }
