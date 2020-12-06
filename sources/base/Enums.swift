@@ -12,6 +12,8 @@ enum Settings {
     static let figsListSorter = "figsListSorter"
     static let rootTabSelected = "tabSelected"
     static let figsDisplayMode = "figsDisplayMode"
+    static let reviewRuntime = "reviewRuntime"
+    static let reviewVersion = "reviewVersion"
 
 }
 enum SheetType  {
