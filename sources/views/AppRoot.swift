@@ -7,12 +7,17 @@
 //
 
 import SwiftUI
+import StoreKit
+
 struct AppRootView: View {
     @EnvironmentObject private var  store : Store
     @EnvironmentObject private var config : Configuration
     @SceneStorage(Settings.rootTabSelected) private var selection = 0
     @AppStorage(Settings.setsListSorter) var setsOrderer : LegoListSorter = .default
     @AppStorage(Settings.figsListSorter) var figsOrderer : LegoListSorter = .default
+    @AppStorage(Settings.reviewRuntime) var reviewRuntime : Int = 0
+    @AppStorage(Settings.reviewVersion) var reviewVersion : String?
+
     @State var setsFilters : LegoListFilter = .all
     @State var figsFilters : LegoListFilter = .all
     
@@ -52,8 +57,23 @@ struct AppRootView: View {
                             }
                         }.tag(1)
                 }.accentColor(.backgroundAlt)
+                .onAppear(perform: {
+                    appStoreReview()
+                })
             }
  
+    }
+    
+    func appStoreReview(){
+        reviewRuntime += 1
+        let currentBuild = Bundle.main.infoDictionary?["CFBundleVersion"] as? String
+        let lastReviewedBuild = reviewVersion
+        if reviewRuntime > 15 && currentBuild != lastReviewedBuild {
+            if let scene = UIApplication.shared.connectedScenes.first as? UIWindowScene {
+                SKStoreReviewController.requestReview(in: scene)
+                reviewVersion = currentBuild
+            }
+        }
     }
     
 }

@@ -11,6 +11,9 @@ enum Settings {
     static let setsListSorter = "setsListSorter"
     static let figsListSorter = "figsListSorter"
     static let rootTabSelected = "tabSelected"
+    static let reviewRuntime = "reviewRuntime"
+    static let reviewVersion = "reviewVersion"
+
 }
 enum SheetType  {
     case scanner
