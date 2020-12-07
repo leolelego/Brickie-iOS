@@ -32,7 +32,7 @@ struct FigsView: View {
                         .progressViewStyle(CircularProgressViewStyle())
                 } else {
                     FilterSorterMenu(sorter: $sorter,filter: $filter,
-                                     sorterAvailable: [.default,.alphabetical],
+                                     sorterAvailable: [.default,.alphabetical,.number],
                                      filterAvailable: store.searchMinifigsText.isEmpty ? [.all,.wanted] : [.all,.wanted,.owned]
                     )
                 }

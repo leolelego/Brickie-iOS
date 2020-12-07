@@ -10,7 +10,7 @@ import SwiftUI
 import SDWebImageSwiftUI
 struct SetAdditionalImageView: View {
     @Binding var isPresented : Bool
-    let url : String
+    @Binding var url : String
     @State var lastScale: CGFloat = 1.0
     @State var scale: CGFloat = 1.0
     @State private var currentPosition: CGSize = .zero
@@ -64,7 +64,8 @@ struct SetAdditionalImageView: View {
     }
     
     func makeIt()-> some View {
-        WebImage(url: URL(string: url), options: [.progressiveLoad, .delayPlaceholder])
+        print("RUL : \(url)")
+        return WebImage(url: URL(string: url), options: [.progressiveLoad, .delayPlaceholder])
             .resizable()
             .placeholder(Image.wifiError.resizable())
             .renderingMode(.original)

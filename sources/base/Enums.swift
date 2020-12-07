@@ -36,7 +36,7 @@ enum LegoListFilter : String, CaseIterable{
     var systemImage : String {
         switch self {
         case .all:return "number"
-        case .wanted:return "clock"
+        case .wanted:return "heart"
         case .owned:return "textformat.abc"
         }
     }
@@ -47,7 +47,8 @@ enum LegoListFilter : String, CaseIterable{
 enum LegoListSorter : String, CaseIterable{
     case `default` = "default"
     case number = "number"
-    case year = "year"
+    case newer = "newer"
+    case older = "older"
     case alphabetical = "alphabetical"
     case rating = "rating"
     case piece = "piece"
@@ -59,7 +60,8 @@ enum LegoListSorter : String, CaseIterable{
     var local : LocalizedStringKey {
         switch self {
         case .number:return "sorter.number"
-        case .year:return "sorter.year"
+        case .newer:return "sorter.newer"
+        case .older:return "sorter.older"
         case .alphabetical:return "sorter.alphabetical"
         case .rating:return "sorter.rating"
         case .piece:return "sorter.piece"
@@ -75,7 +77,8 @@ enum LegoListSorter : String, CaseIterable{
     var systemImage : String {
         switch self {
         case .number:return "number"
-        case .year:return "clock"
+        case .newer:return "clock"
+        case .older:return "clock"
         case .alphabetical:return "textformat.abc"
         case .rating:return "star.leadinghalf.fill"
         case .piece,.pieceDesc:return "puzzlepiece"

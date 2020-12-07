@@ -12,9 +12,9 @@ struct SetDetailView: View {
     @Environment(\.dataCache) var cache: DataCache
     @EnvironmentObject var config : Configuration
     @ObservedObject var set : LegoSet
-    @State var detailImageUrl : String?
     @State var isImageDetailPresented : Bool = false
-    
+    @State var detailImageUrl : String = ""
+
     var body: some View {
         ScrollView( showsIndicators: false){
             makeThumbnail().zIndex(500)
@@ -28,7 +28,7 @@ struct SetDetailView: View {
             makeImages()
             makeInstructions()
         }
-        .sheet(isPresented: $isImageDetailPresented, content: { SetAdditionalImageView(isPresented: self.$isImageDetailPresented, url: self.detailImageUrl ?? "https://images.brickset.com/sets/images/40391-1.jpg")})
+        .sheet(isPresented: $isImageDetailPresented, content: { SetAdditionalImageView(isPresented: $isImageDetailPresented, url: $detailImageUrl )})
         .onAppear {
             if  self.set.additionalImages == nil {
                 APIRouter<[[String:Any]]>.additionalImages(self.set.setID).decode(ofType: [LegoSetImage].self) { (items) in
@@ -60,8 +60,7 @@ struct SetDetailView: View {
     
     func makeThumbnail() -> some View {
        Button(action: {
-        self.detailImageUrl = self.set.image.imageURL
-        guard detailImageUrl != nil else {return}
+        self.detailImageUrl = self.set.image.imageURL ?? ""
         self.isImageDetailPresented.toggle()
            
        }) {
@@ -81,11 +80,11 @@ struct SetDetailView: View {
     }
     func makeThemes() -> some View{
         HStack(spacing: 8){
-            NavigationLink(destination: SetsFilteredView(text: set.theme,filter:.theme)) {
+            NavigationLink(destination: SetsFilteredView(text: set.theme,filter:.theme,sorter:.newer)) {
                 Text( set.theme).roundText
             }
             if set.subtheme != nil {
-                NavigationLink(destination: SetsFilteredView(text: set.subtheme!,filter:.subtheme)) {
+                NavigationLink(destination: SetsFilteredView(text: set.subtheme!,filter:.subtheme,sorter:.alphabetical)) {
                     Text( set.subtheme!).roundText
                 }
             }
@@ -130,18 +129,27 @@ struct SetDetailView: View {
                     ScrollView (.horizontal, showsIndicators: false) {
                         HStack(spacing: 16){
                             ForEach(set.additionalImages!, id: \.thumbnailURL){ image in
-                                
+//                                NavigationLink(
+//                                    destination: SetAdditionalImageView(isPresented: self.$isImageDetailPresented, url: image.imageURL ?? "" ),
+//                                    label: {
+//                                        WebImage(url: URL(string: image.thumbnailURL ?? ""))
+//
+//                                            .resizable()
+//                                            .renderingMode(.original)
+//                                            .indicator(.activity)
+//                                            .transition(.fade)
+//                                            .aspectRatio(contentMode: .fill)
+//                                        .modifier(RoundedShadowMod())
+//                                    }//.disabled(!SDImageCache.shared.diskImageDataExists(withKey: image.imageURL) && self.config.connection == .unavailable)
+//
+//                                    )
                                 Button(action: {
-                                    
-                                        self.detailImageUrl = image.imageURL
-                                        guard self.detailImageUrl != nil else {return}
-
+                                        self.detailImageUrl = image.imageURL ?? ""
                                         self.isImageDetailPresented.toggle()
-                                    
                                 }) {
-                            
+
                                     WebImage(url: URL(string: image.thumbnailURL ?? ""))
-                                    
+
                                         .resizable()
                                         .renderingMode(.original)
                                         .indicator(.activity)

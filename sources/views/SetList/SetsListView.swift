@@ -69,8 +69,10 @@ struct SetsListView: View {
             return [""]
         case .alphabetical:
             return Array(Set(items.compactMap({String($0.name.prefix(1))}))).sorted()
-        case .year:
+        case .older:
             return Array(Set(items.compactMap({"\($0.year)"}))).sorted()
+        case .newer:
+            return Array(Set(items.compactMap({"\($0.year)"}))).sorted(by: {$0 > $1})
         default:
             return Array(Set(items.compactMap({$0.theme}))).sorted()
         }
@@ -89,8 +91,9 @@ struct SetsListView: View {
             return items.sorted(by: {$0.priceFloat  > $1.priceFloat})
         case .alphabetical:
             return items.filter({String($0.name.prefix(1)) == section}).sorted(by: {$0.name < $1.name})
-        case .year:
+        case .older,.newer:
             return items.filter({"\($0.year)" == section}).sorted(by: {$0.name < $1.name})
+            
         default:
             return items.filter({$0.theme == section}).sorted(by: {$0.subtheme ?? "" < $1.subtheme ?? "" && $0.name < $1.name})
         }

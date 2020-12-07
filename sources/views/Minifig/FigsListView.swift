@@ -34,6 +34,7 @@ struct MinifigListView: View {
     func sections(for items:[LegoMinifig]) -> [String] {
         switch sorter {
         case .alphabetical:return Array(Set(items.compactMap({String(($0.name ?? "").prefix(1))}))).sorted()
+        case .number: return Array(Set(items.compactMap({String(($0.minifigNumber).prefix(1))}))).sorted()
         default: return Array(Set(items.compactMap({$0.theme}))).sorted()
         }
         
@@ -41,6 +42,7 @@ struct MinifigListView: View {
     func items(for section:String,items:[LegoMinifig]) -> [LegoMinifig] {
         switch sorter {
         case .alphabetical: return items.filter({($0.name ?? "").prefix(1) == section}).sorted(by: {$0.name ?? "" < $1.name ?? "" /*&& ($0?.name ?? "") < ($1?.name ?? "" )*/ })
+        case .number: return items.filter({($0.minifigNumber).prefix(1) == section}).sorted(by: {$0.minifigNumber < $1.minifigNumber})
         default: return items.filter({$0.theme == section}).sorted(by: {$0.subtheme < $1.subtheme /*&& ($0?.name ?? "") < ($1?.name ?? "" )*/ })
         }
     }

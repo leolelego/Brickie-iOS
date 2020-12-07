@@ -27,7 +27,7 @@ struct SetsView: View {
                 } else {
                     FilterSorterMenu(sorter: $sorter,
                                         filter: $filter,
-                                        sorterAvailable: [.default,.alphabetical,.number,.year,.piece,.pieceDesc,.price,.priceDesc],
+                                        sorterAvailable: [.default,.alphabetical,.number,.older,.newer,.piece,.pieceDesc,.price,.priceDesc],
                                         filterAvailable: store.searchSetsText.isEmpty ? [.all,.wanted] : [.all,.wanted,.owned]
                     )
                 }

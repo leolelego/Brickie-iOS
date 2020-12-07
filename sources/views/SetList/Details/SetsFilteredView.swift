@@ -11,11 +11,11 @@ import SwiftUI
 struct SetsFilteredView: View {
     @EnvironmentObject private var  store : Store
     @EnvironmentObject private var  config : Configuration
-
     let text : String
     let filter: Store.SearchFilter
     @State var requestSent : Bool = false
-    
+    var sorter : LegoListSorter = .default
+
     var items : [LegoSet] {
         return store.sets.filter({
             switch filter {
@@ -33,7 +33,7 @@ struct SetsFilteredView: View {
     var body: some View {
         ScrollView {
             LazyVStack(alignment: .leading, spacing: 16, pinnedViews: [.sectionHeaders]) {
-                SetsListView(items: items,sorter:.constant(.default),filter: .constant(.all))
+                SetsListView(items: items,sorter:.constant(sorter),filter: .constant(.all))
             }
         }
         .navigationBarItems(trailing:makeCheck())
