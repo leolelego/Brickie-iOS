@@ -13,36 +13,32 @@ struct FigsView: View {
     @State var filter : LegoListFilter = .all
     @AppStorage(Settings.figsListSorter) var sorter : LegoListSorter = .default
     @AppStorage(Settings.figsDisplayMode) var displayMode : DisplayMode = .default
-
-
+    
+    
     var body: some View {
-            ScrollView {
-                SearchField(searchText: $store.searchMinifigsText).padding(.horizontal,8)
-                if toShow.count == 0 {
-                    TrySyncView(count: store.minifigs.count)
+        ScrollView {
+            SearchField(searchText: $store.searchMinifigsText).padding(.horizontal,8)
+            if toShow.count == 0 {
+                TrySyncView(count: store.minifigs.count)
+            } else {
+                MinifigListView(figs: toShow ,sorter:$sorter, displayMode: displayMode)
+                
+            }
+        }
+        .toolbar{
+            ToolbarItemGroup(placement: .navigationBarTrailing){
+                if store.isLoadingData {
+                    ProgressView()
+                        .progressViewStyle(CircularProgressViewStyle())
                 } else {
-                    MinifigListView(figs: toShow ,sorter:$sorter, displayMode: displayMode)
-
+                    FilterSorterMenu(sorter: $sorter,filter: $filter,
+                                     sorterAvailable: [.default,.alphabetical],
+                                     filterAvailable: store.searchMinifigsText.isEmpty ? [.all,.wanted] : [.all,.wanted,.owned]
+                    )
                 }
+                DisplayModeView(mode: $displayMode)
             }
-            .toolbar{
-                ToolbarItem(placement: .navigation){
-                    SettingsButton()
-                }
-                ToolbarItemGroup(placement: .navigationBarTrailing){
-                    if store.isLoadingData {
-                        ProgressView()
-                            .progressViewStyle(CircularProgressViewStyle())
-                    } else {
-                        FilterSorterMenu(sorter: $sorter,filter: $filter,
-                                            sorterAvailable: [.default,.alphabetical],
-                                            filterAvailable: store.searchMinifigsText.isEmpty ? [.all,.wanted] : [.all,.wanted,.owned]
-                        )
-                    }
-                    DisplayModeView(mode: $displayMode)
-                }
-            }
-            .navigationBarTitle("minifig.title")
+        }
     }
     
     var toShow : [LegoMinifig] {

@@ -36,12 +36,7 @@ struct SetsFilteredView: View {
                 SetsListView(items: items,sorter:.constant(.default),filter: .constant(.all))
             }
         }
-        .navigationBarItems(trailing:
-            HStack{
-                Text("\(items.filter{$0.collection.owned}.count)/\(items.count) ").font(.lego(size: 15))
-                makeCheck()
-            }
-        )
+        .navigationBarItems(trailing:makeCheck())
         .navigationBarTitle(text.uppercased()+"_")
         .onAppear {
             if self.requestSent == false {
@@ -59,7 +54,7 @@ struct SetsFilteredView: View {
             } else if config.connection == .unavailable {
                 Image.wifiError.imageScale(.large)
             }else {
-               Image(systemName: "checkmark.circle").imageScale(.large)
+                Text("\(items.filter{$0.collection.owned}.count)/\(items.count) ").font(.lego(size: 15))
             }
         }
 

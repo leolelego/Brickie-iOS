@@ -48,11 +48,11 @@ struct MinifigListView: View {
     func makeSection(_ theme:String) -> some View {
         let values =  items(for: theme, items: figs)
         let columns : [GridItem]
-        
-        if horizontalSizeClass == .compact {
+                
+        if verticalSizeClass == .compact {
+            columns =  [GridItem(.flexible()),GridItem(.flexible()),GridItem(.flexible()),GridItem(.flexible())] // [GridItem(.flexible()),GridItem(.flexible())]
+        } else  if horizontalSizeClass == .compact {
             columns = [GridItem(.flexible()),GridItem(.flexible())]
-        } else  if verticalSizeClass == .compact {
-            columns = [GridItem(.flexible()),GridItem(.flexible()),GridItem(.flexible()),GridItem(.flexible())]
         } else {
             columns = [GridItem(.flexible()),GridItem(.flexible()),GridItem(.flexible()),GridItem(.flexible()),GridItem(.flexible())]
         }

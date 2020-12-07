@@ -10,9 +10,8 @@ import SwiftUI
 
 struct SetsListView: View {
     
-    
-    
     var items : [LegoSet]
+    @Environment(\.horizontalSizeClass) var horizontalSizeClass
     @EnvironmentObject private var  store : Store
     @Binding var sorter : LegoListSorter
     @Binding var filter : LegoListFilter 
@@ -28,32 +27,40 @@ struct SetsListView: View {
                                 .padding(.leading, 4)
                                 .padding(.bottom, -26)
                     ) {
-                        ForEach(self.items(for: theme, items: self.setsToShow ), id: \.setID) { item in
-                            NavigationLink(destination: SetDetailView(set: item)) {
-                                SetListCell(set:item)
-
+                        if horizontalSizeClass == .compact {
+                            sectionView(theme: theme)
+                        } else {
+                            LazyVGrid(columns: [GridItem(.flexible()),GridItem(.flexible())]){
+                                sectionView(theme: theme)
                             }
-                            .contentShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
-                            .padding(.leading,16).padding(.trailing,8)
-                            .contextMenu {
-                                CellContextMenu(owned: item.collection.qtyOwned, wanted: item.collection.wanted) {
-                                    self.store.action(.qty(item.collection.qtyOwned+1),on: item)
-                                } remove: {
-                                    self.store.action(.qty(item.collection.qtyOwned-1),on: item)
-                                } want: {
-                                    self.store.action(.want(!item.collection.wanted),on: item)
-                                }
-                            }
-
                         }
-                        
-                        
                     }
                 }
             }
         }
         
         
+    }
+    
+    func sectionView(theme:String) -> some View{
+    ForEach(self.items(for: theme, items: self.setsToShow ), id: \.setID) { item in
+        NavigationLink(destination: SetDetailView(set: item)) {
+            SetListCell(set:item)
+            
+        }
+        .contentShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
+        .padding(.leading,16).padding(.trailing,8)
+        .contextMenu {
+            CellContextMenu(owned: item.collection.qtyOwned, wanted: item.collection.wanted) {
+                self.store.action(.qty(item.collection.qtyOwned+1),on: item)
+            } remove: {
+                self.store.action(.qty(item.collection.qtyOwned-1),on: item)
+            } want: {
+                self.store.action(.want(!item.collection.wanted),on: item)
+            }
+        }
+        
+    }
     }
     
     func sections(for items:[LegoSet]) -> [String] {
@@ -99,5 +106,5 @@ struct SetsListView: View {
             return items.filter({$0.collection.owned})
         }
     }
-
+    
 }

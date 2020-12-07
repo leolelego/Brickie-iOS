@@ -26,7 +26,7 @@ struct MinifigDetailView: View {
             
         .navigationBarTitle("", displayMode: .inline)
 //        .navigationBarItems(trailing: ShareNavButton(items: [URL(string:minifig.bricksetURL)!]))
-        .navigationBarHidden(false)
+//        .navigationBarHidden(false)
     }
     func makeThumbnail() -> some View {
         

@@ -14,7 +14,8 @@ struct AppRootView: View {
     @SceneStorage(Settings.rootTabSelected) private var selection = 0
     @AppStorage(Settings.reviewRuntime) var reviewRuntime : Int = 0
     @AppStorage(Settings.reviewVersion) var reviewVersion : String?
-    
+    @State var selectedFolder: String? =  "MINIFIG'S_"
+
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
     
     
@@ -38,14 +39,20 @@ struct AppRootView: View {
             ForEach(AppPanel.allCases, id: \.self){ item in
                 NavigationView {
                     item.view
+                        .navigationTitle(item.title)
+                        .toolbar(content: {
+                            ToolbarItem(placement: .navigation){
+                                SettingsButton()
+                            }
+                        })
                 }.modifier(DismissingKeyboardOnSwipe())
                 
                 .tabItem {
                     VStack {
                         item.image
-                        Text(item.title)
+                        Text(item.tab)
                     }
-                }.tag(item)
+                }.tag(item.rawValue)
             }
         }
 
@@ -53,13 +60,21 @@ struct AppRootView: View {
     
     var iPadMacView : some View {
         NavigationView {
-            List(){
+
+            List(selection: $selectedFolder){
                 ForEach(AppPanel.allCases, id: \.self){ item in
-                    NavigationLink(destination: item.view, label: {Label( item.title, image: item.imageName)}).tag(item)
+                    NavigationLink(destination:
+                                    item.view.navigationBarTitle(item.title)
+                                   , label: {Label( item.title, image: item.imageName).font(.lego(size: 17))})
                 }
             }
             .listStyle(SidebarListStyle())
             .navigationTitle("BRICKIE_")
+            .toolbar(content: {
+                ToolbarItem(placement: .navigation){
+                    SettingsButton()
+                }
+            })
         }
     }
     func appStoreReview(){
@@ -87,13 +102,18 @@ enum AppPanel : Int,CaseIterable {
         }
     }
     
-    var title : LocalizedStringKey {
+    var tab : LocalizedStringKey {
         switch self {
         case .minifigures: return "minifig.tab"
         default: return "sets.tab"
         }
     }
-    
+    var title : LocalizedStringKey {
+        switch self {
+        case .minifigures: return "minifig.title"
+        default: return "sets.title"
+        }
+    }
     var image : Image {
         switch self {
         case .minifigures: return Image.brick

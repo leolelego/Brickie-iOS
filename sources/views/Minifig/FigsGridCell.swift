@@ -33,9 +33,9 @@ struct FigsGridCell: View {
            // Spacer()
             Text(minifig.nameUI).minimumScaleFactor(0.5).font(.headline).lineLimit(3).multilineTextAlignment(.center)
             
-            if minifig.subNames.first != nil {
-                Text(minifig.subNames.first!).font(.caption).foregroundColor(.gray)
-            }
+//            if minifig.subNames.first != nil {
+                Text(" "+minifig.minifigNumber.uppercased()+" ").font(.lego(size: 14))//.foregroundColor(.gray)
+//            }
             Spacer()
             
         }
@@ -52,8 +52,8 @@ struct FigsGridCell: View {
             .renderingMode(.original)
             .indicator(.activity)
             .transition(.fade)
-            .aspectRatio(contentMode: .fit)
-            .frame(height: 200)
+            .aspectRatio(contentMode: .fill)
+            .frame(width:150,height: 225)
             .background(Color.white)
         
     }

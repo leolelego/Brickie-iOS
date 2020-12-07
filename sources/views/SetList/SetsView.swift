@@ -13,31 +13,27 @@ struct SetsView: View {
     @State var filter : LegoListFilter = .all
     @AppStorage(Settings.setsListSorter) var sorter : LegoListSorter = .default
 
-    
     var body: some View {
-            ScrollView {
-                SearchField(searchText: $store.searchSetsText).padding(.horizontal,8)
-                SetsListView(items: store.mainSets,sorter:$sorter,filter: $filter)
-            }
-            .toolbar{
-                ToolbarItem(placement: .navigation){
-                    SettingsButton()
+        ScrollView {
+            SearchField(searchText: $store.searchSetsText).padding(.horizontal,8)
+            SetsListView(items: store.mainSets,sorter:$sorter,filter: $filter)
+        }
+        .toolbar{
+            
+            ToolbarItemGroup(placement: .navigationBarTrailing){
+                if store.isLoadingData {
+                    ProgressView()
+                        .progressViewStyle(CircularProgressViewStyle())
+                } else {
+                    FilterSorterMenu(sorter: $sorter,
+                                        filter: $filter,
+                                        sorterAvailable: [.default,.alphabetical,.number,.year,.piece,.pieceDesc,.price,.priceDesc],
+                                        filterAvailable: store.searchSetsText.isEmpty ? [.all,.wanted] : [.all,.wanted,.owned]
+                    )
                 }
-                ToolbarItemGroup(placement: .navigationBarTrailing){
-                    if store.isLoadingData {
-                        ProgressView()
-                            .progressViewStyle(CircularProgressViewStyle())
-                    } else {
-                        FilterSorterMenu(sorter: $sorter,
-                                            filter: $filter,
-                                            sorterAvailable: [.default,.alphabetical,.number,.year,.piece,.pieceDesc,.price,.priceDesc],
-                                            filterAvailable: store.searchSetsText.isEmpty ? [.all,.wanted] : [.all,.wanted,.owned]
-                        )
-                    }
-                    ScannerButton(code: $store.searchSetsText)
-                }
+                ScannerButton(code: $store.searchSetsText)
             }
-            .navigationBarTitle("sets.title")
+        }
     }
 
 }
