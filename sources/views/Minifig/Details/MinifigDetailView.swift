@@ -22,15 +22,14 @@ struct MinifigDetailView: View {
             MinifigEditorView(minifig: minifig).padding()
             
         }
-        .sheet(isPresented: $isImageDetailPresented, content: { SetAdditionalImageView(isPresented: $isImageDetailPresented, url: minifig.imageUrl)})
+        .sheet(isPresented: $isImageDetailPresented, content: { SetAdditionalImageView(isPresented: $isImageDetailPresented, url: .constant(minifig.imageUrl))})
             
         .navigationBarTitle("", displayMode: .inline)
-//        .navigationBarItems(trailing: ShareNavButton(items: [URL(string:minifig.bricksetURL)!]))
-        .navigationBarHidden(false)
     }
     func makeThumbnail() -> some View {
         
         Button(action: {
+            
             isImageDetailPresented.toggle()
             
         }) {

@@ -13,7 +13,8 @@ struct MinifigFilteredView: View {
     var theme : String
     let filter: Store.SearchFilter
     @State var requestSent : Bool = false
-    
+    @AppStorage(Settings.figsDisplayMode) var displayMode : DisplayMode = .default
+
     var items : [LegoMinifig] {
         return store.minifigs.filter({
             switch filter {
@@ -37,13 +38,16 @@ struct MinifigFilteredView: View {
                 .background(Color.backgroundAlt)
                 .modifier(RoundedShadowMod())
                 .padding(8)
-                MinifigListView(figs: items,sorter: .constant(.default),filter: .constant(.all))
+                MinifigListView(figs: items,sorter: .constant(.default),displayMode: displayMode)
             }
         }
         .navigationBarItems(trailing:
             HStack(alignment: .center){
-                Text("\(items.filter{$0.ownedTotal > 0}.count)/\(items.count) ").font(.lego(size: 17))
-                ProgressView().progressViewStyle(CircularProgressViewStyle())
+                if store.isLoadingData {
+                    ProgressView().progressViewStyle(CircularProgressViewStyle())
+                } else {
+                    Text("\(items.filter{$0.ownedTotal > 0}.count)/\(items.count) ").font(.lego(size: 17))
+                }
 
             }
         )

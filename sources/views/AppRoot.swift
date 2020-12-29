@@ -11,59 +11,84 @@ import StoreKit
 
 struct AppRootView: View {
     @EnvironmentObject private var  store : Store
-    @EnvironmentObject private var config : Configuration
-    @SceneStorage(Settings.rootTabSelected) private var selection = 0
-    @AppStorage(Settings.setsListSorter) var setsOrderer : LegoListSorter = .default
-    @AppStorage(Settings.figsListSorter) var figsOrderer : LegoListSorter = .default
+    @SceneStorage(Settings.rootTabSelected)  var selection : Int = 0
     @AppStorage(Settings.reviewRuntime) var reviewRuntime : Int = 0
     @AppStorage(Settings.reviewVersion) var reviewVersion : String?
+    @AppStorage(Settings.rootSideSelected)  var sideSelection : Int?
 
-    @State var setsFilters : LegoListFilter = .all
-    @State var figsFilters : LegoListFilter = .all
+
+    @Environment(\.horizontalSizeClass) var horizontalSizeClass
+    
     
     var body: some View {
-            if store.user == nil  {
-                LoginView().accentColor(.backgroundAlt)
-            } else {
-                TabView(selection: $selection){
-                    LegoListView(content: SetsListView(items: store.mainSets,sorter:$setsOrderer,filter: $setsFilters),
-                                 filterSorter:FilterSorterMenu(sorter: $setsOrderer,
-                                                               filter: $setsFilters,
-                                                               sorterAvailable: [.default,.year,.alphabetical,.piece,.price,.number],
-                                                               filterAvailable: store.searchSetsText.isEmpty ? [.all,.wanted] : [.all,.wanted,.owned]
-                                 ),
-                                 searchText: $store.searchSetsText,
-                                 title: "sets.title",
-                                 isBarCode: true)
-                        .tabItem {
-                            VStack {
-                                Image.brick
-                                Text("sets.tab")
-                            }
-                        }.tag(0)
-                    LegoListView(content: MinifigListView(figs: store.minifigsUI ,sorter:$figsOrderer,filter: $figsFilters),
-                                 filterSorter:                                 FilterSorterMenu(sorter: $figsOrderer,
-                                                                                                filter: $figsFilters,
-                                                                                                sorterAvailable: [.default,.alphabetical],
-                                                                                                filterAvailable:  store.searchMinifigsText.isEmpty ? [.all,.wanted] : [.all,.wanted,.owned]
-                                 ),
-                                 searchText: $store.searchMinifigsText,
-                                 title: "minifig.title",
-                                 isBarCode: false)
-                        .tabItem {
-                            VStack {
-                                Image.minifig_head
-                                Text("minifig.tab")
-                            }
-                        }.tag(1)
-                }.accentColor(.backgroundAlt)
-                .onAppear(perform: {
-                    appStoreReview()
-                })
-            }
- 
+        if store.user == nil  {
+            LoginView().accentColor(.backgroundAlt)
+        } else if horizontalSizeClass == .compact  {
+            iPhoneView.accentColor(.backgroundAlt).onAppear(perform: {
+                appStoreReview()
+            }).modifier(DismissingKeyboardOnSwipe())
+        } else {
+            iPadMacView.accentColor(.backgroundAlt).onAppear(perform: {
+                appStoreReview()
+            }).modifier(DismissingKeyboardOnSwipe())
+        }
+        
     }
     
+    var iPhoneView: some View {
+        TabView(selection: $selection){
+            ForEach(AppPanel.allCases, id: \.self){ item in
+                NavigationView {
+                    item.view
+                        .navigationTitle(item.title)
+                        .toolbar(content: {
+                            ToolbarItem(placement: .navigation){
+                                SettingsButton()
+                            }
+                        })
+                }
+                
+                .tabItem {
+                    VStack {
+                        item.image
+                        Text(item.tab)
+                    }
+                }.tag(item.rawValue)
+            }
+        }
+
+    }
+    
+    var iPadMacView : some View {
+        NavigationView {
+            
+            List(selection: $sideSelection){
+                ForEach(AppPanel.allCases, id: \.self){ item in
+                    NavigationLink(destination: item.view.navigationBarTitle(item.title),
+                                   tag: item.rawValue,
+                                   selection: $sideSelection){
+                        Label(item.title, image: item.imageName).font(.lego(size: 17))
+
+                    }
+                }
+
+            }
+            .listStyle(SidebarListStyle())
+            .navigationTitle("BRICKIE_")
+            .toolbar(content: {
+                ToolbarItem(placement: .navigation){
+                    SettingsButton()
+                }
+            })
+            startView
+        }
+        .navigationViewStyle(DoubleColumnNavigationViewStyle())
+    }
+    
+    var startView : some View{
+        let item : AppPanel = AppPanel(rawValue: sideSelection ?? 0)!
+        return item.view.navigationBarTitle(item.title)
+    }
     func appStoreReview(){
         reviewRuntime += 1
         let currentBuild = Bundle.main.infoDictionary?["CFBundleVersion"] as? String
@@ -76,5 +101,43 @@ struct AppRootView: View {
         }
     }
     
+}
+
+enum AppPanel : Int,CaseIterable {
+    case sets = 0
+    case minifigures = 1
+    
+    var view : AnyView {
+        switch self {
+        case .minifigures: return AnyView(FigsView())
+        default: return AnyView(SetsView())
+        }
+    }
+    
+    var tab : LocalizedStringKey {
+        switch self {
+        case .minifigures: return "minifig.tab"
+        default: return "sets.tab"
+        }
+    }
+    var title : LocalizedStringKey {
+        switch self {
+        case .minifigures: return "minifig.title"
+        default: return "sets.title"
+        }
+    }
+    var image : Image {
+        switch self {
+        case .minifigures: return Image.brick
+        default: return Image.minifig_head
+        }
+    }
+    
+    var imageName : String {
+        switch self {
+        case .minifigures: return  "lego_head"
+        default: return "lego_brick"
+        }
+    }
 }
 

@@ -76,7 +76,11 @@ struct LoginView: View {
     
     func makeFields() -> some View {
         VStack(alignment: .leading,spacing: 8){
-            TextField("login.username", text: $username).textContentType(.username).autocapitalization(.none)
+            TextField("login.username", text: $username)
+                .textContentType(.username)
+                .autocapitalization(.none)
+                .textCase(.lowercase)
+                .disableAutocorrection(true)
             Divider()
             SecureField("login.password", text: $password).textContentType(.password).transition(.move(edge: .bottom))
             Divider()

@@ -25,7 +25,8 @@ struct TheApp : App {
     }()
     var body : some Scene {
         WindowGroup{
-            AppRootView().environmentObject(kCollection).environmentObject(kConfig)
+            AppRootView()
+                .environmentObject(kCollection).environmentObject(kConfig)
                 .onReceive(NotificationCenter.default.publisher(for: UIApplication.willResignActiveNotification)) { _ in
                     kCollection.backup()
                 }
