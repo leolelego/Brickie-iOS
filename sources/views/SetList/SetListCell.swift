@@ -12,54 +12,19 @@ let kCellHeight : CGFloat = 150
 
 struct SetListCell : View {
     @ObservedObject var set : LegoSet
-    @EnvironmentObject private var  store : Store
     
     var body: some View {
         ZStack(alignment: .bottomTrailing){
             self.makeInfos()
-            self.makePastil()
+            PastilView(owned: set.collection.qtyOwned, wanted:  set.collection.wanted)
+
         }
-        .background(
-            BackgroundImageView(imagePath: self.set.image.imageURL))
-            .modifier(RoundedShadowMod())
-            .contextMenu {
-                menu()
-        }
+        .background(BackgroundImageView(imagePath: self.set.image.imageURL))
+        .modifier(RoundedShadowMod())
+
     }
     
-    func menu() -> some View {
-        VStack{
-            Button(action: {
-                self.store.action(.qty(self.set.collection.qtyOwned+1),on: self.set)
-                
-            }) {
-                HStack(alignment: .lastTextBaseline) {
-                    Image(systemName: "plus.circle" ).foregroundColor(.white).font(.headline)
-                    Text("collection.increment").fontWeight(.bold)
-                }
-            }
-            if self.set.collection.qtyOwned > 0 {
-                Button(action: {
-                    self.store.action(.qty(self.set.collection.qtyOwned-1),on: self.set)
-                    
-                }) {
-                    HStack(alignment: .lastTextBaseline) {
-                        Image(systemName: "minus.circle" ).foregroundColor(.white).font(.headline)
-                        Text("collection.decrement").fontWeight(.bold)
-                    }
-                }
-            }
-            
-            Button(action: {
-                self.store.action(.want(!self.set.collection.wanted),on: self.set)
-            }) {
-                HStack(alignment: .lastTextBaseline) {
-                    Image(systemName: self.set.collection.wanted ? "heart.fill" : "heart").foregroundColor(.white).font(.headline)
-                    Text("collection.want").fontWeight(.bold)
-                }
-            }
-        }
-    }
+   
     
     func makeInfos() -> some View {
         HStack(alignment: .top){
@@ -78,8 +43,6 @@ struct SetListCell : View {
             .padding(.horizontal, 16)
             .foregroundColor(Color.black)
             .frame(maxWidth: .infinity,maxHeight: .infinity,alignment:.topLeading)
-        
-        //            .background(Blur(style: .light).opacity(0.92))
     }
     func makeDetails() -> some View{
         HStack(alignment: .bottom){
@@ -91,20 +54,5 @@ struct SetListCell : View {
             
         }
     }
-    
-    func makePastil() -> some View {
-        HStack {
-            if set.collection.qtyOwned != 0 {
-                Text("\(set.collection.qtyOwned)").font(.body).bold()
-                    .padding(.horizontal,8).foregroundColor(.white)
-            }
-            if set.collection.wanted  {
-                Image(systemName: set.collection.wanted ? "heart.fill":"heart").font(.footnote)
-                    .padding(.horizontal,8)
-                    .padding(.vertical,8)
-                    .foregroundColor(.white)
-            }
-        }.background(RoundedCorners(color: Color.black, tl: 16, tr: 0, bl: 0, br: 0))
-        
-    }
+
 }

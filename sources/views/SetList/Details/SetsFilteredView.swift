@@ -11,11 +11,11 @@ import SwiftUI
 struct SetsFilteredView: View {
     @EnvironmentObject private var  store : Store
     @EnvironmentObject private var  config : Configuration
-
     let text : String
     let filter: Store.SearchFilter
     @State var requestSent : Bool = false
-    
+    var sorter : LegoListSorter = .default
+
     var items : [LegoSet] {
         return store.sets.filter({
             switch filter {
@@ -33,15 +33,10 @@ struct SetsFilteredView: View {
     var body: some View {
         ScrollView {
             LazyVStack(alignment: .leading, spacing: 16, pinnedViews: [.sectionHeaders]) {
-                SetsListView(items: items,sorter:.constant(.default),filter: .constant(.all))
+                SetsListView(items: items,sorter:.constant(sorter),filter: .constant(.all))
             }
         }
-        .navigationBarItems(trailing:
-            HStack{
-                Text("\(items.filter{$0.collection.owned}.count)/\(items.count) ").font(.lego(size: 15))
-                makeCheck()
-            }
-        )
+        .navigationBarItems(trailing:makeCheck())
         .navigationBarTitle(text.uppercased()+"_")
         .onAppear {
             if self.requestSent == false {
@@ -59,7 +54,7 @@ struct SetsFilteredView: View {
             } else if config.connection == .unavailable {
                 Image.wifiError.imageScale(.large)
             }else {
-               Image(systemName: "checkmark.circle").imageScale(.large)
+                Text("\(items.filter{$0.collection.owned}.count)/\(items.count) ").font(.lego(size: 15))
             }
         }
 

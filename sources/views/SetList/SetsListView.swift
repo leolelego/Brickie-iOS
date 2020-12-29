@@ -10,44 +10,19 @@ import SwiftUI
 
 struct SetsListView: View {
     
-    
-    
     var items : [LegoSet]
+    @Environment(\.horizontalSizeClass) var horizontalSizeClass
+    @Environment(\.verticalSizeClass) var verticalSizeClass
     @EnvironmentObject private var  store : Store
     @Binding var sorter : LegoListSorter
     @Binding var filter : LegoListFilter 
     
+
+    
     var body: some View {
         if setsToShow.count == 0 {
-            Spacer()
-            HStack(alignment: .center){
-                Spacer()
-                if store.isLoadingData {
-                    ProgressView()
-                        .progressViewStyle(CircularProgressViewStyle())
-                } else {
-                    Text("sets.noitems").font(.largeTitle).bold()
-                    
-                }
-                Spacer()
-            }
-            if store.sets.filter({$0.collection.owned}).count == 0 {
-                HStack(alignment: .center){
-                    Spacer()
-                    Text("sets.firstsync").multilineTextAlignment(.center).font(.subheadline)
-                    Spacer()
-                }
-            }
-            
+            TrySyncView(count: store.sets.filter({$0.collection.owned}).count)
         } else {
-            
-            if isDebug{
-                HStack{
-                    Spacer()
-                    Text(String(setsToShow.count)).roundText
-                    Spacer()
-                }
-            }
             LazyVStack(alignment: .leading, spacing: 16, pinnedViews: [.sectionHeaders]) {
                 ForEach(sections(for:  setsToShow ), id: \.self){ theme in
                     Section(header:
@@ -55,13 +30,17 @@ struct SetsListView: View {
                                 .padding(.leading, 4)
                                 .padding(.bottom, -26)
                     ) {
-                        ForEach(self.items(for: theme, items: self.setsToShow ), id: \.setID) { item in
-                            NavigationLink(destination: SetDetailView(set: item)) {
-                                SetListCell(set:item)
-                            }.padding(.leading,16).padding(.trailing,8)
+                        if horizontalSizeClass == .compact {
+                            sectionView(theme: theme)
+//                        } else if verticalSizeClass == .regular && horizontalSizeClass == .regular{
+//                            LazyVGrid(columns: [GridItem(.flexible()),GridItem(.flexible()),GridItem(.flexible())]){
+//                                sectionView(theme: theme)
+//                            }
+                        } else {
+                            LazyVGrid(columns: [GridItem(.flexible()),GridItem(.flexible())]){
+                                sectionView(theme: theme)
+                            }
                         }
-                        
-                        
                     }
                 }
             }
@@ -70,14 +49,37 @@ struct SetsListView: View {
         
     }
     
+    func sectionView(theme:String) -> some View{
+    ForEach(self.items(for: theme, items: self.setsToShow ), id: \.setID) { item in
+        NavigationLink(destination: SetDetailView(set: item)) {
+            SetListCell(set:item)
+            
+        }
+        .contentShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
+        .padding(.leading,16).padding(.trailing,8)
+        .contextMenu {
+            CellContextMenu(owned: item.collection.qtyOwned, wanted: item.collection.wanted) {
+                self.store.action(.qty(item.collection.qtyOwned+1),on: item)
+            } remove: {
+                self.store.action(.qty(item.collection.qtyOwned-1),on: item)
+            } want: {
+                self.store.action(.want(!item.collection.wanted),on: item)
+            }
+        }
+        
+    }
+    }
+    
     func sections(for items:[LegoSet]) -> [String] {
         switch sorter {
-        case .number,.piece,.price:
+        case .number,.piece,.price,.pieceDesc,.priceDesc:
             return [""]
         case .alphabetical:
             return Array(Set(items.compactMap({String($0.name.prefix(1))}))).sorted()
-        case .year:
+        case .older:
             return Array(Set(items.compactMap({"\($0.year)"}))).sorted()
+        case .newer:
+            return Array(Set(items.compactMap({"\($0.year)"}))).sorted(by: {$0 > $1})
         default:
             return Array(Set(items.compactMap({$0.theme}))).sorted()
         }
@@ -88,12 +90,17 @@ struct SetsListView: View {
             return items.sorted(by: {Int($0.number) ?? 0 < Int($1.number) ?? 0})
         case .piece:
             return items.sorted(by: {$0.pieces ?? 0 < $1.pieces ?? 0})
+        case .pieceDesc:
+            return items.sorted(by: {$0.pieces ?? 0 > $1.pieces ?? 0})
         case .price:
             return items.sorted(by: {$0.priceFloat  < $1.priceFloat})
+        case .priceDesc:
+            return items.sorted(by: {$0.priceFloat  > $1.priceFloat})
         case .alphabetical:
             return items.filter({String($0.name.prefix(1)) == section}).sorted(by: {$0.name < $1.name})
-        case .year:
+        case .older,.newer:
             return items.filter({"\($0.year)" == section}).sorted(by: {$0.name < $1.name})
+            
         default:
             return items.filter({$0.theme == section}).sorted(by: {$0.subtheme ?? "" < $1.subtheme ?? "" && $0.name < $1.name})
         }
@@ -109,4 +116,5 @@ struct SetsListView: View {
             return items.filter({$0.collection.owned})
         }
     }
+    
 }

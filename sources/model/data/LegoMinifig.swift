@@ -52,7 +52,6 @@ class LegoMinifig : Lego , Hashable{
     }
     var subNames : [String] {
         guard var components = name?.components(separatedBy: " - ") else {return []}
-        
         components.removeFirst()
         return components
         
