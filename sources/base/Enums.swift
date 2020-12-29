@@ -11,6 +11,8 @@ enum Settings {
     static let setsListSorter = "setsListSorter"
     static let figsListSorter = "figsListSorter"
     static let rootTabSelected = "tabSelected"
+    static let rootSideSelected = "sideSelected"
+
     static let figsDisplayMode = "figsDisplayMode"
     static let reviewRuntime = "reviewRuntime"
     static let reviewVersion = "reviewVersion"

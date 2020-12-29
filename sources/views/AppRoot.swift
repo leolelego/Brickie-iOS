@@ -11,10 +11,11 @@ import StoreKit
 
 struct AppRootView: View {
     @EnvironmentObject private var  store : Store
-    @SceneStorage(Settings.rootTabSelected) private var selection = 0
+    @SceneStorage(Settings.rootTabSelected)  var selection : Int = 0
     @AppStorage(Settings.reviewRuntime) var reviewRuntime : Int = 0
     @AppStorage(Settings.reviewVersion) var reviewVersion : String?
-    @State var selectedFolder: String? =  "MINIFIG'S_"
+    @AppStorage(Settings.rootSideSelected)  var sideSelection : Int?
+
 
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
     
@@ -25,11 +26,11 @@ struct AppRootView: View {
         } else if horizontalSizeClass == .compact  {
             iPhoneView.accentColor(.backgroundAlt).onAppear(perform: {
                 appStoreReview()
-            })
+            }).modifier(DismissingKeyboardOnSwipe())
         } else {
             iPadMacView.accentColor(.backgroundAlt).onAppear(perform: {
                 appStoreReview()
-            })
+            }).modifier(DismissingKeyboardOnSwipe())
         }
         
     }
@@ -45,7 +46,7 @@ struct AppRootView: View {
                                 SettingsButton()
                             }
                         })
-                }.modifier(DismissingKeyboardOnSwipe())
+                }
                 
                 .tabItem {
                     VStack {
@@ -60,13 +61,17 @@ struct AppRootView: View {
     
     var iPadMacView : some View {
         NavigationView {
-
-            List(selection: $selectedFolder){
+            
+            List(selection: $sideSelection){
                 ForEach(AppPanel.allCases, id: \.self){ item in
-                    NavigationLink(destination:
-                                    item.view.navigationBarTitle(item.title)
-                                   , label: {Label( item.title, image: item.imageName).font(.lego(size: 17))})
+                    NavigationLink(destination: item.view.navigationBarTitle(item.title),
+                                   tag: item.rawValue,
+                                   selection: $sideSelection){
+                        Label(item.title, image: item.imageName).font(.lego(size: 17))
+
+                    }
                 }
+
             }
             .listStyle(SidebarListStyle())
             .navigationTitle("BRICKIE_")
@@ -75,7 +80,14 @@ struct AppRootView: View {
                     SettingsButton()
                 }
             })
+            startView
         }
+        .navigationViewStyle(DoubleColumnNavigationViewStyle())
+    }
+    
+    var startView : some View{
+        let item : AppPanel = AppPanel(rawValue: sideSelection ?? 0)!
+        return item.view.navigationBarTitle(item.title)
     }
     func appStoreReview(){
         reviewRuntime += 1

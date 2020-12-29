@@ -31,11 +31,12 @@ struct FigsView: View {
                     ProgressView()
                         .progressViewStyle(CircularProgressViewStyle())
                 } else {
-                    FilterSorterMenu(sorter: $sorter,filter: $filter,
-                                     sorterAvailable: [.default,.alphabetical,.number],
-                                     filterAvailable: store.searchMinifigsText.isEmpty ? [.all,.wanted] : [.all,.wanted,.owned]
-                    )
+                    EmptyView()
                 }
+                FilterSorterMenu(sorter: $sorter,filter: $filter,
+                                 sorterAvailable: [.default,.alphabetical,.number],
+                                 filterAvailable: store.searchMinifigsText.isEmpty ? [.all,.wanted] : [.all,.wanted,.owned]
+                )
                 DisplayModeView(mode: $displayMode)
             }
         }

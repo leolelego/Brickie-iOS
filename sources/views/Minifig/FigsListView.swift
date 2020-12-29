@@ -47,10 +47,41 @@ struct MinifigListView: View {
         }
     }
     
+
+    
     func makeSection(_ theme:String) -> some View {
         let values =  items(for: theme, items: figs)
+        return Group {
+            if displayMode == .grid {
+                gridView(values)
+            } else if  horizontalSizeClass == .compact {
+                listView(values)
+            } else {
+                LazyVGrid(columns: [GridItem(.flexible()),GridItem(.flexible())]) {
+                    listView(values)
+                }
+            }
+        }
+        
+    }
+    
+    fileprivate func listView(_ values : [LegoMinifig]) -> some View {
+        return ForEach(values) { value in
+            NavigationLink(destination: MinifigDetailView(minifig: value)){
+                MinifigListCell(minifig:value)
+                Spacer() //Tweak to fill the view
+            }
+            .contentShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
+            .padding(16)
+            .contextMenu{
+                contextMenuContent(value)
+            }
+            
+        }
+    }
+
+    fileprivate func gridView(_ values : [LegoMinifig]) -> some View {
         let columns : [GridItem]
-                
         if verticalSizeClass == .compact {
             columns =  [GridItem(.flexible()),GridItem(.flexible()),GridItem(.flexible()),GridItem(.flexible())] // [GridItem(.flexible()),GridItem(.flexible())]
         } else  if horizontalSizeClass == .compact {
@@ -59,45 +90,22 @@ struct MinifigListView: View {
             columns = [GridItem(.flexible()),GridItem(.flexible()),GridItem(.flexible()),GridItem(.flexible()),GridItem(.flexible())]
         }
         
-
-        return Group {
-            if displayMode == .grid {
-                
-                LazyVGrid(columns: columns) {
-                    
-                    ForEach(values) { value in
-                        NavigationLink(destination: MinifigDetailView(minifig: value)){
-                            FigsGridCell(minifig: value)
-                            
-                        }
-                        .contentShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
-                        .padding(16)
-                        .contextMenu{
-                            contextMenuContent(value)
-                        }
-                        
-                    }
-                }
-            }else {
-                
-                
-                ForEach(values) { value in
-                    NavigationLink(destination: MinifigDetailView(minifig: value)){
-                        MinifigListCell(minifig:value)
-                        Spacer() //Tweak to fill the view
-                    }
-                    .contentShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
-                    .padding(16)
-                    .contextMenu{
-                        contextMenuContent(value)
-                    }
+        return LazyVGrid(columns: columns) {
+            
+            ForEach(values) { value in
+                NavigationLink(destination: MinifigDetailView(minifig: value)){
+                    FigsGridCell(minifig: value)
                     
                 }
+                .contentShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
+                .padding(16)
+                .contextMenu{
+                    contextMenuContent(value)
+                }
+                
             }
         }
-        
     }
-
     
     func contextMenuContent(_ value:LegoMinifig)-> some View{
         CellContextMenu(owned: value.ownedLoose, wanted: value.wanted) {

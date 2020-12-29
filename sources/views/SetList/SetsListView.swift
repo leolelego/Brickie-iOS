@@ -12,9 +12,12 @@ struct SetsListView: View {
     
     var items : [LegoSet]
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
+    @Environment(\.verticalSizeClass) var verticalSizeClass
     @EnvironmentObject private var  store : Store
     @Binding var sorter : LegoListSorter
     @Binding var filter : LegoListFilter 
+    
+
     
     var body: some View {
         if setsToShow.count == 0 {
@@ -29,6 +32,10 @@ struct SetsListView: View {
                     ) {
                         if horizontalSizeClass == .compact {
                             sectionView(theme: theme)
+//                        } else if verticalSizeClass == .regular && horizontalSizeClass == .regular{
+//                            LazyVGrid(columns: [GridItem(.flexible()),GridItem(.flexible()),GridItem(.flexible())]){
+//                                sectionView(theme: theme)
+//                            }
                         } else {
                             LazyVGrid(columns: [GridItem(.flexible()),GridItem(.flexible())]){
                                 sectionView(theme: theme)
