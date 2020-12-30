@@ -27,6 +27,7 @@ struct SetDetailView: View {
             makeButtons()
             makeImages()
             makeInstructions()
+            makeBricklink()
         }
         .sheet(isPresented: $isImageDetailPresented, content: { SetAdditionalImageView(isPresented: $isImageDetailPresented, url: $detailImageUrl )})
         .onAppear {
@@ -168,6 +169,17 @@ struct SetDetailView: View {
             }
         }
     }
+    
+    func makeBricklink() -> some View{
+        Link(destination: URL(string: "https://www.bricklink.com/v2/catalog/catalogitem.page?S=" + set.number)!){
+            HStack(){
+                Text("Find at" ).fontWeight(.bold).foregroundColor(Color.black)
+                Image("bricklink")
+            }
+        }
+        .modifier(RoundedButtonModifier(background: Color(red: 91/255, green: 186/255, blue: 213/255)))
+
+    }
     func makeInstructions() -> some View{
         Group {
             if set.instrucctions?.first != nil{
@@ -187,11 +199,9 @@ struct SetDetailView: View {
     func makeInstructionButton()-> some View {
         Text("sets.instruction")
         .fontWeight(.bold).foregroundColor(Color.black)
-        .frame(minWidth: 0, maxWidth: .infinity)
-        .padding()
-        .background(Color.yellow)
-        .mask(RoundedRectangle(cornerRadius: 12))
-        .padding()    }
+            .modifier(RoundedButtonModifier(background: Color.yellow))
+        
+    }
     
 }
 

@@ -22,3 +22,15 @@ struct  RoundedButtonStyle:  ButtonStyle {
         
     }
 }
+
+struct RoundedButtonModifier: ViewModifier {
+    let background : Color
+    func body(content: Content) -> some View {
+        content
+        .frame(minWidth: 0, maxWidth: .infinity)
+        .padding()
+        .background(background)
+        .mask(RoundedRectangle(cornerRadius: 12))
+        .padding()
+    }
+}

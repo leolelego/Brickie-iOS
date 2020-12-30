@@ -20,7 +20,7 @@ struct MinifigDetailView: View {
             makeHeader().zIndex(0)
             Divider()
             MinifigEditorView(minifig: minifig).padding()
-            
+            makeBricklink()
         }
         .sheet(isPresented: $isImageDetailPresented, content: { SetAdditionalImageView(isPresented: $isImageDetailPresented, url: .constant(minifig.imageUrl))})
             
@@ -81,5 +81,15 @@ struct MinifigDetailView: View {
             }
         }.padding(.horizontal)
             .frame(minWidth: 0, maxWidth: .infinity,alignment: .leading)
+    }
+    func makeBricklink() -> some View{
+        Link(destination: URL(string: "https://www.bricklink.com/v2/catalog/catalogitem.page?M=" + minifig.minifigNumber)!){
+            HStack(){
+                Text("Find at" ).fontWeight(.bold).foregroundColor(Color.black)
+                Image("bricklink")
+            }
+        }
+        .modifier(RoundedButtonModifier(background: Color(red: 91/255, green: 186/255, blue: 213/255)))
+
     }
 }
