@@ -5,7 +5,7 @@ platform :ios do
   ENV['FASTLANE_XCODEBUILD_SETTINGS_TIMEOUT']='2000'
 
   before_all do
-    setup_ci(force:true)
+    # setup_ci(force:true)
   end
 
   lane :check_env_keys do 
@@ -31,16 +31,16 @@ platform :ios do
   end
 
   lane :certificates do 
-    keychain_name =  ENV["KEYCHAIN_NAME"]
-    keychain_pass =  ENV["KECHAIN_PASSWORD"]
-    create_keychain(
-      name: keychain_name,
-      password: keychain_pass,
-      default_keychain: true,
-      unlock: true,
-      timeout: 3600,
-      lock_when_sleeps: false
-    )
+    # keychain_name =  ENV["KEYCHAIN_NAME"]
+    # keychain_pass =  ENV["KECHAIN_PASSWORD"]
+    # create_keychain(
+    #   name: keychain_name,
+    #   password: keychain_pass,
+    #   default_keychain: true,
+    #   unlock: true,
+    #   timeout: 3600,
+    #   lock_when_sleeps: false
+    # )
 
     match(
       type:"appstore",
@@ -48,8 +48,8 @@ platform :ios do
       clone_branch_directly:true,
       shallow_clone: true,
       # output_path:"certs",
-      keychain_name: keychain_name,
-      keychain_password: keychain_pass
+      # keychain_name: keychain_name,
+      # keychain_password: keychain_pass
     )
   end
 
