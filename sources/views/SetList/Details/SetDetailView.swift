@@ -170,7 +170,7 @@ struct SetDetailView: View {
     }
     func makeInstructions() -> some View{
         Group {
-            if set.instrucctions?.first != nil{
+            if set.instrucctions?.first != nil && URL(string:set.instrucctions!.first!.URL) != nil {
                 NavigationLink(destination: LegoPDFView(string: set.instrucctions!.first!.URL,cache: cache)) {
                     makeInstructionButton().opacity((cache[URL(string:set.instrucctions!.first!.URL)!] == nil && self.config.connection == .unavailable) ?  0.4 : 1.0)
                     
