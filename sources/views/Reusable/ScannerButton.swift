@@ -9,16 +9,21 @@
 import SwiftUI
 
 struct ScannerButton: View {
+    @EnvironmentObject private var  store : Store
     @State private var isShowingSheet = false
-
+    
     @Binding var code : String
     var body: some View {
-        Button(action: {
-            self.isShowingSheet.toggle()
-        }, label: {
-            Image(systemName: "barcode.viewfinder")
-        }).sheet(isPresented: $isShowingSheet) {
-            CodeScannerView(codeTypes: [.ean8, .ean13, .pdf417], completion: self.handleScan)
+        if store.error == nil {
+            Button(action: {
+                self.isShowingSheet.toggle()
+            }, label: {
+                Image(systemName: "barcode.viewfinder")
+            }).sheet(isPresented: $isShowingSheet) {
+                CodeScannerView(codeTypes: [.ean8, .ean13, .pdf417], completion: self.handleScan)
+            }
+        } else {
+            EmptyView()
         }
     }
     

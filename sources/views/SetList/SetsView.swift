@@ -33,9 +33,7 @@ struct SetsView: View {
                                     sorterAvailable: [.default,.alphabetical,.number,.older,.newer,.piece,.pieceDesc,.price,.priceDesc],
                                     filterAvailable: store.searchSetsText.isEmpty ? [.all,.wanted] : [.all,.wanted,.owned]
                 )
-                if store.error != nil{
-                    ScannerButton(code: $store.searchSetsText)
-                }
+                ScannerButton(code: $store.searchSetsText)
             }
         }
     }
