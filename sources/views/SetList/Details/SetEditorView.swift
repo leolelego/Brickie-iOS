@@ -54,6 +54,7 @@ struct SetEditorView: View {
             if config.connection == .unavailable {
                          Text("message.offline").font(.headline).bold().foregroundColor(.red)
                      }
+            APIIssueView(error: $store.error)
         }
         
         

@@ -9,23 +9,17 @@
 import SwiftUI
 
 struct APIIssueView: View {
-    @EnvironmentObject private var  store : Store
+    @Binding var error : APIError?
 
     var body: some View {
-        if(store.apiHadIssue){
+        if error != nil {
             HStack(alignment: .center){
                 Spacer()
-                Text("error.apiissue_uimessage").multilineTextAlignment(.center).font(.footnote).foregroundColor(.orange)
+                Text(error!.localizedDescription).multilineTextAlignment(.center).font(.footnote).foregroundColor(.orange)
                 Spacer()
             }
         } else {
             EmptyView()
         }
-    }
-}
-
-struct APIIssueView_Previews: PreviewProvider {
-    static var previews: some View {
-        APIIssueView()
     }
 }

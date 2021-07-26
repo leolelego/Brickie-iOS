@@ -28,8 +28,6 @@ class Store : ObservableObject{
     @Published var requestForSync : Bool = false
     @Published var isLoadingData : Bool = true
     @Published var error : APIError? = nil
-    @Published var asError : Bool = false
-    @Published var apiHadIssue : Bool = false
     var lastsync = Date()
     @Published var user : User? {
         didSet{
@@ -210,18 +208,14 @@ class Store : ObservableObject{
         }
         if (err as NSError).code != -1009 {
             DispatchQueue.main.async{
-                self.asError = true
                 self.error = (err as? APIError) ?? APIError.unknown
-                
-                self.apiHadIssue = self.error == .invalid || self.apiHadIssue
-                
             }
         }
     }
     var alert: Alert {
         Alert(title:Text("apierror.title"), message: Text(error?.localizedDescription ?? "error.noapiresponse"), dismissButton: .default(Text("Ok")){
             DispatchQueue.main.async {
-                self.asError = false
+//                self.asError = false
                 self.isLoadingData = false
             }
             

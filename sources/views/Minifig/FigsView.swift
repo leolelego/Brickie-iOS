@@ -18,7 +18,7 @@ struct FigsView: View {
     var body: some View {
         ScrollView {
             SearchField(searchText: $store.searchMinifigsText).padding(.horizontal,8)
-            APIIssueView()
+            APIIssueView(error: $store.error)
             if toShow.count == 0 {
                 TrySyncView(count: store.minifigs.count)
             } else {

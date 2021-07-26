@@ -26,15 +26,15 @@ struct AppRootView: View {
         } else if horizontalSizeClass == .compact  {
             iPhoneView.accentColor(.backgroundAlt).onAppear(perform: {
                 appStoreReview()
-            }).alert(isPresented: $store.asError, content: {
-                store.alert
+//            }).alert(isPresented: $store.asError, content: {
+//                store.alert
             }).modifier(DismissingKeyboardOnSwipe())
   
         } else {
             iPadMacView.accentColor(.backgroundAlt).onAppear(perform: {
                 appStoreReview() 
-            }).alert(isPresented: $store.asError, content: {
-                store.alert
+//            }).alert(isPresented: $store.asError, content: {
+//                store.alert
             }).modifier(DismissingKeyboardOnSwipe())
         }
         
