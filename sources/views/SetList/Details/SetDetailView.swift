@@ -31,21 +31,39 @@ struct SetDetailView: View {
         .sheet(isPresented: $isImageDetailPresented, content: { SetAdditionalImageView(isPresented: $isImageDetailPresented, url: $detailImageUrl )})
         .onAppear {
             if  self.set.additionalImages == nil {
-                APIRouter<[[String:Any]]>.additionalImages(self.set.setID).decode(ofType: [LegoSetImage].self) { (items) in
-                    
-                    DispatchQueue.main.async {
-                        self.set.objectWillChange.send()
-                        self.set.additionalImages = items
+                APIRouter<[[String:Any]]>.additionalImages(self.set.setID).decode(ofType: [LegoSetImage].self) { response in
+                    switch response {
+                    case .success(let items):
+                        DispatchQueue.main.async {
+                            self.set.objectWillChange.send()
+                            self.set.additionalImages = items
+                        }
+                        break
+                    case .failure(_):
+//                        self.error = (err as? APIError) ?? APIError.unknown
+
+                        break
                     }
+            
                 }
             }
             
             if self.set.instructionsCount > 0 && self.set.instrucctions == nil{
-                APIRouter<[[String:Any]]>.setInstructions(self.set.setID).decode(ofType: [LegoInstruction].self) { items in
-                    DispatchQueue.main.async {
-                        self.set.objectWillChange.send()
-                        self.set.instrucctions = items
-                    }
+                APIRouter<[[String:Any]]>.setInstructions(self.set.setID).decode(ofType: [LegoInstruction].self) { response in
+                        switch response {
+                        case .success(let items):
+                            DispatchQueue.main.async {
+                                self.set.objectWillChange.send()
+                                self.set.instrucctions = items
+                            }
+                            break
+                        case .failure(_):
+                            break
+                        }
+                    
+                    
+                     
+                   
                     
                     
                 }

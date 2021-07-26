@@ -215,7 +215,7 @@ extension APIRouter {
         }
     }
     
-    func decode<C:Codable>(ofType: C.Type,completion: @escaping (C) -> Void){
+    func decode<C:Codable>(ofType: C.Type,completion: @escaping (Result<C,Error>) -> Void /*@escaping (C) -> Void*/){
         responseJSON { response in
             switch response{
             case .success(let object):
@@ -224,7 +224,7 @@ extension APIRouter {
                     let json = try JSONSerialization.data(withJSONObject: object, options: [])
                     let items = try JSONDecoder().decode(ofType.self, from: json)
                     
-                    completion(items)
+                    completion(.success(items))
                 } catch let DecodingError.dataCorrupted(context) {
                     print(context)
                 } catch let DecodingError.keyNotFound(key, context) {
@@ -240,11 +240,15 @@ extension APIRouter {
                     print("error: ", error)
                 }
                 break
-            case .failure(_):
+            case .failure(let err):
+                completion(.failure(err))
+
                 break // logged before nobody care
             }
             
         }
     }
+    
+
 }
 

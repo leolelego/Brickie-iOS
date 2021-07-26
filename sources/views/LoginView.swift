@@ -13,7 +13,7 @@ struct LoginView: View {
     @EnvironmentObject var config : Configuration
     @State var username = ""
     @State var password = ""
-    @State var error : String?
+    @State var error : LocalizedStringKey?
     @State var loading = false
     let loginURL = URL(string:"https://brickset.com/signup")!
     var body: some View {
@@ -43,7 +43,7 @@ struct LoginView: View {
 
             if  error != nil && !self.loading {
                 VStack{
-                    Text("login.failed").font(.callout).multilineTextAlignment(.center).foregroundColor(.red).lineLimit(10)
+                    Text(error!).font(.callout).multilineTextAlignment(.center).foregroundColor(.red).lineLimit(10)
                     
                 }
             }
@@ -95,7 +95,11 @@ struct LoginView: View {
             APIRouter<String>.login(self.username, self.password).responseJSON { response in
                 switch response {
                 case .failure(let err):
-                    self.error = err.localizedDescription
+                   if  let errApi  = err as? APIError {
+                        self.error = errApi.localizedDescription
+                    } else {
+                        self.error = "error.badlogin"
+                    }
                     
                     break
                 case .success(let hash):

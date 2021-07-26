@@ -27,6 +27,8 @@ class Store : ObservableObject{
     private var syncronizeCancellable: AnyCancellable?
     @Published var requestForSync : Bool = false
     @Published var isLoadingData : Bool = true
+    @Published var error : APIError? = nil
+    @Published var asError : Bool = false
     var lastsync = Date()
     @Published var user : User? {
         didSet{
@@ -76,7 +78,7 @@ class Store : ObservableObject{
                 self.setsFilter = .search(self.searchSetsText)
                 
                 
-        }
+            }
         
         searchMinifigsCancellable = $searchMinifigsText
             .debounce(for: .milliseconds(850), scheduler: DispatchQueue.main)
@@ -88,14 +90,14 @@ class Store : ObservableObject{
                 }
                 self.minifigFilter = .search(self.searchMinifigsText)
                 
-        }
+            }
         
         syncronizeCancellable = $requestForSync
             .filter{ $0 }
             .debounce(for: .seconds(2), scheduler: DispatchQueue.main)
             .sink { _ in
                 self.sync()
-        }
+            }
         
         requestForSync = self.user != nil
         
@@ -126,7 +128,7 @@ class Store : ObservableObject{
             return sets.filter({$0.match(str)})
         }
     }
-        
+    
     var minifigsUI : [LegoMinifig] {
         switch minifigFilter {
         case .owned:
@@ -201,6 +203,28 @@ class Store : ObservableObject{
         
     }
     
+    func fireApiError(_ err:Error){
+        DispatchQueue.main.async {
+            self.isLoadingData = false
+        }
+        if (err as NSError).code != -1009 {
+            DispatchQueue.main.async{
+                self.asError = true
+                self.error = (err as? APIError) ?? APIError.unknown
+            }
+        }
+    }
+    var alert: Alert {
+        Alert(title:Text("apierror.title"), message: Text(error?.localizedDescription ?? "error.noapiresponse"), dismissButton: .default(Text("Ok")){
+            DispatchQueue.main.async {
+                self.asError = false
+                self.isLoadingData = false
+            }
+            
+        }
+        )
+    }
+    
 }
 
 // MARK: Call for Figs
@@ -256,11 +280,20 @@ extension Store {
     func searchMinifigs(text:String){
         guard let token = user?.token else {return}
         DispatchQueue.main.async { self.isLoadingData = true}
-        APIRouter<[[String:Any]]>.searchMinifigs(token, text).decode(ofType: [LegoMinifig].self) { sets in
-            DispatchQueue.main.async {
-                self.append(sets)
-                self.isLoadingData = false
+        APIRouter<[[String:Any]]>.searchMinifigs(token, text).decode(ofType: [LegoMinifig].self) {response in
+            switch response {
+            case .success(let sets):
+                DispatchQueue.main.async {
+                    self.append(sets)
+                    self.isLoadingData = false
+                }
+                break
+            case .failure(let err):
+                self.fireApiError(err)
+                break
             }
+            
+            
         }
         
     }
@@ -349,36 +382,72 @@ extension Store {
             
         }
         func ownedSets(page:Int,  incrmentatl_sets:  [LegoSet]){
-            APIRouter<[[String:Any]]>.ownedSets(token,page).decode(ofType: [LegoSet].self) { sets in
-                var sets2 = incrmentatl_sets
-                sets2.append(contentsOf: sets)
-                if sets .count >= pageSizeSet {
-                    ownedSets(page: page+1,incrmentatl_sets:sets2)
-                } else {
-                    self.updateOwned(with: sets2)
+            APIRouter<[[String:Any]]>.ownedSets(token,page).decode(ofType: [LegoSet].self) { response in
+                switch response {
+                case .success(let sets):
+                    var sets2 = incrmentatl_sets
+                    sets2.append(contentsOf: sets)
+                    if sets .count >= pageSizeSet {
+                        ownedSets(page: page+1,incrmentatl_sets:sets2)
+                    } else {
+                        self.updateOwned(with: sets2)
+                    }
+                    break
+                case .failure(let err):
+                    
+                    self.fireApiError(err)
+                    break
                 }
+                
+                
+                
+                
             }
         }
         func wantedSets(page:Int,  incrmentatl_sets:  [LegoSet]){
-            APIRouter<[[String:Any]]>.wantedSets(token,page).decode(ofType: [LegoSet].self) { sets in
-                var sets2 = incrmentatl_sets
-                sets2.append(contentsOf: sets)
-                if sets .count >= pageSizeSet {
-                    wantedSets(page: page+1,incrmentatl_sets:sets2)
-                } else {
-                    self.updateWanted(with: sets)
+            APIRouter<[[String:Any]]>.wantedSets(token,page).decode(ofType: [LegoSet].self) {
+                response in
+                switch response {
+                case .success(let sets):
+                    
+                    var sets2 = incrmentatl_sets
+                    sets2.append(contentsOf: sets)
+                    if sets .count >= pageSizeSet {
+                        wantedSets(page: page+1,incrmentatl_sets:sets2)
+                    } else {
+                        self.updateWanted(with: sets)
+                    }
+                    break
+                case .failure(let err):
+                    self.fireApiError(err)
+                    break
                 }
             }
         }
         ownedSets(page: 1,incrmentatl_sets: [LegoSet]())
         wantedSets(page: 1,incrmentatl_sets: [LegoSet]())
         
-        APIRouter<[[String:Any]]>.ownedFigs(token).decode(ofType: [LegoMinifig].self) { items in
+        APIRouter<[[String:Any]]>.ownedFigs(token).decode(ofType: [LegoMinifig].self) { response in
+            switch response {
+            case .success(let items):
+                self.updateOwned(with: items)
+                
+                break
+            case .failure(let err):
+                self.fireApiError(err)
+                break
+            }
             
-            self.updateOwned(with: items)
         }
-        APIRouter<[[String:Any]]>.wantedFigs(token).decode(ofType: [LegoMinifig].self) { items in
-            self.updateWanted(with: items)
+        APIRouter<[[String:Any]]>.wantedFigs(token).decode(ofType: [LegoMinifig].self) { response in
+            switch response {
+            case .success(let items):
+                self.updateWanted(with: items)
+                break
+            case .failure(let err):
+                self.fireApiError(err)
+                break
+            }
         }
         
     }
@@ -400,17 +469,25 @@ extension Store {
                 request = APIRouter<[[String:Any]]>.searchSetsYear(token, text,page)
             }
             DispatchQueue.main.async {self.isLoadingData = true}
-            request.decode(ofType: [LegoSet].self) { sets in
-                if sets .count >= pageSizeSearch {
-                    search(page: page+1)
-                }
-                DispatchQueue.global(qos: .userInitiated).async {
-                    self.append(sets)
+            request.decode(ofType: [LegoSet].self) { response in
+                switch response {
+                case .success(let sets):
+                    if sets .count >= pageSizeSearch {
+                        search(page: page+1)
+                    }
+                    DispatchQueue.global(qos: .userInitiated).async {
+                        self.append(sets)
+                    }
+                    
+                    DispatchQueue.main.async {
+                        self.isLoadingData = false
+                    }
+                    break
+                case .failure(let err):
+                    self.fireApiError(err)
+                    break
                 }
                 
-                DispatchQueue.main.async {
-                    self.isLoadingData = false
-                }
                 
             }
         }
