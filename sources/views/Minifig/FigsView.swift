@@ -18,11 +18,11 @@ struct FigsView: View {
     var body: some View {
         ScrollView {
             SearchField(searchText: $store.searchMinifigsText).padding(.horizontal,8)
+            APIIssueView()
             if toShow.count == 0 {
                 TrySyncView(count: store.minifigs.count)
             } else {
                 MinifigListView(figs: toShow ,sorter:$sorter, displayMode: displayMode)
-                
             }
         }
         .toolbar{

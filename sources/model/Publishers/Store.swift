@@ -29,6 +29,7 @@ class Store : ObservableObject{
     @Published var isLoadingData : Bool = true
     @Published var error : APIError? = nil
     @Published var asError : Bool = false
+    @Published var apiHadIssue : Bool = false
     var lastsync = Date()
     @Published var user : User? {
         didSet{
@@ -211,6 +212,9 @@ class Store : ObservableObject{
             DispatchQueue.main.async{
                 self.asError = true
                 self.error = (err as? APIError) ?? APIError.unknown
+                
+                self.apiHadIssue = self.error == .invalid || self.apiHadIssue
+                
             }
         }
     }

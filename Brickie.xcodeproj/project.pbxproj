@@ -61,6 +61,7 @@
 		96E78BC2245D15220032F4E3 /* Secrets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E78BC1245D15220032F4E3 /* Secrets.swift */; };
 		96EBF9252551E384004C1786 /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96EBF9242551E384004C1786 /* App.swift */; };
 		96ED04D6246823DA00C3A8BA /* LegoMinifig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96ED04D5246823DA00C3A8BA /* LegoMinifig.swift */; };
+		B36981C626AF158C00046AA3 /* APIIssueView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B36981C526AF158C00046AA3 /* APIIssueView.swift */; };
 		B3D827DD2572ACF500CAC606 /* Enums.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D827DC2572ACF500CAC606 /* Enums.swift */; };
 		B3D827E82573BF5800CAC606 /* SetsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D827E72573BF5800CAC606 /* SetsView.swift */; };
 		B3D827EB2573BF8B00CAC606 /* FirstSyncView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D827EA2573BF8B00CAC606 /* FirstSyncView.swift */; };
@@ -129,6 +130,7 @@
 		96E78BC1245D15220032F4E3 /* Secrets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Secrets.swift; sourceTree = "<group>"; };
 		96EBF9242551E384004C1786 /* App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = App.swift; sourceTree = "<group>"; };
 		96ED04D5246823DA00C3A8BA /* LegoMinifig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LegoMinifig.swift; sourceTree = "<group>"; };
+		B36981C526AF158C00046AA3 /* APIIssueView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIIssueView.swift; sourceTree = "<group>"; };
 		B3D827DC2572ACF500CAC606 /* Enums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Enums.swift; sourceTree = "<group>"; };
 		B3D827E72573BF5800CAC606 /* SetsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetsView.swift; sourceTree = "<group>"; };
 		B3D827EA2573BF8B00CAC606 /* FirstSyncView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstSyncView.swift; sourceTree = "<group>"; };
@@ -291,6 +293,7 @@
 				96ED04D4246823BD00C3A8BA /* Minifig */,
 				96E78BB9245CEA1D0032F4E3 /* SettingsView.swift */,
 				96365E6A246863BC00F318C3 /* SearchField.swift */,
+				B36981C526AF158C00046AA3 /* APIIssueView.swift */,
 			);
 			path = views;
 			sourceTree = "<group>";
@@ -498,6 +501,7 @@
 				B3D828042573D97500CAC606 /* FigsGridCell.swift in Sources */,
 				960FAD59246729EE0064B458 /* SetEditorView.swift in Sources */,
 				9624E3892471E66B002F68F7 /* Lego.swift in Sources */,
+				B36981C626AF158C00046AA3 /* APIIssueView.swift in Sources */,
 				96E78BB4245CE61A0032F4E3 /* AppRoot.swift in Sources */,
 				96E78B95245CADFA0032F4E3 /* LoginView.swift in Sources */,
 				960FAD53246709C50064B458 /* BlurredImageView.swift in Sources */,

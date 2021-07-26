@@ -16,6 +16,7 @@ struct SetsView: View {
     var body: some View {
         ScrollView {
             SearchField(searchText: $store.searchSetsText).padding(.horizontal,8)
+            APIIssueView()
             SetsListView(items: store.mainSets,sorter:$sorter,filter: $filter)
         }
         .toolbar{
@@ -32,7 +33,9 @@ struct SetsView: View {
                                     sorterAvailable: [.default,.alphabetical,.number,.older,.newer,.piece,.pieceDesc,.price,.priceDesc],
                                     filterAvailable: store.searchSetsText.isEmpty ? [.all,.wanted] : [.all,.wanted,.owned]
                 )
-                ScannerButton(code: $store.searchSetsText)
+                if !store.apiHadIssue{
+                    ScannerButton(code: $store.searchSetsText)
+                }
             }
         }
     }
