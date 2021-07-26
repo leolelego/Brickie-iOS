@@ -29,7 +29,7 @@ struct MinifigEditorView: View {
                     }
                         
                     .frame(minWidth: 0, maxWidth: .infinity)
-                }.buttonStyle(RoundedButtonStyle(backgroundColor: Color("purple")  )).opacity(config.connection == .unavailable ? 0.6 : 1.0)
+                }.buttonStyle(RoundedButtonStyle(backgroundColor: Color("purple")  )).opacity(canEdit() ? 0.6 : 1.0)
                 if minifig.ownedLoose > 0 {
                     
                     Button(action: {
@@ -39,7 +39,7 @@ struct MinifigEditorView: View {
                     }) {
                         Image(systemName: "minus").foregroundColor(.background).font(.title)
                         
-                    }.buttonStyle(RoundedButtonStyle(backgroundColor:.backgroundAlt)).opacity(config.connection == .unavailable ? 0.6 : 1.0)
+                    }.buttonStyle(RoundedButtonStyle(backgroundColor:.backgroundAlt)).opacity(canEdit() ? 0.6 : 1.0)
                     Text("\(self.minifig.ownedLoose)").font(.title).bold() + Text("minifig.loose")
                     Button(action: {
                         self.store.action( .qty(self.minifig.ownedLoose+1),on: self.minifig)
@@ -47,7 +47,7 @@ struct MinifigEditorView: View {
                     }) {
                         Image(systemName: "plus").foregroundColor(.background).font(.title)
                         
-                    }.buttonStyle(RoundedButtonStyle(backgroundColor:.backgroundAlt)).opacity(config.connection == .unavailable ? 0.6 : 1.0)
+                    }.buttonStyle(RoundedButtonStyle(backgroundColor:.backgroundAlt)).opacity(canEdit() ? 0.6 : 1.0)
                 } else {
                     Button(action: {
                         
@@ -56,16 +56,23 @@ struct MinifigEditorView: View {
                         Text("minifig.add")
                             .fontWeight(.bold).foregroundColor(.background)
                             .frame(minWidth: 0, maxWidth: .infinity)
-                    }.buttonStyle(RoundedButtonStyle(backgroundColor:.backgroundAlt)).opacity(config.connection == .unavailable ? 0.6 : 1.0)
+                    }.buttonStyle(RoundedButtonStyle(backgroundColor:.backgroundAlt)).opacity(canEdit() ? 0.6 : 1.0)
                 }
                 
             }
             if config.connection == .unavailable {
                 Text("message.offline").font(.headline).bold().foregroundColor(.red)
+            } else {
+                APIIssueView(error: $store.error)
             }
-            APIIssueView(error: $store.error)
 
         }
+        
+         
+    }
+    
+    func canEdit() -> Bool {
+        return config.connection == .unavailable || store.error == .invalid
     }
 }
 

@@ -14,9 +14,9 @@ struct APIIssueView: View {
     var body: some View {
         if error != nil {
             HStack(alignment: .center){
-                Spacer()
+                Spacer(minLength: 16)
                 Text(error!.localizedDescription).multilineTextAlignment(.center).font(.footnote).foregroundColor(.orange)
-                Spacer()
+                Spacer(minLength: 16)
             }
         } else {
             EmptyView()
