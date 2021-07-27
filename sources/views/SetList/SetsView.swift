@@ -37,13 +37,13 @@ struct SetsView: View {
                                  sorterAvailable: [.default,.alphabetical,.number,.older,.newer,.piece,.pieceDesc,.price,.priceDesc],
                                  filterAvailable: store.searchSetsText.isEmpty ? [.all,.wanted] : [.all,.wanted,.owned]
                 )
-                if store.error != nil {
+//                if store.error == nil {
                     Button(action: {
                         isPresentingScanenr.toggle()
                     }, label: {
                         Image(systemName: "barcode.viewfinder")
                     })
-                }
+//                }
                 
             }
         }

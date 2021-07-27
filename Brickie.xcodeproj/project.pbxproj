@@ -66,7 +66,6 @@
 		B3D827E82573BF5800CAC606 /* SetsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D827E72573BF5800CAC606 /* SetsView.swift */; };
 		B3D827EB2573BF8B00CAC606 /* FirstSyncView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D827EA2573BF8B00CAC606 /* FirstSyncView.swift */; };
 		B3D827EF2573C4FE00CAC606 /* FigsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D827EE2573C4FE00CAC606 /* FigsView.swift */; };
-		B3D827F42573D09500CAC606 /* SettingsButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D827F32573D09500CAC606 /* SettingsButton.swift */; };
 		B3D827FA2573D2F000CAC606 /* DisplayModeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D827F92573D2F000CAC606 /* DisplayModeView.swift */; };
 		B3D828042573D97500CAC606 /* FigsGridCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D828032573D97500CAC606 /* FigsGridCell.swift */; };
 		B3D828072573DA3B00CAC606 /* PastilView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D828062573DA3B00CAC606 /* PastilView.swift */; };
@@ -134,7 +133,6 @@
 		B3D827E72573BF5800CAC606 /* SetsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetsView.swift; sourceTree = "<group>"; };
 		B3D827EA2573BF8B00CAC606 /* FirstSyncView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstSyncView.swift; sourceTree = "<group>"; };
 		B3D827EE2573C4FE00CAC606 /* FigsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FigsView.swift; sourceTree = "<group>"; };
-		B3D827F32573D09500CAC606 /* SettingsButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsButton.swift; sourceTree = "<group>"; };
 		B3D827F92573D2F000CAC606 /* DisplayModeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplayModeView.swift; sourceTree = "<group>"; };
 		B3D828032573D97500CAC606 /* FigsGridCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FigsGridCell.swift; sourceTree = "<group>"; };
 		B3D828062573DA3B00CAC606 /* PastilView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PastilView.swift; sourceTree = "<group>"; };
@@ -361,7 +359,6 @@
 			children = (
 				96D8A8392558A810008EED7D /* SorterFilterView.swift */,
 				B3D827EA2573BF8B00CAC606 /* FirstSyncView.swift */,
-				B3D827F32573D09500CAC606 /* SettingsButton.swift */,
 				B3D827F92573D2F000CAC606 /* DisplayModeView.swift */,
 				B3D828062573DA3B00CAC606 /* PastilView.swift */,
 				B3D828092573F1C000CAC606 /* CellContextMenu.swift */,
@@ -478,7 +475,6 @@
 				9624E3912471F904002F68F7 /* MinifigListCell.swift in Sources */,
 				96519AD52496FC4E002B0354 /* ActivityIndicator.swift in Sources */,
 				9624E38F2471F79B002F68F7 /* RoundedText.swift in Sources */,
-				B3D827F42573D09500CAC606 /* SettingsButton.swift in Sources */,
 				96365E6E2468700900F318C3 /* AdaptsToSoftwareKeyboard.swift in Sources */,
 				961FC1BD2558770500434E5D /* User.swift in Sources */,
 				96DE924C245F695100652E0E /* Assets.swift in Sources */,
@@ -660,6 +656,7 @@
 				CODE_SIGN_ENTITLEMENTS = sources/assets/BrickSet.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 189;
 				DEVELOPMENT_TEAM = Z22Q8S6MMK;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = sources/assets/Info.plist;
@@ -684,9 +681,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = sources/assets/BrickSet.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
-				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Distribution";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 189;
 				DEVELOPMENT_TEAM = Z22Q8S6MMK;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = sources/assets/Info.plist;
@@ -698,8 +696,8 @@
 				MARKETING_VERSION = 1.3.1;
 				PRODUCT_BUNDLE_IDENTIFIER = family.homework.brickset;
 				PRODUCT_NAME = Brickie;
-				PROVISIONING_PROFILE_SPECIFIER = "match AppStore family.homework.brickset";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "Brickset Mac Catalyst";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "";
 				SUPPORTS_MACCATALYST = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

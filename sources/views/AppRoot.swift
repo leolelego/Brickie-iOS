@@ -15,7 +15,7 @@ struct AppRootView: View {
     @AppStorage(Settings.reviewRuntime) var reviewRuntime : Int = 0
     @AppStorage(Settings.reviewVersion) var reviewVersion : String?
     @AppStorage(Settings.rootSideSelected)  var sideSelection : Int?
-
+    @State var isPresentingSettings = false
 
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
     
@@ -29,14 +29,20 @@ struct AppRootView: View {
 //            }).alert(isPresented: $store.asError, content: {
 //                store.alert
             }).modifier(DismissingKeyboardOnSwipe())
-  
+            .sheet(isPresented: $isPresentingSettings) {
+                SettingsView().environmentObject(store)
+            }
         } else {
             iPadMacView.accentColor(.backgroundAlt).onAppear(perform: {
                 appStoreReview() 
 //            }).alert(isPresented: $store.asError, content: {
 //                store.alert
             }).modifier(DismissingKeyboardOnSwipe())
+            .sheet(isPresented: $isPresentingSettings) {
+                SettingsView().environmentObject(store)
+            }
         }
+        
         
     }
     
@@ -47,8 +53,9 @@ struct AppRootView: View {
                     item.view
                         .navigationTitle(item.title)
                         .toolbar(content: {
-                            ToolbarItem(placement: .navigation){
-                                SettingsButton()
+                            ToolbarItem(placement: .navigationBarLeading){
+                                toolbar()
+                                
                             }
                         })
                 }.navigationViewStyle(StackNavigationViewStyle())
@@ -81,13 +88,21 @@ struct AppRootView: View {
             .listStyle(SidebarListStyle())
             .navigationTitle("BRICKIE_")
             .toolbar(content: {
-                ToolbarItem(placement: .navigation){
-                    SettingsButton()
+                ToolbarItem(placement: .navigationBarLeading){
+                    toolbar()
                 }
             })
             startView
         }
         .navigationViewStyle(DoubleColumnNavigationViewStyle())
+    }
+    
+    func toolbar() -> some View {
+        Button(action: {
+            self.isPresentingSettings.toggle()
+        }, label: {
+            Image(systemName: "gear")
+        })
     }
     
     var startView : some View{
