@@ -51,7 +51,7 @@ struct AppRootView: View {
                                 SettingsButton()
                             }
                         })
-                }
+                }.navigationViewStyle(StackNavigationViewStyle())
                 
                 .tabItem {
                     VStack {

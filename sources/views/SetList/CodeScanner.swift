@@ -174,8 +174,64 @@ public struct CodeScannerView: UIViewControllerRepresentable {
                        view.layer.addSublayer(previewLayer)
                        updateOrientation()
                        captureSession.startRunning()
+            
+            addLabel()
         }
 
+        func addLabel(){
+            
+            
+            let label = UILabel()
+            label.text = NSLocalizedString("scanner.message", comment: "scanner.message")
+            
+            self.view.addSubview(label)
+            label.translatesAutoresizingMaskIntoConstraints = false
+            label.textAlignment = .center
+            label.textColor = .white
+            label.font = .boldSystemFont(ofSize: 21)
+            label.layer.shadowColor = UIColor.black.cgColor
+            label.layer.shadowRadius = 3.0
+            label.layer.shadowOpacity = 1.0
+            label.layer.shadowOffset = CGSize(width: 4, height: 4)
+            label.layer.masksToBounds = false
+           
+            
+            let innerView = UIView()
+            self.view.addSubview(innerView)
+            innerView.translatesAutoresizingMaskIntoConstraints = false
+            
+            innerView.backgroundColor = .white.withAlphaComponent(0.0)
+            innerView.layer.borderWidth = 2
+            innerView.layer.borderColor = UIColor.white.cgColor
+            
+            innerView.layer.cornerRadius = 12
+            
+//            label.backgroundColor = .red
+            
+            
+            
+            
+            
+            
+            
+            
+            let constraints = [
+                innerView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 1/3),
+                innerView.leadingAnchor.constraint(equalToSystemSpacingAfter: view.leadingAnchor, multiplier: 2),
+                view.trailingAnchor.constraint(equalToSystemSpacingAfter: innerView.trailingAnchor, multiplier: 2),
+                innerView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+                innerView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+                label.bottomAnchor.constraint(equalTo: innerView.topAnchor,constant: -16),
+//                label.leftAnchor.constraint(equalTo: view.leftAnchor, constant: -40),
+//                label.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -40)
+                label.leadingAnchor.constraint(equalToSystemSpacingAfter: view.leadingAnchor, multiplier: 2),
+                view.trailingAnchor.constraint(equalToSystemSpacingAfter: label.trailingAnchor, multiplier: 2)
+
+            ]
+
+            NSLayoutConstraint.activate(constraints)
+
+        }
         override public func viewWillLayoutSubviews() {
             previewLayer?.frame = view.layer.bounds
         }

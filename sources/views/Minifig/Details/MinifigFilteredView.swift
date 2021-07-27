@@ -13,7 +13,8 @@ struct MinifigFilteredView: View {
     var theme : String
     let filter: Store.SearchFilter
     @State var requestSent : Bool = false
-    @AppStorage(Settings.figsDisplayMode) var displayMode : DisplayMode = .default
+    //@AppStorage(Settings.figsDisplayMode)
+    var displayMode : DisplayMode = .grid
 
     var items : [LegoMinifig] {
         return store.minifigs.filter({

@@ -78,7 +78,7 @@ struct LoginView: View {
             TextField("login.username", text: $username)
                 .textContentType(.username)
                 .autocapitalization(.none)
-                .textCase(.lowercase)
+//                .textCase(.lowercase)
                 .disableAutocorrection(true)
             Divider()
             SecureField("login.password", text: $password).textContentType(.password).transition(.move(edge: .bottom))

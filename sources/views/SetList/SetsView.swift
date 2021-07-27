@@ -12,12 +12,16 @@ struct SetsView: View {
     @EnvironmentObject private var  store : Store
     @State var filter : LegoListFilter = .all
     @AppStorage(Settings.setsListSorter) var sorter : LegoListSorter = .default
-
+    @State var isPresentingScanenr = false
+    
     var body: some View {
         ScrollView {
             SearchField(searchText: $store.searchSetsText).padding(.horizontal,8)
             APIIssueView(error: $store.error)
             SetsListView(items: store.mainSets,sorter:$sorter,filter: $filter)
+        }
+        .sheet(isPresented: $isPresentingScanenr) {
+            CodeScannerView(codeTypes: [.ean8, .ean13, .pdf417], completion: self.handleScan)
         }
         .toolbar{
             
@@ -29,20 +33,38 @@ struct SetsView: View {
                     EmptyView()
                 }
                 FilterSorterMenu(sorter: $sorter,
-                                    filter: $filter,
-                                    sorterAvailable: [.default,.alphabetical,.number,.older,.newer,.piece,.pieceDesc,.price,.priceDesc],
-                                    filterAvailable: store.searchSetsText.isEmpty ? [.all,.wanted] : [.all,.wanted,.owned]
+                                 filter: $filter,
+                                 sorterAvailable: [.default,.alphabetical,.number,.older,.newer,.piece,.pieceDesc,.price,.priceDesc],
+                                 filterAvailable: store.searchSetsText.isEmpty ? [.all,.wanted] : [.all,.wanted,.owned]
                 )
-                ScannerButton(code: $store.searchSetsText)
+                if store.error != nil {
+                    Button(action: {
+                        isPresentingScanenr.toggle()
+                    }, label: {
+                        Image(systemName: "barcode.viewfinder")
+                    })
+                }
+                
             }
         }
     }
-
+    
+    func handleScan(result: Result<String, CodeScannerView.ScanError>) {
+        isPresentingScanenr.toggle()
+        
+        switch result {
+        case .success(let code):
+            store.searchSetsText = code
+        case .failure(let error):
+            logerror(error)
+        }
+    }
+    
 }
 
 
 
-    
+
 
 
 
