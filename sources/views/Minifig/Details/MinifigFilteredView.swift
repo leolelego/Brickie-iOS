@@ -33,7 +33,7 @@ struct MinifigFilteredView: View {
             LazyVStack(alignment: .leading, spacing: 8, pinnedViews: [.sectionHeaders]) {
                 HStack{
                     Spacer()
-                    Text("minifig.local").foregroundColor(.background).font(.callout).bold().multilineTextAlignment(.center)
+                    Text("minifig.local").foregroundColor(.background).font(.callout).bold().multilineTextAlignment(.center).padding(6)
                     Spacer()
                 }
                 .background(Color.backgroundAlt)

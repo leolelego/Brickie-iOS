@@ -14,11 +14,14 @@ struct SetsView: View {
     @AppStorage(Settings.setsListSorter) var sorter : LegoListSorter = .default
     @State var isPresentingScanenr = false
     
+ 
+    
     var body: some View {
         ScrollView {
             SearchField(searchText: $store.searchSetsText).padding(.horizontal,8)
             APIIssueView(error: $store.error)
             SetsListView(items: store.mainSets,sorter:$sorter,filter: $filter)
+            //footer()
         }
         .sheet(isPresented: $isPresentingScanenr) {
             CodeScannerView(codeTypes: [.ean8, .ean13, .pdf417], completion: self.handleScan)
@@ -58,6 +61,20 @@ struct SetsView: View {
         case .failure(let error):
             logerror(error)
         }
+    }
+    
+    fileprivate func footer() -> some View{
+        VStack(){
+            Spacer(minLength: 16)
+            HStack{
+                Spacer()
+                Text(String(store.sets.qtyOwned)+" ").font(.lego(size: 20))
+                Image.brick
+                Spacer()
+            }
+            Spacer(minLength: 16)
+        }
+    
     }
     
 }

@@ -16,31 +16,32 @@ struct AppRootView: View {
     @AppStorage(Settings.reviewVersion) var reviewVersion : String?
     @AppStorage(Settings.rootSideSelected)  var sideSelection : Int?
     @State var isPresentingSettings = false
-
+    
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
     
     
     var body: some View {
         if store.user == nil  {
             LoginView().accentColor(.backgroundAlt)
-        } else if horizontalSizeClass == .compact  {
+        } else   { //if horizontalSizeClass == .compact
             iPhoneView.accentColor(.backgroundAlt).onAppear(perform: {
                 appStoreReview()
-//            }).alert(isPresented: $store.asError, content: {
-//                store.alert
+                //            }).alert(isPresented: $store.asError, content: {
+                //                store.alert
             }).modifier(DismissingKeyboardOnSwipe())
             .sheet(isPresented: $isPresentingSettings) {
                 SettingsView().environmentObject(store)
             }
-        } else {
-            iPadMacView.accentColor(.backgroundAlt).onAppear(perform: {
-                appStoreReview() 
-//            }).alert(isPresented: $store.asError, content: {
-//                store.alert
-            }).modifier(DismissingKeyboardOnSwipe())
-            .sheet(isPresented: $isPresentingSettings) {
-                SettingsView().environmentObject(store)
-            }
+//        } else {
+//            iPadMacView.accentColor(.backgroundAlt).onAppear(perform: {
+//                appStoreReview()
+//                limiteWindowSizeMac()
+//                //            }).alert(isPresented: $store.asError, content: {
+//                //                store.alert
+//            }).modifier(DismissingKeyboardOnSwipe())
+//            .sheet(isPresented: $isPresentingSettings) {
+//                SettingsView().environmentObject(store)
+//            }
         }
         
         
@@ -68,7 +69,7 @@ struct AppRootView: View {
                 }.tag(item.rawValue)
             }
         }
-
+        
     }
     
     var iPadMacView : some View {
@@ -80,10 +81,10 @@ struct AppRootView: View {
                                    tag: item.rawValue,
                                    selection: $sideSelection){
                         Label(item.title, image: item.imageName).font(.lego(size: 17))
-
+                        
                     }
                 }
-
+                
             }
             .listStyle(SidebarListStyle())
             .navigationTitle("BRICKIE_")
@@ -119,6 +120,16 @@ struct AppRootView: View {
                 reviewVersion = currentBuild
             }
         }
+    }
+    
+    func limiteWindowSizeMac(){
+        #if targetEnvironment(macCatalyst)
+        if let scene = UIApplication.shared.connectedScenes.first as? UIWindowScene {
+            
+            scene.sizeRestrictions?.minimumSize = CGSize(width: 640, height: 800)
+//            scene.sizeRestrictions?.maximumSize = CGSize(width: 10000, height: 110000)
+        }
+        #endif
     }
     
 }

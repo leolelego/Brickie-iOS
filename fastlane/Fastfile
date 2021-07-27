@@ -52,10 +52,13 @@ platform :ios do
       # keychain_password: keychain_pass
     )
   end
-  lane :publish do 
+
+  lane :local do
     version_update
     build_app
-
+    publish
+  end
+  lane :publish do 
     stamp_changelog(
         section_identifier: "Version #{application_version} (#{number_of_commits})",
       )
@@ -79,20 +82,7 @@ platform :ios do
 
     brch = options[:branch] ? options[:branch] : git_branch
     if ["master"].include? brch
-      stamp_changelog(
-        section_identifier: "Version #{application_version} (#{number_of_commits})",
-      )
-      changelog = read_changelog(
-          excluded_markdown_elements: ['-', '##','###']	# Specify which markdown elements should be excluded
-      )
-      
-      upload_to_testflight(
-        reject_build_waiting_for_review:true,
-        #skip_waiting_for_build_processing:false
-        groups:["Beta Public"],
-        distribute_external:true,
-        changelog:changelog
-      )
+      publish      
     end
   end
 

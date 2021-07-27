@@ -23,6 +23,7 @@ struct FigsView: View {
                 TrySyncView(count: store.minifigs.count)
             } else {
                 MinifigListView(figs: toShow ,sorter:$sorter, displayMode: displayMode)
+                //footer()
             }
         }
         .toolbar{
@@ -50,6 +51,19 @@ struct FigsView: View {
             return store.minifigsUI.filter({$0.wanted})
         case .owned:
             return store.minifigsUI.filter({$0.ownedTotal > 0})
+        }
+    }
+    
+    fileprivate func footer() -> some View{
+        VStack(){
+            Spacer(minLength: 16)
+            HStack{
+                Spacer()
+                Text(String(store.minifigs.qtyOwned)+" ").font(.lego(size: 20))
+                Image.minifig_head
+                Spacer()
+            }
+            Spacer(minLength: 16)
         }
     }
 }

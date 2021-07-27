@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct SettingsView: View {
-    
+
     @EnvironmentObject private var  store : Store
     
     @Environment(\.presentationMode) var presentationMode
@@ -87,6 +87,17 @@ struct SettingsView: View {
                     }
                 }
             }
+            .toolbar(content: {
+                ToolbarItem(placement: .navigationBarTrailing){
+                    Button {
+                        self.presentationMode.wrappedValue.dismiss()
+                    } label: {
+                        Image(systemName: "xmark")
+                    }
+
+                    
+                }
+            })
             .listStyle(GroupedListStyle())
             .environment(\.horizontalSizeClass, .regular)
             .navigationBarTitle("settings.title")

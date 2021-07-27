@@ -22,9 +22,10 @@ struct SetEditorView: View {
                         
                         Image(systemName: set.collection.wanted ? "heart.fill" : "heart").foregroundColor(.white).font(.headline)
                         Text("collection.want").fontWeight(.bold)
-                    }
                         
-                    .frame(minWidth: 0, maxWidth: .infinity)
+                    }
+
+                    .frame(minWidth: 0, maxWidth: .infinity, minHeight: 24)
                 }.buttonStyle(RoundedButtonStyle(backgroundColor: Color("purple")  )).opacity(canEdit() ? 0.6: 1.0)
                 
                 if set.collection.owned {
@@ -32,14 +33,18 @@ struct SetEditorView: View {
                         self.store.action(.qty(self.set.collection.qtyOwned-1),on: self.set)
                     }) {
                         Image(systemName: "minus").foregroundColor(.background).font(.title)
+                        .frame(minHeight: 24, alignment: .center)
+
                     }.buttonStyle(RoundedButtonStyle(backgroundColor:.backgroundAlt)).opacity(canEdit() ? 0.6 : 1.0)
+
                     Text("\(self.set.collection.qtyOwned)").font(.title).bold()
                     Button(action: {
                         self.store.action( .qty(self.set.collection.qtyOwned+1),on: self.set)
                         
                     }) {
                         Image(systemName: "plus").foregroundColor(.background).font(.title)
-                        
+                            .frame(minHeight: 24, alignment: .center)
+
                     }.buttonStyle(RoundedButtonStyle(backgroundColor:.backgroundAlt)).opacity(canEdit() ? 0.6 : 1.0)
                 } else {
                     Button(action: {
@@ -51,6 +56,7 @@ struct SetEditorView: View {
                     }.buttonStyle(RoundedButtonStyle(backgroundColor:.backgroundAlt)).opacity(canEdit() ? 0.8 : 1.0)
                 }
             }
+
             if config.connection == .unavailable {
                 Text("message.offline").font(.headline).bold().foregroundColor(.red)
             } else {
