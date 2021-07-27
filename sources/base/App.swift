@@ -33,6 +33,9 @@ struct TheApp : App {
                 .onReceive(NotificationCenter.default.publisher(for: UIApplication.willTerminateNotification)) { _ in
                     kCollection.backup()
                 }
+                .onReceive(NotificationCenter.default.publisher(for: UIApplication.didBecomeActiveNotification)) { _ in
+                    kCollection.requestForSync = true
+                }
                 .onAppear {
                     tweakThatShit()
                 }

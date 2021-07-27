@@ -95,6 +95,7 @@ class Store : ObservableObject{
             .filter{ $0 }
             .debounce(for: .seconds(2), scheduler: DispatchQueue.main)
             .sink { _ in
+                print("Sync")
                 self.sync()
             }
         
