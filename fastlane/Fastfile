@@ -22,6 +22,9 @@ platform :ios do
   lane :version_update do 
     increment_version_number(version_number:application_version)
     increment_build_number(build_number: number_of_commits)
+
+    git_commit(path: ["./Brickie.xcodeproj/project.pbxproj", "sources/assets/Info.plist"], message: "Version Bump v#{application_version} (#{number_of_commits})")
+
   end
 
   lane :tag do |options|
@@ -74,6 +77,12 @@ platform :ios do
         changelog:changelog
       )
     
+  end 
+
+  lane :ci do |options|
+    version_update
+    certificates
+    build_app
   end 
   lane :process do |options|
     version_update
