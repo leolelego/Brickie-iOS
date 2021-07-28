@@ -28,7 +28,7 @@ struct MinifigEditorView: View {
                         Text("collection.want").fontWeight(.bold)
                     }
                         
-                    .frame(minWidth: 0, maxWidth: .infinity)
+                    .frame(minWidth: 0, maxWidth: .infinity, minHeight: 24)
                 }.buttonStyle(RoundedButtonStyle(backgroundColor: Color("purple")  )).opacity(canEdit() ? 0.6 : 1.0)
                 if minifig.ownedLoose > 0 {
                     
@@ -38,7 +38,8 @@ struct MinifigEditorView: View {
                         
                     }) {
                         Image(systemName: "minus").foregroundColor(.background).font(.title)
-                        
+                            .frame(minHeight: 24, alignment: .center)
+
                     }.buttonStyle(RoundedButtonStyle(backgroundColor:.backgroundAlt)).opacity(canEdit() ? 0.6 : 1.0)
                     Text("\(self.minifig.ownedLoose)").font(.title).bold() + Text("minifig.loose")
                     Button(action: {
@@ -46,7 +47,8 @@ struct MinifigEditorView: View {
                         
                     }) {
                         Image(systemName: "plus").foregroundColor(.background).font(.title)
-                        
+                            .frame(minHeight: 24, alignment: .center)
+
                     }.buttonStyle(RoundedButtonStyle(backgroundColor:.backgroundAlt)).opacity(canEdit() ? 0.6 : 1.0)
                 } else {
                     Button(action: {
