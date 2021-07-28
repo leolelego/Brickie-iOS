@@ -685,7 +685,7 @@
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 192;
-				DEVELOPMENT_TEAM = Z22Q8S6MMK;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = sources/assets/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.1;

@@ -81,7 +81,7 @@ platform :ios do
 
   lane :ci do |options|
     version_update
-    # certificates
+    certificates
     build_app
   end 
   lane :process do |options|

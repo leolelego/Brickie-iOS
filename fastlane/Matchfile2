@@ -1,0 +1,4 @@
+git_url(ENV["MATCH_URL"])
+git_branch(ENV["MATCH_BRANCH"])
+app_identifier(ENV["APP_IDENTIFIER"])
+username(ENV["FASTLANE_USER"])
