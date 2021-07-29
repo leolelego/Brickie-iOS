@@ -15,10 +15,12 @@ struct SettingsView: View {
     @Environment(\.presentationMode) var presentationMode
     
     let feedbacks = [
+        Credit(text: "credit.email", link: URL(string:kFeedbackMailto)!,image: Image(systemName:"envelope.fill")),
         Credit(text: "credit.github", link: URL(string: "https://github.com/leolelego/BrickSet")!,image: Image("github")),
         //Credit(text: "credit.instagram", link: URL(string: "https://instagram.com/leolelego")!,image: Image("instagram")),
         Credit(text: "credit.twitter", link: URL(string: "https://twitter.com/leolelego")!,image: Image("twitter"))
     ]
+    
     @State var logout = false
     
     var body: some View {

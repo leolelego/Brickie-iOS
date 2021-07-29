@@ -46,6 +46,7 @@ struct LoginView: View {
                     
                 }
             }
+            makeFeedback()
             makeBrickSet()
             
         }
@@ -124,7 +125,16 @@ struct LoginView: View {
         ).disabled(username.isEmpty || password.isEmpty || loading)
     }
     
-    
+    func makeFeedback() -> some View {
+        VStack(alignment: .leading, spacing: 0){
+            Button(action: {
+                UIApplication.shared.open(URL(string: kFeedbackMailto)!)
+            }, label: {
+                Text("login.feedback").font(.caption)
+                    .foregroundColor(.gray)
+            })
+        }.offset( y: 64)
+    }
     func makeBrickSet() -> some View {
         VStack(alignment: .leading, spacing: 0){
             Text("login.powerby").bold().foregroundColor(.backgroundAlt)
