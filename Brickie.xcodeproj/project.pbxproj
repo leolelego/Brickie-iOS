@@ -468,7 +468,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "set -e\n\n\n\nPLIST=\"${BUILT_PRODUCTS_DIR}/${INFOPLIST_PATH%.*}\"\n\nif [[ -d \"${SRCROOT}/.git\" ]];\nthen\n\n    COMMIT=$(git --git-dir=\"${SRCROOT}/.git\" rev-parse HEAD)\n\n\n    defaults write \"${PLIST}\" \"CFBundleVersion\"            -string \"${COMMIT}\"\n    defaults write \"${PLIST}\" \"Commit\"                     -string \"${COMMIT}\"\n\nelse\n\n    echo \"warning: Building outside Git. Leaving version number untouched.\"\n\nfi\n\necho \"CFBundleIdentifier:\"         \"$(defaults read \"${PLIST}\" CFBundleIdentifier)\"\necho \"CFBundleShortVersionString:\" \"$(defaults read \"${PLIST}\" CFBundleShortVersionString)\"\necho \"CFBundleVersion:\"            \"$(defaults read \"${PLIST}\" CFBundleVersion)\"\n";
+			shellScript = "if [ \"${CONFIGURATION}\" = \"Debug\" ]; then\n  bundle exec fastlane build_update\nfi\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -684,7 +684,7 @@
 				CODE_SIGN_ENTITLEMENTS = sources/assets/BrickSet.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 210;
+				CURRENT_PROJECT_VERSION = 211;
 				DEVELOPMENT_TEAM = Z22Q8S6MMK;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = sources/assets/Info.plist;
@@ -712,7 +712,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 210;
+				CURRENT_PROJECT_VERSION = 211;
 				DEVELOPMENT_TEAM = Z22Q8S6MMK;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = sources/assets/Info.plist;
