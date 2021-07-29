@@ -43,16 +43,18 @@ struct FigsView: View {
         }
     }
     
-    var toShow : [LegoMinifig] {
+    var toShow : [LegoMinifig] {        
         switch filter {
         case .all:
-            return store.minifigsUI
+            return  store.minifigsUI
         case .wanted:
-            return store.minifigsUI.filter({$0.wanted})
+            return  store.searchMinifigsText.isEmpty ? store.minifigs.filter({$0.wanted}) : store.minifigsUI.filter({$0.wanted})
         case .owned:
             return store.minifigsUI.filter({$0.ownedTotal > 0})
         }
     }
+    
+    
     
     fileprivate func footer() -> some View{
         VStack(){

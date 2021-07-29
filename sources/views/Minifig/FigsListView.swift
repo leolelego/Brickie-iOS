@@ -94,14 +94,14 @@ struct MinifigListView: View {
             
             ForEach(values) { value in
                 NavigationLink(destination: MinifigDetailView(minifig: value)){
-                    FigsGridCell(minifig: value)
+                    FigsGridCell(minifig: value).id(value.id)
                     
-                }
+                }.id(value.id)
                 .contentShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
                 .padding(16)
                 .contextMenu{
                     contextMenuContent(value)
-                }
+                }.id(value.id)
                 
             }
         }

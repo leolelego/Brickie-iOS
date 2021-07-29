@@ -13,8 +13,6 @@ struct MinifigFilteredView: View {
     var theme : String
     let filter: Store.SearchFilter
     @State var requestSent : Bool = false
-    //@AppStorage(Settings.figsDisplayMode)
-    var displayMode : DisplayMode = .grid
 
     var items : [LegoMinifig] {
         return store.minifigs.filter({
@@ -39,7 +37,7 @@ struct MinifigFilteredView: View {
                 .background(Color.backgroundAlt)
                 .modifier(RoundedShadowMod())
                 .padding(8)
-                MinifigListView(figs: items,sorter: .constant(.default),displayMode: displayMode)
+                MinifigListView(figs: items,sorter: .constant(.default),displayMode: .grid)
             }
         }
         .navigationBarItems(trailing:
