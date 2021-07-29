@@ -468,7 +468,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "#!/bin/bash\n\ngit=$(sh /etc/profile; which git)\nnumber_of_commits=$(\"$git\" rev-list HEAD --count)\n\ntarget_plist=\"$TARGET_BUILD_DIR/$INFOPLIST_PATH\"\ndsym_plist=\"$DWARF_DSYM_FOLDER_PATH/$DWARF_DSYM_FILE_NAME/Contents/Info.plist\"\n\nfor plist in \"$target_plist\" \"$dsym_plist\"; do\n  if [ -f \"$plist\" ]; then\n    /usr/libexec/PlistBuddy -c \"Set :CFBundleVersion ${number_of_commits}\" \"$plist\"\n  fi\ndone\n\nsettings_root_plist=\"$TARGET_BUILD_DIR/$PRODUCT_NAME.app/Settings.bundle/Root.plist\"\n\nif [ -f \"$settings_root_plist\" ]; then\n  settingsVersion=\"$APP_MARKETING_VERSION (${number_of_commits})\"\n  /usr/libexec/PlistBuddy -c \"Set :PreferenceSpecifiers:1:DefaultValue $settingsVersion\" \"$settings_root_plist\"\nelse\n  echo \"Could not find: $settings_root_plist\"\n  exit 0\nfi\n";
+			shellScript = "#!/bin/bash\n\ngit=$(sh /etc/profile; which git)\nnumber_of_commits=$(git rev-list HEAD --count)\n\ntarget_plist=\"$TARGET_BUILD_DIR/$INFOPLIST_PATH\"\ndsym_plist=\"$DWARF_DSYM_FOLDER_PATH/$DWARF_DSYM_FILE_NAME/Contents/Info.plist\"\n\nfor plist in \"$target_plist\" \"$dsym_plist\"; do\n  if [ -f \"$plist\" ]; then\n    /usr/libexec/PlistBuddy -c \"Set :CFBundleVersion ${number_of_commits}\" \"$plist\"\n  fi\ndone\n\nsettings_root_plist=\"$TARGET_BUILD_DIR/$PRODUCT_NAME.app/Settings.bundle/Root.plist\"\n\nif [ -f \"$settings_root_plist\" ]; then\n  settingsVersion=\"$APP_MARKETING_VERSION (${number_of_commits})\"\n  /usr/libexec/PlistBuddy -c \"Set :PreferenceSpecifiers:1:DefaultValue $settingsVersion\" \"$settings_root_plist\"\nelse\n  echo \"Could not find: $settings_root_plist\"\n  exit 0\nfi\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -684,7 +684,7 @@
 				CODE_SIGN_ENTITLEMENTS = sources/assets/BrickSet.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 208;
 				DEVELOPMENT_TEAM = Z22Q8S6MMK;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = sources/assets/Info.plist;
@@ -712,7 +712,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 208;
 				DEVELOPMENT_TEAM = Z22Q8S6MMK;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = sources/assets/Info.plist;
