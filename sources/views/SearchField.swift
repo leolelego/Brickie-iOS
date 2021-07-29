@@ -32,6 +32,7 @@ struct SearchField: View {
                 .foregroundColor(Color.background)
                 .font(.headline)
                 .accentColor(.red)
+                .disableAutocorrection(true)
             }
             if !searchText.isEmpty {
                 Button(action: {

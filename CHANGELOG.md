@@ -1,5 +1,5 @@
 1.3.3
-- fix that wanted item show only owned and wanted (thanks Ryan from Github)
+- fix: wanted filter shows only owned + wanted minifures, now you can see only wanted that are not owned (thanks Ryan from Github)
 1.3.2
 - add email for feedback in settings and login
 1.3.1

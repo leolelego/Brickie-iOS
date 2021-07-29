@@ -27,6 +27,11 @@ platform :ios do
 
   end
 
+  lane :build_update do
+    increment_build_number(build_number: number_of_commits)
+    git_commit(path: ["./Brickie.xcodeproj/project.pbxproj", "sources/assets/Info.plist"], message: "Version Bump v#{application_version} (#{number_of_commits})")
+
+  end
   lane :tag do |options|
     tag_name = "v#{appVersion}_#{number_of_commits}"
     add_git_tag(tag: tag_name)
