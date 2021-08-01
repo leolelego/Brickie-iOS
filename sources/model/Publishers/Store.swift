@@ -96,7 +96,6 @@ class Store : ObservableObject{
             .filter{ $0 }
             .debounce(for: .seconds(2), scheduler: DispatchQueue.main)
             .sink { _ in
-                print("Sync")
                 self.sync()
             }
         
@@ -233,7 +232,6 @@ extension Store {
     
     
     func append(_ new:[LegoMinifig]){
-        print("START")
         var toAppend = [LegoMinifig]()
         let u = Array(Set(new))
         
@@ -255,11 +253,7 @@ extension Store {
             for item in self.minifigs {
                 item.wanted = wanted.contains(item)
             }
-            print("APPEND WANTED")
             self.append(wanted)
-            print("END APPEND WANTED")
-            
-            
         }
         
         
@@ -275,12 +269,7 @@ extension Store {
                 item.ownedInSets = dbItem?.ownedLoose ?? 0
                 item.ownedTotal = dbItem?.ownedLoose ?? 0
             }
-            print(" APPEND oWNED")
-            
             self.append(owned)
-            print("END oWNED OWNED")
-            
-            
         }
         
         let urls = owned.compactMap { return URL(string:$0.imageUrl) }

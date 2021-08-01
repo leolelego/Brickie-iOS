@@ -177,9 +177,6 @@ public struct CodeScannerView: UIViewControllerRepresentable {
                        captureSession.startRunning()
             
             addLabel()
-            
-            print("Navigation Bar \(parent?.parent?.navigationController)")
-            navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
         }
 
         func addLabel(){
