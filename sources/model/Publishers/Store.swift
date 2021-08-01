@@ -236,8 +236,10 @@ extension Store {
         let u = Array(Set(new))
         
         for fig in u {
-            if let existing = self.minifigs.first(where: {$0.id == fig.id}){
-                existing.update(from: fig)
+            if let idx  = self.minifigs.firstIndex(of: fig){
+                DispatchQueue.main.async {
+                    self.minifigs[idx].update(from: fig)
+                }
             } else {
                 toAppend.append(fig)
             }
@@ -321,8 +323,10 @@ extension Store {
         let unique = Array(Set(new))
         
         for set in unique {
-            if let set = sets.first(where: {set.setID == $0.id}){
-                set.update(from: set)
+            if let idx = sets.firstIndex(of: set){
+                DispatchQueue.main.async {
+                    self.sets[idx].update(from: set)
+                }
             } else {
                 toAppend.append(set)
             }
