@@ -378,10 +378,10 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 96E78B8C245CAC290032F4E3 /* Build configuration list for PBXNativeTarget "Brickie" */;
 			buildPhases = (
+				B3A0BB3E26B3705300A68341 /* Update Build Number */,
 				96E78B74245CAC270032F4E3 /* Sources */,
 				96E78B75245CAC270032F4E3 /* Frameworks */,
 				96E78B76245CAC270032F4E3 /* Resources */,
-				B3A0BB3E26B3705300A68341 /* Update Build Number */,
 			);
 			buildRules = (
 			);
@@ -685,7 +685,7 @@
 				CODE_SIGN_ENTITLEMENTS = sources/assets/BrickSet.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 222;
+				CURRENT_PROJECT_VERSION = 0;
 				DEVELOPMENT_TEAM = Z22Q8S6MMK;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = sources/assets/Info.plist;
@@ -713,7 +713,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 222;
+				CURRENT_PROJECT_VERSION = 0;
 				DEVELOPMENT_TEAM = Z22Q8S6MMK;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = sources/assets/Info.plist;
