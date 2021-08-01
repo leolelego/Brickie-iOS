@@ -96,8 +96,6 @@ struct SettingsView: View {
                     } label: {
                         Image(systemName: "xmark")
                     }
-
-                    
                 }
             })
             .listStyle(GroupedListStyle())

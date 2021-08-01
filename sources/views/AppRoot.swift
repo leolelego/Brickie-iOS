@@ -25,7 +25,7 @@ struct AppRootView: View {
             LoginView().accentColor(.backgroundAlt)
         } else   { //if horizontalSizeClass == .compact
             iPhoneView.accentColor(.backgroundAlt).onAppear(perform: {
-                appStoreReview()
+//                appStoreReview()
                 //            }).alert(isPresented: $store.asError, content: {
                 //                store.alert
             }).modifier(DismissingKeyboardOnSwipe())

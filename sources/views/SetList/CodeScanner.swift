@@ -82,6 +82,7 @@ public struct CodeScannerView: UIViewControllerRepresentable {
                 stackView.trailingAnchor.constraint(equalTo: view.layoutMarginsGuide.trailingAnchor),
                 stackView.centerYAnchor.constraint(equalTo: view.centerYAnchor)
             ])
+ 
         }
 
         override public func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -176,6 +177,9 @@ public struct CodeScannerView: UIViewControllerRepresentable {
                        captureSession.startRunning()
             
             addLabel()
+            
+            print("Navigation Bar \(parent?.parent?.navigationController)")
+            navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
         }
 
         func addLabel(){

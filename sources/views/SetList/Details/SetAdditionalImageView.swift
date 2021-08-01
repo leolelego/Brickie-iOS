@@ -26,11 +26,11 @@ struct SetAdditionalImageView: View {
         }
         let dragGesture =
             DragGesture()
-                .onChanged { value in
-                    if self.scale  > 1 {
-                        self.currentPosition = CGSize(width: value.translation.width + self.newPosition.width, height: value.translation.height + self.newPosition.height)
-                    }
-                    
+            .onChanged { value in
+                if self.scale  > 1 {
+                    self.currentPosition = CGSize(width: value.translation.width + self.newPosition.width, height: value.translation.height + self.newPosition.height)
+                }
+                
             }
             .onEnded { value in
                 if self.scale  > 1 {
@@ -38,33 +38,44 @@ struct SetAdditionalImageView: View {
                     self.currentPosition = CGSize(width: value.translation.width + self.newPosition.width, height: value.translation.height + self.newPosition.height)
                     self.newPosition = self.currentPosition
                 }
-        }
+            }
         
         let dragBeforePinch = dragGesture.exclusively(before: scaleGesture)
-        return VStack {
-            Spacer()
-            makeIt()
-                .scaleEffect(self.scale)
-                .offset(x: self.currentPosition.width, y: self.currentPosition.height)
+        return
+            NavigationView{
+                VStack {
+                    Spacer()
+                    makeIt()
+                        .scaleEffect(self.scale)
+                        .offset(x: self.currentPosition.width, y: self.currentPosition.height)
+                        .gesture(dragBeforePinch)
+                    Spacer()
+                }
+                .toolbar(content: {
+                    ToolbarItem(placement: .navigationBarTrailing){
+                        Button {
+                            self.isPresented.toggle()
+                        } label: {
+                            Image(systemName: "xmark")
+                        }
+                    }
+                }).navigationBarTitle("", displayMode: .inline)
+                .onTapGesture {
+                    self.lastScale = 1.0
+                    self.scale = 1.0
+                    self.currentPosition = .zero
+                    self.newPosition = .zero
+                }
                 
-                .gesture(dragBeforePinch)
-            Spacer()
-            
-            
-        }
-        .onTapGesture {
-            self.lastScale = 1.0
-            self.scale = 1.0
-            self.currentPosition = .zero
-            self.newPosition = .zero
-        }
-            
-            
-        .edgesIgnoringSafeArea(.all)
+                
+            }
+            .accentColor(.backgroundAlt)
+            .edgesIgnoringSafeArea(.all)
+
+        
     }
     
     func makeIt()-> some View {
-        print("RUL : \(url)")
         return WebImage(url: URL(string: url), options: [.progressiveLoad, .delayPlaceholder])
             .resizable()
             .placeholder(Image.wifiError.resizable())

@@ -14,7 +14,7 @@ struct SetsView: View {
     @AppStorage(Settings.setsListSorter) var sorter : LegoListSorter = .default
     @State var isPresentingScanenr = false
     
- 
+    
     
     var body: some View {
         ScrollView {
@@ -24,7 +24,7 @@ struct SetsView: View {
             //footer()
         }
         .sheet(isPresented: $isPresentingScanenr) {
-            CodeScannerView(codeTypes: [.ean8, .ean13, .pdf417], completion: self.handleScan)
+            makeScanner()
         }
         .toolbar{
             
@@ -40,18 +40,34 @@ struct SetsView: View {
                                  sorterAvailable: [.default,.alphabetical,.number,.older,.newer,.piece,.pieceDesc,.price,.priceDesc],
                                  filterAvailable: store.searchSetsText.isEmpty ? [.all,.wanted] : [.all,.wanted,.owned]
                 )
-//                if store.error == nil {
-                    Button(action: {
-                        isPresentingScanenr.toggle()
-                    }, label: {
-                        Image(systemName: "barcode.viewfinder")
-                    })
-//                }
+                //                if store.error == nil {
+                Button(action: {
+                    isPresentingScanenr.toggle()
+                }, label: {
+                    Image(systemName: "barcode.viewfinder")
+                })
+                //                }
                 
             }
         }
     }
     
+    func makeScanner() -> some View{
+        NavigationView{
+            CodeScannerView(codeTypes: [.ean8, .ean13, .pdf417], completion: self.handleScan)
+                .toolbar(content: {
+                    ToolbarItem(placement: .navigationBarTrailing){
+                        Button {
+                            self.isPresentingScanenr.toggle()
+                        } label: {
+                            Image(systemName: "xmark")
+                        }
+                    }
+                }).navigationBarTitle("", displayMode: .inline)
+            
+        }
+        .accentColor(.backgroundAlt)
+    }
     func handleScan(result: Result<String, CodeScannerView.ScanError>) {
         isPresentingScanenr.toggle()
         
@@ -74,7 +90,7 @@ struct SetsView: View {
             }
             Spacer(minLength: 16)
         }
-    
+        
     }
     
 }
