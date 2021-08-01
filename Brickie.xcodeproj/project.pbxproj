@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 53;
+	objectVersion = 54;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -454,6 +454,7 @@
 /* Begin PBXShellScriptBuildPhase section */
 		B3A0BB3E26B3705300A68341 /* Update Build Number */ = {
 			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
 			buildActionMask = 2147483647;
 			files = (
 			);
@@ -468,7 +469,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if [ \"${CONFIGURATION}\" = \"Release\" ]; then\n  bundle exec fastlane build_update\nfi\n";
+			shellScript = "#if [ \"${CONFIGURATION}\" = \"Release\" ]; then\n#  bundle exec fastlane build_update\n#fi\n\nif [ ${CONFIGURATION} == \"Release\" ]; then\n    buildNumber=$(git rev-list HEAD | wc -l | tr -d ' ')\n    /usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $buildNumber\" \"${PROJECT_DIR}/${INFOPLIST_FILE}\"\nfi\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
