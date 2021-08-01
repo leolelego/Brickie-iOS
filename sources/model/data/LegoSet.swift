@@ -23,7 +23,7 @@ let currencyFormatter : NumberFormatter = {
     }
     return f
 }()
-class LegoSet : Lego {
+class LegoSet : Lego, Hashable {
     var setID : Int = 0
     var number : String = ""
     var name : String = ""
@@ -80,7 +80,11 @@ class LegoSet : Lego {
     static func == (lhs: LegoSet, rhs: LegoSet) -> Bool {
         return lhs.id == rhs.id
     }
- 
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(name)
+        hasher.combine(setID)
+        hasher.combine(category)
+    }
     
     func update(from: LegoSet){
         objectWillChange.send()
@@ -121,7 +125,7 @@ extension Array where  Element:LegoSet {
     }
 }
 
-struct LegoSetImage : Codable {
+struct LegoSetImage : Codable,Equatable {
     var thumbnailURL : String?
     var imageURL : String?
 }
@@ -143,7 +147,7 @@ struct LegoSetPrice : Codable {
     let retailPrice : Float?
 }
 
-struct LegoInstruction : Codable {
+struct LegoInstruction : Codable,Equatable {
     let URL : String
     let description : String
 }

@@ -16,6 +16,7 @@ import SDWebImage
 class Store : ObservableObject{
     
     let keychain = KeychainSwift()
+    let serialQueue = DispatchQueue(label: "store.serial.queue")
     
     @Published private(set) var sets = [LegoSet]()
     @Published private(set) var minifigs = [LegoMinifig]()
@@ -216,7 +217,7 @@ class Store : ObservableObject{
     var alert: Alert {
         Alert(title:Text("apierror.title"), message: Text(error?.localizedDescription ?? "error.noapiresponse"), dismissButton: .default(Text("Ok")){
             DispatchQueue.main.async {
-//                self.asError = false
+                //                self.asError = false
                 self.isLoadingData = false
             }
             
@@ -232,10 +233,13 @@ extension Store {
     
     
     func append(_ new:[LegoMinifig]){
+        print("START")
         var toAppend = [LegoMinifig]()
-        for fig in new {
-            if let idx = self.minifigs.firstIndex(of: fig){
-                self.minifigs[idx].update(from: fig)
+        let u = Array(Set(new))
+        
+        for fig in u {
+            if let existing = self.minifigs.first(where: {$0.id == fig.id}){
+                existing.update(from: fig)
             } else {
                 toAppend.append(fig)
             }
@@ -251,7 +255,10 @@ extension Store {
             for item in self.minifigs {
                 item.wanted = wanted.contains(item)
             }
+            print("APPEND WANTED")
             self.append(wanted)
+            print("END APPEND WANTED")
+            
             
         }
         
@@ -268,7 +275,12 @@ extension Store {
                 item.ownedInSets = dbItem?.ownedLoose ?? 0
                 item.ownedTotal = dbItem?.ownedLoose ?? 0
             }
+            print(" APPEND oWNED")
+            
             self.append(owned)
+            print("END oWNED OWNED")
+            
+            
         }
         
         let urls = owned.compactMap { return URL(string:$0.imageUrl) }
@@ -317,19 +329,18 @@ extension Store {
         // This should be called in main thread
         
         var toAppend = [LegoSet]()
-        for set in new {
-            if let idx = self.sets.firstIndex(of: set){
-                DispatchQueue.main.async {
-                    self.sets[idx].update(from: set)
-                }
+        let unique = Array(Set(new))
+        
+        for set in unique {
+            if let set = sets.first(where: {set.setID == $0.id}){
+                set.update(from: set)
             } else {
                 toAppend.append(set)
             }
         }
-        DispatchQueue.main.async {
-            self.objectWillChange.send()
-            self.sets.append(contentsOf: toAppend)
-        }
+        self.objectWillChange.send()
+        self.sets.append(contentsOf: toAppend)
+        
         
         
         

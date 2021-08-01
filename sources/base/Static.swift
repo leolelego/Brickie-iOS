@@ -7,4 +7,6 @@
 //
 
 import Foundation
-let kFeedbackMailto = "mailto:brickieapp@icloud.com?subject=Brickie App Feedback".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
+let kAppversion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "0.0"
+let kAppBuild = Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? "0"
+let kFeedbackMailto = "mailto:brickieapp@icloud.com?subject=Brickie App Feedback v\(kAppversion) (\(kAppBuild))".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!

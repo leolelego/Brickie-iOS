@@ -76,7 +76,7 @@ struct SettingsView: View {
                 }
                 
                 
-                Section(header: Text("settings.feedbacks"),footer: makeBrickSet()) {
+                Section(header: Text("settings.feedbacks"),footer: makeFooter()) {
                     ForEach(feedbacks){ c in
                         Button(action: {
                             UIApplication.shared.open(c.link)
@@ -134,10 +134,27 @@ struct SettingsView: View {
             Spacer()
         }
     }
+    
+    func makeFooter() -> some View {
+        VStack(alignment: .leading, spacing: 16, content: {
+            makeBrickSet()
+            makeAppVersion()
+        
+        })
+    }
     func makeBrickSet() -> some View {
         HStack(alignment: .center, spacing: 8){
             Text("login.powerby").bold().foregroundColor(.backgroundAlt)
             Image("brickset_logo")
+        }
+        
+    }
+    func makeAppVersion() -> some View {
+        HStack(alignment: .center, spacing: 8){
+            Spacer()
+            Text("v\(kAppversion) (\(kAppBuild))").font(.footnote)
+            Spacer()
+
         }
         
     }

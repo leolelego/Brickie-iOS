@@ -1,4 +1,6 @@
 1.4.0
+- Add version number to settings view for feedback
+- Fix issue where app crash when scrolling because API Send multiple time the same item
 - Add a cross to close detail image view
 1.3.3
 - fix: wanted filter shows only owned + wanted minifures, now you can see only wanted that are not owned (thanks Ryan from Github)
