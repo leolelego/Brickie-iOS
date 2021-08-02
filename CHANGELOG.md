@@ -1,3 +1,5 @@
+1.3.4
+- fix an issue where API issue is showned in case of bad login infos
 1.3.3
 - fix: wanted filter shows only owned + wanted minifures, now you can see only wanted that are not owned (thanks Ryan from Github)
 1.3.2

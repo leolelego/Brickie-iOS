@@ -10,13 +10,13 @@ import Foundation
 import SwiftUI
 enum APIError : Error {
     case unknown
-    case badLogin
     case malformed
     case invalid
+    case badData
 
     var localizedDescription: LocalizedStringKey {
         switch self {
-        case .badLogin:
+        case .badData:
             return "error.badlogin"
         case .invalid:
             return "error.noapiresponse"
