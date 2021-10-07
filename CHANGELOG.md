@@ -2,6 +2,7 @@
 - Add version number to settings view for feedback
 - Fix issue where app crash when scrolling because API Send multiple time the same item
 - Add a cross to close detail image view
+- add support of UPC code in scanner
 1.3.5
 - fix iOS 15 issue where Search field not responding - Use the new Search field feature so app is iOS 15 minimum now
 1.3.4

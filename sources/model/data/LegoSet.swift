@@ -92,6 +92,7 @@ class LegoSet : Lego, Hashable {
     }
     
     func matchString(_ search: String) -> Bool {
+        
         let matched = name.lowercased().contains(search)
             || number.lowercased().contains(search)
             || theme.lowercased().contains(search)
@@ -100,6 +101,7 @@ class LegoSet : Lego, Hashable {
             || category.lowercased().contains(search)
             || "\(year)".lowercased().contains(search)
             || barcode?.EAN?.contains(search) ?? false
+            || barcode?.UPC?.contains(search) ?? false
         
         return matched
     }
@@ -154,4 +156,5 @@ struct LegoInstruction : Codable,Equatable {
 
 struct LegoBarCode : Codable {
     let EAN : String?
+    let UPC : String?
 }

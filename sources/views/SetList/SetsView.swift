@@ -57,7 +57,7 @@ struct SetsView: View {
     
     func makeScanner() -> some View{
         NavigationView{
-            CodeScannerView(codeTypes: [.ean8, .ean13, .pdf417], completion: self.handleScan)
+            CodeScannerView(codeTypes: [.ean8, .ean13,.upce, .pdf417], completion: self.handleScan)
                 .toolbar(content: {
                     ToolbarItem(placement: .navigationBarTrailing){
                         Button {
@@ -76,7 +76,11 @@ struct SetsView: View {
         
         switch result {
         case .success(let code):
-            store.searchSetsText = code
+            var theCode = code
+            if code.first == "0"{
+                theCode.removeFirst()
+            }
+            store.searchSetsText = theCode
         case .failure(let error):
             logerror(error)
         }
