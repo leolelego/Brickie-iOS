@@ -64,7 +64,6 @@ struct SetAdditionalImageView: View {
     }
     
     func makeIt()-> some View {
-        print("RUL : \(url)")
         return WebImage(url: URL(string: url), options: [.progressiveLoad, .delayPlaceholder])
             .resizable()
             .placeholder(Image.wifiError.resizable())
