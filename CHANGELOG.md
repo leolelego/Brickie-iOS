@@ -1,3 +1,5 @@
+1.3.5
+- fix iOS 15 issue where Search field not responding - Use the new Search field feature so app is iOS 15 minimum now
 1.3.4
 - fix an issue where API issue is showned in case of bad login infos
 1.3.3

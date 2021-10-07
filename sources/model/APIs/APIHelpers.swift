@@ -13,10 +13,11 @@ enum APIError : Error {
     case malformed
     case invalid
     case badData
+    case invalidUserHash // Log out - Change password
 
     var localizedDescription: LocalizedStringKey {
         switch self {
-        case .badData:
+        case .badData,.invalidUserHash:
             return "error.badlogin"
         case .invalid:
             return "error.noapiresponse"

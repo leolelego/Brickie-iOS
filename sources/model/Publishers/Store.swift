@@ -210,6 +210,11 @@ class Store : ObservableObject{
         if (err as NSError).code != -1009 {
             DispatchQueue.main.async{
                 self.error = (err as? APIError) ?? APIError.unknown
+                if self.error == .invalidUserHash {
+                    self.user = nil
+                    self.reset()
+                    self.error = nil
+                }
             }
         }
     }

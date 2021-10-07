@@ -63,7 +63,7 @@ struct LoginView: View {
                                 .fill(Color.white))
                 .rotationEffect(Angle(degrees:loading ? 320 : 0))
                 .offset(y: loading ? -600 : 0)
-                .animation(Animation.interpolatingSpring(stiffness: 170, damping: 5))
+                .animation(Animation.interpolatingSpring(stiffness: 170, damping: 5),value: loading)
             Text("login.welcome").bold()
             Text(" BRICKIE ").font(.lego(size: 32)).foregroundColor(.white)
                 .padding(.top,4)

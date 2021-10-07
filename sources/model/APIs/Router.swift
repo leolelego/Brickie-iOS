@@ -210,8 +210,12 @@ extension APIRouter {
                 
                 if let items = dict[self.subkey] as? T {
                     completion(.success(items))
-                } else if let _ = dict["message"] as? String {
-                    completion(.failure(APIError.badData))
+                } else if let mess = dict["message"] as? String {
+                    if mess.contains("Invalid user hash") {
+                        completion(.failure(APIError.invalidUserHash))
+                    } else {
+                        completion(.failure(APIError.badData))
+                    }
                 } else {
                     completion(.failure(APIError.malformed))
 
