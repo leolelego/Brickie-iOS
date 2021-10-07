@@ -144,8 +144,8 @@ enum AppPanel : Int,CaseIterable {
     }
     var image : Image {
         switch self {
-        case .minifigures: return Image.brick
-        default: return Image.minifig_head
+        case .minifigures: return Image.minifig_head
+        default: return Image.brick
         }
     }
     
