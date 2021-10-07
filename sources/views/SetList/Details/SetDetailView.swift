@@ -147,20 +147,7 @@ struct SetDetailView: View {
                     ScrollView (.horizontal, showsIndicators: false) {
                         HStack(spacing: 16){
                             ForEach(set.additionalImages!, id: \.thumbnailURL){ image in
-//                                NavigationLink(
-//                                    destination: SetAdditionalImageView(isPresented: self.$isImageDetailPresented, url: image.imageURL ?? "" ),
-//                                    label: {
-//                                        WebImage(url: URL(string: image.thumbnailURL ?? ""))
-//
-//                                            .resizable()
-//                                            .renderingMode(.original)
-//                                            .indicator(.activity)
-//                                            .transition(.fade)
-//                                            .aspectRatio(contentMode: .fill)
-//                                        .modifier(RoundedShadowMod())
-//                                    }//.disabled(!SDImageCache.shared.diskImageDataExists(withKey: image.imageURL) && self.config.connection == .unavailable)
-//
-//                                    )
+
                                 Button(action: {
                                         self.detailImageUrl = image.imageURL ?? ""
                                         self.isImageDetailPresented.toggle()
