@@ -10,6 +10,7 @@ import SwiftUI
 
 struct FigsView: View {
     @EnvironmentObject private var  store : Store
+    @EnvironmentObject var config : Configuration
     @State var filter : LegoListFilter = .all
     @AppStorage(Settings.figsListSorter) var sorter : LegoListSorter = .default
     @AppStorage(Settings.figsDisplayMode) var displayMode : DisplayMode = .default
@@ -17,7 +18,6 @@ struct FigsView: View {
     
     var body: some View {
         ScrollView {
-            SearchField(searchText: $store.searchMinifigsText).padding(.horizontal,8)
             APIIssueView(error: $store.error)
             if toShow.count == 0 {
                 TrySyncView(count: store.minifigs.count)
@@ -26,6 +26,8 @@ struct FigsView: View {
                 //footer()
             }
         }
+        .searchable(text: $store.searchMinifigsText,
+                    prompt: config.connection == .unavailable ? "search.placeholderoffline":"search.placeholder").disableAutocorrection(true)
         .toolbar{
             ToolbarItemGroup(placement: .navigationBarTrailing){
                 if store.isLoadingData {

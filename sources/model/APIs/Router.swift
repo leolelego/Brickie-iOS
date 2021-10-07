@@ -202,15 +202,26 @@ extension APIRouter {
                 completion(.failure(err))
                 break
             case .success(let jsonObj):
-                guard let dict = jsonObj as? [String:Any],
-                    let items = dict[self.subkey] as? T
+                guard let dict = jsonObj as? [String:Any]
                     else {
                         completion(.failure(APIError.invalid))
                         return
                 }
                 
-                completion(.success(items))
+                if let items = dict[self.subkey] as? T {
+                    completion(.success(items))
+                } else if let mess = dict["message"] as? String {
+                    if mess.contains("Invalid user hash") {
+                        completion(.failure(APIError.invalidUserHash))
+                    } else {
+                        completion(.failure(APIError.badData))
+                    }
+                } else {
+                    completion(.failure(APIError.malformed))
+
+                }
                 break
+
             }
         }
     }

@@ -10,13 +10,14 @@ import Foundation
 import SwiftUI
 enum APIError : Error {
     case unknown
-    case badLogin
     case malformed
     case invalid
+    case badData
+    case invalidUserHash // Log out - Change password
 
     var localizedDescription: LocalizedStringKey {
         switch self {
-        case .badLogin:
+        case .badData,.invalidUserHash:
             return "error.badlogin"
         case .invalid:
             return "error.noapiresponse"

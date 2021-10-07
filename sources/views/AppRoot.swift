@@ -23,25 +23,12 @@ struct AppRootView: View {
     var body: some View {
         if store.user == nil  {
             LoginView().accentColor(.backgroundAlt)
-        } else   { //if horizontalSizeClass == .compact
-            iPhoneView.accentColor(.backgroundAlt).onAppear(perform: {
-//                appStoreReview()
-                //            }).alert(isPresented: $store.asError, content: {
-                //                store.alert
-            }).modifier(DismissingKeyboardOnSwipe())
-            .sheet(isPresented: $isPresentingSettings) {
-                SettingsView().environmentObject(store)
-            }
-//        } else {
-//            iPadMacView.accentColor(.backgroundAlt).onAppear(perform: {
-//                appStoreReview()
-//                limiteWindowSizeMac()
-//                //            }).alert(isPresented: $store.asError, content: {
-//                //                store.alert
-//            }).modifier(DismissingKeyboardOnSwipe())
-//            .sheet(isPresented: $isPresentingSettings) {
-//                SettingsView().environmentObject(store)
-//            }
+        } else   {
+            iPhoneView.accentColor(.backgroundAlt)
+                .modifier(DismissingKeyboardOnSwipe())
+                .sheet(isPresented: $isPresentingSettings) {
+                    SettingsView().environmentObject(store)
+                }
         }
         
         
@@ -61,12 +48,12 @@ struct AppRootView: View {
                         })
                 }.navigationViewStyle(StackNavigationViewStyle())
                 
-                .tabItem {
-                    VStack {
-                        item.image
-                        Text(item.tab)
-                    }
-                }.tag(item.rawValue)
+                    .tabItem {
+                        VStack {
+                            item.image
+                            Text(item.tab)
+                        }
+                    }.tag(item.rawValue)
             }
         }
         
@@ -123,13 +110,11 @@ struct AppRootView: View {
     }
     
     func limiteWindowSizeMac(){
-        #if targetEnvironment(macCatalyst)
-        if let scene = UIApplication.shared.connectedScenes.first as? UIWindowScene {
-            
+#if targetEnvironment(macCatalyst)
+        if let scene = UIApplication.shared.connectedScenes.first as? UIWindowScene {            
             scene.sizeRestrictions?.minimumSize = CGSize(width: 640, height: 800)
-//            scene.sizeRestrictions?.maximumSize = CGSize(width: 10000, height: 110000)
         }
-        #endif
+#endif
     }
     
 }

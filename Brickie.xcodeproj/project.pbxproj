@@ -24,7 +24,6 @@
 		9624E38F2471F79B002F68F7 /* RoundedText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9624E38E2471F79B002F68F7 /* RoundedText.swift */; };
 		9624E3912471F904002F68F7 /* MinifigListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9624E3902471F904002F68F7 /* MinifigListCell.swift */; };
 		96351F57248BC09700372A03 /* SetsFilteredView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96351F56248BC09700372A03 /* SetsFilteredView.swift */; };
-		96365E6B246863BC00F318C3 /* SearchField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96365E6A246863BC00F318C3 /* SearchField.swift */; };
 		96365E6E2468700900F318C3 /* AdaptsToSoftwareKeyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96365E6C2468700800F318C3 /* AdaptsToSoftwareKeyboard.swift */; };
 		96365E6F2468700900F318C3 /* DismissingKeyboardOnSwipe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96365E6D2468700900F318C3 /* DismissingKeyboardOnSwipe.swift */; };
 		96365E712468C5A500F318C3 /* BarButtonModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96365E702468C5A500F318C3 /* BarButtonModifier.swift */; };
@@ -91,7 +90,6 @@
 		9624E38E2471F79B002F68F7 /* RoundedText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedText.swift; sourceTree = "<group>"; };
 		9624E3902471F904002F68F7 /* MinifigListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MinifigListCell.swift; sourceTree = "<group>"; };
 		96351F56248BC09700372A03 /* SetsFilteredView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetsFilteredView.swift; sourceTree = "<group>"; };
-		96365E6A246863BC00F318C3 /* SearchField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchField.swift; sourceTree = "<group>"; };
 		96365E6C2468700800F318C3 /* AdaptsToSoftwareKeyboard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdaptsToSoftwareKeyboard.swift; sourceTree = "<group>"; };
 		96365E6D2468700900F318C3 /* DismissingKeyboardOnSwipe.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DismissingKeyboardOnSwipe.swift; sourceTree = "<group>"; };
 		96365E702468C5A500F318C3 /* BarButtonModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarButtonModifier.swift; sourceTree = "<group>"; };
@@ -292,7 +290,6 @@
 				96DE9257245FB48D00652E0E /* SetList */,
 				96ED04D4246823BD00C3A8BA /* Minifig */,
 				96E78BB9245CEA1D0032F4E3 /* SettingsView.swift */,
-				96365E6A246863BC00F318C3 /* SearchField.swift */,
 				B36981C526AF158C00046AA3 /* APIIssueView.swift */,
 			);
 			path = views;
@@ -513,7 +510,6 @@
 				96E78BBE245CF4BB0032F4E3 /* LegoSet.swift in Sources */,
 				B3D828072573DA3B00CAC606 /* PastilView.swift in Sources */,
 				964BA87F246A34D700984DCC /* Router.swift in Sources */,
-				96365E6B246863BC00F318C3 /* SearchField.swift in Sources */,
 				9624E38324718DC4002F68F7 /* Cache.swift in Sources */,
 				96EBF9252551E384004C1786 /* App.swift in Sources */,
 				9694B588248FE881008D0508 /* CodeScanner.swift in Sources */,
@@ -689,7 +685,7 @@
 				DEVELOPMENT_TEAM = Z22Q8S6MMK;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = sources/assets/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -717,7 +713,7 @@
 				DEVELOPMENT_TEAM = Z22Q8S6MMK;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = sources/assets/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
