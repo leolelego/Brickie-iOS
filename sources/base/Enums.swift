@@ -16,6 +16,9 @@ enum Settings {
     static let figsDisplayMode = "figsDisplayMode"
     static let reviewRuntime = "reviewRuntime"
     static let reviewVersion = "reviewVersion"
+    
+    static let currency = "currency"
+
 
 }
 enum SheetType  {
@@ -57,6 +60,8 @@ enum LegoListSorter : String, CaseIterable{
     case pieceDesc = "pieceDesc"
     case price = "price"
     case priceDesc = "priceDesc"
+    case pricePerPiece = "pricePerPiece"
+    case pricePerPieceDesc = "pricePerPieceDesc"
     case owned
     
     var local : LocalizedStringKey {
@@ -71,6 +76,8 @@ enum LegoListSorter : String, CaseIterable{
         case .price:return "sorter.price"
         case .priceDesc:return "sorter.priceDesc"
         case .owned:return "filter.owned"
+        case .pricePerPiece:return "sorter.pricePerPiece"
+        case .pricePerPieceDesc:return "sorter.pricePerPieceDesc"
         default: return "sorter.default"
         }
     }
@@ -83,7 +90,7 @@ enum LegoListSorter : String, CaseIterable{
         case .older:return "clock"
         case .alphabetical:return "textformat.abc"
         case .rating:return "star.leadinghalf.fill"
-        case .piece,.pieceDesc:return "puzzlepiece"
+        case .piece,.pieceDesc,.pricePerPiece,.pricePerPieceDesc:return "puzzlepiece"
         case .price,.priceDesc:return "dollarsign.circle"
         case .owned:return "textformat.abc"
         default: return "staroflife"

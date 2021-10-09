@@ -8,12 +8,13 @@
 
 import SwiftUI
 
+
 struct SettingsView: View {
 
     @EnvironmentObject private var  store : Store
-    
     @Environment(\.presentationMode) var presentationMode
-    
+//    @AppStorage(Settings.currency) var currency : Currency = .default
+
     let feedbacks = [
         Credit(text: "credit.email", link: URL(string:kFeedbackMailto)!,image: Image(systemName:"envelope.fill")),
         Credit(text: "credit.github", link: URL(string: "https://github.com/leolelego/BrickSet")!,image: Image("github")),
@@ -72,7 +73,6 @@ struct SettingsView: View {
                         Spacer()
                         Text(currencyFormatter.string(for:store.sets.priceOwned) ?? "")
                     }
-                    
                 }
                 
                 

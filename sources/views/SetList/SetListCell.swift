@@ -12,7 +12,8 @@ let kCellHeight : CGFloat = 150
 
 struct SetListCell : View {
     @ObservedObject var set : LegoSet
-    
+//    @AppStorage(Settings.currency) var currency : Currency = .default
+
     var body: some View {
         ZStack(alignment: .bottomTrailing){
             self.makeInfos()
@@ -50,7 +51,14 @@ struct SetListCell : View {
             Image.brick(height:20)
             Text("\(set.minifigs ?? 0)").font(.headline)
             Image.minifig_head(height:20)
+            Spacer()
+            if set.pricePerPieceFloat != 0{
+                Text("\(set.pricePerPiece ?? "")/p").font(.footnote)
+            }
             Text(set.price ?? "").font(.headline)
+
+
+
             
         }
     }

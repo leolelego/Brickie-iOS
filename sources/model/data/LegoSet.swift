@@ -15,9 +15,15 @@ let currencyFormatter : NumberFormatter = {
     let currentlocale = Locale.current
     
     switch Locale(identifier: currentlocale.regionCode!).identifier {
-    case "ca": break
-    case "us": break
-    case "gb": break
+    case "ca":
+        f.currencyCode = "CAD"
+        break
+    case "us":
+        f.currencyCode = "USD"
+        break
+    case "gb":
+        f.currencyCode = "GBP"
+        break
     default:
         f.currencyCode = "EUR"
     }
@@ -56,6 +62,21 @@ class LegoSet : Lego, Hashable {
             currencyFormatter.currencyCode = "EUR"
             return currencyFormatter.string(for: LEGOCom["DE"]?.retailPrice)
         }
+    }
+    
+    var pricePerPiece : String? {
+        switch Locale(identifier: Locale.current.regionCode!).identifier {
+        case "ca", "us","gb":
+            return currencyFormatter.string(for: pricePerPieceFloat)
+        default:
+            currencyFormatter.currencyCode = "EUR"
+            return currencyFormatter.string(for: pricePerPieceFloat)
+        }
+    }
+    
+    var pricePerPieceFloat: Float {
+        guard let piec = pieces, piec != 0 else {return 0}
+        return priceFloat / Float(piec)
     }
     
     var priceFloat : Float {

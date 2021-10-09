@@ -60,6 +60,7 @@
 		96E78BC2245D15220032F4E3 /* Secrets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E78BC1245D15220032F4E3 /* Secrets.swift */; };
 		96EBF9252551E384004C1786 /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96EBF9242551E384004C1786 /* App.swift */; };
 		96ED04D6246823DA00C3A8BA /* LegoMinifig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96ED04D5246823DA00C3A8BA /* LegoMinifig.swift */; };
+		B31C36722711AF3B00059C9F /* Currency.swift in Sources */ = {isa = PBXBuildFile; fileRef = B31C36712711AF3B00059C9F /* Currency.swift */; };
 		B36981C626AF158C00046AA3 /* APIIssueView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B36981C526AF158C00046AA3 /* APIIssueView.swift */; };
 		B3A0BB3C26B2C9CF00A68341 /* Static.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3A0BB3B26B2C9CF00A68341 /* Static.swift */; };
 		B3D827DD2572ACF500CAC606 /* Enums.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D827DC2572ACF500CAC606 /* Enums.swift */; };
@@ -127,6 +128,7 @@
 		96E78BC1245D15220032F4E3 /* Secrets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Secrets.swift; sourceTree = "<group>"; };
 		96EBF9242551E384004C1786 /* App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = App.swift; sourceTree = "<group>"; };
 		96ED04D5246823DA00C3A8BA /* LegoMinifig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LegoMinifig.swift; sourceTree = "<group>"; };
+		B31C36712711AF3B00059C9F /* Currency.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Currency.swift; sourceTree = "<group>"; };
 		B36981C526AF158C00046AA3 /* APIIssueView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIIssueView.swift; sourceTree = "<group>"; };
 		B3A0BB3B26B2C9CF00A68341 /* Static.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Static.swift; sourceTree = "<group>"; };
 		B3A0BB3D26B36FEC00A68341 /* CHANGELOG.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = CHANGELOG.md; sourceTree = "<group>"; };
@@ -177,6 +179,7 @@
 		964BA87B246A349B00984DCC /* data */ = {
 			isa = PBXGroup;
 			children = (
+				B31C36712711AF3B00059C9F /* Currency.swift */,
 				96E78BBD245CF4BB0032F4E3 /* LegoSet.swift */,
 				96ED04D5246823DA00C3A8BA /* LegoMinifig.swift */,
 				9624E3882471E66B002F68F7 /* Lego.swift */,
@@ -530,6 +533,7 @@
 				9624E38D2471F3B5002F68F7 /* FigsListView.swift in Sources */,
 				96D8A83A2558A810008EED7D /* SorterFilterView.swift in Sources */,
 				B3A0BB3C26B2C9CF00A68341 /* Static.swift in Sources */,
+				B31C36722711AF3B00059C9F /* Currency.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -766,7 +770,7 @@
 			repositoryURL = "https://github.com/SDWebImage/SDWebImageSwiftUI";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 1.5.0;
+				minimumVersion = 2.0.0;
 			};
 		};
 		96E78BA2245CC7700032F4E3 /* XCRemoteSwiftPackageReference "keychain-swift" */ = {

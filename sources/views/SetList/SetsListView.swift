@@ -32,10 +32,6 @@ struct SetsListView: View {
                     ) {
                         if horizontalSizeClass == .compact {
                             sectionView(theme: theme)
-//                        } else if verticalSizeClass == .regular && horizontalSizeClass == .regular{
-//                            LazyVGrid(columns: [GridItem(.flexible()),GridItem(.flexible()),GridItem(.flexible())]){
-//                                sectionView(theme: theme)
-//                            }
                         } else {
                             LazyVGrid(columns: [GridItem(.flexible()),GridItem(.flexible())]){
                                 sectionView(theme: theme)
@@ -53,7 +49,6 @@ struct SetsListView: View {
     ForEach(self.items(for: theme, items: self.setsToShow ), id: \.setID) { item in
         NavigationLink(destination: SetDetailView(set: item)) {
             SetListCell(set:item)
-            
         }
         .contentShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
         .padding(.leading,16).padding(.trailing,8)
@@ -72,7 +67,7 @@ struct SetsListView: View {
     
     func sections(for items:[LegoSet]) -> [String] {
         switch sorter {
-        case .number,.piece,.price,.pieceDesc,.priceDesc:
+        case .number,.piece,.price,.pieceDesc,.priceDesc,.pricePerPiece,.pricePerPieceDesc:
             return [""]
         case .alphabetical:
             return Array(Set(items.compactMap({String($0.name.prefix(1))}))).sorted()
@@ -96,6 +91,10 @@ struct SetsListView: View {
             return items.sorted(by: {$0.priceFloat  < $1.priceFloat})
         case .priceDesc:
             return items.sorted(by: {$0.priceFloat  > $1.priceFloat})
+        case .pricePerPiece:
+            return items.sorted(by: {$0.pricePerPieceFloat  < $1.pricePerPieceFloat})
+        case .pricePerPieceDesc:
+            return items.sorted(by: {$0.pricePerPieceFloat  > $1.pricePerPieceFloat})
         case .alphabetical:
             return items.filter({String($0.name.prefix(1)) == section}).sorted(by: {$0.name < $1.name})
         case .older,.newer:

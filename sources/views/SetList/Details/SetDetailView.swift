@@ -11,6 +11,8 @@ import  SDWebImageSwiftUI
 struct SetDetailView: View {
     @Environment(\.dataCache) var cache: DataCache
     @EnvironmentObject var config : Configuration
+//    @AppStorage(Settings.currency) var currency : Currency = .default
+
     @ObservedObject var set : LegoSet
     @State var isImageDetailPresented : Bool = false
     @State var detailImageUrl : String = ""
@@ -126,12 +128,13 @@ struct SetDetailView: View {
             .foregroundColor(Color.background)
             .clipped()
             
-            HStack(alignment: .bottom){
+            HStack(alignment: .center){
                 Text("\(set.pieces ?? 0)").font(.headline)
                 Image.brick(height:26)
                 Text("\(set.minifigs ?? 0)").font(.headline)
                 Image.minifig_head(height:26)
                 Spacer()
+                Text("\(set.pricePerPiece ?? "")/p").font(.footnote)
                 Text(set.price ?? "").font(.title).bold()
             }
         }.padding(.horizontal)
