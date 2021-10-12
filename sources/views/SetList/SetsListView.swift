@@ -15,54 +15,90 @@ struct SetsListView: View {
     @Environment(\.verticalSizeClass) var verticalSizeClass
     @EnvironmentObject private var  store : Store
     @Binding var sorter : LegoListSorter
-    @Binding var filter : LegoListFilter 
+    @Binding var filter : LegoListFilter
     
-
+    
     
     var body: some View {
+        
         if setsToShow.count == 0 {
             TrySyncView(count: store.sets.filter({$0.collection.owned}).count)
         } else {
-            LazyVStack(alignment: .leading, spacing: 16, pinnedViews: [.sectionHeaders]) {
-                ForEach(sections(for:  setsToShow ), id: \.self){ theme in
-                    Section(header:
-                                Text(theme).roundText
-                                .padding(.leading, 4)
-                                .padding(.bottom, -26)
-                    ) {
-                        if horizontalSizeClass == .compact {
-                            sectionView(theme: theme)
+            if horizontalSizeClass == . compact {
+                List{
+                    ForEach(sections(for:  setsToShow ), id: \.self){ theme in
+                        if theme == "" {
+                            sectionListView(theme: theme)
                         } else {
-                            LazyVGrid(columns: [GridItem(.flexible()),GridItem(.flexible())]){
-                                sectionView(theme: theme)
+                            Section(header:
+                                        Text(theme).roundText
+                                        .padding(.leading, -12)
+                                        .padding(.bottom, -26)
+                            ){
+                                sectionListView(theme: theme)
+                                
+                            }
+                        }
+                        
+                    }
+                }.naked
+                //                    .refreshable {
+                //                        store.requestForSync = true
+                //                    }
+            } else {
+                ScrollView{
+                    LazyVStack(alignment: .leading, spacing: 16, pinnedViews: [.sectionHeaders]) {
+                        ForEach(sections(for:  setsToShow ), id: \.self){ theme in
+                            Section(header:
+                                        Text(theme).roundText
+                                        .padding(.leading, 4)
+                                        .padding(.bottom, -26)
+                            ) {
+                                
+                                LazyVGrid(columns: [GridItem(.flexible()),GridItem(.flexible())]){
+                                    sectionView(theme: theme)
+                                }
+                                
                             }
                         }
                     }
                 }
             }
         }
-        
-        
     }
     
     func sectionView(theme:String) -> some View{
-    ForEach(self.items(for: theme, items: self.setsToShow ), id: \.setID) { item in
-        NavigationLink(destination: SetDetailView(set: item)) {
-            SetListCell(set:item)
-        }
-        .contentShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
-        .padding(.leading,16).padding(.trailing,8)
-        .contextMenu {
-            CellContextMenu(owned: item.collection.qtyOwned, wanted: item.collection.wanted) {
-                self.store.action(.qty(item.collection.qtyOwned+1),on: item)
-            } remove: {
-                self.store.action(.qty(item.collection.qtyOwned-1),on: item)
-            } want: {
-                self.store.action(.want(!item.collection.wanted),on: item)
+        ForEach(self.items(for: theme, items: self.setsToShow ), id: \.setID) { item in
+            NavigationLink(destination: SetDetailView(set: item)) {
+                SetListCell(set:item)
             }
+            .contentShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
+            .padding(.leading,16).padding(.trailing,8)
+            .contextMenu {
+                CellContextMenu(owned: item.collection.qtyOwned, wanted: item.collection.wanted) {
+                    self.store.action(.qty(item.collection.qtyOwned+1),on: item)
+                } remove: {
+                    self.store.action(.qty(item.collection.qtyOwned-1),on: item)
+                } want: {
+                    self.store.action(.want(!item.collection.wanted),on: item)
+                }
+            }
+            
         }
-        
     }
+    
+    func sectionListView(theme:String) -> some View{
+        ForEach(self.items(for: theme, items: self.setsToShow ), id: \.setID) { item in
+            NakedListCell(
+                owned: item.collection.qtyOwned, wanted: item.collection.wanted,
+                add: {self.store.action(.qty(item.collection.qtyOwned+1),on: item)},
+                remove: {store.action(.qty(item.collection.qtyOwned-1),on: item)},
+                want: {store.action(.want(!item.collection.wanted),on: item)},
+                destination: SetDetailView(set: item)) {
+                    SetListCell(set:item)
+                }
+                .padding(.leading,16).padding(.trailing,8)
+        }
     }
     
     func sections(for items:[LegoSet]) -> [String] {

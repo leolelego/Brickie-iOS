@@ -31,11 +31,7 @@ struct SetsFilteredView: View {
     }
     
     var body: some View {
-        ScrollView {
-            LazyVStack(alignment: .leading, spacing: 16, pinnedViews: [.sectionHeaders]) {
-                SetsListView(items: items,sorter:.constant(sorter),filter: .constant(.all))
-            }
-        }
+        SetsListView(items: items,sorter:.constant(sorter),filter: .constant(.all))
         .navigationBarItems(trailing:makeCheck())
         .navigationBarTitle(text.uppercased()+"_")
         .onAppear {

@@ -25,7 +25,7 @@ struct AppRootView: View {
             LoginView().accentColor(.backgroundAlt)
         } else   {
             iPhoneView.accentColor(.backgroundAlt)
-                .modifier(DismissingKeyboardOnSwipe())
+               // .modifier(DismissingKeyboardOnSwipe())
                 .sheet(isPresented: $isPresentingSettings) {
                     SettingsView().environmentObject(store)
                 }

@@ -17,7 +17,7 @@ struct FigsView: View {
     
     
     var body: some View {
-        ScrollView {
+        VStack(alignment: .leading, spacing: 8) {
             APIIssueView(error: $store.error)
             if toShow.count == 0 {
                 TrySyncView(count: store.minifigs.count)

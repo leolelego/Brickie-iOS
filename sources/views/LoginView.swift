@@ -82,7 +82,7 @@ struct LoginView: View {
 //                .textCase(.lowercase)
                 .disableAutocorrection(true)
             Divider()
-            SecureField("login.password", text: $password).textContentType(.password).transition(.move(edge: .bottom))
+            SecureField("login.password", text: $password,prompt: Text("login.password")).textContentType(.password).transition(.move(edge: .bottom))
             Divider()
         }
     }

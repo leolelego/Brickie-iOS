@@ -11,25 +11,45 @@ import SwiftUI
 struct MinifigListView: View {
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
     @Environment(\.verticalSizeClass) var verticalSizeClass
-
-   
+    
+    
     var figs : [LegoMinifig]
     @Binding var sorter : LegoListSorter
     @EnvironmentObject private var  store : Store
     var displayMode : DisplayMode
     var body: some View {
-        
-        LazyVStack(alignment: .leading, spacing: 16, pinnedViews: [.sectionHeaders]) {
-            ForEach(sections(for: figs ), id: \.self){ theme in
-                Section(header:
-                            Text(theme).roundText
-                            .padding(.leading, 4)
-                            .padding(.bottom, -26)
-                ) {
-                    self.makeSection(theme)
+        if displayMode == .grid || horizontalSizeClass != .compact {
+            ScrollView {
+                LazyVStack(alignment: .leading, spacing: 16, pinnedViews: [.sectionHeaders]) {
+                    ForEach(sections(for: figs ), id: \.self){ theme in
+                        Section(header:
+                                    Text(theme).roundText
+                                    .padding(.leading, 4)
+                                    .padding(.bottom, -26)
+                        ) {
+                            self.makeColumnSection(theme)
+                        }
+                    }
                 }
+                
             }
+        } else {
+            List{
+                ForEach(sections(for:  figs ), id: \.self){ theme in
+                    Section(header:
+                                Text(theme).roundText
+                                .padding(.leading, -12)
+                                .padding(.bottom, -26)
+                    ){
+                        listView(items(for: theme, items: figs))
+                        
+                    }
+                    
+                }
+            }.naked
+            
         }
+        
     }
     func sections(for items:[LegoMinifig]) -> [String] {
         switch sorter {
@@ -47,39 +67,48 @@ struct MinifigListView: View {
         }
     }
     
-
     
-    func makeSection(_ theme:String) -> some View {
+    
+    func makeColumnSection(_ theme:String) -> some View {
         let values =  items(for: theme, items: figs)
         return Group {
             if displayMode == .grid {
                 gridView(values)
-            } else if  horizontalSizeClass == .compact {
-                listView(values)
             } else {
                 LazyVGrid(columns: [GridItem(.flexible()),GridItem(.flexible())]) {
-                    listView(values)
+                    listPadView(values)
                 }
             }
         }
         
     }
-    
-    fileprivate func listView(_ values : [LegoMinifig]) -> some View {
-        return ForEach(values) { value in
-            NavigationLink(destination: MinifigDetailView(minifig: value)){
-                MinifigListCell(minifig:value)
-                Spacer() //Tweak to fill the view
-            }
-            .contentShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
-            .padding(16)
-            .contextMenu{
-                contextMenuContent(value)
-            }
-            
-        }
+    fileprivate func listPadView(_ values : [LegoMinifig]) -> some View {
+                return ForEach(values) { value in
+                    NavigationLink(destination: MinifigDetailView(minifig: value)){
+                        MinifigListCell(minifig:value)
+                        Spacer() //Tweak to fill the view
+                    }
+                    .contentShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
+                    .padding(16)
+                    .contextMenu{
+                        contextMenuContent(value)
+                    }
+        
+                }
     }
 
+    fileprivate func listView(_ values : [LegoMinifig]) -> some View {
+        return ForEach(values){ value in
+            NakedListCell(owned: value.ownedLoose, wanted: value.wanted,
+                          add: {store.action(.qty(value.ownedLoose+1),on: value)},
+                          remove: {store.action(.qty(value.ownedLoose-1),on: value)},
+                          want: {store.action(.want(!value.wanted), on: value)},
+                          destination: MinifigDetailView(minifig: value)) {
+                MinifigListCell(minifig:value)
+            }
+        }
+    }
+    
     fileprivate func gridView(_ values : [LegoMinifig]) -> some View {
         let columns : [GridItem]
         if verticalSizeClass == .compact {

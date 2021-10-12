@@ -18,19 +18,18 @@ struct SetsView: View {
     
     
     var body: some View {
-        ScrollView {
+        VStack(alignment: .leading, spacing: 8){
             APIIssueView(error: $store.error)
             SetsListView(items: store.mainSets,sorter:$sorter,filter: $filter)
-            //footer()
+            .searchable(text: $store.searchSetsText,
+                        prompt:config.connection == .unavailable ? "search.placeholderoffline":"search.placeholder")
+            .disableAutocorrection(true)
         }
-        .searchable(text: $store.searchSetsText,
-                    prompt:config.connection == .unavailable ? "search.placeholderoffline":"search.placeholder")
-        .disableAutocorrection(true)
         .sheet(isPresented: $isPresentingScanenr) {
             makeScanner()
         }
         .toolbar{
-            
+
             ToolbarItemGroup(placement: .navigationBarTrailing){
                 if store.isLoadingData {
                     ProgressView()
@@ -43,14 +42,12 @@ struct SetsView: View {
                                  sorterAvailable: [.default,.alphabetical,.number,.older,.newer,.piece,.pieceDesc,.price,.priceDesc,.pricePerPiece,.pricePerPieceDesc],
                                  filterAvailable: store.searchSetsText.isEmpty ? [.all,.wanted] : [.all,.wanted,.owned]
                 )
-                //                if store.error == nil {
                 Button(action: {
                     isPresentingScanenr.toggle()
                 }, label: {
                     Image(systemName: "barcode.viewfinder")
                 })
-                //                }
-                
+
             }
         }
     }

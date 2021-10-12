@@ -27,8 +27,7 @@ struct MinifigFilteredView: View {
     }
     
     var body: some View {
-        ScrollView {
-            LazyVStack(alignment: .leading, spacing: 8, pinnedViews: [.sectionHeaders]) {
+            VStack(alignment: .leading, spacing: 8) {
                 HStack{
                     Spacer()
                     Text("minifig.local").foregroundColor(.background).font(.callout).bold().multilineTextAlignment(.center).padding(6)
@@ -37,9 +36,9 @@ struct MinifigFilteredView: View {
                 .background(Color.backgroundAlt)
                 .modifier(RoundedShadowMod())
                 .padding(8)
-                MinifigListView(figs: items,sorter: .constant(.default),displayMode: .grid)
+                MinifigListView(figs: items,sorter: .constant(.default),displayMode: .default)
             }
-        }
+        
         .navigationBarItems(trailing:
             HStack(alignment: .center){
                 if store.isLoadingData {

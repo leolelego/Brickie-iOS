@@ -13,7 +13,6 @@ struct TrySyncView: View {
     var count : Int
     var body: some View {
         
-        Spacer()
         HStack(alignment: .center){
             Spacer()
             if store.isLoadingData {
@@ -32,6 +31,7 @@ struct TrySyncView: View {
                 Spacer()
             }
         }
+        Spacer()
         
     }
 }
