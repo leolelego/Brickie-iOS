@@ -22,7 +22,7 @@ struct MinifigDetailView: View {
             MinifigEditorView(minifig: minifig).padding()
             
         }
-        .sheet(isPresented: $isImageDetailPresented, content: { SetAdditionalImageView(isPresented: $isImageDetailPresented, url: .constant(minifig.imageUrl))})
+        .sheet(isPresented: $isImageDetailPresented, content: { FullScreenImageView(isPresented: $isImageDetailPresented, urls: .constant([minifig.imageUrl]))})
             
         .navigationBarTitle("", displayMode: .inline)
     }

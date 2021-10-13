@@ -1,4 +1,7 @@
 1.4.0
+- add possiblity swipe too on detailled images view.
+- Swipes are more faster and usual than long press on iOS, let's ditch these press to use swipes,
+    So you can now swipe left or right on list items to add, remove, favorites. 
 - Add version number to settings view for feedback
 - Fix issue where app crash when scrolling because API Send multiple time the same item
 - Add a cross to close detail image view

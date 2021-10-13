@@ -11,12 +11,12 @@ import  SDWebImageSwiftUI
 struct SetDetailView: View {
     @Environment(\.dataCache) var cache: DataCache
     @EnvironmentObject var config : Configuration
-//    @AppStorage(Settings.currency) var currency : Currency = .default
-
+    //    @AppStorage(Settings.currency) var currency : Currency = .default
+    
     @ObservedObject var set : LegoSet
     @State var isImageDetailPresented : Bool = false
-    @State var detailImageUrl : String = ""
-
+    @State var detailImageUrl : [String] = []
+    @State var imageIndex : Int = 1
     var body: some View {
         ScrollView( showsIndicators: false){
             makeThumbnail().zIndex(500)
@@ -30,7 +30,7 @@ struct SetDetailView: View {
             makeImages()
             makeInstructions()
         }
-        .sheet(isPresented: $isImageDetailPresented, content: { SetAdditionalImageView(isPresented: $isImageDetailPresented, url: $detailImageUrl )})
+        .sheet(isPresented: $isImageDetailPresented, content: { FullScreenImageView(isPresented: $isImageDetailPresented, urls: $detailImageUrl,currentIndex: imageIndex )})
         .onAppear {
             if  self.set.additionalImages == nil {
                 APIRouter<[[String:Any]]>.additionalImages(self.set.setID).decode(ofType: [LegoSetImage].self) { response in
@@ -42,59 +42,60 @@ struct SetDetailView: View {
                         }
                         break
                     case .failure(_):
-//                        self.error = (err as? APIError) ?? APIError.unknown
-
+                        //                        self.error = (err as? APIError) ?? APIError.unknown
+                        
                         break
                     }
-            
+                    
                 }
             }
             
             if self.set.instructionsCount > 0 && self.set.instrucctions == nil{
                 APIRouter<[[String:Any]]>.setInstructions(self.set.setID).decode(ofType: [LegoInstruction].self) { response in
-                        switch response {
-                        case .success(let items):
-                            DispatchQueue.main.async {
-                                self.set.objectWillChange.send()
-                                self.set.instrucctions = items
-                            }
-                            break
-                        case .failure(_):
-                            break
+                    switch response {
+                    case .success(let items):
+                        DispatchQueue.main.async {
+                            self.set.objectWillChange.send()
+                            self.set.instrucctions = items
                         }
+                        break
+                    case .failure(_):
+                        break
+                    }
                     
                     
-                     
-                   
+                    
+                    
                     
                     
                 }
             }
             
         }
-            
+        
         .navigationBarTitle("", displayMode: .inline)
-//        .navigationBarItems(trailing: ShareNavButton(items: [URL(string:set.bricksetURL)!]))
+        //        .navigationBarItems(trailing: ShareNavButton(items: [URL(string:set.bricksetURL)!]))
         
     }
     
     func makeThumbnail() -> some View {
-       Button(action: {
-        self.detailImageUrl = self.set.image.imageURL ?? ""
-        self.isImageDetailPresented.toggle()
-           
-       }) {
-        
-        
-        WebImage(url: URL(string: set.image.imageURL ?? ""), options: [.progressiveLoad, .delayPlaceholder])
-            .resizable()
-            .renderingMode(.original)
-            .placeholder(.wifiError)
-            .indicator(.progress)
-            .aspectRatio(contentMode: .fit)
-            .frame(minWidth: 0, maxWidth: .infinity, minHeight: 200, maxHeight: 400, alignment: .center)
-       }
+        Button(action: {
+            detailImageUrl = [self.set.image.imageURL ?? "" ]
+            isImageDetailPresented.toggle()
+            imageIndex = 0
             
+        }) {
+            
+            
+            WebImage(url: URL(string: set.image.imageURL ?? ""), options: [.progressiveLoad, .delayPlaceholder])
+                .resizable()
+                .renderingMode(.original)
+                .placeholder(.wifiError)
+                .indicator(.progress)
+                .aspectRatio(contentMode: .fit)
+                .frame(minWidth: 0, maxWidth: .infinity, minHeight: 200, maxHeight: 400, alignment: .center)
+        }
+        
         
         
     }
@@ -119,7 +120,7 @@ struct SetDetailView: View {
             
             HStack {
                 Text( set.number+" ").font(.lego(size: 32)).foregroundColor(.black)
-                    + Text(set.name).font(.largeTitle).bold().foregroundColor(.black)
+                + Text(set.name).font(.largeTitle).bold().foregroundColor(.black)
                 Spacer()
             }
             .foregroundColor(Color.backgroundAlt)
@@ -150,20 +151,23 @@ struct SetDetailView: View {
                     ScrollView (.horizontal, showsIndicators: false) {
                         HStack(spacing: 16){
                             ForEach(set.additionalImages!, id: \.thumbnailURL){ image in
-
+                                
                                 Button(action: {
-                                        self.detailImageUrl = image.imageURL ?? ""
-                                        self.isImageDetailPresented.toggle()
+                                    let images = set.additionalImages?.compactMap{$0.imageURL}
+                                    self.detailImageUrl = images ?? []
+                                    self.imageIndex = set.additionalImages?.firstIndex(of: image) ?? 0
+
+                                    self.isImageDetailPresented.toggle()
                                 }) {
-
+                                    
                                     WebImage(url: URL(string: image.thumbnailURL ?? ""))
-
+                                    
                                         .resizable()
                                         .renderingMode(.original)
                                         .indicator(.activity)
                                         .transition(.fade)
                                         .aspectRatio(contentMode: .fill)
-                                    .modifier(RoundedShadowMod())
+                                        .modifier(RoundedShadowMod())
                                 }.disabled(!SDImageCache.shared.diskImageDataExists(withKey: image.imageURL) && self.config.connection == .unavailable)
                                 
                             }
@@ -182,9 +186,9 @@ struct SetDetailView: View {
                 NavigationLink(destination: LegoPDFView(string: set.instrucctions!.first!.URL,cache: cache)) {
                     makeInstructionButton().opacity((cache[URL(string:set.instrucctions!.first!.URL)!] == nil && self.config.connection == .unavailable) ?  0.4 : 1.0)
                     
-                    }.disabled(cache[URL(string:set.instrucctions!.first!.URL)!] == nil && self.config.connection == .unavailable)
-                .transition(.fade)
-
+                }.disabled(cache[URL(string:set.instrucctions!.first!.URL)!] == nil && self.config.connection == .unavailable)
+                    .transition(.fade)
+                
             } else {
                 EmptyView()
             }
@@ -194,11 +198,11 @@ struct SetDetailView: View {
     
     func makeInstructionButton()-> some View {
         Text("sets.instruction")
-        .fontWeight(.bold).foregroundColor(Color.black)
-        .frame(minWidth: 0, maxWidth: .infinity)
-        .padding()
-        .background(Color.yellow)
-        .mask(RoundedRectangle(cornerRadius: 12))
+            .fontWeight(.bold).foregroundColor(Color.black)
+            .frame(minWidth: 0, maxWidth: .infinity)
+            .padding()
+            .background(Color.yellow)
+            .mask(RoundedRectangle(cornerRadius: 12))
         .padding()    }
     
 }

@@ -8,9 +8,14 @@
 
 import SwiftUI
 import SDWebImageSwiftUI
-struct SetAdditionalImageView: View {
+struct FullScreenImageView: View {
     @Binding var isPresented : Bool
-    @Binding var url : String
+    @Binding var urls : [String]
+    @State var currentIndex = 1 {
+        didSet {
+            print("IDXX \(currentIndex)")
+        }
+    }
     @State var lastScale: CGFloat = 1.0
     @State var scale: CGFloat = 1.0
     @State private var currentPosition: CGSize = .zero
@@ -40,17 +45,23 @@ struct SetAdditionalImageView: View {
                 }
             }
         
-        let dragBeforePinch = dragGesture.exclusively(before: scaleGesture)
+       // let dragBeforePinch =  scaleGesture.exclusively(before:dragGesture )
         return
             NavigationView{
-                VStack {
-                    Spacer()
-                    makeIt()
-                        .scaleEffect(self.scale)
-                        .offset(x: self.currentPosition.width, y: self.currentPosition.height)
-                        .gesture(dragBeforePinch)
-                    Spacer()
-                }
+                TabView (selection:$currentIndex){
+                    ForEach(0..<urls.count, id: \.self){ idx in
+                        
+                        makeIt(idx)
+                            .scaleEffect(self.scale)
+                            .offset(x: self.currentPosition.width, y: self.currentPosition.height)
+                            .gesture(scale > 1 ? dragGesture : nil)
+                            .gesture(scaleGesture)
+                            .onAppear {
+                                resetGesture()
+                            }
+                    }
+                }.tabViewStyle(.page)
+                    .indexViewStyle(.page(backgroundDisplayMode: .always))
                 .toolbar(content: {
                     ToolbarItem(placement: .navigationBarTrailing){
                         Button {
@@ -61,27 +72,34 @@ struct SetAdditionalImageView: View {
                     }
                 }).navigationBarTitle("", displayMode: .inline)
                 .onTapGesture {
-                    self.lastScale = 1.0
-                    self.scale = 1.0
-                    self.currentPosition = .zero
-                    self.newPosition = .zero
+                    resetGesture()
                 }
                 
                 
             }
             .accentColor(.backgroundAlt)
-            .edgesIgnoringSafeArea(.all)
+           .edgesIgnoringSafeArea(.all)
 
         
     }
     
-    func makeIt()-> some View {
+    func resetGesture(){
+        self.lastScale = 1.0
+        self.scale = 1.0
+        self.currentPosition = .zero
+        self.newPosition = .zero
+    }
+    
+    func makeIt(_ idx:Int)-> some View {
+        let url = urls[idx]
+       // print("image :\(url) --> \(idx)")
         return WebImage(url: URL(string: url), options: [.progressiveLoad, .delayPlaceholder])
             .resizable()
             .placeholder(Image.wifiError.resizable())
             .renderingMode(.original)
             .indicator(.progress)
             .scaledToFit()
+            .tag(idx)
     }
 }
 

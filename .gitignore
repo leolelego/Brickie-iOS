@@ -1,38 +1,4 @@
 sources/model/Secrets.swift
-### CocoaPods ###
-## CocoaPods GitIgnore Template
-
-# CocoaPods - Only use to conserve bandwidth / Save time on Pushing
-#           - Also handy if you have a lage number of dependant pods
-#           - AS PER https://guides.cocoapods.org/using/using-cocoapods.html NEVER IGONRE THE LOCK FILE
-Pods/
-Podfile.lock
-
-# End of https://www.gitignore.io/api/cocoapods
-.env.default
-### fastlane ###
-# fastlane - A streamlined workflow tool for Cocoa deployment
-#
-# It is recommended to not store the screenshots in the git repo. Instead, use fastlane to re-generate the
-# screenshots whenever they are needed.
-# For more information about the recommended setup visit:
-# https://docs.fastlane.tools/best-practices/source-control/#source-control
-
-# fastlane specific
-fastlane/report.xml
-
-# deliver temporary files
-fastlane/Preview.html
-
-# snapshot generated screenshots
-fastlane/screenshots/**/*.png
-fastlane/screenshots/screenshots.html
-
-# scan temporary files
-fastlane/test_output
-fastlane/README.md
-
-# End of https://www.gitignore.io/api/fastlane
 
 ## HockeyApp
 *.app.dSYM.zip
