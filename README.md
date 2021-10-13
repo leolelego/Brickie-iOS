@@ -1,6 +1,6 @@
 # Brickie: The BrickSet Companion for iOS
 
-Brickie is an iOS application powered by the BrickSet API which permit to make a collection of your LEGO sets and minifigures. 
+Brickie is an iOS application powered by the BrickSet API which permits to manage your Lego of sets and minifigures collection . 
 
 ## Open Source, Technologies and Privacy
 
@@ -13,19 +13,20 @@ You don't know sh*t about iOS, no worries, tell me any ideas you have thought a 
 
 ### Privacy Policy
 
-**We do not collect any of your data**. The only data collected is collected from within the app itself and only stored locally like your owned and wanted sets.figs. 
-We don't dislay any ads or send anything to any server. So we don't track you using an advertising identifier or anything of the sort. 
+**We do not collect any of your data**. The only data collected is collected from within the app itself and only stored locally like your owned and wanted sets/figs. 
+We don't dislay any ads or send anything to any server. So we don't track you using an advertising identifier or anything. 
 
 ### Screenshots
 
 ![Home](https://www.dropbox.com/s/01rb1io6bh8f5e0/1%20-%20home.png?raw=1)
 ![Home](https://www.dropbox.com/s/xr5651otlmkma2y/2%20-%20set%20detail.png?raw=1)
+
 ## How to Compile and Run
 
 #### Pre-requisits
 
-- a macOS Catalina 
-- Xcode 11.4.1 Minimum
+- a macOS Big Sure 
+- Xcode 13 Minimum
 - an account at [BrickSet](https://brickset.com) and [request an API key](https://brickset.com/tools/webservices/v3)
 - an Apple Developer Account (even Free) 
 
@@ -49,4 +50,4 @@ We don't dislay any ads or send anything to any server. So we don't track you us
  
 ## Credits and Thanks
 
-Thanks first to **BrickSet** and Huw for is support in this implementation. Thanks to Will from HMWK Family for is help and Testflight account. 
+Thanks first to **BrickSet** and Huw for is support in this implementation. Thanks to Will from HMWK Family for it helps and Apple Account. 
