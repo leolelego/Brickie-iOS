@@ -66,13 +66,11 @@ struct PersistentData {
                         
                     } else {
                         try newValue?.write(to: path)
-                        
                         array.append(key)
-                       
-                        
                     }
                     userDefaults.set(key, forKey: "file_cache")
                     userDefaults.synchronize()
+                    
                 } catch {
                     logerror(error)
                 }

@@ -87,7 +87,7 @@ public struct CodeScannerView: UIViewControllerRepresentable {
 
         override public func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
             guard let simulatedData = delegate?.parent.simulatedData else {
-                print("Simulated Data Not Provided!")
+                log("Simulated Data Not Provided!")
                 return
             }
 
@@ -118,7 +118,7 @@ public struct CodeScannerView: UIViewControllerRepresentable {
                 }
             }
             else{
-                print("Something went wrong")
+                log("Something went wrong")
             }
             self.dismiss(animated: true, completion: nil)
         }
