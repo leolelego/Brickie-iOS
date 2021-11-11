@@ -151,13 +151,13 @@ enum APIRouter<T:Any> {
             URLQueryItem(name: "apiKey", value: BrickSetApiKey),
             URLQueryItem(name: "userHash", value: hash),
             URLQueryItem(name: "minifigNumber", value: minifig.minifigNumber),
-            URLQueryItem(name: "params", value: "{want:\(want ? 1:0)}")
+            URLQueryItem(name: "params", value: "{want:\(want ? 1:0),qtyOwned:\(minifig.ownedLoose)}")
             ]
         case .minifigQty(let hash,let minifig, let qty) : return [
             URLQueryItem(name: "apiKey", value: BrickSetApiKey),
             URLQueryItem(name: "userHash", value: hash),
             URLQueryItem(name: "minifigNumber", value: minifig.minifigNumber),
-            URLQueryItem(name: "params", value: "{qtyOwned:\(qty)}")
+            URLQueryItem(name: "params", value: "{want:\(minifig.wanted ? 1 : 0),qtyOwned:\(qty)}")
             ]
         }
     }
