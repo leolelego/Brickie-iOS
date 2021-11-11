@@ -9,7 +9,7 @@
 import SwiftUI
 import SDWebImageSwiftUI
 struct MinifigDetailView: View {    
-    @ObservedObject var minifig : LegoMinifig
+    @ObservedObject var minifig : LegoMinifigCD
     @State var isImageDetailPresented : Bool = false
     
     var body: some View {
@@ -67,7 +67,7 @@ struct MinifigDetailView: View {
         VStack(alignment: .center, spacing: 8) {
             
             HStack {
-                Text( (minifig.minifigNumber+" ").uppercased()).font(.lego(size: 26)).foregroundColor(.black)
+                Text( (minifig.minifigNumberStr+" ").uppercased()).font(.lego(size: 26)).foregroundColor(.black)
                     + Text(minifig.nameUI).font(.title).bold().foregroundColor(.black)
             }
             .frame(minWidth: 0, maxWidth: .infinity,alignment: .leading)

@@ -9,13 +9,13 @@
 import SwiftUI
 import SDWebImageSwiftUI
 struct MinifigListCell: View {    
-    @ObservedObject var minifig : LegoMinifig
+    @ObservedObject var minifig : LegoMinifigCD
     @Environment(\.dataCache) var cache : DataCache
     var body: some View {
         HStack(alignment: .top, spacing: 8) {
             ZStack(alignment: .bottomTrailing){
                 self.makeImage()
-                PastilView(owned: minifig.ownedTotal, wanted:  minifig.wanted)
+               // PastilView(owned: minifig.ownedTotal, wanted:  minifig.wanted)
             }.frame(width:100,height: 150)
             .modifier(RoundedShadowMod())
             VStack(alignment: .leading, spacing: 8) {
@@ -27,7 +27,7 @@ struct MinifigListCell: View {
                     Text(sub).font(.subheadline).foregroundColor(Color.gray)
                 }
                 if minifig.name != nil {
-                    Text(minifig.minifigNumber.uppercased()+" ").font(.lego(size: 14))
+                    Text(minifig.minifigNumberStr.uppercased()+" ").font(.lego(size: 14))
                 }
                 
             }

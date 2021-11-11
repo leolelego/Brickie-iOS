@@ -13,7 +13,7 @@ struct MinifigListView: View {
     @Environment(\.verticalSizeClass) var verticalSizeClass
     
     
-    var figs : [LegoMinifig]
+    var figs: FetchedResults<LegoMinifigCD>
     @Binding var sorter : LegoListSorter
     @EnvironmentObject private var  store : Store
     var displayMode : DisplayMode
@@ -31,7 +31,7 @@ struct MinifigListView: View {
                         }
                     }
                 }
-                
+
             }
         } else {
             List{
@@ -51,18 +51,18 @@ struct MinifigListView: View {
         }
         
     }
-    func sections(for items:[LegoMinifig]) -> [String] {
+    func sections(for items:FetchedResults<LegoMinifigCD>) -> [String] {
         switch sorter {
         case .alphabetical:return Array(Set(items.compactMap({String(($0.name ?? "").prefix(1))}))).sorted()
-        case .number: return Array(Set(items.compactMap({String(($0.minifigNumber).prefix(1))}))).sorted()
+        case .number: return Array(Set(items.compactMap({String(($0.minifigNumberStr).prefix(1))}))).sorted()
         default: return Array(Set(items.compactMap({$0.theme}))).sorted()
         }
         
     }
-    func items(for section:String,items:[LegoMinifig]) -> [LegoMinifig] {
+    func items(for section:String,items:FetchedResults<LegoMinifigCD>) -> [LegoMinifigCD] {
         switch sorter {
         case .alphabetical: return items.filter({($0.name ?? "").prefix(1) == section}).sorted(by: {$0.name ?? "" < $1.name ?? "" /*&& ($0?.name ?? "") < ($1?.name ?? "" )*/ })
-        case .number: return items.filter({($0.minifigNumber).prefix(1) == section}).sorted(by: {$0.minifigNumber < $1.minifigNumber})
+        case .number: return items.filter({($0.minifigNumberStr).prefix(1) == section}).sorted(by: {$0.minifigNumberStr < $1.minifigNumberStr})
         default: return items.filter({$0.theme == section}).sorted(by: {$0.subtheme < $1.subtheme /*&& ($0?.name ?? "") < ($1?.name ?? "" )*/ })
         }
     }
@@ -80,9 +80,9 @@ struct MinifigListView: View {
                 }
             }
         }
-        
+
     }
-    fileprivate func listPadView(_ values : [LegoMinifig]) -> some View {
+    fileprivate func listPadView(_ values : [LegoMinifigCD]) -> some View {
                 return ForEach(values) { value in
                     NavigationLink(destination: MinifigDetailView(minifig: value)){
                         MinifigListCell(minifig:value)
@@ -93,23 +93,23 @@ struct MinifigListView: View {
                     .contextMenu{
                         contextMenuContent(value)
                     }
-        
+
                 }
     }
 
-    fileprivate func listView(_ values : [LegoMinifig]) -> some View {
+    fileprivate func listView(_ values : [LegoMinifigCD]) -> some View {
         return ForEach(values){ value in
-            NakedListCell(owned: value.ownedLoose, wanted: value.wanted,
-                          add: {store.action(.qty(value.ownedLoose+1),on: value)},
-                          remove: {store.action(.qty(value.ownedLoose-1),on: value)},
-                          want: {store.action(.want(!value.wanted), on: value)},
+            NakedListCell(owned: value.ownedLoose, wanted: value.wanted, //
+                          add: {/*store.action(.qty(Int(value.ownedLoose)+1),on: value)*/}, //
+                          remove: {/*store.action(.qty(Int(value.ownedLoose)-1),on: value)*/}, //
+                          want: {/*store.action(.want(!value.wanted), on: value)*/},
                           destination: MinifigDetailView(minifig: value)) {
                 MinifigListCell(minifig:value)
             }
         }
     }
     
-    fileprivate func gridView(_ values : [LegoMinifig]) -> some View {
+    fileprivate func gridView(_ values : [LegoMinifigCD]) -> some View {
         let columns : [GridItem]
         if verticalSizeClass == .compact {
             columns =  [GridItem(.flexible()),GridItem(.flexible()),GridItem(.flexible()),GridItem(.flexible())] // [GridItem(.flexible()),GridItem(.flexible())]
@@ -118,9 +118,9 @@ struct MinifigListView: View {
         } else {
             columns = [GridItem(.flexible()),GridItem(.flexible()),GridItem(.flexible()),GridItem(.flexible()),GridItem(.flexible())]
         }
-        
+
         return LazyVGrid(columns: columns) {
-            
+
             ForEach(values) { value in
                 NavigationLink(destination: MinifigDetailView(minifig: value)){
                     FigsGridCell(minifig: value)
@@ -130,18 +130,18 @@ struct MinifigListView: View {
                 .contextMenu{
                     contextMenuContent(value)
                 }
-                
+
             }
         }
     }
     
-    func contextMenuContent(_ value:LegoMinifig)-> some View{
+    func contextMenuContent(_ value:LegoMinifigCD)-> some View{
         CellContextMenu(owned: value.ownedLoose, wanted: value.wanted) {
-            store.action(.qty(value.ownedLoose+1),on: value)
+         //   store.action(.qty(value.ownedLoose+1),on: value)
         } remove: {
-            store.action(.qty(value.ownedLoose-1),on: value)
+         //   store.action(.qty(value.ownedLoose-1),on: value)
         } want: {
-            store.action(.want(!value.wanted), on: value)
+         //   store.action(.want(!value.wanted), on: value)
         }
     }
     

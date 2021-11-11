@@ -19,7 +19,7 @@ extension List{
 struct NakedListCell<Content:View, Destination:View>  :  View {
    
     
-    var owned : Int
+    var owned : Int16
     var wanted : Bool
     
     var add : () -> Void

@@ -10,7 +10,7 @@ import SwiftUI
 
 struct MinifigEditorView: View {
     @EnvironmentObject var store : Store
-    @ObservedObject var minifig : LegoMinifig
+    @ObservedObject var minifig : LegoMinifigCD
     @EnvironmentObject var config: Configuration
 
     var body: some View {
@@ -20,7 +20,7 @@ struct MinifigEditorView: View {
             }
             HStack {
                 Button(action: {
-                    self.store.action(.want(!self.minifig.wanted), on: self.minifig)
+                   // self.store.action(.want(!self.minifig.wanted), on: self.minifig)
                 }) {
                     HStack(alignment: .lastTextBaseline) {
                         
@@ -33,7 +33,7 @@ struct MinifigEditorView: View {
                 if minifig.ownedLoose > 0 {
                     
                     Button(action: {
-                        self.store.action(.qty(self.minifig.ownedLoose-1),on: self.minifig)
+                       // self.store.action(.qty(Int(self.minifig.ownedLoose)-1),on: self.minifig)
                         
                         
                     }) {
@@ -43,7 +43,7 @@ struct MinifigEditorView: View {
                     }.buttonStyle(RoundedButtonStyle(backgroundColor:.backgroundAlt)).opacity(canEdit() ? 0.6 : 1.0)
                     Text("\(self.minifig.ownedLoose)").font(.title).bold() + Text("minifig.loose")
                     Button(action: {
-                        self.store.action( .qty(self.minifig.ownedLoose+1),on: self.minifig)
+                       // self.store.action( .qty(self.minifig.ownedLoose+1),on: self.minifig)
                         
                     }) {
                         Image(systemName: "plus").foregroundColor(.background).font(.title)
@@ -53,7 +53,7 @@ struct MinifigEditorView: View {
                 } else {
                     Button(action: {
                         
-                        self.store.action( .qty(1),on: self.minifig)
+                       // self.store.action( .qty(1),on: self.minifig)
                     }) {
                         Text("minifig.add")
                             .fontWeight(.bold).foregroundColor(.background)

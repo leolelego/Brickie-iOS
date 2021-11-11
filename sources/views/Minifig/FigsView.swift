@@ -7,26 +7,52 @@
 //
 
 import SwiftUI
-
+import CoreData
+import Combine
 struct FigsView: View {
     @EnvironmentObject private var  store : Store
     @EnvironmentObject var config : Configuration
+    @State private var searchText = ""
+
     @State var filter : LegoListFilter = .all
     @AppStorage(Settings.figsListSorter) var sorter : LegoListSorter = .default
     @AppStorage(Settings.figsDisplayMode) var displayMode : DisplayMode = .default
     
+    private var searchMinifigsCancellable: AnyCancellable?
+
+    
+
+       var query: Binding<String> {
+           Binding {
+               searchText
+           } set: { newValue in
+               searchText = newValue
+               if searchText.count > 3 {
+                   store.searchMinifigs(text: searchText)
+               }
+               updatePredicate()
+           }
+       }
+
+    
+
+    @FetchRequest(sortDescriptors: [SortDescriptor(\LegoMinifigCD.minifigNumber)]
+                //  ,predicate:NSPredicate(format: "ownedTotal > 0")
+    )
+    
+    private var figs: FetchedResults<LegoMinifigCD>
     
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
             APIIssueView(error: $store.error)
-            if toShow.count == 0 {
-                TrySyncView(count: store.minifigs.count)
+            if figs.count == 0 {
+                TrySyncView(count: figs.count)
             } else {
-                MinifigListView(figs: toShow ,sorter:$sorter, displayMode: displayMode)
+                MinifigListView(figs:figs,sorter:$sorter, displayMode: displayMode)
                 //footer()
             }
         }
-        .searchable(text: $store.searchMinifigsText,
+        .searchable(text: query,
                     prompt: searchPlaceholder())
                 .disableAutocorrection(true)
         .toolbar{
@@ -40,23 +66,57 @@ struct FigsView: View {
                 FilterSorterMenu(sorter: $sorter,filter: $filter,
                                  sorterAvailable: [.default,.alphabetical,.number],
                                  filterAvailable: store.searchMinifigsText.isEmpty ? [.all,.wanted] : [.all,.wanted,.owned]
-                )
+                ).onChange(of: filter) { newValue in
+                    self.updatePredicate()
+                }
                 DisplayModeView(mode: $displayMode)
             }
         }
     }
     
-    var toShow : [LegoMinifig] {        
+    func updatePredicate(){
+        
         switch filter {
         case .all:
-            return  store.minifigsUI
+            if searchText.isEmpty {
+                print("Searching EMPTY \(searchText)")
+
+                figs.nsPredicate = NSPredicate(format: "ownedTotal > 0")
+            } else {
+                print("Searching \(searchText)")
+                figs.nsPredicate = LegoMinifigCD.searchPredicate(searchText)
+            }
+            break
         case .wanted:
-            return  store.searchMinifigsText.isEmpty ? store.minifigs.filter({$0.wanted}) : store.minifigsUI.filter({$0.wanted})
+            if searchText.isEmpty {
+                figs.nsPredicate = NSPredicate(format: "wanted == YES")
+            } else {
+                figs.nsPredicate = NSCompoundPredicate(andPredicateWithSubpredicates: [NSPredicate(format: "wanted == YES"),LegoMinifigCD.searchPredicate(searchText)])
+                
+            }
+            
+            break
         case .owned:
-            return store.minifigsUI.filter({$0.ownedTotal > 0})
+            figs.nsPredicate = NSPredicate(format: "ownedTotal > 0")
+            break
         }
     }
-    
+
+//
+//    var toShow : [LegoMinifigCD] {
+////        let figsToDipslay = store.searchMinifigsText.isEmpty ? figs.filter({$0.ownedTotal > 0}) : figs.filter({ $0.matchString(searchText)})
+//
+//
+//        switch filter {
+//        case .all:
+//            return searchText.isEmpty ? figs.filter({$0.ownedTotal > 0}) : figs.filter({ $0.matchString(searchText)})
+//        case .wanted:
+//            return  searchText.isEmpty ? figs.filter({$0.wanted}) : figs.filter({$0.wanted})
+//        case .owned:
+//            return figs.filter({$0.ownedTotal > 0})
+//        }
+////        return figs.filter({$0.ownedTotal > 0})
+//    }
     fileprivate func searchPlaceholder() -> LocalizedStringKey{
         return filter == .wanted ?
             "search.placeholderwanted" :

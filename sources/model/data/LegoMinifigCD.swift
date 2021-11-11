@@ -36,11 +36,20 @@ class LegoMinifigCD : NSManagedObject, LegoCoreData /*, Lego */  {
 ////
 ////
     func matchString(_ search: String) -> Bool {
-         let matched = name?.lowercased().contains(search) ?? false
+        let low = search.lowercased()
+         let matched = name?.lowercased().contains(low) ?? false
              //|| category?.lowercased().contains(search) ?? false
-             || minifigNumberStr.lowercased().contains(search)
+             || minifigNumberStr.lowercased().contains(low)
          return matched
      }
+    
+    static func searchPredicate(_ search:String) -> NSPredicate {
+        
+        let lower = search.lowercased()
+        let pName = NSPredicate(format:"name CONTAINS[cd] %@",lower)
+        let pNumber =  NSPredicate(format: "minifigNumber CONTAINS[cd] %@", lower)
+        return NSCompoundPredicate(orPredicateWithSubpredicates: [pName,pNumber])
+    }
     var nameUI : String {
         guard let str = name?.components(separatedBy: " - ").first else {return minifigNumberStr}
         return str
@@ -86,24 +95,44 @@ extension LegoMinifigCD {
             case category
         }
     static func updateOrCreate(_ json:[[String : Any]]){
+//        DispatchQueue.main.async {
+            
+        let ctx = PersistenceController.shared.container.viewContext
+        ctx.persistentStoreCoordinator?.perform {
+            for item in json {
+                if let id = item["minifigNumber"] as? String {
+                    let request = fetchRequest()
+                    request.predicate = NSPredicate(format: "minifigNumber = %@", id)
+                    log("Trying to parse : \(id)")
+                    print(item)
+                    
+                    do {
+                        if let existingObj = (try PersistenceController.shared.container.viewContext.fetch(request)).first{
+                            existingObj.update(from: item)
 
-        for item in json {
-            if let id = item["minifigNumber"] as? String {
-                let request = fetchRequest()
-                request.predicate = NSPredicate(format: "minifigNumber = %@", id)
-                
-                if let existingObj = (try? PersistenceController.shared.container.viewContext.fetch(request))?.first{
-                    existingObj.update(from: item)
+                                                
 
-                                        
-
-                } else {
-                    create(from: item)
+                        } else {
+                            create(from: item)
+                        }
+                    }catch(let err){
+                        logerror(err)
+                    }
+                    
+                    
                 }
-                
             }
+            do {
+                try PersistenceController.shared.container.viewContext.save()
+
+            } catch {
+                                PersistenceController.shared.container.viewContext.rollback()
+                                print("\(error): \(error.localizedDescription)")
+                            }
         }
-        try? PersistenceController.shared.container.viewContext.save()
+       
+
+//        }
 
     }
     static func create(from: [String:Any]){
@@ -133,10 +162,12 @@ extension LegoMinifigCD {
         log("Updating Fig: \(self)")
     }
 }
-////
-//extension LegoMinifigCD : Identifiable {
-//    var id: String {minifigNumber}
-//}
-////extension LegoMinifig{
-////
-////}
+
+extension LegoMinifigCD {
+    var ownedLooseMinus : Int {
+        return Int(ownedLoose) - 1
+    }
+    var ownedLoosePlus : Int {
+        return Int(ownedLoose) - 1
+    }
+}

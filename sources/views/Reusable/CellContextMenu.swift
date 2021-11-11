@@ -10,7 +10,7 @@ import SwiftUI
 
 
 struct CellContextMenu : View {
-    var owned : Int
+    var owned : Int16
     var wanted : Bool
     
     var add : () -> Void

@@ -11,18 +11,18 @@ import SDWebImageSwiftUI
 struct FigsGridCell: View {
     @EnvironmentObject private var  store : Store
     
-    @ObservedObject var minifig : LegoMinifig
+    @ObservedObject var minifig : LegoMinifigCD
     @Environment(\.dataCache) var cache : DataCache
         
     var body: some View {
         VStack(){
             ZStack(alignment: .bottomTrailing){
                 makeImage()
-                PastilView(owned: minifig.ownedTotal, wanted:  minifig.wanted)
+                //PastilView(owned: minifig.ownedTotal, wanted:  minifig.wanted)
             }
             .modifier(RoundedShadowMod())
             Text(minifig.nameUI).minimumScaleFactor(0.5).font(.headline).lineLimit(3).multilineTextAlignment(.center)
-            Text(" "+minifig.minifigNumber.uppercased()+" ").font(.lego(size: 14))
+            Text(" "+minifig.minifigNumberStr.uppercased()+" ").font(.lego(size: 14))
             Spacer()
             
         }

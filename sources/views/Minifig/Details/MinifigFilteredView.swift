@@ -14,8 +14,16 @@ struct MinifigFilteredView: View {
     let filter: Store.SearchFilter
     @State var requestSent : Bool = false
 
-    var items : [LegoMinifig] {
-        return store.minifigs.filter({
+    
+    @FetchRequest(
+      entity: LegoMinifigCD.entity(),
+      sortDescriptors: [
+        NSSortDescriptor(keyPath: \LegoMinifigCD.minifigNumber, ascending: true)
+      ]
+    ) var figs: FetchedResults<LegoMinifigCD>
+    
+    var items : [LegoMinifigCD] {
+        return figs.filter({
             switch filter {
             case .theme,.none,.year:
                 return $0.theme == theme
@@ -25,6 +33,8 @@ struct MinifigFilteredView: View {
             
         })
     }
+    
+    
     
     var body: some View {
             VStack(alignment: .leading, spacing: 8) {
@@ -36,7 +46,7 @@ struct MinifigFilteredView: View {
                 .background(Color.backgroundAlt)
                 .modifier(RoundedShadowMod())
                 .padding(8)
-                MinifigListView(figs: items,sorter: .constant(.default),displayMode: .default)
+                MinifigListView(figs:figs,sorter: .constant(.default),displayMode: .default)
             }
         
         .navigationBarItems(trailing:

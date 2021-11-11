@@ -75,7 +75,7 @@ struct SetsListView: View {
             .contentShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
             .padding(.leading,16).padding(.trailing,8)
             .contextMenu {
-                CellContextMenu(owned: item.collection.qtyOwned, wanted: item.collection.wanted) {
+                CellContextMenu(owned: Int16(item.collection.qtyOwned), wanted: item.collection.wanted) {
                     self.store.action(.qty(item.collection.qtyOwned+1),on: item)
                 } remove: {
                     self.store.action(.qty(item.collection.qtyOwned-1),on: item)
@@ -90,7 +90,7 @@ struct SetsListView: View {
     func sectionListView(theme:String) -> some View{
         ForEach(self.items(for: theme, items: self.setsToShow ), id: \.setID) { item in
             NakedListCell(
-                owned: item.collection.qtyOwned, wanted: item.collection.wanted,
+                owned: Int16(item.collection.qtyOwned), wanted: item.collection.wanted,
                 add: {self.store.action(.qty(item.collection.qtyOwned+1),on: item)},
                 remove: {store.action(.qty(item.collection.qtyOwned-1),on: item)},
                 want: {store.action(.want(!item.collection.wanted),on: item)},

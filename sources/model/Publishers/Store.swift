@@ -14,6 +14,9 @@ import Reachability
 import SDWebImage
 
 class Store : ObservableObject{
+    
+
+    
     let persistenceController = PersistenceController.shared
 
     let keychain = KeychainSwift()
@@ -76,7 +79,6 @@ class Store : ObservableObject{
                 if self.searchSetsText.count > 2 {
                     self.searchSets(text: self.searchSetsText, by: .none)
                 }
-                self.setsFilter = .search(self.searchSetsText)
                 
                 
             }
@@ -289,13 +291,11 @@ extension Store {
     func searchMinifigs(text:String){
         guard let token = user?.token else {return}
         DispatchQueue.main.async { self.isLoadingData = true}
-        APIRouter<[[String:Any]]>.searchMinifigs(token, text).decode(ofType: [LegoMinifig].self) {response in
+        
+        APIRouter<[[String:Any]]>.searchMinifigs(token, text).decodeCoreData(ofType: [LegoMinifigCD].self) {response in
             switch response {
-            case .success(let sets):
-                DispatchQueue.main.async {
-                    self.append(sets)
-                    self.isLoadingData = false
-                }
+            case .success():
+                DispatchQueue.main.async {self.isLoadingData = false}
                 break
             case .failure(let err):
                 self.fireApiError(err)
@@ -435,35 +435,20 @@ extension Store {
         ownedSets(page: 1,incrmentatl_sets: [LegoSet]())
         wantedSets(page: 1,incrmentatl_sets: [LegoSet]())
         
-        APIRouter<[[String:Any]]>.ownedFigs(token).decode(ofType: [LegoMinifig].self) { response in
+
+        APIRouter<[[String:Any]]>.wantedFigs(token).decodeCoreData(ofType: [LegoMinifigCD].self) { response in
             switch response {
-            case .success(let items):
-                self.updateOwned(with: items)
-                
-                break
-            case .failure(let err):
-                self.fireApiError(err)
-                break
-            }
-            
-        }
-        APIRouter<[[String:Any]]>.wantedFigs(token).decode(ofType: [LegoMinifig].self) { response in
-            switch response {
-            case .success(let items):
-                self.updateWanted(with: items)
+            case .success():
                 break
             case .failure(let err):
                 self.fireApiError(err)
                 break
             }
         }
-//
+
         APIRouter<[[String:Any]]>.ownedFigs(token).decodeCoreData(ofType: [LegoMinifigCD].self) { response in
             switch response {
-            case .success(let items):
-
-//                self.updateOwned(with: items)
-
+            case .success():
                 break
             case .failure(let err):
                 self.fireApiError(err)
