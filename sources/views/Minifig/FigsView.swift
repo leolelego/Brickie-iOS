@@ -27,7 +27,8 @@ struct FigsView: View {
             }
         }
         .searchable(text: $store.searchMinifigsText,
-                    prompt: config.connection == .unavailable ? "search.placeholderoffline":"search.placeholder").disableAutocorrection(true)
+                    prompt: searchPlaceholder())
+                .disableAutocorrection(true)
         .toolbar{
             ToolbarItemGroup(placement: .navigationBarTrailing){
                 if store.isLoadingData {
@@ -56,7 +57,13 @@ struct FigsView: View {
         }
     }
     
-    
+    fileprivate func searchPlaceholder() -> LocalizedStringKey{
+        return filter == .wanted ?
+            "search.placeholderwanted" :
+            config.connection == .unavailable ?
+                "search.placeholderoffline":"search.placeholder"
+        
+    }
     
     fileprivate func footer() -> some View{
         VStack(){

@@ -28,30 +28,32 @@ struct SetListCell : View {
    
     
     func makeInfos() -> some View {
-        HStack(alignment: .top){
-            VStack(alignment:.leading) {
-                Text(set.name).font(.title).bold()
-                if set.subtheme != nil {
-                    Text(set.subtheme!).font(.subheadline)
+        VStack(alignment: .leading,spacing: 12) {
+            HStack(alignment: .top){
+                VStack(alignment: .leading) {
+                    Text(set.name).font(.title).bold()
+                    if set.subtheme != nil {
+                        Text(set.subtheme!).font(.subheadline)
+                    }
                 }
                 Spacer()
-                makeDetails()
-                
+                Text(set.number+" ").font(.lego(size: 27)).offset(x: 22, y: -6)
             }
             Spacer()
-            Text(set.number+" ").font(.lego(size: 27)).offset(x: 22, y: -6)
-        } .padding(.vertical, 12)
+            makeDetails()
+        }
+        .padding(.vertical, 12)
             .padding(.horizontal, 16)
             .foregroundColor(Color.black)
             .frame(maxWidth: .infinity,maxHeight: .infinity,alignment:.topLeading)
     }
     func makeDetails() -> some View{
-        HStack(alignment: .bottom){
+        HStack(alignment: .center){
             Text("\(set.pieces ?? 0)").font(.headline)
             Image.brick(height:20)
             Text("\(set.minifigs ?? 0)").font(.headline)
             Image.minifig_head(height:20)
-            Spacer()
+            //Spacer()
             if set.pricePerPieceFloat != 0{
                 Text("\(set.pricePerPiece ?? "")/p").font(.footnote)
             }
