@@ -17,7 +17,11 @@ public func logerror(_ err:Error?,category:OSLogType.Category = .app){
     log(err?.localizedDescription ?? "Unknow Error",category:category,.error)
 }
 public func log(_ message:String,category:OSLogType.Category = .app,_ type : OSLogType = .debug){
-    os_log("%{PUBLIC}@:%{PUBLIC}@", log: OSLog(subsystem: subsystem, category: category.rawValue), type: type,type.emoji,message)
+    if isDebug {
+        print("\(type.emoji) > \(message)")
+    } else {
+        os_log("%{PUBLIC}@:%{PUBLIC}@", log: OSLog(subsystem: subsystem, category: category.rawValue), type: type,type.emoji,message)
+    }
 }
 
 

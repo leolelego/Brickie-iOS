@@ -97,6 +97,7 @@ class Store : ObservableObject{
             .debounce(for: .seconds(2), scheduler: DispatchQueue.main)
             .sink { _ in
                 self.sync()
+                self.backup()
             }
         
         requestForSync = self.user != nil
@@ -311,6 +312,8 @@ extension Store {
             switch res {
             case .success:
                 action.manage(obj: item,store:self)
+                self.backup()
+
                 break
             default:
                 break
@@ -507,6 +510,7 @@ extension Store {
             switch res {
             case .success:
                 action.manage(obj: item,store: self)
+                self.backup()
                 break
             default:
                 break
@@ -533,7 +537,7 @@ extension Store {
             
             persistance[Key.setsBackupURL] = setsData
             persistance[Key.figsBackupURL] = figsData
-            
+            log("Model Saved.")
             
         } catch {
             logerror(error)

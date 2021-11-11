@@ -11,11 +11,7 @@ import SDWebImageSwiftUI
 struct FullScreenImageView: View {
     @Binding var isPresented : Bool
     @Binding var urls : [String]
-    @State var currentIndex = 1 {
-        didSet {
-            print("IDXX \(currentIndex)")
-        }
-    }
+    @State var currentIndex = 1
     @State var lastScale: CGFloat = 1.0
     @State var scale: CGFloat = 1.0
     @State private var currentPosition: CGSize = .zero
@@ -92,7 +88,6 @@ struct FullScreenImageView: View {
     
     func makeIt(_ idx:Int)-> some View {
         let url = urls[idx]
-       // print("image :\(url) --> \(idx)")
         return WebImage(url: URL(string: url), options: [.progressiveLoad, .delayPlaceholder])
             .resizable()
             .placeholder(Image.wifiError.resizable())
