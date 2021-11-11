@@ -61,6 +61,9 @@
 		96EBF9252551E384004C1786 /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96EBF9242551E384004C1786 /* App.swift */; };
 		96ED04D6246823DA00C3A8BA /* LegoMinifig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96ED04D5246823DA00C3A8BA /* LegoMinifig.swift */; };
 		B36981C626AF158C00046AA3 /* APIIssueView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B36981C526AF158C00046AA3 /* APIIssueView.swift */; };
+		B36CE96E272870740028D6C0 /* Brickie.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = B36CE96C272870740028D6C0 /* Brickie.xcdatamodeld */; };
+		B36CE98F272871070028D6C0 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = B36CE98E272871070028D6C0 /* Persistence.swift */; };
+		B36CE991272872ED0028D6C0 /* LegoMinifigCD.swift in Sources */ = {isa = PBXBuildFile; fileRef = B36CE990272872ED0028D6C0 /* LegoMinifigCD.swift */; };
 		B3A0BB3C26B2C9CF00A68341 /* Static.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3A0BB3B26B2C9CF00A68341 /* Static.swift */; };
 		B3BA1661271603A8001292CC /* NakedList.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3BA1660271603A8001292CC /* NakedList.swift */; };
 		B3BA166327160C95001292CC /* SwipeActionsMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3BA166227160C95001292CC /* SwipeActionsMenu.swift */; };
@@ -130,6 +133,9 @@
 		96EBF9242551E384004C1786 /* App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = App.swift; sourceTree = "<group>"; };
 		96ED04D5246823DA00C3A8BA /* LegoMinifig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LegoMinifig.swift; sourceTree = "<group>"; };
 		B36981C526AF158C00046AA3 /* APIIssueView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIIssueView.swift; sourceTree = "<group>"; };
+		B36CE96D272870740028D6C0 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
+		B36CE98E272871070028D6C0 /* Persistence.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
+		B36CE990272872ED0028D6C0 /* LegoMinifigCD.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LegoMinifigCD.swift; sourceTree = "<group>"; };
 		B3A0BB3B26B2C9CF00A68341 /* Static.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Static.swift; sourceTree = "<group>"; };
 		B3A0BB3D26B36FEC00A68341 /* CHANGELOG.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = CHANGELOG.md; sourceTree = "<group>"; };
 		B3BA1660271603A8001292CC /* NakedList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NakedList.swift; sourceTree = "<group>"; };
@@ -183,6 +189,7 @@
 			isa = PBXGroup;
 			children = (
 				96E78BBD245CF4BB0032F4E3 /* LegoSet.swift */,
+				B36CE990272872ED0028D6C0 /* LegoMinifigCD.swift */,
 				96ED04D5246823DA00C3A8BA /* LegoMinifig.swift */,
 				9624E3882471E66B002F68F7 /* Lego.swift */,
 				961FC1BC2558770500434E5D /* User.swift */,
@@ -305,6 +312,7 @@
 		96E78B92245CACB20032F4E3 /* base */ = {
 			isa = PBXGroup;
 			children = (
+				B36CE98E272871070028D6C0 /* Persistence.swift */,
 				96E78BB1245CD79F0032F4E3 /* Logger.swift */,
 				96EBF9242551E384004C1786 /* App.swift */,
 				B3D827DC2572ACF500CAC606 /* Enums.swift */,
@@ -325,6 +333,7 @@
 				967ED17E24608F9F004712DB /* Legothick.ttf */,
 				96E78B81245CAC290032F4E3 /* Assets.xcassets */,
 				96DE924D245F696700652E0E /* Colors.xcassets */,
+				B36CE96C272870740028D6C0 /* Brickie.xcdatamodeld */,
 			);
 			path = assets;
 			sourceTree = "<group>";
@@ -506,9 +515,11 @@
 				96DE9247245F3DD800652E0E /* SetDetailView.swift in Sources */,
 				96851E0724734D3A00D9F803 /* MinifigDetailView.swift in Sources */,
 				96E78B98245CB1120032F4E3 /* RoundedButtonStyle.swift in Sources */,
+				B36CE991272872ED0028D6C0 /* LegoMinifigCD.swift in Sources */,
 				9624E3912471F904002F68F7 /* MinifigListCell.swift in Sources */,
 				96519AD52496FC4E002B0354 /* ActivityIndicator.swift in Sources */,
 				9624E38F2471F79B002F68F7 /* RoundedText.swift in Sources */,
+				B36CE98F272871070028D6C0 /* Persistence.swift in Sources */,
 				96365E6E2468700900F318C3 /* AdaptsToSoftwareKeyboard.swift in Sources */,
 				961FC1BD2558770500434E5D /* User.swift in Sources */,
 				96DE924C245F695100652E0E /* Assets.swift in Sources */,
@@ -540,6 +551,7 @@
 				9624E38D2471F3B5002F68F7 /* FigsListView.swift in Sources */,
 				96D8A83A2558A810008EED7D /* SorterFilterView.swift in Sources */,
 				B3A0BB3C26B2C9CF00A68341 /* Static.swift in Sources */,
+				B36CE96E272870740028D6C0 /* Brickie.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -806,6 +818,19 @@
 			productName = KeychainSwift;
 		};
 /* End XCSwiftPackageProductDependency section */
+
+/* Begin XCVersionGroup section */
+		B36CE96C272870740028D6C0 /* Brickie.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				B36CE96D272870740028D6C0 /* Model.xcdatamodel */,
+			);
+			currentVersion = B36CE96D272870740028D6C0 /* Model.xcdatamodel */;
+			path = Brickie.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 96E78B70245CAC270032F4E3 /* Project object */;
 }

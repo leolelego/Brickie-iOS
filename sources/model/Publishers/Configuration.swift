@@ -16,7 +16,7 @@ extension  Reachability.Connection{
     }
 }
 class Configuration : ObservableObject {
-   
+
     private var reachability: Reachability = try! Reachability()
     
     @Published var connection: Reachability.Connection = .wifi {

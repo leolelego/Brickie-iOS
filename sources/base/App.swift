@@ -13,7 +13,7 @@ var kConfig = Configuration()
 
 @main
 struct TheApp : App {
-    
+
     var networkCancellable :AnyCancellable? = {
         kConfig.$connection
             .debounce(for: .seconds(2), scheduler: DispatchQueue.main)
@@ -26,6 +26,7 @@ struct TheApp : App {
     var body : some Scene {
         WindowGroup{
             AppRootView()
+                .environment(\.managedObjectContext, kCollection.persistenceController.container.viewContext)
                 .environmentObject(kCollection).environmentObject(kConfig)
                 .onReceive(NotificationCenter.default.publisher(for: UIApplication.willResignActiveNotification)) { _ in
                     kCollection.backup()

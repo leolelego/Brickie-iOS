@@ -14,7 +14,8 @@ import Reachability
 import SDWebImage
 
 class Store : ObservableObject{
-    
+    let persistenceController = PersistenceController.shared
+
     let keychain = KeychainSwift()
     let serialQueue = DispatchQueue(label: "store.serial.queue")
     
@@ -252,6 +253,11 @@ extension Store {
         self.objectWillChange.send()
         self.minifigs.append(contentsOf: toAppend)
     }
+    func append(_ new:[LegoMinifigCD]){
+        
+        
+        
+    }
     
     // Remove set taht are NOT wanted
     func updateWanted(with wanted:[LegoMinifig]){
@@ -299,8 +305,6 @@ extension Store {
                 self.fireApiError(err)
                 break
             }
-            
-            
         }
         
     }
@@ -456,6 +460,21 @@ extension Store {
                 self.fireApiError(err)
                 break
             }
+        }
+        
+        APIRouter<[[String:Any]]>.ownedFigs(token).decode(ofType: [LegoMinifigCD].self) { response in
+            switch response {
+            case .success(let items):
+                
+                print("items ? : \(items)")
+//                self.updateOwned(with: items)
+                
+                break
+            case .failure(let err):
+                self.fireApiError(err)
+                break
+            }
+            
         }
         
     }
