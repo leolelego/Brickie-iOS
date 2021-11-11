@@ -261,5 +261,23 @@ extension APIRouter {
     }
     
 
+
 }
 
+extension APIRouter where T == [[String:Any]] {
+    func decodeCoreData<C:LegoCoreData>(ofType: [C].Type,completion: @escaping (Result<Void,Error>) -> Void /*@escaping (C) -> Void*/){
+        responseJSON { response in
+            switch response{
+            case .success(let object):
+                C.updateOrCreate(object)
+                completion(.success(()))
+                break
+            case .failure(let err):
+                completion(.failure(err))
+                break // logged before nobody care
+            }
+            
+        }
+    }
+    
+}

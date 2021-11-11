@@ -253,11 +253,7 @@ extension Store {
         self.objectWillChange.send()
         self.minifigs.append(contentsOf: toAppend)
     }
-    func append(_ new:[LegoMinifigCD]){
-        
-        
-        
-    }
+
     
     // Remove set taht are NOT wanted
     func updateWanted(with wanted:[LegoMinifig]){
@@ -461,20 +457,19 @@ extension Store {
                 break
             }
         }
-        
-        APIRouter<[[String:Any]]>.ownedFigs(token).decode(ofType: [LegoMinifigCD].self) { response in
+//
+        APIRouter<[[String:Any]]>.ownedFigs(token).decodeCoreData(ofType: [LegoMinifigCD].self) { response in
             switch response {
             case .success(let items):
-                
-                print("items ? : \(items)")
+
 //                self.updateOwned(with: items)
-                
+
                 break
             case .failure(let err):
                 self.fireApiError(err)
                 break
             }
-            
+
         }
         
     }
