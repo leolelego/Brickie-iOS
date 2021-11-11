@@ -1,6 +1,6 @@
 1.4.0
 - save locally more often
-- Fix an issue where add figs to wanted remove owned loose and vice and versa
+- Fix an issue where add figs to wanted list remove it from owned loose list and vice and versa
 - add possiblity swipe too on detailled images view.
 - Swipes are more faster and usual than long press on iOS, let's ditch these press to use swipes,
     So you can now swipe left or right on list items to add, remove, favorites. 
