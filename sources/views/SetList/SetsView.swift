@@ -14,15 +14,13 @@ struct SetsView: View {
     @State var filter : LegoListFilter = .all
     @AppStorage(Settings.setsListSorter) var sorter : LegoListSorter = .default
     @State var isPresentingScanenr = false
-    
-    
-    
+
     var body: some View {
         VStack(alignment: .leading, spacing: 8){
             APIIssueView(error: $store.error)
             SetsListView(items: store.mainSets,sorter:$sorter,filter: $filter)
             .searchable(text: $store.searchSetsText,
-                        prompt:config.connection == .unavailable ? "search.placeholderoffline":"search.placeholder")
+                        prompt: searchPlaceholder())
             .disableAutocorrection(true)
         }
         .sheet(isPresented: $isPresentingScanenr) {
@@ -83,6 +81,13 @@ struct SetsView: View {
         }
     }
     
+    fileprivate func searchPlaceholder() -> LocalizedStringKey{
+        return filter == .wanted ?
+            "search.placeholderwanted" :
+            config.connection == .unavailable ?
+                "search.placeholderoffline":"search.placeholder"
+        
+    }
     fileprivate func footer() -> some View{
         VStack(){
             Spacer(minLength: 16)
