@@ -8,6 +8,7 @@
 
 import SwiftUI
 import Combine
+import WidgetKit
 let kCollection = Store()
 var kConfig = Configuration()
 
@@ -29,6 +30,7 @@ struct TheApp : App {
                 .environmentObject(kCollection).environmentObject(kConfig)
                 .onReceive(NotificationCenter.default.publisher(for: UIApplication.willResignActiveNotification)) { _ in
                     kCollection.backup()
+                    WidgetCenter.shared.reloadAllTimelines()
                 }
                 .onReceive(NotificationCenter.default.publisher(for: UIApplication.willTerminateNotification)) { _ in
                     kCollection.backup()

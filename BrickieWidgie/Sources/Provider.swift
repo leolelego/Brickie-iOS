@@ -34,10 +34,8 @@ struct Provider: IntentTimelineProvider {
 //        }
         print("items\( store.minifigs.count)")
         let entry = BricksetEntry(date: Date(), configuration: ConfigurationIntent(),
-                                  setsOwned: store.sets.qtyOwned,
-                                  setsWanted: store.sets.qtyWanted,
-                                  figsOwned: store.minifigs.qtyOwned,
-                                  figsWanted: store.minifigs.qtyWanted)
+                                  sets:store.sets
+                                  ,minifigs: store.minifigs)
 
         let timeline = Timeline(entries: [entry], policy: .atEnd)
         completion(timeline)

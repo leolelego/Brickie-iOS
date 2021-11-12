@@ -12,12 +12,15 @@ struct BricksetEntry : TimelineEntry {
     let date: Date
     let configuration: ConfigurationIntent
     
-    let setsOwned : Int
-    let setsWanted : Int
-    let figsOwned : Int
-    let figsWanted : Int
+    let sets : [LegoSet]
+    let minifigs : [LegoMinifig]
     
-    static let placeHolder = BricksetEntry(date: Date(), configuration: ConfigurationIntent(),setsOwned: 0,setsWanted: 0,figsOwned: 0,figsWanted: 0)
+    static let placeHolder = BricksetEntry(date: Date(), configuration: ConfigurationIntent(),
+        sets: [],
+        minifigs: []
+                                           
+                                           
+    )
     
 }
 
