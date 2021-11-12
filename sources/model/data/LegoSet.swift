@@ -143,6 +143,9 @@ extension Array where  Element:LegoSet {
     var qtyOwned : Int {
         return self.compactMap { return $0.collection.qtyOwned}.reduce(0, +)
     }
+    var qtyWanted : Int {
+        return self.compactMap { return $0.collection.wanted ? 1 : 0}.reduce(0, +)
+    }
     var priceOwned : Float {
         return self.compactMap { return Float($0.collection.qtyOwned) * $0.priceFloat}.reduce(0, +)
     }

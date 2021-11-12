@@ -63,6 +63,7 @@ class Store : ObservableObject{
     }
     
     init(){
+        keychain.accessGroup = "Z22Q8S6MMK.family.homework.brickset"
         if let username = keychain.get(Key.username), let hash = keychain.get(Key.token){
             self.user = User(username: username, token: hash)
         }
@@ -524,6 +525,10 @@ extension Array where  Element:LegoMinifig {
     var qtyOwned : Int {
         let v = self.compactMap { return $0.ownedTotal}.reduce(0, +)
         
+        return v
+    }
+    var qtyWanted : Int {
+        let v = self.compactMap { return $0.wanted ? 1 : 0}.reduce(0, +)
         return v
     }
 }

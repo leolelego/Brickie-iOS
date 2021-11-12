@@ -43,7 +43,13 @@ struct DataCache {
 }
 struct PersistentData {
     private let filemanager = FileManager()
-    let documentsUrl =  FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask).first! as URL
+    let documentsUrl = FileManager.default.containerURL(
+        forSecurityApplicationGroupIdentifier: "group.family.homework.brickset")!
+    
+//
+//    FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask).first! as URL
+    
+    
     
     subscript(_ key: URL) -> Data? {
         get {
@@ -67,6 +73,8 @@ struct PersistentData {
                     } else {
                         try newValue?.write(to: path)
                         array.append(key)
+                        
+                        print("Save File at : \(path)")
                     }
                     userDefaults.set(key, forKey: "file_cache")
                     userDefaults.synchronize()
