@@ -9,16 +9,16 @@
 import SwiftUI
 import WidgetKit
 
-struct WidgetStateView : View {
+struct CollectionWidgetView : View {
     @Environment(\.widgetFamily) private var widgetFamily
 
-    var entry: Provider.Entry
+    var entry: CollectionWidgetProvider.Entry
     var body: some View {
         switch widgetFamily {
         case .systemSmall,.systemMedium,.systemLarge,.systemExtraLarge:
-            WidgetStateSmallView(entry: entry)
+            CollectionWidgetViewSmall(entry: entry)
         @unknown default:
-            WidgetStateSmallView(entry: entry)
+            CollectionWidgetViewSmall(entry: entry)
 
         }
     }
@@ -26,7 +26,7 @@ struct WidgetStateView : View {
 
 struct BrickieWidgie_Previews: PreviewProvider {
     static var previews: some View {
-        WidgetStateView(entry: BricksetEntry.placeHolder)
+        CollectionWidgetView(entry: CollectionWidgetEntry.placeHolder)
             .previewContext(WidgetPreviewContext(family: .systemSmall))
     }
 }

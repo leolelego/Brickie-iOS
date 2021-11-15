@@ -9,12 +9,12 @@
 import WidgetKit
 import SwiftUI
 import Intents
-struct WidgetRandomSet: Widget {
+struct RandomWidget: Widget {
     let kind: String = "WidgetRandomSet"
 
     var body: some WidgetConfiguration {
-        IntentConfiguration(kind: kind, intent: ConfigurationIntent.self, provider: Provider()) { entry in
-            WidgetStateView(entry: entry)
+        IntentConfiguration(kind: kind, intent: ConfigurationIntent.self, provider: RandomWidgetProvider()) { entry in
+            RandomWidgetView(entry: entry)
         }
         .configurationDisplayName("Random Set")
         .description("Random Sets in your collection or Searched")

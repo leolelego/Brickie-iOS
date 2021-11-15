@@ -13,8 +13,8 @@ import Intents
 @main
 struct BrickieWidgetBundle: WidgetBundle {
    var body: some Widget {
-       WidgetState()
-       WidgetRandomSet()
+       //CollectionWidget()
+       RandomWidget()
    }
 }
 

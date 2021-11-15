@@ -60,6 +60,9 @@
 		96E78BC2245D15220032F4E3 /* Secrets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E78BC1245D15220032F4E3 /* Secrets.swift */; };
 		96EBF9252551E384004C1786 /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96EBF9242551E384004C1786 /* App.swift */; };
 		96ED04D6246823DA00C3A8BA /* LegoMinifig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96ED04D5246823DA00C3A8BA /* LegoMinifig.swift */; };
+		B335BC4E2740031D00A81726 /* RandomWidgetEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = B335BC4B2740031D00A81726 /* RandomWidgetEntry.swift */; };
+		B335BC4F2740031D00A81726 /* RandomWidgetProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = B335BC4C2740031D00A81726 /* RandomWidgetProvider.swift */; };
+		B335BC502740031D00A81726 /* RandomWidgetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B335BC4D2740031D00A81726 /* RandomWidgetView.swift */; };
 		B33A600D273DD786005F852E /* Lego.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9624E3882471E66B002F68F7 /* Lego.swift */; };
 		B33A600E273DD786005F852E /* LegoSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E78BBD245CF4BB0032F4E3 /* LegoSet.swift */; };
 		B33A600F273DD786005F852E /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = 964BA87E246A34D700984DCC /* Router.swift */; };
@@ -75,17 +78,16 @@
 		B33A601F273DD896005F852E /* Reachability in Frameworks */ = {isa = PBXBuildFile; productRef = B33A601E273DD896005F852E /* Reachability */; };
 		B33A6020273DD9A9005F852E /* Assets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96DE924B245F695100652E0E /* Assets.swift */; };
 		B33A6021273DD9AD005F852E /* Legothick.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 967ED17E24608F9F004712DB /* Legothick.ttf */; };
-		B33A6022273DD9B6005F852E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 96E78B81245CAC290032F4E3 /* Assets.xcassets */; };
-		B33A6025273DDA3E005F852E /* WidgetStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B33A6023273DDA2A005F852E /* WidgetStateView.swift */; };
-		B33A6028273DDA68005F852E /* BricksetEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = B33A6026273DDA5C005F852E /* BricksetEntry.swift */; };
-		B33A602B273DDAC0005F852E /* Provider.swift in Sources */ = {isa = PBXBuildFile; fileRef = B33A6029273DDABE005F852E /* Provider.swift */; };
-		B33A602E273DDBC1005F852E /* WidgetStateSmallView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B33A602C273DDB6A005F852E /* WidgetStateSmallView.swift */; };
+		B33A6025273DDA3E005F852E /* CollectionWidgetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B33A6023273DDA2A005F852E /* CollectionWidgetView.swift */; };
+		B33A6028273DDA68005F852E /* CollectionWidgetEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = B33A6026273DDA5C005F852E /* CollectionWidgetEntry.swift */; };
+		B33A602B273DDAC0005F852E /* CollectionWidgetProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = B33A6029273DDABE005F852E /* CollectionWidgetProvider.swift */; };
+		B33A602E273DDBC1005F852E /* CollectionWidgetViewSmall.swift in Sources */ = {isa = PBXBuildFile; fileRef = B33A602C273DDB6A005F852E /* CollectionWidgetViewSmall.swift */; };
 		B33A6032273DEA58005F852E /* BrickieWidgetBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = B33A6030273DEA53005F852E /* BrickieWidgetBundle.swift */; };
-		B33A6034273DEB04005F852E /* WidgetRandomSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = B33A6033273DEB04005F852E /* WidgetRandomSet.swift */; };
+		B33A6034273DEB04005F852E /* RandomWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = B33A6033273DEB04005F852E /* RandomWidget.swift */; };
 		B36981C626AF158C00046AA3 /* APIIssueView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B36981C526AF158C00046AA3 /* APIIssueView.swift */; };
 		B39A384A273DD1920065111D /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B39A3849273DD1920065111D /* WidgetKit.framework */; };
 		B39A384C273DD1920065111D /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B39A384B273DD1920065111D /* SwiftUI.framework */; };
-		B39A384F273DD1920065111D /* WidgetState.swift in Sources */ = {isa = PBXBuildFile; fileRef = B39A384E273DD1920065111D /* WidgetState.swift */; };
+		B39A384F273DD1920065111D /* CollectionWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = B39A384E273DD1920065111D /* CollectionWidget.swift */; };
 		B39A3852273DD1920065111D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B39A3851273DD1920065111D /* Assets.xcassets */; };
 		B39A3854273DD1920065111D /* BrickieWidgie.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = B39A3850273DD1920065111D /* BrickieWidgie.intentdefinition */; };
 		B39A3855273DD1920065111D /* BrickieWidgie.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = B39A3850273DD1920065111D /* BrickieWidgie.intentdefinition */; };
@@ -182,18 +184,21 @@
 		96E78BC1245D15220032F4E3 /* Secrets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Secrets.swift; sourceTree = "<group>"; };
 		96EBF9242551E384004C1786 /* App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = App.swift; sourceTree = "<group>"; };
 		96ED04D5246823DA00C3A8BA /* LegoMinifig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LegoMinifig.swift; sourceTree = "<group>"; };
-		B33A6023273DDA2A005F852E /* WidgetStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetStateView.swift; sourceTree = "<group>"; };
-		B33A6026273DDA5C005F852E /* BricksetEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BricksetEntry.swift; sourceTree = "<group>"; };
-		B33A6029273DDABE005F852E /* Provider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Provider.swift; sourceTree = "<group>"; };
-		B33A602C273DDB6A005F852E /* WidgetStateSmallView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetStateSmallView.swift; sourceTree = "<group>"; };
+		B335BC4B2740031D00A81726 /* RandomWidgetEntry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RandomWidgetEntry.swift; sourceTree = "<group>"; };
+		B335BC4C2740031D00A81726 /* RandomWidgetProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RandomWidgetProvider.swift; sourceTree = "<group>"; };
+		B335BC4D2740031D00A81726 /* RandomWidgetView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RandomWidgetView.swift; sourceTree = "<group>"; };
+		B33A6023273DDA2A005F852E /* CollectionWidgetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionWidgetView.swift; sourceTree = "<group>"; };
+		B33A6026273DDA5C005F852E /* CollectionWidgetEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionWidgetEntry.swift; sourceTree = "<group>"; };
+		B33A6029273DDABE005F852E /* CollectionWidgetProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionWidgetProvider.swift; sourceTree = "<group>"; };
+		B33A602C273DDB6A005F852E /* CollectionWidgetViewSmall.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionWidgetViewSmall.swift; sourceTree = "<group>"; };
 		B33A602F273DE167005F852E /* BrickieWidgieExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = BrickieWidgieExtension.entitlements; sourceTree = "<group>"; };
 		B33A6030273DEA53005F852E /* BrickieWidgetBundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrickieWidgetBundle.swift; sourceTree = "<group>"; };
-		B33A6033273DEB04005F852E /* WidgetRandomSet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WidgetRandomSet.swift; sourceTree = "<group>"; };
+		B33A6033273DEB04005F852E /* RandomWidget.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RandomWidget.swift; sourceTree = "<group>"; };
 		B36981C526AF158C00046AA3 /* APIIssueView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIIssueView.swift; sourceTree = "<group>"; };
 		B39A3847273DD1920065111D /* BrickieWidgieExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = BrickieWidgieExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		B39A3849273DD1920065111D /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
 		B39A384B273DD1920065111D /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
-		B39A384E273DD1920065111D /* WidgetState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetState.swift; sourceTree = "<group>"; };
+		B39A384E273DD1920065111D /* CollectionWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionWidget.swift; sourceTree = "<group>"; };
 		B39A3850273DD1920065111D /* BrickieWidgie.intentdefinition */ = {isa = PBXFileReference; lastKnownFileType = file.intentdefinition; path = BrickieWidgie.intentdefinition; sourceTree = "<group>"; };
 		B39A3851273DD1920065111D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B39A3853273DD1920065111D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -427,31 +432,34 @@
 		B33A6035273DEB90005F852E /* Sources */ = {
 			isa = PBXGroup;
 			children = (
-				B33A6037273DEC8C005F852E /* Random */,
-				B33A6036273DEC7D005F852E /* State */,
 				B33A6030273DEA53005F852E /* BrickieWidgetBundle.swift */,
-				B33A6026273DDA5C005F852E /* BricksetEntry.swift */,
-				B33A6029273DDABE005F852E /* Provider.swift */,
+				B33A6037273DEC8C005F852E /* RandomWidget */,
+				B33A6036273DEC7D005F852E /* CollectionWidget */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
 		};
-		B33A6036273DEC7D005F852E /* State */ = {
+		B33A6036273DEC7D005F852E /* CollectionWidget */ = {
 			isa = PBXGroup;
 			children = (
-				B39A384E273DD1920065111D /* WidgetState.swift */,
-				B33A6023273DDA2A005F852E /* WidgetStateView.swift */,
-				B33A602C273DDB6A005F852E /* WidgetStateSmallView.swift */,
+				B33A6026273DDA5C005F852E /* CollectionWidgetEntry.swift */,
+				B33A6029273DDABE005F852E /* CollectionWidgetProvider.swift */,
+				B39A384E273DD1920065111D /* CollectionWidget.swift */,
+				B33A6023273DDA2A005F852E /* CollectionWidgetView.swift */,
+				B33A602C273DDB6A005F852E /* CollectionWidgetViewSmall.swift */,
 			);
-			path = State;
+			path = CollectionWidget;
 			sourceTree = "<group>";
 		};
-		B33A6037273DEC8C005F852E /* Random */ = {
+		B33A6037273DEC8C005F852E /* RandomWidget */ = {
 			isa = PBXGroup;
 			children = (
-				B33A6033273DEB04005F852E /* WidgetRandomSet.swift */,
+				B33A6033273DEB04005F852E /* RandomWidget.swift */,
+				B335BC4B2740031D00A81726 /* RandomWidgetEntry.swift */,
+				B335BC4C2740031D00A81726 /* RandomWidgetProvider.swift */,
+				B335BC4D2740031D00A81726 /* RandomWidgetView.swift */,
 			);
-			path = Random;
+			path = RandomWidget;
 			sourceTree = "<group>";
 		};
 		B39A3848273DD1920065111D /* Frameworks */ = {
@@ -620,7 +628,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				B39A3852273DD1920065111D /* Assets.xcassets in Resources */,
-				B33A6022273DD9B6005F852E /* Assets.xcassets in Resources */,
 				B33A6021273DD9AD005F852E /* Legothick.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -721,22 +728,25 @@
 			files = (
 				B33A6010273DD786005F852E /* APIHelpers.swift in Sources */,
 				B33A600D273DD786005F852E /* Lego.swift in Sources */,
-				B33A602B273DDAC0005F852E /* Provider.swift in Sources */,
+				B33A602B273DDAC0005F852E /* CollectionWidgetProvider.swift in Sources */,
 				B33A6011273DD786005F852E /* Store.swift in Sources */,
-				B39A384F273DD1920065111D /* WidgetState.swift in Sources */,
+				B39A384F273DD1920065111D /* CollectionWidget.swift in Sources */,
 				B33A6032273DEA58005F852E /* BrickieWidgetBundle.swift in Sources */,
 				B33A6012273DD786005F852E /* LegoMinifig.swift in Sources */,
-				B33A6034273DEB04005F852E /* WidgetRandomSet.swift in Sources */,
-				B33A6025273DDA3E005F852E /* WidgetStateView.swift in Sources */,
-				B33A6028273DDA68005F852E /* BricksetEntry.swift in Sources */,
+				B33A6034273DEB04005F852E /* RandomWidget.swift in Sources */,
+				B335BC4E2740031D00A81726 /* RandomWidgetEntry.swift in Sources */,
+				B33A6025273DDA3E005F852E /* CollectionWidgetView.swift in Sources */,
+				B33A6028273DDA68005F852E /* CollectionWidgetEntry.swift in Sources */,
 				B33A6018273DD83C005F852E /* Cache.swift in Sources */,
-				B33A602E273DDBC1005F852E /* WidgetStateSmallView.swift in Sources */,
+				B33A602E273DDBC1005F852E /* CollectionWidgetViewSmall.swift in Sources */,
 				B39A3854273DD1920065111D /* BrickieWidgie.intentdefinition in Sources */,
 				B33A6020273DD9A9005F852E /* Assets.swift in Sources */,
+				B335BC4F2740031D00A81726 /* RandomWidgetProvider.swift in Sources */,
 				B33A6017273DD80F005F852E /* Logger.swift in Sources */,
 				B33A600F273DD786005F852E /* Router.swift in Sources */,
 				B33A6013273DD786005F852E /* User.swift in Sources */,
 				B33A600E273DD786005F852E /* LegoSet.swift in Sources */,
+				B335BC502740031D00A81726 /* RandomWidgetView.swift in Sources */,
 				B33A6016273DD803005F852E /* Secrets.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -898,7 +908,7 @@
 				CODE_SIGN_ENTITLEMENTS = sources/assets/BrickSet.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 0;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = Z22Q8S6MMK;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = sources/assets/Info.plist;
@@ -927,7 +937,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 0;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = Z22Q8S6MMK;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = sources/assets/Info.plist;
@@ -960,7 +970,7 @@
 				DEVELOPMENT_TEAM = Z22Q8S6MMK;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = BrickieWidgie/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = BrickieWidgie;
+				INFOPLIST_KEY_CFBundleDisplayName = BrickieWidgets;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2021 Homework. All rights reserved.";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -968,7 +978,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.4.0;
 				PRODUCT_BUNDLE_IDENTIFIER = family.homework.brickset.BrickieWidgie;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -992,7 +1002,7 @@
 				DEVELOPMENT_TEAM = Z22Q8S6MMK;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = BrickieWidgie/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = BrickieWidgie;
+				INFOPLIST_KEY_CFBundleDisplayName = BrickieWidgets;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2021 Homework. All rights reserved.";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1000,7 +1010,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.4.0;
 				PRODUCT_BUNDLE_IDENTIFIER = family.homework.brickset.BrickieWidgie;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;

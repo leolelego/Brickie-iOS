@@ -127,6 +127,28 @@ class LegoSet : Lego, Hashable {
         return matched
     }
     
+    init(withFigs:Bool){
+        self.setID = 8706
+        self.number = "10220"
+        self.name = "Volkswagen T1 Camper Van"
+        self.year = 2011
+        self.theme = "Creator Expert"
+        self.pieces =  1334
+        
+        self.image = LegoSetImage(thumbnailURL: "https://images.brickset.com/sets/small/10220-1.jpg", imageURL: "https://images.brickset.com/sets/images/10220-1.jpg")
+        self.bricksetURL = "https://brickset.com/sets/10242-1"
+        self.collection = LegoSetCollection(isDebug: true)
+        self.rating = 1
+        self.instructionsCount = 1
+//        self.LEGOCom : [String:LegoSetPrice]
+//        self.barcode : LegoBarCode?
+        self.minifigs = withFigs ? 0 : 5
+        self.LEGOCom = [:]
+        self.barcode = nil
+        
+        
+    }
+    
 }
 extension LegoSet : CustomStringConvertible {
     var description: String {
@@ -161,6 +183,13 @@ class LegoSetCollection : Codable {
     var qtyOwned : Int
     var rating : Float
     var notes = ""
+    
+    init(isDebug:Bool){
+        owned = true
+        wanted = false
+        qtyOwned = 3
+        rating = 1
+    }
 }
 
 struct LegoSetPrices : Codable {

@@ -9,8 +9,8 @@
 import SwiftUI
 import WidgetKit
 
-struct WidgetStateSmallView: View {
-    var entry: Provider.Entry
+struct CollectionWidgetViewSmall: View {
+    var entry: CollectionWidgetProvider.Entry
 
     var body: some View {
         VStack(alignment: .leading){
@@ -43,7 +43,7 @@ struct WidgetStateSmallView: View {
 
 struct WidgetStateSmallView_Previews: PreviewProvider {
     static var previews: some View {
-        WidgetStateView(entry: BricksetEntry.placeHolder)
+        CollectionWidgetView(entry: CollectionWidgetEntry.placeHolder)
             .previewContext(WidgetPreviewContext(family: .systemSmall))
     }
 }

@@ -12,17 +12,17 @@ import SwiftUI
 
 let store = Store()
 
-struct Provider: IntentTimelineProvider {
-    func placeholder(in context: Context) -> BricksetEntry {
-        BricksetEntry.placeHolder
+struct CollectionWidgetProvider: IntentTimelineProvider {
+    func placeholder(in context: Context) -> CollectionWidgetEntry {
+        CollectionWidgetEntry.placeHolder
     }
 
-    func getSnapshot(for configuration: ConfigurationIntent, in context: Context, completion: @escaping (BricksetEntry) -> ()) {
-        let entry = BricksetEntry.placeHolder
+    func getSnapshot(for configuration: ConfigurationIntent, in context: Context, completion: @escaping (CollectionWidgetEntry) -> ()) {
+        let entry = CollectionWidgetEntry.placeHolder
         completion(entry)
     }
 
-    func getTimeline(for configuration: ConfigurationIntent, in context: Context, completion: @escaping (Timeline<BricksetEntry>) -> ()) {
+    func getTimeline(for configuration: ConfigurationIntent, in context: Context, completion: @escaping (Timeline<CollectionWidgetEntry>) -> ()) {
 
         // Generate a timeline consisting of five entries an hour apart, starting from the current date.
         
@@ -33,7 +33,7 @@ struct Provider: IntentTimelineProvider {
 //            entries.append(entry)
 //        }
         print("items\( store.minifigs.count)")
-        let entry = BricksetEntry(date: Date(), configuration: ConfigurationIntent(),
+        let entry = CollectionWidgetEntry(date: Date(), configuration: ConfigurationIntent(),
                                   sets:store.sets
                                   ,minifigs: store.minifigs)
 

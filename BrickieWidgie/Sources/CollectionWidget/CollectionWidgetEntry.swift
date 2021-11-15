@@ -8,14 +8,14 @@
 
 import WidgetKit
 
-struct BricksetEntry : TimelineEntry {
+struct CollectionWidgetEntry : TimelineEntry {
     let date: Date
     let configuration: ConfigurationIntent
     
     let sets : [LegoSet]
     let minifigs : [LegoMinifig]
     
-    static let placeHolder = BricksetEntry(date: Date(), configuration: ConfigurationIntent(),
+    static let placeHolder = CollectionWidgetEntry(date: Date(), configuration: ConfigurationIntent(),
         sets: [],
         minifigs: []
                                            
