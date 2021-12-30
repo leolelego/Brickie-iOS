@@ -114,7 +114,7 @@
 		96DE924D245F696700652E0E /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
 		96DE9252245F8A6800652E0E /* Blur.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Blur.swift; sourceTree = "<group>"; };
 		96DE9255245FA7BC00652E0E /* RoundedCorners.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedCorners.swift; sourceTree = "<group>"; };
-		96E78B78245CAC270032F4E3 /* Brickie Debug.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Brickie Debug.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		96E78B78245CAC270032F4E3 /* Brickie.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Brickie.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		96E78B81245CAC290032F4E3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		96E78B87245CAC290032F4E3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		96E78B89245CAC290032F4E3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -261,7 +261,7 @@
 		96E78B79245CAC270032F4E3 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				96E78B78245CAC270032F4E3 /* Brickie Debug.app */,
+				96E78B78245CAC270032F4E3 /* Brickie.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -402,7 +402,7 @@
 				9694B58A24900E21008D0508 /* SDWebImageSwiftUI */,
 			);
 			productName = BrickSet;
-			productReference = 96E78B78245CAC270032F4E3 /* Brickie Debug.app */;
+			productReference = 96E78B78245CAC270032F4E3 /* Brickie.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -706,7 +706,8 @@
 				);
 				MARKETING_VERSION = 1.4.0;
 				PRODUCT_BUNDLE_IDENTIFIER = family.homework.brickset;
-				PRODUCT_NAME = "Brickie Debug";
+				PRODUCT_MODULE_NAME = "$(PRODUCT_NAME:c99extidentifier)";
+				PRODUCT_NAME = Brickie;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "";
 				SUPPORTS_MACCATALYST = NO;
