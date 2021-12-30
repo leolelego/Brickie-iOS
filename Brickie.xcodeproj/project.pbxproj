@@ -72,6 +72,7 @@
 		B3D828042573D97500CAC606 /* FigsGridCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D828032573D97500CAC606 /* FigsGridCell.swift */; };
 		B3D828072573DA3B00CAC606 /* PastilView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D828062573DA3B00CAC606 /* PastilView.swift */; };
 		B3D8280A2573F1C000CAC606 /* CellContextMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D828092573F1C000CAC606 /* CellContextMenu.swift */; };
+		D3109594277E405B001D7721 /* PreviewStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3109593277E405B001D7721 /* PreviewStore.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -143,6 +144,7 @@
 		B3D828062573DA3B00CAC606 /* PastilView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PastilView.swift; sourceTree = "<group>"; };
 		B3D828092573F1C000CAC606 /* CellContextMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellContextMenu.swift; sourceTree = "<group>"; };
 		B3F688E427178B2700962062 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		D3109593277E405B001D7721 /* PreviewStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewStore.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -212,6 +214,7 @@
 		96DE9241245F31A800652E0E /* Preview Content */ = {
 			isa = PBXGroup;
 			children = (
+				D3109593277E405B001D7721 /* PreviewStore.swift */,
 			);
 			path = "Preview Content";
 			sourceTree = "<group>";
@@ -501,6 +504,7 @@
 				96E78BC2245D15220032F4E3 /* Secrets.swift in Sources */,
 				96E78BAE245CCED40032F4E3 /* APIHelpers.swift in Sources */,
 				96365E6F2468700900F318C3 /* DismissingKeyboardOnSwipe.swift in Sources */,
+				D3109594277E405B001D7721 /* PreviewStore.swift in Sources */,
 				960FAD7E24677CAC0064B458 /* ActivityControllerView.swift in Sources */,
 				96365E712468C5A500F318C3 /* BarButtonModifier.swift in Sources */,
 				96DE9247245F3DD800652E0E /* SetDetailView.swift in Sources */,

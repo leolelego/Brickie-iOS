@@ -62,11 +62,21 @@ class Store : ObservableObject{
         case year
     }
     
-    init(){
+    init(preview: Bool) {
+        commonInit(preview:preview)
+    }
+    
+    init() {
+        commonInit(preview:false)
+    }
+    
+    func commonInit(preview: Bool) {
         if let username = keychain.get(Key.username), let hash = keychain.get(Key.token){
             self.user = User(username: username, token: hash)
         }
-        loadFromBack()
+        if (!preview) {
+            loadFromBack()
+        }
         searchSetsCancellable = $searchSetsText
             .debounce(for: .milliseconds(850), scheduler: DispatchQueue.main)
             .removeDuplicates()
