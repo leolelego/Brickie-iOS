@@ -203,7 +203,18 @@ struct SetDetailView: View {
             .padding()
             .background(Color.yellow)
             .mask(RoundedRectangle(cornerRadius: 12))
-        .padding()    }
+        .padding()
+    }
     
 }
 
+struct SetDetailView_Previews: PreviewProvider {
+    static var previews: some View {
+        let store = PreviewStore()
+        SetDetailView(set:store.sets.first!)
+            .previewDevice("iPhone SE")
+            .environmentObject(store as Store)
+            .environmentObject(Configuration())
+            .previewDisplayName("Defaults")
+    }
+}

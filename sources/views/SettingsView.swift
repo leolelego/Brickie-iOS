@@ -166,6 +166,9 @@ struct SettingsView: View {
 struct SettingsView_Previews: PreviewProvider {
     static var previews: some View {
         SettingsView()
+            .previewDevice("iPhone SE")
+            .environmentObject(Store())
+            .previewDisplayName("Defaults")
     }
 }
 

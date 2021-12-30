@@ -119,6 +119,17 @@ struct AppRootView: View {
     
 }
 
+struct AppRoot_Previews: PreviewProvider {
+    static var previews: some View {
+        AppRootView()
+            .previewDevice("iPhone SE")
+            .environmentObject(PreviewStore() as Store)
+            .environmentObject(Configuration())
+            .previewDisplayName("Defaults")
+    }
+}
+
+
 enum AppPanel : Int,CaseIterable {
     case sets = 0
     case minifigures = 1
