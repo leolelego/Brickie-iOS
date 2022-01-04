@@ -67,9 +67,9 @@ struct MinifigDetailView: View {
         VStack(alignment: .center, spacing: 8) {
             
             HStack {
-                Text( (minifig.minifigNumber+" ").uppercased()).font(.lego(size: 26)).foregroundColor(.black)
+                Text( (minifig.minifigNumber+" - ").uppercased()).font(.number(size: 26)).foregroundColor(.black)
                     + Text(minifig.nameUI).font(.title).bold().foregroundColor(.black)
-            }
+            }.shadow(color: .white, radius: 1, x: 1, y: 1)
             .frame(minWidth: 0, maxWidth: .infinity,alignment: .leading)
             .foregroundColor(Color.backgroundAlt)
             .padding(.vertical,8).padding(.horizontal,6)

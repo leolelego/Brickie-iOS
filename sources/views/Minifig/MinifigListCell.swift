@@ -27,7 +27,7 @@ struct MinifigListCell: View {
                     Text(sub).font(.subheadline).foregroundColor(Color.gray)
                 }
                 if minifig.name != nil {
-                    Text(minifig.minifigNumber.uppercased()+" ").font(.lego(size: 14))
+                    Text(minifig.minifigNumber.uppercased()+" ").font(.number(size: 14))
                 }
                 
             }

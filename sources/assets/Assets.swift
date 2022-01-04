@@ -52,4 +52,7 @@ extension Font {
     static func lego(size:CGFloat)->Font{
         Font.custom("LEGothicType", size: size)
     }
+    static func number(size:CGFloat)->Font{
+        return Font.custom("RoundedMplus1c-Black", size: size)
+    }
 }

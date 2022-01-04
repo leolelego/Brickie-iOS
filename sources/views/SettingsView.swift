@@ -63,9 +63,9 @@ struct SettingsView: View {
                     HStack{
                         Text("settings.collection")
                         Spacer()
-                        Text(String(store.sets.qtyOwned)+" ").font(.lego(size: 20))
+                        Text(String(store.sets.qtyOwned)+" ").font(.number(size: 20))
                         Image.brick
-                        Text(String(store.minifigs.qtyOwned)+" ").font(.lego(size: 20))
+                        Text(String(store.minifigs.qtyOwned)+" ").font(.number(size: 20))
                         Image.minifig_head
                     }
                     HStack{

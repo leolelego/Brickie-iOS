@@ -119,10 +119,11 @@ struct SetDetailView: View {
         VStack(alignment: .leading, spacing: 8) {
             
             HStack {
-                Text( set.number+" ").font(.lego(size: 32)).foregroundColor(.black)
+                Text( set.number+" ").font(.number(size: 32))
+                    .foregroundColor(.black)
                 + Text(set.name).font(.largeTitle).bold().foregroundColor(.black)
                 Spacer()
-            }
+            }.shadow(color: .white, radius: 1, x: 1, y: 1)
             .foregroundColor(Color.backgroundAlt)
             .padding(.vertical,8).padding(.horizontal,6)
             .background(BackgroundImageView(imagePath: set.image.imageURL)).modifier(RoundedShadowMod())

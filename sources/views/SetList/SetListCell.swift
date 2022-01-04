@@ -37,7 +37,10 @@ struct SetListCell : View {
                     }
                 }
                 Spacer()
-                Text(set.number+" ").font(.lego(size: 27)).offset(x: 22, y: -6)
+               // NumberText(text: set.number, size: 27)
+               Text(set.number).font(.number(size: 22))
+                    .shadow(color: .white, radius: 1, x: 1, y: 1)
+                   .offset(x: 10, y: -12)
             }
             Spacer()
             makeDetails()

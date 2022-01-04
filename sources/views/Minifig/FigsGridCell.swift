@@ -22,7 +22,7 @@ struct FigsGridCell: View {
             }
             .modifier(RoundedShadowMod())
             Text(minifig.nameUI).minimumScaleFactor(0.5).font(.headline).lineLimit(3).multilineTextAlignment(.center)
-            Text(" "+minifig.minifigNumber.uppercased()+" ").font(.lego(size: 14))
+            Text(" "+minifig.minifigNumber.uppercased()+" ").font(.number(size: 14))
             Spacer()
             
         }
