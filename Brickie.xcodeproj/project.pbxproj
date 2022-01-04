@@ -62,6 +62,8 @@
 		96ED04D6246823DA00C3A8BA /* LegoMinifig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96ED04D5246823DA00C3A8BA /* LegoMinifig.swift */; };
 		B36981C626AF158C00046AA3 /* APIIssueView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B36981C526AF158C00046AA3 /* APIIssueView.swift */; };
 		B3900DD62784EDAD002D228A /* MPLUSRounded1c-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B3900DD52784EDAD002D228A /* MPLUSRounded1c-Black.ttf */; };
+		B3900DDA2784FFA9002D228A /* LegoTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3900DD92784FFA9002D228A /* LegoTheme.swift */; };
+		B3900DDC278500D9002D228A /* LegoSubTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3900DDB278500D9002D228A /* LegoSubTheme.swift */; };
 		B3A0BB3C26B2C9CF00A68341 /* Static.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3A0BB3B26B2C9CF00A68341 /* Static.swift */; };
 		B3BA1661271603A8001292CC /* NakedList.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3BA1660271603A8001292CC /* NakedList.swift */; };
 		B3BA166327160C95001292CC /* SwipeActionsMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3BA166227160C95001292CC /* SwipeActionsMenu.swift */; };
@@ -132,6 +134,8 @@
 		96ED04D5246823DA00C3A8BA /* LegoMinifig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LegoMinifig.swift; sourceTree = "<group>"; };
 		B36981C526AF158C00046AA3 /* APIIssueView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIIssueView.swift; sourceTree = "<group>"; };
 		B3900DD52784EDAD002D228A /* MPLUSRounded1c-Black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "MPLUSRounded1c-Black.ttf"; sourceTree = "<group>"; };
+		B3900DD92784FFA9002D228A /* LegoTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LegoTheme.swift; sourceTree = "<group>"; };
+		B3900DDB278500D9002D228A /* LegoSubTheme.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LegoSubTheme.swift; sourceTree = "<group>"; };
 		B3A0BB3B26B2C9CF00A68341 /* Static.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Static.swift; sourceTree = "<group>"; };
 		B3A0BB3D26B36FEC00A68341 /* CHANGELOG.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = CHANGELOG.md; sourceTree = "<group>"; };
 		B3BA1660271603A8001292CC /* NakedList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NakedList.swift; sourceTree = "<group>"; };
@@ -188,6 +192,8 @@
 				96ED04D5246823DA00C3A8BA /* LegoMinifig.swift */,
 				9624E3882471E66B002F68F7 /* Lego.swift */,
 				961FC1BC2558770500434E5D /* User.swift */,
+				B3900DD92784FFA9002D228A /* LegoTheme.swift */,
+				B3900DDB278500D9002D228A /* LegoSubTheme.swift */,
 			);
 			path = data;
 			sourceTree = "<group>";
@@ -499,6 +505,7 @@
 				B3BA1661271603A8001292CC /* NakedList.swift in Sources */,
 				B3D827DD2572ACF500CAC606 /* Enums.swift in Sources */,
 				96E78BBA245CEA1D0032F4E3 /* SettingsView.swift in Sources */,
+				B3900DDC278500D9002D228A /* LegoSubTheme.swift in Sources */,
 				96DE9256245FA7BC00652E0E /* RoundedCorners.swift in Sources */,
 				9624E38124718DC4002F68F7 /* EnvironmentValues.swift in Sources */,
 				960FAD7D24677CAC0064B458 /* SafariView.swift in Sources */,
@@ -551,6 +558,7 @@
 				960FAD8224677FD70064B458 /* PDFView.swift in Sources */,
 				9624E38D2471F3B5002F68F7 /* FigsListView.swift in Sources */,
 				96D8A83A2558A810008EED7D /* SorterFilterView.swift in Sources */,
+				B3900DDA2784FFA9002D228A /* LegoTheme.swift in Sources */,
 				B3A0BB3C26B2C9CF00A68341 /* Static.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -796,7 +804,7 @@
 			repositoryURL = "https://github.com/evgenyneu/keychain-swift.git";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 19.0.0;
+				minimumVersion = 20.0.0;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */

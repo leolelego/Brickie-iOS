@@ -46,7 +46,11 @@ struct MinifigListView: View {
                     }
                     
                 }
-            }.naked
+            }
+            .naked
+            .refreshable {
+                store.requestForSync = true
+            }
             
         }
         

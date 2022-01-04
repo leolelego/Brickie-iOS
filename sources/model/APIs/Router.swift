@@ -38,8 +38,11 @@ enum APIRouter<T:Any> {
     case searchMinifigs(String,String)
     
     case minifigWanted(String,LegoMinifig,Bool)
-    //    case minifigOwned(String,LegoSet,Bool)
     case minifigQty(String,LegoMinifig,Int)
+    
+    // MARK: Get Theme Theme and Subtheme
+    case themes
+    case subthemes(String)
     
     var url : URL? {
         guard var components = URLComponents(url: baseURL.appendingPathComponent(method), resolvingAgainstBaseURL: false)
@@ -60,6 +63,8 @@ enum APIRouter<T:Any> {
         case .setWanted,.setQty: return "setCollection"
         case .ownedFigs,.wantedFigs,.searchMinifigs: return "getMinifigCollection"
         case .minifigWanted,.minifigQty: return "setMinifigCollection"
+        case .themes : return "getThemes"
+        case .subthemes : return "getSubthemes"
             
         }
     }
@@ -72,6 +77,9 @@ enum APIRouter<T:Any> {
         case .ownedSets,.wantedSets,.searchSets,.searchSetsTheme,.searchSetsSubTheme,.searchSetsYear : return "sets"
         case .ownedFigs,.wantedFigs,.searchMinifigs: return "minifigs"
         case .setWanted,.setQty,.minifigWanted,.minifigQty: return "status"
+        case .themes: return "themes"
+        case .subthemes: return "subthemes"
+
             
             
         }
@@ -158,6 +166,13 @@ enum APIRouter<T:Any> {
             URLQueryItem(name: "userHash", value: hash),
             URLQueryItem(name: "minifigNumber", value: minifig.minifigNumber),
             URLQueryItem(name: "params", value: "{want:\(minifig.wanted ? 1 : 0),qtyOwned:\(qty)}")
+            ]
+        case .themes : return [
+            URLQueryItem(name: "apiKey", value: BrickSetApiKey),
+            ]
+        case .subthemes(let theme) : return [
+            URLQueryItem(name: "apiKey", value: BrickSetApiKey),
+            URLQueryItem(name: "theme", value: theme),
             ]
         }
     }

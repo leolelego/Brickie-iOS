@@ -18,6 +18,9 @@ enum Settings {
     static let reviewVersion = "reviewVersion"
     
     static let currency = "currency"
+    
+    static let unreleasedSets = "unreleasedSets"
+
 
 
 }

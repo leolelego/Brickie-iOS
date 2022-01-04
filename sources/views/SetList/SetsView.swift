@@ -20,7 +20,8 @@ struct SetsView: View {
             APIIssueView(error: $store.error)
             SetsListView(items: store.mainSets,sorter:$sorter,filter: $filter)
             .searchable(text: $store.searchSetsText,
-                        prompt: searchPlaceholder())
+                        prompt: searchPlaceholder()) 
+               
             .disableAutocorrection(true)
         }
         .sheet(isPresented: $isPresentingScanenr) {

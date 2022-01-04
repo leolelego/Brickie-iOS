@@ -1,4 +1,6 @@
 1.5.0
+- Add Pull to Refresh on iPhone Table mode (not grid)
+- Add options to display unreleased sets with mising informations
 - Change number font to be more readble. If you have any expertise in fonts, I need help to find a better font.
 
 1.4.0

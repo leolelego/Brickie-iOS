@@ -10,15 +10,16 @@ import SwiftUI
 
 
 struct SettingsView: View {
-
+    
     @EnvironmentObject private var  store : Store
+    @AppStorage(Settings.unreleasedSets) var unreleasedSets : Bool = false
+    
     @Environment(\.presentationMode) var presentationMode
-//    @AppStorage(Settings.currency) var currency : Currency = .default
-
+    //    @AppStorage(Settings.currency) var currency : Currency = .default
+    
     let feedbacks = [
         Credit(text: "credit.email", link: URL(string:kFeedbackMailto)!,image: Image(systemName:"envelope.fill")),
         Credit(text: "credit.github", link: URL(string: "https://github.com/leolelego/BrickSet")!,image: Image("github")),
-        //Credit(text: "credit.instagram", link: URL(string: "https://instagram.com/leolelego")!,image: Image("instagram")),
         Credit(text: "credit.twitter", link: URL(string: "https://twitter.com/leolelego")!,image: Image("twitter"))
     ]
     
@@ -75,7 +76,9 @@ struct SettingsView: View {
                     }
                 }
                 
-                
+                Section(header: Text("settings.options"),footer: Text("settings.options.footer")) {
+                    Toggle("settings.options.unreleasedsets", isOn: $unreleasedSets)
+                }
                 Section(header: Text("settings.feedbacks"),footer: makeFooter()) {
                     ForEach(feedbacks){ c in
                         Button(action: {
@@ -122,7 +125,7 @@ struct SettingsView: View {
                     Image("app_logo")
                         .padding(20)
                         .background(Circle()
-                            .fill(Color.white))
+                                        .fill(Color.white))
                     Text("credit.thanks").bold()
                     Text(" BRICKIE ").font(.lego(size: 32)).foregroundColor(.white)
                         .padding(.top,4)
@@ -139,7 +142,7 @@ struct SettingsView: View {
         VStack(alignment: .leading, spacing: 16, content: {
             makeBrickSet()
             makeAppVersion()
-        
+            
         })
     }
     func makeBrickSet() -> some View {
@@ -154,7 +157,7 @@ struct SettingsView: View {
             Spacer()
             Text("v\(kAppversion) (\(kAppBuild))").font(.footnote)
             Spacer()
-
+            
         }
         
     }

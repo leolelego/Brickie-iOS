@@ -20,8 +20,10 @@ class Store : ObservableObject{
     
     @Published private(set) var sets = [LegoSet]()
     @Published private(set) var minifigs = [LegoMinifig]()
-    
+    @Published private(set) var themes = [LegoTheme]()
+    @Published private(set) var subthemes = [LegoSubTheme]()
     @Published var searchSetsText = ""
+    
     private var searchSetsCancellable: AnyCancellable?
     @Published var searchMinifigsText = ""
     private var searchMinifigsCancellable: AnyCancellable?
@@ -52,6 +54,8 @@ class Store : ObservableObject{
         
         static let setsBackupURL = URL(string: "sets.json")!
         static let figsBackupURL = URL(string: "minigures.json")!
+        static let themesBackupURL = URL(string: "themes.json")!
+        static let subthemesBackupURL = URL(string: "subthemes.json")!
         
     }
     
@@ -102,8 +106,37 @@ class Store : ObservableObject{
         
         requestForSync = self.user != nil
         
+        //self.getThemes()
+        
     }
-    
+
+    func getThemes(){
+        APIRouter<[[String:Any]]>.themes.decode(ofType: [LegoTheme].self) { response in
+            switch response {
+            case .success(let data):
+                self.themes = data
+                for theme in data {
+                    if(theme.setCount == 0 ){
+                        log("WTF")
+                    }
+                    if(theme.subthemeCount != 0 ){
+                 
+                    APIRouter<[[String:Any]]>.subthemes(theme.theme).decode(ofType: [LegoSubTheme].self) { response in
+                        switch response {
+                        case .success(let data):
+                            self.subthemes.append(contentsOf: data.filter {$0.subtheme != "{None"})
+                            break
+                        case .failure:break
+                        }
+                    }
+                    }
+                }
+                
+                break
+            case .failure:break
+            }
+        }
+    }
     enum Filter : Equatable{
         case owned
         case search(String)
@@ -415,6 +448,8 @@ extension Store {
                 
             }
         }
+        
+ 
         func wantedSets(page:Int,  incrmentatl_sets:  [LegoSet]){
             APIRouter<[[String:Any]]>.wantedSets(token,page).decode(ofType: [LegoSet].self) {
                 response in
@@ -534,9 +569,12 @@ extension Store {
             var persistance = PersistentData()
             let setsData = try JSONEncoder().encode(sets)
             let figsData = try JSONEncoder().encode(minifigs)
-            
+            //let themesData = try JSONEncoder().encode(themes)
+            //let subthemesData = try JSONEncoder().encode(subthemes)
             persistance[Key.setsBackupURL] = setsData
             persistance[Key.figsBackupURL] = figsData
+            //persistance[Key.themesBackupURL] = themesData
+            //persistance[Key.subthemesBackupURL] = subthemesData
             log("Model Saved.")
             
         } catch {
@@ -558,6 +596,22 @@ extension Store {
             do {
                 let items = try JSONDecoder().decode([LegoMinifig].self, from: data)
                 self.append(items)
+            } catch {
+                logerror(error)
+            }
+        }
+        if let data = persistance[Key.themesBackupURL] {
+            do {
+                let items = try JSONDecoder().decode([LegoTheme].self, from: data)
+                self.themes = items
+            } catch {
+                logerror(error)
+            }
+        }
+        if let data = persistance[Key.subthemesBackupURL] {
+            do {
+                let items = try JSONDecoder().decode([LegoSubTheme].self, from: data)
+                self.subthemes = items
             } catch {
                 logerror(error)
             }

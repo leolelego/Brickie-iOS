@@ -41,10 +41,11 @@ struct SetsListView: View {
                         }
                         
                     }
-                }.naked
-                //                    .refreshable {
-                //                        store.requestForSync = true
-                //                    }
+                }
+                .naked
+                .refreshable {
+                    store.requestForSync = true
+                }
             } else {
                 ScrollView{
                     LazyVStack(alignment: .leading, spacing: 16, pinnedViews: [.sectionHeaders]) {

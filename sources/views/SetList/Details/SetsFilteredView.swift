@@ -11,6 +11,8 @@ import SwiftUI
 struct SetsFilteredView: View {
     @EnvironmentObject private var  store : Store
     @EnvironmentObject private var  config : Configuration
+    @AppStorage(Settings.unreleasedSets) var unreleasedSets : Bool = false
+
     let text : String
     let filter: Store.SearchFilter
     @State var requestSent : Bool = false
@@ -27,7 +29,7 @@ struct SetsFilteredView: View {
                 return $0.year == Int(text)
             }
             
-        })
+        }).filter({unreleasedSets ? true :  !$0.name.contains("{?}") })
     }
     
     var body: some View {
