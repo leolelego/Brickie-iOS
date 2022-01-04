@@ -1,3 +1,6 @@
+1.5.0
+- Change number font to be more readble. If you have any expertise in fonts, I need help to find a better font.
+
 1.4.0
 - save locally more often
 - Fix an issue where add figs to wanted list remove it from owned loose list and vice and versa
