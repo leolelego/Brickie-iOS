@@ -11,7 +11,7 @@ import SDWebImageSwiftUI
 struct MinifigDetailView: View {    
     @ObservedObject var minifig : LegoMinifig
     @State var isImageDetailPresented : Bool = false
-    
+    @State var notes : String = "I'm Here"
     var body: some View {
         ScrollView( showsIndicators: false){
             makeThumbnail().zIndex(80)
@@ -20,6 +20,8 @@ struct MinifigDetailView: View {
             makeHeader().zIndex(0)
             Divider()
             MinifigEditorView(minifig: minifig).padding()
+            makeNotes()
+            
             
         }
         .sheet(isPresented: $isImageDetailPresented, content: { FullScreenImageView(isPresented: $isImageDetailPresented, urls: .constant([minifig.imageUrl]))})
@@ -81,5 +83,81 @@ struct MinifigDetailView: View {
             }
         }.padding(.horizontal)
             .frame(minWidth: 0, maxWidth: .infinity,alignment: .leading)
+    }
+    
+    func makeNotes() -> some View {
+        VStack(alignment: .leading,spacing: 16){
+            Text("sets.notes").font(.title).bold()
+            
+           // TextEditorView()
+        //https://stackoverflow.com/questions/63234769/how-to-prevent-texteditor-from-scrolling-in-swiftui
+            TextEditor(text: $notes)
+                            .font(.body)
+                            .background(.red)
+                     
+//            ZStack(alignment: .leading) {
+//                if notes.isEmpty {
+//                    Text("Add somes notes here")
+//                        .padding(.all)
+//                }
+//
+//                    .padding(.all)
+//            }
+//            HStack{
+//            TextEditor(text: $notes)
+//
+////            }
+////            .frame(minHeight:100,maxHeight: .infinity)
+//            .cornerRadius(12)
+//                .shadow(color: .gray, radius: 1, x: 1, y: 1 )
+
+
+        }
+        .frame(
+            minWidth: 0,
+            maxWidth: .infinity,
+            minHeight: 0,
+            maxHeight: .infinity,
+            alignment: .topLeading
+        )
+        .padding(.horizontal)
+        
+    }
+    
+}
+struct TextEditorView: View {
+   @State private var objectDescription: String?
+   var body: some View {
+        VStack(alignment: .leading) {
+            let placeholder = "enter detailed Description"
+            ZStack(alignment: .topLeading) {
+                TextEditor(text: Binding($objectDescription, replacingNilWith: ""))
+                    .frame(minHeight: 300, alignment: .leading)
+                    // following line is a hack to force TextEditor to appear
+                    //  similar to .textFieldStyle(RoundedBorderTextFieldStyle())...
+                    .cornerRadius(6.0)
+                    .multilineTextAlignment(.leading)
+                Text(objectDescription ?? placeholder)
+                    // following line is a hack to create an inset similar to the TextEditor inset...
+                    .padding(.leading, 4)
+                    .foregroundColor(.gray)
+                    .opacity(objectDescription == nil ? 1 : 0)
+            }
+            .font(.body) // if you'd prefer the font to appear the same for both iOS and macOS
+        }
+    }
+}
+public extension Binding where Value: Equatable {
+    init(_ source: Binding<Value?>, replacingNilWith nilProxy: Value) {
+        self.init(
+            get: { source.wrappedValue ?? nilProxy },
+            set: { newValue in
+                if newValue == nilProxy {
+                    source.wrappedValue = nil
+                }
+                else {
+                    source.wrappedValue = newValue
+                }
+        })
     }
 }

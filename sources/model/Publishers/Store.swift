@@ -21,7 +21,7 @@ class Store : ObservableObject{
     @Published private(set) var sets = [LegoSet]()
     @Published private(set) var minifigs = [LegoMinifig]()
     @Published private(set) var themes = [LegoTheme]()
-    @Published private(set) var subthemes = [LegoSubTheme]()
+    @Published private(set) var subthemes = [LegoTheme.Subtheme]()
     @Published var searchSetsText = ""
     
     private var searchSetsCancellable: AnyCancellable?
@@ -121,7 +121,7 @@ class Store : ObservableObject{
                     }
                     if(theme.subthemeCount != 0 ){
                  
-                    APIRouter<[[String:Any]]>.subthemes(theme.theme).decode(ofType: [LegoSubTheme].self) { response in
+                        APIRouter<[[String:Any]]>.subthemes(theme.theme).decode(ofType: [LegoTheme.Subtheme].self) { response in
                         switch response {
                         case .success(let data):
                             self.subthemes.append(contentsOf: data.filter {$0.subtheme != "{None"})
@@ -610,7 +610,7 @@ extension Store {
         }
         if let data = persistance[Key.subthemesBackupURL] {
             do {
-                let items = try JSONDecoder().decode([LegoSubTheme].self, from: data)
+                let items = try JSONDecoder().decode([LegoTheme.Subtheme].self, from: data)
                 self.subthemes = items
             } catch {
                 logerror(error)

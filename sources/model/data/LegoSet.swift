@@ -7,28 +7,7 @@
 //
 
 import Foundation
-//import RealmSwift
-let currencyFormatter : NumberFormatter = {
-    let f = NumberFormatter()
-    f.numberStyle = .currency
-    
-    let currentlocale = Locale.current
-    
-    switch Locale(identifier: currentlocale.regionCode!).identifier {
-    case "ca":
-        f.currencyCode = "CAD"
-        break
-    case "us":
-        f.currencyCode = "USD"
-        break
-    case "gb":
-        f.currencyCode = "GBP"
-        break
-    default:
-        f.currencyCode = "EUR"
-    }
-    return f
-}()
+
 class LegoSet : Lego, Hashable {
     var setID : Int = 0
     var number : String = ""
@@ -39,16 +18,22 @@ class LegoSet : Lego, Hashable {
     var themeGroup : String? = ""
     var subtheme : String? = ""
     var category : String = ""
-//    var released : Bool = true
+    //var released : Bool = true
     var pieces : Int? = 0
     let minifigs : Int?
-    let image : LegoSetImage
+    let image : SetImage
     let bricksetURL : String
-    var collection : LegoSetCollection
+    var collection : Collection
     let rating : Float
+    let packagingType : String
+    let availability : String
     let instructionsCount : Float
-    let LEGOCom : [String:LegoSetPrice]
-    let barcode : LegoBarCode?
+    let LEGOCom : [String:Prices.Price]
+    let barcode : BarCode?
+    let dimensions : Dimension
+    let ageRange : AgeRange
+    let collections : Collections
+    
     var price : String? {
         let currentlocale = Locale.current
         switch Locale(identifier: currentlocale.regionCode!).identifier {
@@ -94,8 +79,8 @@ class LegoSet : Lego, Hashable {
        }
     
     
-    var additionalImages : [LegoSetImage]?
-    var instrucctions : [LegoInstruction]?
+    var additionalImages : [SetImage]?
+    var instrucctions : [Instruction]?
 
     
     static func == (lhs: LegoSet, rhs: LegoSet) -> Bool {
@@ -126,7 +111,8 @@ class LegoSet : Lego, Hashable {
         
         return matched
     }
-    
+
+
 }
 extension LegoSet : CustomStringConvertible {
     var description: String {
@@ -148,34 +134,32 @@ extension Array where  Element:LegoSet {
     }
 }
 
-struct LegoSetImage : Codable,Equatable {
-    var thumbnailURL : String?
-    var imageURL : String?
+extension LegoSet {
+    var hasDimensions : Bool {
+        return dimensions.width != nil && dimensions.height != nil && dimensions.depth != nil
+    }
+    var hasWeight : Bool {
+        return dimensions.weight != nil
+    }
 }
-class LegoSetCollection : Codable {
-    var owned : Bool
-    var wanted : Bool
-    var qtyOwned : Int
-    var rating : Float
-    var notes = ""
-}
-
-struct LegoSetPrices : Codable {
-    let US : LegoSetPrice?
-    let UK : LegoSetPrice?
-    let CA : LegoSetPrice?
-    let DE : LegoSetPrice?
-}
-struct LegoSetPrice : Codable {
-    let retailPrice : Float?
-}
-
-struct LegoInstruction : Codable,Equatable {
-    let URL : String
-    let description : String
-}
-
-struct LegoBarCode : Codable {
-    let EAN : String?
-    let UPC : String?
-}
+let currencyFormatter : NumberFormatter = {
+    let f = NumberFormatter()
+    f.numberStyle = .currency
+    
+    let currentlocale = Locale.current
+    
+    switch Locale(identifier: currentlocale.regionCode!).identifier {
+    case "ca":
+        f.currencyCode = "CAD"
+        break
+    case "us":
+        f.currencyCode = "USD"
+        break
+    case "gb":
+        f.currencyCode = "GBP"
+        break
+    default:
+        f.currencyCode = "EUR"
+    }
+    return f
+}()

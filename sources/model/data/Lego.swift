@@ -17,14 +17,5 @@ extension Lego {
     
     func match(_ search:String) -> Bool {
         return matchString(search.lowercased())
-//        let splits = search.lowercased().split(separator: " ")
-//        for split in splits {
-//            if matchString(String(split)) == true {
-//                return true
-//            }
-//        }
-//        return false
-        // Mieux
-//        search.lowercased().split(separator: " ").contains(where: { self.matchString(String($0)) })
     }
 }

@@ -27,7 +27,7 @@ enum APIRouter<T:Any> {
     case setWanted(String,LegoSet,Bool)
     //    case setOwned(String,LegoSet,Bool) // Useless as it's done form the server by updating the QTY
     case setQty(String,LegoSet,Int)
-    
+    case setNotes(String,LegoSet,String)
     // MARK: Get Sets Details
     case setInstructions(Int)
     case additionalImages(Int)
@@ -39,6 +39,7 @@ enum APIRouter<T:Any> {
     
     case minifigWanted(String,LegoMinifig,Bool)
     case minifigQty(String,LegoMinifig,Int)
+    case minifigNotes(String,LegoMinifig,String)
     
     // MARK: Get Theme Theme and Subtheme
     case themes
@@ -60,9 +61,9 @@ enum APIRouter<T:Any> {
         case .setInstructions: return "getInstructions"
         case .additionalImages: return "getAdditionalImages"
         case .ownedSets,.wantedSets,.searchSets,.searchSetsTheme,.searchSetsSubTheme,.searchSetsYear : return "getSets"
-        case .setWanted,.setQty: return "setCollection"
+        case .setWanted,.setQty,.setNotes: return "setCollection"
         case .ownedFigs,.wantedFigs,.searchMinifigs: return "getMinifigCollection"
-        case .minifigWanted,.minifigQty: return "setMinifigCollection"
+        case .minifigWanted,.minifigQty,.minifigNotes: return "setMinifigCollection"
         case .themes : return "getThemes"
         case .subthemes : return "getSubthemes"
             
@@ -76,7 +77,7 @@ enum APIRouter<T:Any> {
         case .additionalImages:  return "additionalImages"
         case .ownedSets,.wantedSets,.searchSets,.searchSetsTheme,.searchSetsSubTheme,.searchSetsYear : return "sets"
         case .ownedFigs,.wantedFigs,.searchMinifigs: return "minifigs"
-        case .setWanted,.setQty,.minifigWanted,.minifigQty: return "status"
+        case .setWanted,.setQty,.minifigWanted,.minifigQty,.setNotes,.minifigNotes: return "status"
         case .themes: return "themes"
         case .subthemes: return "subthemes"
 
@@ -155,6 +156,12 @@ enum APIRouter<T:Any> {
             URLQueryItem(name: "setID", value: String(set.setID)),
             URLQueryItem(name: "params", value: "{qtyOwned:\(qty)}") //owned:\(qty < 1 ? 0 : 1),
             ]
+        case .setNotes(let hash,let set, let notes) : return [
+            URLQueryItem(name: "apiKey", value: BrickSetApiKey),
+            URLQueryItem(name: "userHash", value: hash),
+            URLQueryItem(name: "setID", value: String(set.setID)),
+            URLQueryItem(name: "params", value: "{notes:\(notes)}") //owned:\(qty < 1 ? 0 : 1),
+            ]
         case .minifigWanted(let hash,let minifig, let want) : return [
             URLQueryItem(name: "apiKey", value: BrickSetApiKey),
             URLQueryItem(name: "userHash", value: hash),
@@ -166,6 +173,12 @@ enum APIRouter<T:Any> {
             URLQueryItem(name: "userHash", value: hash),
             URLQueryItem(name: "minifigNumber", value: minifig.minifigNumber),
             URLQueryItem(name: "params", value: "{want:\(minifig.wanted ? 1 : 0),qtyOwned:\(qty)}")
+            ]
+        case .minifigNotes(let hash,let minifig, let notes) : return [
+            URLQueryItem(name: "apiKey", value: BrickSetApiKey),
+            URLQueryItem(name: "userHash", value: hash),
+            URLQueryItem(name: "minifigNumber", value: minifig.minifigNumber),
+            URLQueryItem(name: "params", value: "{notes:\(notes)}")
             ]
         case .themes : return [
             URLQueryItem(name: "apiKey", value: BrickSetApiKey),
@@ -253,6 +266,7 @@ extension APIRouter {
                 } catch let DecodingError.dataCorrupted(context) {
                     log("\(context)")
                 } catch let DecodingError.keyNotFound(key, context) {
+                    
                     log("Key '\(key)' not found: \(context.debugDescription)")
                     log("codingPath: \(context.codingPath)")
                 } catch let DecodingError.valueNotFound(value, context) {

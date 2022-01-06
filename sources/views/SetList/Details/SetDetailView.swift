@@ -29,11 +29,12 @@ struct SetDetailView: View {
             makeButtons()
             makeImages()
             makeInstructions()
+            makeAddtionnalInfos()
         }
         .sheet(isPresented: $isImageDetailPresented, content: { FullScreenImageView(isPresented: $isImageDetailPresented, urls: $detailImageUrl,currentIndex: imageIndex )})
         .onAppear {
             if  self.set.additionalImages == nil {
-                APIRouter<[[String:Any]]>.additionalImages(self.set.setID).decode(ofType: [LegoSetImage].self) { response in
+                APIRouter<[[String:Any]]>.additionalImages(self.set.setID).decode(ofType: [LegoSet.SetImage].self) { response in
                     switch response {
                     case .success(let items):
                         DispatchQueue.main.async {
@@ -42,8 +43,6 @@ struct SetDetailView: View {
                         }
                         break
                     case .failure(_):
-                        //                        self.error = (err as? APIError) ?? APIError.unknown
-                        
                         break
                     }
                     
@@ -51,7 +50,7 @@ struct SetDetailView: View {
             }
             
             if self.set.instructionsCount > 0 && self.set.instrucctions == nil{
-                APIRouter<[[String:Any]]>.setInstructions(self.set.setID).decode(ofType: [LegoInstruction].self) { response in
+                APIRouter<[[String:Any]]>.setInstructions(self.set.setID).decode(ofType: [LegoSet.Instruction].self) { response in
                     switch response {
                     case .success(let items):
                         DispatchQueue.main.async {
@@ -124,11 +123,11 @@ struct SetDetailView: View {
                 + Text(set.name).font(.largeTitle).bold().foregroundColor(.black)
                 Spacer()
             }.shadow(color: .white, radius: 1, x: 1, y: 1)
-            .foregroundColor(Color.backgroundAlt)
-            .padding(.vertical,8).padding(.horizontal,6)
-            .background(BackgroundImageView(imagePath: set.image.imageURL)).modifier(RoundedShadowMod())
-            .foregroundColor(Color.background)
-            .clipped()
+                .foregroundColor(Color.backgroundAlt)
+                .padding(.vertical,8).padding(.horizontal,6)
+                .background(BackgroundImageView(imagePath: set.image.imageURL)).modifier(RoundedShadowMod())
+                .foregroundColor(Color.background)
+                .clipped()
             
             HStack(alignment: .center){
                 Text("\(set.pieces ?? 0)").font(.headline)
@@ -157,7 +156,7 @@ struct SetDetailView: View {
                                     let images = set.additionalImages?.compactMap{$0.imageURL}
                                     self.detailImageUrl = images ?? []
                                     self.imageIndex = set.additionalImages?.firstIndex(of: image) ?? 0
-
+                                    
                                     self.isImageDetailPresented.toggle()
                                 }) {
                                     
@@ -196,6 +195,58 @@ struct SetDetailView: View {
         }
         
     }
+    
+    func makeAddtionnalInfos() -> some View {
+        VStack(alignment: .leading,spacing: 16){
+            
+            Text("sets.details").font(.title).bold()
+            if ((set.ageRange.min) != nil) {
+                HStack {
+                    Text("sets.meta.age").bold()
+                    Spacer()
+                    Text("\(set.ageRange.min!)+")
+                }
+            }
+            HStack {
+                Text("sets.meta.packaging").bold()
+                Spacer()
+                Text(set.packagingType)
+            }
+            if set.hasDimensions {
+                HStack {
+                    Text("sets.meta.dimensions").bold()
+                    Spacer()
+                    Text("\(String(format: "%.1f", set.dimensions.width!)) x \(String(format: "%.1f", set.dimensions.height!)) x \(String(format: "%.1f", set.dimensions.depth!))") // \(String(format: "%.1f", set.dimensions!.width!))  x ]
+                }
+                
+            }
+            if set.hasWeight {
+                HStack {
+                    Text("sets.meta.weight").bold()
+                    Spacer()
+                    Text("\(String(format: "%.1f", set.dimensions.weight!)) kg")
+                }
+            }
+            HStack {
+                Text("sets.meta.availability").bold()
+                Spacer()
+                Text(set.availability)
+            }
+            RatingView(rating: set.rating)
+
+        }
+        .frame(
+            minWidth: 0,
+            maxWidth: .infinity,
+            minHeight: 0,
+            maxHeight: .infinity,
+            alignment: .topLeading
+        )
+        .padding(.horizontal)
+        
+    }
+   
+    
     
     func makeInstructionButton()-> some View {
         Text("sets.instruction")

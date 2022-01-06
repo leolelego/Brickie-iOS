@@ -9,7 +9,6 @@
 import Foundation
 class LegoMinifig : Lego , Hashable{
  
-    
     let minifigNumber : String
     var ownedInSets : Int = 0
     var ownedLoose : Int = 0
@@ -92,6 +91,4 @@ class LegoMinifig : Lego , Hashable{
 extension LegoMinifig : Identifiable {
     var id: String {minifigNumber}
 }
-extension LegoMinifig{
-    
-}
+
