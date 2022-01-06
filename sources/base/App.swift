@@ -23,6 +23,30 @@ struct TheApp : App {
                 
             }
     }()
+    
+    #if DEBUG_PREVIEWS
+    
+    var body : some Scene {
+        WindowGroup{
+            SetsView_Previews.previews
+                .environmentObject(kCollection).environmentObject(kConfig)
+                .onReceive(NotificationCenter.default.publisher(for: UIApplication.willResignActiveNotification)) { _ in
+                    kCollection.backup()
+                }
+                .onReceive(NotificationCenter.default.publisher(for: UIApplication.willTerminateNotification)) { _ in
+                    kCollection.backup()
+                }
+                .onReceive(NotificationCenter.default.publisher(for: UIApplication.didBecomeActiveNotification)) { _ in
+                    kCollection.requestForSync = true
+                }
+                .onAppear {
+                    tweakThatShit()
+                }
+        }
+    }
+    
+    #else
+    
     var body : some Scene {
         WindowGroup{
             AppRootView()
@@ -41,8 +65,8 @@ struct TheApp : App {
                 }
         }
     }
-    
-    
+
+    #endif
     func tweakThatShit(){
         UITableView.appearance().tableFooterView = UIView()
         UINavigationBar.appearance().largeTitleTextAttributes = [

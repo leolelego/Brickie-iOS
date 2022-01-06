@@ -145,6 +145,7 @@
 		B3D828092573F1C000CAC606 /* CellContextMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellContextMenu.swift; sourceTree = "<group>"; };
 		B3F688E427178B2700962062 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		D3109593277E405B001D7721 /* PreviewStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewStore.swift; sourceTree = "<group>"; };
+		D3A19DE3278799AD009959DC /* Debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Debug.xcconfig; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -253,6 +254,7 @@
 			children = (
 				B3A0BB3D26B36FEC00A68341 /* CHANGELOG.md */,
 				B3F688E427178B2700962062 /* README.md */,
+				D3A19DE3278799AD009959DC /* Debug.xcconfig */,
 				96E78B7A245CAC270032F4E3 /* sources */,
 				96E78B79245CAC270032F4E3 /* Products */,
 			);
@@ -690,6 +692,7 @@
 		};
 		96E78B8D245CAC290032F4E3 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = D3A19DE3278799AD009959DC /* Debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = sources/assets/BrickSet.entitlements;
