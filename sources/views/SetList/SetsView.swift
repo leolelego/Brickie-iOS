@@ -106,7 +106,9 @@ struct SetsView: View {
 
 struct SetsView_Previews: PreviewProvider {
     static var previews: some View {
-        SetsView()
+        SinglePanelView(item: AppPanel.sets,
+                        view: AnyView(SetsView()),
+                        toolbar: AppRootView().toolbar() )
             .previewDevice("iPhone SE")
             .environmentObject(PreviewStore() as Store)
             .environmentObject(Configuration())

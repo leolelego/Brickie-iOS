@@ -36,29 +36,12 @@ struct AppRootView: View {
     
     var iPhoneView: some View {
         TabView(selection: $selection){
-            ForEach(AppPanel.allCases, id: \.self){ item in
-                NavigationView {
-                    item.view
-                        .navigationTitle(item.title)
-                        .toolbar(content: {
-                            ToolbarItem(placement: .navigationBarLeading){
-                                toolbar()
-                                
-                            }
-                        })
-                }.navigationViewStyle(StackNavigationViewStyle())
-                
-                    .tabItem {
-                        VStack {
-                            item.image
-                            Text(item.tab)
-                        }
-                    }.tag(item.rawValue)
+            ForEach(AppPanel.allCases, id: \.self) { item in
+                SinglePanelView(item: item, view: item.view, toolbar: toolbar() )
             }
         }
-        
     }
-    
+
     var iPadMacView : some View {
         NavigationView {
             
@@ -85,7 +68,7 @@ struct AppRootView: View {
         .navigationViewStyle(DoubleColumnNavigationViewStyle())
     }
     
-    func toolbar() -> some View {
+    func toolbar() -> Button<Image> {
         Button(action: {
             self.isPresentingSettings.toggle()
         }, label: {
@@ -129,6 +112,22 @@ struct AppRoot_Previews: PreviewProvider {
     }
 }
 
+struct SinglePanelView: View {
+    let item : AppPanel
+    let view : AnyView
+    let toolbar : Button<Image>
+    var body: some View {
+        NavigationView {
+            view
+                .navigationTitle(item.title)
+                .toolbar(content: {
+                    ToolbarItem(placement: .navigationBarLeading){
+                        toolbar
+                    }
+                })
+        }.navigationViewStyle(StackNavigationViewStyle())
+    }
+}
 
 enum AppPanel : Int,CaseIterable {
     case sets = 0
