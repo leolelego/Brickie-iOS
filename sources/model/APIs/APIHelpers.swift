@@ -14,6 +14,7 @@ enum APIError : Error {
     case invalid
     case badData
     case invalidUserHash // Log out - Change password
+    case apiLimitExceeded
 
     var localizedDescription: LocalizedStringKey {
         switch self {
@@ -21,6 +22,8 @@ enum APIError : Error {
             return "error.badlogin"
         case .invalid:
             return "error.noapiresponse"
+        case .apiLimitExceeded:
+            return "error.apilimitexceeded"
         default:
             return "error.unknown"
         }
