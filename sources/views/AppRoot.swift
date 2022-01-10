@@ -126,6 +126,12 @@ struct SinglePanelView: View {
                     }
                 })
         }.navigationViewStyle(StackNavigationViewStyle())
+            .tabItem {
+                VStack {
+                    item.image
+                    Text(item.tab)
+                }
+            }.tag(item.rawValue)
     }
 }
 
