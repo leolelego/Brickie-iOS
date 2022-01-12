@@ -41,8 +41,12 @@ struct DataCache {
         cache.removeAllObjects()
     }
 }
+
+let fileCacheKey = "file_cache"
+
 struct PersistentData {
     private let filemanager = FileManager()
+    
     let documentsUrl =  FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask).first! as URL
     
     subscript(_ key: URL) -> Data? {
@@ -51,36 +55,31 @@ struct PersistentData {
         }
         set {
             let path = documentsUrl.appendingPathComponent(key.lastPathComponent)
-            DispatchQueue.global().async{
+            DispatchQueue.main.async{
                 do {
                     let userDefaults = UserDefaults.standard
-                    var array = userDefaults.array(forKey: "file_cache")  ?? [URL]()
+                    var array = userDefaults.array(forKey: fileCacheKey) as! [String]? ?? [String]()
 
                     if newValue == nil {
                         try FileManager.default.removeItem(at: path)
-                        
-                        if let idx = array.firstIndex(where: {($0 as? URL) == key}){
-                            array.remove(at: idx)
-                        }
-                        
-                        
+                        array.removeAll { $0 == key.absoluteString }
                     } else {
                         try newValue?.write(to: path)
-                        array.append(key)
+                        array.removeAll { $0 == key.absoluteString }
+                        array.append(key.absoluteString)
                     }
-                    userDefaults.set(key, forKey: "file_cache")
-                    userDefaults.synchronize()
                     
+                    userDefaults.set(array, forKey: fileCacheKey)
+                    userDefaults.synchronize()
                 } catch {
                     logerror(error)
                 }
-                
             }
         }
     }
     
     func free(){
-        let array = UserDefaults.standard.array(forKey: "file_cache") as? [URL]  ?? [URL]()
+        let array = UserDefaults.standard.array(forKey: fileCacheKey) as? [URL]  ?? [URL]()
         for item in array {
            let path = documentsUrl.appendingPathComponent(item.lastPathComponent)
             
