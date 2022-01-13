@@ -15,6 +15,7 @@ import SDWebImage
 
 class Store : ObservableObject{
     
+    static let singleton = Store()
     let keychain = KeychainSwift()
     let serialQueue = DispatchQueue(label: "store.serial.queue")
     
@@ -175,6 +176,7 @@ class Store : ObservableObject{
     enum Action {
         case want(Bool)
         case qty(Int)
+        
         
         func query(obj:LegoSet,user:User?,completion: @escaping (Result<String,Error>) -> Void){
             guard let token = user?.token else {return}
@@ -497,7 +499,7 @@ extension Store {
         }
         
     }
-    func searchSets(text:String,by filter:SearchFilter){
+    func searchSets(text:String,by filter:SearchFilter,completion: (([LegoSet]) -> Void)? = nil){
         guard let token = user?.token, try! Reachability().connection != . unavailable else {return }
         
         
@@ -518,6 +520,7 @@ extension Store {
             request.decode(ofType: [LegoSet].self) { response in
                 switch response {
                 case .success(let sets):
+                    completion?(sets)
                     if sets .count >= pageSizeSearch {
                         search(page: page+1)
                     }

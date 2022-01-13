@@ -90,7 +90,7 @@ struct SetsListView: View {
     
     func sectionListView(theme:String) -> some View{
         ForEach(self.items(for: theme, items: self.setsToShow ), id: \.setID) { item in
-            NakedListCell(
+            NakedListActionCell(
                 owned: item.collection.qtyOwned, wanted: item.collection.wanted,
                 add: {self.store.action(.qty(item.collection.qtyOwned+1),on: item)},
                 remove: {store.action(.qty(item.collection.qtyOwned-1),on: item)},

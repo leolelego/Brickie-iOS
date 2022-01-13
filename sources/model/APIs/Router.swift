@@ -45,6 +45,9 @@ enum APIRouter<T:Any> {
     case themes
     case subthemes(String)
     
+    // Mark Notes
+    case getMinifigNotes(String)
+    
     var url : URL? {
         guard var components = URLComponents(url: baseURL.appendingPathComponent(method), resolvingAgainstBaseURL: false)
             else {return nil}
@@ -66,6 +69,7 @@ enum APIRouter<T:Any> {
         case .minifigWanted,.minifigQty,.minifigNotes: return "setMinifigCollection"
         case .themes : return "getThemes"
         case .subthemes : return "getSubthemes"
+        case .getMinifigNotes : return "getUserMinifigNotes"
             
         }
     }
@@ -80,6 +84,7 @@ enum APIRouter<T:Any> {
         case .setWanted,.setQty,.minifigWanted,.minifigQty,.setNotes,.minifigNotes: return "status"
         case .themes: return "themes"
         case .subthemes: return "subthemes"
+        case .getMinifigNotes : return "userMinifigNotes"
 
             
             
@@ -160,7 +165,7 @@ enum APIRouter<T:Any> {
             URLQueryItem(name: "apiKey", value: BrickSetApiKey),
             URLQueryItem(name: "userHash", value: hash),
             URLQueryItem(name: "setID", value: String(set.setID)),
-            URLQueryItem(name: "params", value: "{notes:\(notes)}") //owned:\(qty < 1 ? 0 : 1),
+            URLQueryItem(name: "params", value: "{notes:\"\(notes.isEmpty ? " " : notes)\"}") //owned:\(qty < 1 ? 0 : 1),
             ]
         case .minifigWanted(let hash,let minifig, let want) : return [
             URLQueryItem(name: "apiKey", value: BrickSetApiKey),
@@ -178,7 +183,7 @@ enum APIRouter<T:Any> {
             URLQueryItem(name: "apiKey", value: BrickSetApiKey),
             URLQueryItem(name: "userHash", value: hash),
             URLQueryItem(name: "minifigNumber", value: minifig.minifigNumber),
-            URLQueryItem(name: "params", value: "{notes:\(notes)}")
+            URLQueryItem(name: "params", value: "{notes:\"\(notes.isEmpty ? " " : notes)\"}")
             ]
         case .themes : return [
             URLQueryItem(name: "apiKey", value: BrickSetApiKey),
@@ -186,6 +191,10 @@ enum APIRouter<T:Any> {
         case .subthemes(let theme) : return [
             URLQueryItem(name: "apiKey", value: BrickSetApiKey),
             URLQueryItem(name: "theme", value: theme),
+            ]
+        case .getMinifigNotes(let hash) : return [
+            URLQueryItem(name: "apiKey", value: BrickSetApiKey),
+            URLQueryItem(name: "userHash", value: hash),
             ]
         }
     }

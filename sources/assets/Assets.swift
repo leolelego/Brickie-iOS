@@ -10,6 +10,12 @@ extension Color {
     public static var background: Color {
         Color("background", bundle: nil)
     }
+    public static var backgroundContrast: Color {
+        Color("backgroundContrast", bundle: nil)
+    }
+    public static var textLight: Color {
+        Color("textLight", bundle: nil)
+    }
     public static var backgroundAlt: Color {
         Color("backgroundAlt", bundle: nil)
     }

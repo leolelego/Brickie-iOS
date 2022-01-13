@@ -9,6 +9,8 @@
 import SwiftUI
 import  SDWebImageSwiftUI
 struct SetDetailView: View {
+    @EnvironmentObject private var  store : Store
+
     @Environment(\.dataCache) var cache: DataCache
     @EnvironmentObject var config : Configuration
     //    @AppStorage(Settings.currency) var currency : Currency = .default
@@ -17,6 +19,9 @@ struct SetDetailView: View {
     @State var isImageDetailPresented : Bool = false
     @State var detailImageUrl : [String] = []
     @State var imageIndex : Int = 1
+    
+    @State var note = ""
+    @State var isEditing = false
     var body: some View {
         ScrollView( showsIndicators: false){
             makeThumbnail().zIndex(500)
@@ -30,9 +35,16 @@ struct SetDetailView: View {
             makeImages()
             makeInstructions()
             makeAddtionnalInfos()
+            makeNotes()
         }
         .sheet(isPresented: $isImageDetailPresented, content: { FullScreenImageView(isPresented: $isImageDetailPresented, urls: $detailImageUrl,currentIndex: imageIndex )})
         .onAppear {
+//            store.searchSets(text: set.number, by: .none) { sets in
+//                let setNote = sets.first(where: {$0.setID == set.setID})?.collection.notes ?? ""
+//                note = setNote
+//            }
+            note = set.collection.notes
+            isEditing = false
             if  self.set.additionalImages == nil {
                 APIRouter<[[String:Any]]>.additionalImages(self.set.setID).decode(ofType: [LegoSet.SetImage].self) { response in
                     switch response {
@@ -73,7 +85,6 @@ struct SetDetailView: View {
         }
         
         .navigationBarTitle("", displayMode: .inline)
-        //        .navigationBarItems(trailing: ShareNavButton(items: [URL(string:set.bricksetURL)!]))
         
     }
     
@@ -259,3 +270,52 @@ struct SetDetailView: View {
     
 }
 
+// A refactor - C'est pas top
+extension SetDetailView {
+    private func makeNotes() -> some View {
+        VStack(alignment: .leading,spacing: 16){
+            HStack{
+                Text("sets.notes").font(.title).bold()
+                if config.connection == .unavailable {
+                    Text("offline").font(.callout).foregroundColor(.purple)
+                } else if !isEditing{
+                    Image(systemName: "checkmark.circle")
+                } else {
+                    ActivityIndicator($isEditing)
+                }
+            }
+            //https://stackoverflow.com/questions/63234769/how-to-prevent-texteditor-from-scrolling-in-swiftui
+            TextView(text:$note) {
+                if config.connection != .unavailable {
+                    self.isEditing = true
+                }
+            } onSave: {
+
+                if config.connection != .unavailable && self.isEditing {
+                    APIRouter<String>.setNotes(store.user!.token, set, note)
+                        .responseJSON { response in
+                    switch response {
+                    case .failure: break
+                    case .success:
+                        self.isEditing = false
+                        set.collection.notes = note
+                        break
+                    }
+                }
+                }
+            }
+            .disabled(config.connection == .unavailable)
+            .opacity(config.connection != .unavailable ? 1.0 : 0.3)
+            Spacer(minLength: 50)
+        }
+        .frame(
+            minWidth: 0,
+            maxWidth: .infinity,
+            minHeight: 100,
+            maxHeight: .infinity,
+            alignment: .topLeading
+        )
+        .padding(.horizontal)
+        
+    }
+}

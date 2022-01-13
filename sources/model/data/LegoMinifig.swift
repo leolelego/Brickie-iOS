@@ -16,7 +16,7 @@ class LegoMinifig : Lego , Hashable{
     var wanted : Bool = false
     var name : String?
     var category : String?
-    
+    var notes : String?  // Notes from API directly
     var bricksetURL : String { return "https://brickset.com/minifigs/\(minifigNumber)" }
     
     static func == (lhs: LegoMinifig, rhs: LegoMinifig) -> Bool {
@@ -34,8 +34,6 @@ class LegoMinifig : Lego , Hashable{
         ownedLoose = from.ownedLoose
         ownedTotal = from.ownedTotal
         wanted = from.wanted
-        
-        
     }
 
     
@@ -43,6 +41,7 @@ class LegoMinifig : Lego , Hashable{
          let matched = name?.lowercased().contains(search) ?? false
              || category?.lowercased().contains(search) ?? false
              || minifigNumber.lowercased().contains(search)
+             || notes?.lowercased().contains(search) ?? false
          return matched
      }
     var nameUI : String {

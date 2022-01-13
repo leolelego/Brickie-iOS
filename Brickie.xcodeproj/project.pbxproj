@@ -10,7 +10,6 @@
 		960FAD53246709C50064B458 /* BlurredImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960FAD52246709C50064B458 /* BlurredImageView.swift */; };
 		960FAD59246729EE0064B458 /* SetEditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960FAD58246729EE0064B458 /* SetEditorView.swift */; };
 		960FAD7D24677CAC0064B458 /* SafariView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960FAD7B24677CAC0064B458 /* SafariView.swift */; };
-		960FAD7E24677CAC0064B458 /* ActivityControllerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960FAD7C24677CAC0064B458 /* ActivityControllerView.swift */; };
 		960FAD8024677F250064B458 /* PDFKitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960FAD7F24677F250064B458 /* PDFKitView.swift */; };
 		960FAD8224677FD70064B458 /* PDFView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960FAD8124677FD70064B458 /* PDFView.swift */; };
 		9610E5C82479815F00E31B57 /* FullScreenImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9610E5C72479815F00E31B57 /* FullScreenImageView.swift */; };
@@ -29,7 +28,6 @@
 		96365E712468C5A500F318C3 /* BarButtonModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96365E702468C5A500F318C3 /* BarButtonModifier.swift */; };
 		964BA877246A1FFE00984DCC /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 964BA879246A1FFE00984DCC /* Localizable.strings */; };
 		964BA87F246A34D700984DCC /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = 964BA87E246A34D700984DCC /* Router.swift */; };
-		96519AD52496FC4E002B0354 /* ActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96519AD42496FC4E002B0354 /* ActivityIndicator.swift */; };
 		967ED17B24607BD4004712DB /* SetListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967ED17A24607BD4004712DB /* SetListCell.swift */; };
 		967ED17F24608F9F004712DB /* Legothick.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 967ED17E24608F9F004712DB /* Legothick.ttf */; };
 		96851E032473389800D9F803 /* Reachability in Frameworks */ = {isa = PBXBuildFile; productRef = 96851E022473389800D9F803 /* Reachability */; };
@@ -63,9 +61,11 @@
 		B32BA81027864FEB00F0A8AD /* RatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32BA80F27864FEB00F0A8AD /* RatingView.swift */; };
 		B32BA8122786601100F0A8AD /* LegoSet+Subclass.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32BA8112786601100F0A8AD /* LegoSet+Subclass.swift */; };
 		B36981C626AF158C00046AA3 /* APIIssueView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B36981C526AF158C00046AA3 /* APIIssueView.swift */; };
+		B3831BA4278F5FD9000301FC /* TextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3831BA3278F5FD9000301FC /* TextView.swift */; };
 		B3900DD62784EDAD002D228A /* MPLUSRounded1c-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B3900DD52784EDAD002D228A /* MPLUSRounded1c-Black.ttf */; };
 		B3900DDA2784FFA9002D228A /* LegoTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3900DD92784FFA9002D228A /* LegoTheme.swift */; };
 		B3A0BB3C26B2C9CF00A68341 /* Static.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3A0BB3B26B2C9CF00A68341 /* Static.swift */; };
+		B3B580F6278F784300D543B7 /* MinifigNote.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B580F5278F784300D543B7 /* MinifigNote.swift */; };
 		B3BA1661271603A8001292CC /* NakedList.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3BA1660271603A8001292CC /* NakedList.swift */; };
 		B3BA166327160C95001292CC /* SwipeActionsMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3BA166227160C95001292CC /* SwipeActionsMenu.swift */; };
 		B3D827DD2572ACF500CAC606 /* Enums.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D827DC2572ACF500CAC606 /* Enums.swift */; };
@@ -82,7 +82,6 @@
 		960FAD52246709C50064B458 /* BlurredImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlurredImageView.swift; sourceTree = "<group>"; };
 		960FAD58246729EE0064B458 /* SetEditorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetEditorView.swift; sourceTree = "<group>"; };
 		960FAD7B24677CAC0064B458 /* SafariView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SafariView.swift; sourceTree = "<group>"; };
-		960FAD7C24677CAC0064B458 /* ActivityControllerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityControllerView.swift; sourceTree = "<group>"; };
 		960FAD7F24677F250064B458 /* PDFKitView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PDFKitView.swift; sourceTree = "<group>"; };
 		960FAD8124677FD70064B458 /* PDFView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PDFView.swift; sourceTree = "<group>"; };
 		9610E5C72479815F00E31B57 /* FullScreenImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullScreenImageView.swift; sourceTree = "<group>"; };
@@ -102,7 +101,6 @@
 		964BA878246A1FFE00984DCC /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		964BA87A246A200700984DCC /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
 		964BA87E246A34D700984DCC /* Router.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
-		96519AD42496FC4E002B0354 /* ActivityIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityIndicator.swift; sourceTree = "<group>"; };
 		967ED17A24607BD4004712DB /* SetListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetListCell.swift; sourceTree = "<group>"; };
 		967ED17E24608F9F004712DB /* Legothick.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Legothick.ttf; sourceTree = "<group>"; };
 		96851E0624734D3A00D9F803 /* MinifigDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MinifigDetailView.swift; sourceTree = "<group>"; };
@@ -136,10 +134,12 @@
 		B32BA80F27864FEB00F0A8AD /* RatingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatingView.swift; sourceTree = "<group>"; };
 		B32BA8112786601100F0A8AD /* LegoSet+Subclass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LegoSet+Subclass.swift"; sourceTree = "<group>"; };
 		B36981C526AF158C00046AA3 /* APIIssueView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIIssueView.swift; sourceTree = "<group>"; };
+		B3831BA3278F5FD9000301FC /* TextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextView.swift; sourceTree = "<group>"; };
 		B3900DD52784EDAD002D228A /* MPLUSRounded1c-Black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "MPLUSRounded1c-Black.ttf"; sourceTree = "<group>"; };
 		B3900DD92784FFA9002D228A /* LegoTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LegoTheme.swift; sourceTree = "<group>"; };
 		B3A0BB3B26B2C9CF00A68341 /* Static.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Static.swift; sourceTree = "<group>"; };
 		B3A0BB3D26B36FEC00A68341 /* CHANGELOG.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = CHANGELOG.md; sourceTree = "<group>"; };
+		B3B580F5278F784300D543B7 /* MinifigNote.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MinifigNote.swift; sourceTree = "<group>"; };
 		B3BA1660271603A8001292CC /* NakedList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NakedList.swift; sourceTree = "<group>"; };
 		B3BA166227160C95001292CC /* SwipeActionsMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeActionsMenu.swift; sourceTree = "<group>"; };
 		B3D827DC2572ACF500CAC606 /* Enums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Enums.swift; sourceTree = "<group>"; };
@@ -171,9 +171,7 @@
 			isa = PBXGroup;
 			children = (
 				960FAD7B24677CAC0064B458 /* SafariView.swift */,
-				960FAD7C24677CAC0064B458 /* ActivityControllerView.swift */,
 				960FAD7F24677F250064B458 /* PDFKitView.swift */,
-				96519AD42496FC4E002B0354 /* ActivityIndicator.swift */,
 			);
 			path = representables;
 			sourceTree = "<group>";
@@ -196,6 +194,7 @@
 				9624E3882471E66B002F68F7 /* Lego.swift */,
 				961FC1BC2558770500434E5D /* User.swift */,
 				B3900DD92784FFA9002D228A /* LegoTheme.swift */,
+				B3B580F5278F784300D543B7 /* MinifigNote.swift */,
 			);
 			path = data;
 			sourceTree = "<group>";
@@ -392,6 +391,7 @@
 				B3D828062573DA3B00CAC606 /* PastilView.swift */,
 				B3D828092573F1C000CAC606 /* CellContextMenu.swift */,
 				B3BA166227160C95001292CC /* SwipeActionsMenu.swift */,
+				B3831BA3278F5FD9000301FC /* TextView.swift */,
 			);
 			path = Reusable;
 			sourceTree = "<group>";
@@ -515,6 +515,7 @@
 				96ED04D6246823DA00C3A8BA /* LegoMinifig.swift in Sources */,
 				96E78BB2245CD79F0032F4E3 /* Logger.swift in Sources */,
 				B3D827EF2573C4FE00CAC606 /* FigsView.swift in Sources */,
+				B3831BA4278F5FD9000301FC /* TextView.swift in Sources */,
 				B3D827EB2573BF8B00CAC606 /* FirstSyncView.swift in Sources */,
 				96E78BA1245CC5AA0032F4E3 /* Configuration.swift in Sources */,
 				9610E5C82479815F00E31B57 /* FullScreenImageView.swift in Sources */,
@@ -523,17 +524,16 @@
 				96E78BC2245D15220032F4E3 /* Secrets.swift in Sources */,
 				96E78BAE245CCED40032F4E3 /* APIHelpers.swift in Sources */,
 				96365E6F2468700900F318C3 /* DismissingKeyboardOnSwipe.swift in Sources */,
-				960FAD7E24677CAC0064B458 /* ActivityControllerView.swift in Sources */,
 				96365E712468C5A500F318C3 /* BarButtonModifier.swift in Sources */,
 				96DE9247245F3DD800652E0E /* SetDetailView.swift in Sources */,
 				96851E0724734D3A00D9F803 /* MinifigDetailView.swift in Sources */,
 				96E78B98245CB1120032F4E3 /* RoundedButtonStyle.swift in Sources */,
 				9624E3912471F904002F68F7 /* MinifigListCell.swift in Sources */,
-				96519AD52496FC4E002B0354 /* ActivityIndicator.swift in Sources */,
 				9624E38F2471F79B002F68F7 /* RoundedText.swift in Sources */,
 				B32BA8122786601100F0A8AD /* LegoSet+Subclass.swift in Sources */,
 				96365E6E2468700900F318C3 /* AdaptsToSoftwareKeyboard.swift in Sources */,
 				961FC1BD2558770500434E5D /* User.swift in Sources */,
+				B3B580F6278F784300D543B7 /* MinifigNote.swift in Sources */,
 				96DE924C245F695100652E0E /* Assets.swift in Sources */,
 				B3BA166327160C95001292CC /* SwipeActionsMenu.swift in Sources */,
 				96851E092473569400D9F803 /* MinifigEditorView.swift in Sources */,

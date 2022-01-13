@@ -8,10 +8,14 @@
 
 import SwiftUI
 import SDWebImageSwiftUI
-struct MinifigDetailView: View {    
+struct MinifigDetailView: View {
+    @EnvironmentObject private var  store : Store
+
     @ObservedObject var minifig : LegoMinifig
     @State var isImageDetailPresented : Bool = false
-    @State var notes : String = "I'm Here"
+    @State var note = ""
+    @State var canEditNote = false
+    @State var isEditing = false
     var body: some View {
         ScrollView( showsIndicators: false){
             makeThumbnail().zIndex(80)
@@ -27,8 +31,12 @@ struct MinifigDetailView: View {
         .sheet(isPresented: $isImageDetailPresented, content: { FullScreenImageView(isPresented: $isImageDetailPresented, urls: .constant([minifig.imageUrl]))})
             
         .navigationBarTitle("", displayMode: .inline)
+        .onAppear {
+            loadNotes()
+        }
+
     }
-    func makeThumbnail() -> some View {
+    private func makeThumbnail() -> some View {
         
         Button(action: {
             
@@ -47,7 +55,7 @@ struct MinifigDetailView: View {
         
         
     }
-    func makeThemes() -> some View{
+    private func makeThemes() -> some View{
         
         HStack(spacing: 8){
             
@@ -64,8 +72,7 @@ struct MinifigDetailView: View {
         .frame(minWidth: 0, maxWidth: .infinity,alignment: .leading)
         
     }
-    
-    func makeHeader() -> some View{
+    private func makeHeader() -> some View{
         VStack(alignment: .center, spacing: 8) {
             
             HStack {
@@ -85,79 +92,71 @@ struct MinifigDetailView: View {
             .frame(minWidth: 0, maxWidth: .infinity,alignment: .leading)
     }
     
-    func makeNotes() -> some View {
+
+}
+
+// A refactor - C'est pas top
+extension MinifigDetailView {
+    private func makeNotes() -> some View {
         VStack(alignment: .leading,spacing: 16){
-            Text("sets.notes").font(.title).bold()
-            
-           // TextEditorView()
-        //https://stackoverflow.com/questions/63234769/how-to-prevent-texteditor-from-scrolling-in-swiftui
-            TextEditor(text: $notes)
-                            .font(.body)
-                            .background(.red)
-                     
-//            ZStack(alignment: .leading) {
-//                if notes.isEmpty {
-//                    Text("Add somes notes here")
-//                        .padding(.all)
-//                }
-//
-//                    .padding(.all)
-//            }
-//            HStack{
-//            TextEditor(text: $notes)
-//
-////            }
-////            .frame(minHeight:100,maxHeight: .infinity)
-//            .cornerRadius(12)
-//                .shadow(color: .gray, radius: 1, x: 1, y: 1 )
+            HStack{
+                Text("sets.notes").font(.title).bold()
+                if !canEditNote {
+                    Text("offline").font(.callout).foregroundColor(.purple)
+                } else if !isEditing{
+                    Image(systemName: "checkmark.circle")
+                } else {
+                    ActivityIndicator($isEditing)
+                }
+            }
+            //https://stackoverflow.com/questions/63234769/how-to-prevent-texteditor-from-scrolling-in-swiftui
+            TextView(text:$note) {
+                if canEditNote {
+                    self.isEditing = canEditNote
+                }
+            } onSave: {
 
-
+                if self.canEditNote && self.isEditing {
+                    APIRouter<String>.minifigNotes(store.user!.token, minifig, note)
+                        .responseJSON { response in
+                    switch response {
+                    case .failure: break
+                    case .success:
+                        self.isEditing = false
+                        break
+                    }
+                    
+                }
+                }
+            }
+            .disabled(!canEditNote)
+            .opacity(canEditNote ? 1.0 : 0.3)
+            Spacer(minLength: 50)
         }
         .frame(
             minWidth: 0,
             maxWidth: .infinity,
-            minHeight: 0,
+            minHeight: 100,
             maxHeight: .infinity,
             alignment: .topLeading
         )
         .padding(.horizontal)
         
     }
-    
-}
-struct TextEditorView: View {
-   @State private var objectDescription: String?
-   var body: some View {
-        VStack(alignment: .leading) {
-            let placeholder = "enter detailed Description"
-            ZStack(alignment: .topLeading) {
-                TextEditor(text: Binding($objectDescription, replacingNilWith: ""))
-                    .frame(minHeight: 300, alignment: .leading)
-                    // following line is a hack to force TextEditor to appear
-                    //  similar to .textFieldStyle(RoundedBorderTextFieldStyle())...
-                    .cornerRadius(6.0)
-                    .multilineTextAlignment(.leading)
-                Text(objectDescription ?? placeholder)
-                    // following line is a hack to create an inset similar to the TextEditor inset...
-                    .padding(.leading, 4)
-                    .foregroundColor(.gray)
-                    .opacity(objectDescription == nil ? 1 : 0)
+    private func loadNotes(){
+        self.canEditNote = false
+        self.note = minifig.notes ?? ""
+        APIRouter<[[String:Any]]>.getMinifigNotes(store.user!.token).decode(ofType: [MinigifNote].self){ response in
+            switch response {
+            case .success(let notes):
+                minifig.notes = notes.first(where: { $0.minifigNumber == minifig.minifigNumber})?.notes ?? ""
+                self.note = minifig.notes ?? ""
+                canEditNote = true
+                break
+            case .failure(_):
+                break
             }
-            .font(.body) // if you'd prefer the font to appear the same for both iOS and macOS
+
         }
-    }
-}
-public extension Binding where Value: Equatable {
-    init(_ source: Binding<Value?>, replacingNilWith nilProxy: Value) {
-        self.init(
-            get: { source.wrappedValue ?? nilProxy },
-            set: { newValue in
-                if newValue == nilProxy {
-                    source.wrappedValue = nil
-                }
-                else {
-                    source.wrappedValue = newValue
-                }
-        })
     }
 }

@@ -15,8 +15,32 @@ extension List{
             .listStyle(PlainListStyle())
     }
 }
-
+extension View {
+    var nakedCell : some View {
+        return self
+            .listRowBackground(EmptyView())
+            .listRowSeparator(.hidden)  // Remove Separator
+            .listRowInsets(EdgeInsets())
+    }
+}
 struct NakedListCell<Content:View, Destination:View>  :  View {
+   
+    let destination :  Destination
+    @ViewBuilder let content : Content
+    
+    var body : some View {
+        ZStack(alignment: .leading) {
+            NavigationLink(destination: destination){
+                EmptyView()
+            }.opacity(0)
+            content
+        }
+        .listRowBackground(EmptyView())
+        .listRowSeparator(.hidden)  // Remove Separator
+        .listRowInsets(EdgeInsets(top: 8, leading: 4, bottom: 8, trailing: 0)) // Remove Edges on Cell
+    }
+}
+struct NakedListActionCell<Content:View, Destination:View>  :  View {
    
     
     var owned : Int

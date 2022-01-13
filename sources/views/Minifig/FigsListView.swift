@@ -103,7 +103,7 @@ struct MinifigListView: View {
 
     fileprivate func listView(_ values : [LegoMinifig]) -> some View {
         return ForEach(values){ value in
-            NakedListCell(owned: value.ownedLoose, wanted: value.wanted,
+            NakedListActionCell(owned: value.ownedLoose, wanted: value.wanted,
                           add: {store.action(.qty(value.ownedLoose+1),on: value)},
                           remove: {store.action(.qty(value.ownedLoose-1),on: value)},
                           want: {store.action(.want(!value.wanted), on: value)},

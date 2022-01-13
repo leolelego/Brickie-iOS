@@ -8,7 +8,7 @@
 
 import SwiftUI
 import Combine
-let kCollection = Store()
+let kCollection = Store.singleton
 var kConfig = Configuration()
 
 @main
