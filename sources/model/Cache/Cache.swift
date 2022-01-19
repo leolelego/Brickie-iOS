@@ -42,7 +42,7 @@ struct DataCache {
     }
 }
 
-let fileCacheKey = "file_cache"
+fileprivate let fileCacheKey = "file_cache"
 
 struct PersistentData {
     private let filemanager = FileManager()
@@ -55,21 +55,20 @@ struct PersistentData {
         }
         set {
             let path = documentsUrl.appendingPathComponent(key.lastPathComponent)
-            DispatchQueue.main.async{
+            DispatchQueue.main.async {
                 do {
                     let userDefaults = UserDefaults.standard
-                    var array = userDefaults.array(forKey: fileCacheKey) as! [String]? ?? [String]()
-
+                    var set = Set(userDefaults.stringArray(forKey: fileCacheKey) ?? [String]())
+                    
                     if newValue == nil {
                         try FileManager.default.removeItem(at: path)
-                        array.removeAll { $0 == key.absoluteString }
+                        set.remove(key.absoluteString)
                     } else {
                         try newValue?.write(to: path)
-                        array.removeAll { $0 == key.absoluteString }
-                        array.append(key.absoluteString)
+                        set.insert(key.absoluteString)
                     }
                     
-                    userDefaults.set(array, forKey: fileCacheKey)
+                    userDefaults.set(Array(set), forKey: fileCacheKey)
                     userDefaults.synchronize()
                 } catch {
                     logerror(error)
@@ -79,12 +78,17 @@ struct PersistentData {
     }
     
     func free(){
-        let array = UserDefaults.standard.array(forKey: fileCacheKey) as? [URL]  ?? [URL]()
-        for item in array {
-           let path = documentsUrl.appendingPathComponent(item.lastPathComponent)
+        let userDefaults = UserDefaults.standard
+        
+        let keys = Set(userDefaults.stringArray(forKey: fileCacheKey) ?? [String]())
+        for item in keys {
+            guard let key = URL(string: item) else { continue }
+            let path = documentsUrl.appendingPathComponent(key.lastPathComponent)
             
             try? FileManager.default.removeItem(at: path)
         }
         
+        userDefaults.removeObject(forKey: fileCacheKey)
+        userDefaults.synchronize()
     }
 }
