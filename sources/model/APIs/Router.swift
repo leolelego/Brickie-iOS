@@ -249,6 +249,8 @@ extension APIRouter {
                 } else if let mess = dict["message"] as? String {
                     if mess.contains("Invalid user hash") {
                         completion(.failure(APIError.invalidUserHash))
+                    } else if mess.contains("API limit exceeded") {
+                        completion(.failure(APIError.apiLimitExceeded))
                     } else {
                         completion(.failure(APIError.badData))
                     }
