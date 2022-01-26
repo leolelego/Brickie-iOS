@@ -276,36 +276,30 @@ extension SetDetailView {
         VStack(alignment: .leading,spacing: 16){
             HStack{
                 Text("sets.notes").font(.title).bold()
-                if config.connection == .unavailable {
-                    Text("offline").font(.callout).foregroundColor(.purple)
-                } else if !isEditing{
-                    Image(systemName: "checkmark.circle")
-                } else {
-                    ActivityIndicator($isEditing)
-                }
+               
             }
-            //https://stackoverflow.com/questions/63234769/how-to-prevent-texteditor-from-scrolling-in-swiftui
-            TextView(text:$note) {
-                if config.connection != .unavailable {
-                    self.isEditing = true
-                }
-            } onSave: {
-
-                if config.connection != .unavailable && self.isEditing {
-                    APIRouter<String>.setNotes(store.user!.token, set, note)
-                        .responseJSON { response in
-                    switch response {
-                    case .failure: break
-                    case .success:
-                        self.isEditing = false
-                        set.collection.notes = note
-                        break
-                    }
-                }
-                }
-            }
-            .disabled(config.connection == .unavailable)
-            .opacity(config.connection != .unavailable ? 1.0 : 0.3)
+//            //https://stackoverflow.com/questions/63234769/how-to-prevent-texteditor-from-scrolling-in-swiftui
+//            TextView(text:$note) {
+//                if config.connection != .unavailable {
+//                    self.isEditing = true
+//                }
+//            } onSave: {
+//
+//                if config.connection != .unavailable && self.isEditing {
+//                    APIRouter<String>.setNotes(store.user!.token, set, note)
+//                        .responseJSON { response in
+//                    switch response {
+//                    case .failure: break
+//                    case .success:
+//                        self.isEditing = false
+//                        set.collection.notes = note
+//                        break
+//                    }
+//                }
+//                }
+//            }
+//            .disabled(config.connection == .unavailable)
+//            .opacity(config.connection != .unavailable ? 1.0 : 0.3)
             Spacer(minLength: 50)
         }
         .frame(
