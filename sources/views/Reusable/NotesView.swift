@@ -18,7 +18,7 @@ struct NotesView: View {
         @ViewBuilder var view : some View {
             switch self {
             case .none:
-                 EmptyView()
+                EmptyView()
             case .saving:
                  ProgressView()
                     .progressViewStyle(CircularProgressViewStyle())
@@ -42,17 +42,26 @@ struct NotesView: View {
             Spacer(minLength: 8)
             Button(action: {
                 onSave(){ stat in
-                   self.status = stat ? .saved : .error
+                    withAnimation {
+                        self.status = stat ? .saved : .error
+                    }
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+                        withAnimation {
+                            status =  status == .saved ? .none : status
+                        }
+                    }
                     
                 }
             }) {
-                HStack(alignment: .lastTextBaseline,spacing: 8) {
-                    
-                    Text("notes.button").fontWeight(.bold)
-                    status.view
-                    
-                }
-                
+                    ZStack(alignment: .trailing) {
+                        HStack{
+                            Spacer()
+                            Text("notes.button").fontWeight(.bold)
+                            Spacer()
+
+                        }
+                        status.view
+                    }
                 .frame(minWidth: 0, maxWidth: .infinity, minHeight: 24)
             }.buttonStyle(RoundedButtonStyle(backgroundColor: .cyan  )).opacity(config.connection == .unavailable || store.error == .invalid ? 0.6: 1.0)
         
