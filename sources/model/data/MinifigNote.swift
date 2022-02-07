@@ -12,3 +12,7 @@ class MinigifNote : Codable {
     let minifigNumber : String
     let notes : String
 }
+class SetNote : Codable {
+    let setID : Int
+    let notes : String
+}

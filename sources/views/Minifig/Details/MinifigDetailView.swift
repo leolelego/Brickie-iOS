@@ -93,37 +93,17 @@ struct MinifigDetailView: View {
     
 }
 
-// A refactor - C'est pas top
 extension MinifigDetailView {
     private func makeNotes() -> some View {
         VStack(alignment: .leading,spacing: 16){
-            HStack{
-                Text("sets.notes").font(.title).bold()
-                
-            }
+            HStack{Text("notes.title").font(.title).bold()}
             NotesView(note: $notes){ completionReturn in
-                
                 saveNotes { status in
                     completionReturn(status)
                 }
             }
-            
-            
-            
-            
-            
-            
-            
-            
             Spacer(minLength: 50)
         }
-        .frame(
-            minWidth: 0,
-            maxWidth: .infinity,
-            minHeight: 100,
-            maxHeight: .infinity,
-            alignment: .topLeading
-        )
         .padding(.horizontal)
         
     }
@@ -149,7 +129,6 @@ extension MinifigDetailView {
             case .success(let notes):
                 minifig.notes = notes.first(where: { $0.minifigNumber == minifig.minifigNumber})?.notes ?? ""
                 self.notes = minifig.notes ?? ""
-                
                 break
             case .failure(_):
                 break

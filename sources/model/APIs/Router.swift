@@ -47,6 +47,7 @@ enum APIRouter<T:Any> {
     
     // Mark Notes
     case getMinifigNotes(String)
+    case getUserNotes(String)
     
     var url : URL? {
         guard var components = URLComponents(url: baseURL.appendingPathComponent(method), resolvingAgainstBaseURL: false)
@@ -70,6 +71,7 @@ enum APIRouter<T:Any> {
         case .themes : return "getThemes"
         case .subthemes : return "getSubthemes"
         case .getMinifigNotes : return "getUserMinifigNotes"
+        case .getUserNotes : return "getUserNotes"
             
         }
     }
@@ -85,6 +87,7 @@ enum APIRouter<T:Any> {
         case .themes: return "themes"
         case .subthemes: return "subthemes"
         case .getMinifigNotes : return "userMinifigNotes"
+        case .getUserNotes : return "userNotes"
 
             
             
@@ -192,7 +195,7 @@ enum APIRouter<T:Any> {
             URLQueryItem(name: "apiKey", value: BrickSetApiKey),
             URLQueryItem(name: "theme", value: theme),
             ]
-        case .getMinifigNotes(let hash) : return [
+        case .getMinifigNotes(let hash), .getUserNotes(let hash) : return [
             URLQueryItem(name: "apiKey", value: BrickSetApiKey),
             URLQueryItem(name: "userHash", value: hash),
             ]

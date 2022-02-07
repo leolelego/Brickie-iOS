@@ -20,7 +20,8 @@ struct SetDetailView: View {
     @State var detailImageUrl : [String] = []
     @State var imageIndex : Int = 1
     
-    @State var note = ""
+    @State var notes = ""
+
     @State var isEditing = false
     var body: some View {
         ScrollView( showsIndicators: false){
@@ -39,11 +40,7 @@ struct SetDetailView: View {
         }
         .sheet(isPresented: $isImageDetailPresented, content: { FullScreenImageView(isPresented: $isImageDetailPresented, urls: $detailImageUrl,currentIndex: imageIndex )})
         .onAppear {
-//            store.searchSets(text: set.number, by: .none) { sets in
-//                let setNote = sets.first(where: {$0.setID == set.setID})?.collection.notes ?? ""
-//                note = setNote
-//            }
-            note = set.collection.notes
+            loadNotes()
             isEditing = false
             if  self.set.additionalImages == nil {
                 APIRouter<[[String:Any]]>.additionalImages(self.set.setID).decode(ofType: [LegoSet.SetImage].self) { response in
@@ -210,22 +207,22 @@ struct SetDetailView: View {
     func makeAddtionnalInfos() -> some View {
         VStack(alignment: .leading,spacing: 16){
             
-            Text("sets.details").font(.title).bold()
+            Text("meta.title").font(.title).bold()
             if ((set.ageRange.min) != nil) {
                 HStack {
-                    Text("sets.meta.age").bold()
+                    Text("meta.age").bold()
                     Spacer()
                     Text("\(set.ageRange.min!)+")
                 }
             }
             HStack {
-                Text("sets.meta.packaging").bold()
+                Text("meta.packaging").bold()
                 Spacer()
                 Text(set.packagingType)
             }
             if set.hasDimensions {
                 HStack {
-                    Text("sets.meta.dimensions").bold()
+                    Text("meta.dimensions").bold()
                     Spacer()
                     Text("\(String(format: "%.1f", set.dimensions.width!)) x \(String(format: "%.1f", set.dimensions.height!)) x \(String(format: "%.1f", set.dimensions.depth!))") // \(String(format: "%.1f", set.dimensions!.width!))  x ]
                 }
@@ -233,13 +230,13 @@ struct SetDetailView: View {
             }
             if set.hasWeight {
                 HStack {
-                    Text("sets.meta.weight").bold()
+                    Text("meta.weight").bold()
                     Spacer()
                     Text("\(String(format: "%.1f", set.dimensions.weight!)) kg")
                 }
             }
             HStack {
-                Text("sets.meta.availability").bold()
+                Text("meta.availability").bold()
                 Spacer()
                 Text(set.availability)
             }
@@ -270,46 +267,46 @@ struct SetDetailView: View {
     
 }
 
-// A refactor - C'est pas top
 extension SetDetailView {
     private func makeNotes() -> some View {
         VStack(alignment: .leading,spacing: 16){
-            HStack{
-                Text("sets.notes").font(.title).bold()
-               
+            HStack{Text("notes.title").font(.title).bold()}
+            NotesView(note: $notes){ completionReturn in
+                saveNotes { status in
+                    completionReturn(status)
+                }
             }
-//            //https://stackoverflow.com/questions/63234769/how-to-prevent-texteditor-from-scrolling-in-swiftui
-//            TextView(text:$note) {
-//                if config.connection != .unavailable {
-//                    self.isEditing = true
-//                }
-//            } onSave: {
-//
-//                if config.connection != .unavailable && self.isEditing {
-//                    APIRouter<String>.setNotes(store.user!.token, set, note)
-//                        .responseJSON { response in
-//                    switch response {
-//                    case .failure: break
-//                    case .success:
-//                        self.isEditing = false
-//                        set.collection.notes = note
-//                        break
-//                    }
-//                }
-//                }
-//            }
-//            .disabled(config.connection == .unavailable)
-//            .opacity(config.connection != .unavailable ? 1.0 : 0.3)
             Spacer(minLength: 50)
         }
-        .frame(
-            minWidth: 0,
-            maxWidth: .infinity,
-            minHeight: 100,
-            maxHeight: .infinity,
-            alignment: .topLeading
-        )
         .padding(.horizontal)
         
+    }
+    private func saveNotes(completion: @escaping (Bool)->Void){
+        APIRouter<String>.setNotes(store.user!.token, set, notes)
+            .responseJSON { response in
+                switch response {
+                case .failure:
+                    completion(false)
+                    break
+                case .success:
+                    completion(true)
+                    break
+                }
+            }
+        
+    }
+    private func loadNotes(){
+        self.notes = set.collection.notes
+        APIRouter<[[String:Any]]>.getUserNotes(store.user!.token).decode(ofType: [SetNote].self){ response in
+            switch response {
+            case .success(let notes):
+                let notes = notes.first(where: { $0.setID == set.setID})?.notes ?? ""
+                self.notes = notes
+                break
+            case .failure(_):
+                break
+            }
+
+        }
     }
 }

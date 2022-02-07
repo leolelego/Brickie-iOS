@@ -1,4 +1,5 @@
 1.5.0
+- Add Notes for sets and minifigures
 - Fixed an file cache management issue - Thanks @BrianBatchelder
 - Fixed and API Error handle issue - Thanks @BrianBatchelder
 - Add Pull to Refresh on iPhone Table mode (not grid)

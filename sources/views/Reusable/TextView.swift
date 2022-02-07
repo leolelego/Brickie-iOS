@@ -9,16 +9,20 @@
 import SwiftUI
 import Combine
 struct TextView: View {
+    @EnvironmentObject var config : Configuration
+
     @Binding var text : String
     var body: some View {
         ZStack(alignment: .topLeading) {
               Text(text.isEmpty ? "notes.placeholder" : text)
+                .foregroundColor(.secondary)
                   .lineSpacing(6)
                   .opacity(text.isEmpty ? 0.75 : 0)
                   .padding(.all, 8)
                   .frame(maxWidth: .infinity, alignment: .leading)
                 
               TextEditor(text: $text).lineSpacing(6)
+                .disabled(config.connection == .unavailable)
           
         }.padding(4)
             .background(Color.backgroundContrast)

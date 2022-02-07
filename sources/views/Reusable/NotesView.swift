@@ -20,12 +20,21 @@ struct NotesView: View {
             case .none:
                 EmptyView()
             case .saving:
-                 ProgressView()
+                ProgressView()
                     .progressViewStyle(CircularProgressViewStyle())
             case .saved:
-                 Image(systemName: "checkmark.circle").foregroundColor(.green)
+                Image(systemName: "hand.thumbsup.circle.fill").foregroundColor(.white)
             case .error:
-                 Image(systemName: "xmark.circle").foregroundColor(.red)
+                Image(systemName: "hand.thumbsdown.circle.fill").foregroundColor(.white)
+            }
+        }
+        var color : Color {
+            switch self {
+            case .none:return .cyan
+            case .saving:return .blue
+            case .saved:return .green
+            case .error: return .orange
+                
             }
         }
     }
@@ -53,19 +62,19 @@ struct NotesView: View {
                     
                 }
             }) {
-                    ZStack(alignment: .trailing) {
-                        HStack{
-                            Spacer()
-                            Text("notes.button").fontWeight(.bold)
-                            Spacer()
-
-                        }
-                        status.view
+                ZStack(alignment: .trailing) {
+                    HStack{
+                        Spacer()
+                        Text("notes.button").fontWeight(.bold)
+                        Spacer()
+                        
                     }
+                    status.view
+                }
                 .frame(minWidth: 0, maxWidth: .infinity, minHeight: 24)
-            }.buttonStyle(RoundedButtonStyle(backgroundColor: .cyan  )).opacity(config.connection == .unavailable || store.error == .invalid ? 0.6: 1.0)
-        
+            }.buttonStyle(RoundedButtonStyle(backgroundColor: status.color  )).opacity(config.connection == .unavailable || store.error == .invalid ? 0.6: 1.0)
+            
+        }
     }
-}
 }
 
