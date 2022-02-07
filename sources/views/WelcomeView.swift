@@ -11,8 +11,13 @@ import SwiftUI
 struct WelcomeView: View {
     var body: some View {
         ScrollView {
-            Text("Welcome!").font(.title)
-            Text("Thanks for downloading Brickie! Brickie is a open source project made by AFOL like you on there spare time for free, so please help us make it better for all the AFOL in the Apple Ecosystem.")
+            VStack(alignment: .leading,spacing: 16){
+                Text("Welcome!").font(.title)
+                Text("Thanks for downloading Brickie! Brickie is a open source project build arround BrickSet.com by AFOL like you on there spare time for free, so please help us make it better for all the AFOL in the Apple Ecosystem.")
+                
+                
+            }.padding()
+      
             
         }
     }

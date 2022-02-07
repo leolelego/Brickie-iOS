@@ -36,7 +36,6 @@ struct SetDetailView: View {
             makeImages()
             makeInstructions()
             makeAddtionnalInfos()
-            makeNotes()
         }
         .sheet(isPresented: $isImageDetailPresented, content: { FullScreenImageView(isPresented: $isImageDetailPresented, urls: $detailImageUrl,currentIndex: imageIndex )})
         .onAppear {
@@ -263,7 +262,8 @@ struct SetDetailView: View {
             .padding()
             .background(Color.yellow)
             .mask(RoundedRectangle(cornerRadius: 12))
-        .padding()    }
+        .padding()
+    }
     
 }
 
@@ -280,7 +280,7 @@ extension SetDetailView {
         }
         .padding(.horizontal)
         
-    }
+
     private func saveNotes(completion: @escaping (Bool)->Void){
         APIRouter<String>.setNotes(store.user!.token, set, notes)
             .responseJSON { response in
@@ -308,5 +308,16 @@ extension SetDetailView {
             }
 
         }
+    }
+}
+
+struct SetDetailView_Previews: PreviewProvider {
+    static var previews: some View {
+        let store = PreviewStore()
+        SetDetailView(set:store.sets.first!)
+            .previewDevice("iPhone SE")
+            .environmentObject(store as Store)
+            .environmentObject(Configuration())
+            .previewDisplayName("Defaults")
     }
 }

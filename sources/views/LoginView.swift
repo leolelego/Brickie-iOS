@@ -145,6 +145,10 @@ struct LoginView: View {
 
 struct LoginView_Previews: PreviewProvider {
     static var previews: some View {
-        LoginView().previewDevice("iPhone SE")
+        LoginView()
+            .previewDevice("iPhone SE")
+            .environmentObject(PreviewStore() as Store)
+            .environmentObject(Configuration())
+            .previewDisplayName("Defaults")
     }
 }
