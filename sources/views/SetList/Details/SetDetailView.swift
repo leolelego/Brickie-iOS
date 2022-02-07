@@ -35,7 +35,6 @@ struct SetDetailView: View {
             makeImages()
             makeInstructions()
             makeAddtionnalInfos()
-            makeNotes()
         }
         .sheet(isPresented: $isImageDetailPresented, content: { FullScreenImageView(isPresented: $isImageDetailPresented, urls: $detailImageUrl,currentIndex: imageIndex )})
         .onAppear {
@@ -266,50 +265,18 @@ struct SetDetailView: View {
             .padding()
             .background(Color.yellow)
             .mask(RoundedRectangle(cornerRadius: 12))
-        .padding()    }
+        .padding()
+    }
     
 }
 
-// A refactor - C'est pas top
-extension SetDetailView {
-    private func makeNotes() -> some View {
-        VStack(alignment: .leading,spacing: 16){
-            HStack{
-                Text("sets.notes").font(.title).bold()
-               
-            }
-//            //https://stackoverflow.com/questions/63234769/how-to-prevent-texteditor-from-scrolling-in-swiftui
-//            TextView(text:$note) {
-//                if config.connection != .unavailable {
-//                    self.isEditing = true
-//                }
-//            } onSave: {
-//
-//                if config.connection != .unavailable && self.isEditing {
-//                    APIRouter<String>.setNotes(store.user!.token, set, note)
-//                        .responseJSON { response in
-//                    switch response {
-//                    case .failure: break
-//                    case .success:
-//                        self.isEditing = false
-//                        set.collection.notes = note
-//                        break
-//                    }
-//                }
-//                }
-//            }
-//            .disabled(config.connection == .unavailable)
-//            .opacity(config.connection != .unavailable ? 1.0 : 0.3)
-            Spacer(minLength: 50)
-        }
-        .frame(
-            minWidth: 0,
-            maxWidth: .infinity,
-            minHeight: 100,
-            maxHeight: .infinity,
-            alignment: .topLeading
-        )
-        .padding(.horizontal)
-        
+struct SetDetailView_Previews: PreviewProvider {
+    static var previews: some View {
+        let store = PreviewStore()
+        SetDetailView(set:store.sets.first!)
+            .previewDevice("iPhone SE")
+            .environmentObject(store as Store)
+            .environmentObject(Configuration())
+            .previewDisplayName("Defaults")
     }
 }

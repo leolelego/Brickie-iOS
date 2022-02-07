@@ -78,6 +78,7 @@
 		B3D828072573DA3B00CAC606 /* PastilView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D828062573DA3B00CAC606 /* PastilView.swift */; };
 		B3D8280A2573F1C000CAC606 /* CellContextMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D828092573F1C000CAC606 /* CellContextMenu.swift */; };
 		B3F456B727B1404C00E3BDFA /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3F456B627B1404C00E3BDFA /* WelcomeView.swift */; };
+		D3109594277E405B001D7721 /* PreviewStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3109593277E405B001D7721 /* PreviewStore.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -117,7 +118,7 @@
 		96DE924D245F696700652E0E /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
 		96DE9252245F8A6800652E0E /* Blur.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Blur.swift; sourceTree = "<group>"; };
 		96DE9255245FA7BC00652E0E /* RoundedCorners.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedCorners.swift; sourceTree = "<group>"; };
-		96E78B78245CAC270032F4E3 /* Brickie Debug.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Brickie Debug.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		96E78B78245CAC270032F4E3 /* Brickie.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Brickie.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		96E78B81245CAC290032F4E3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		96E78B87245CAC290032F4E3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		96E78B89245CAC290032F4E3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -155,6 +156,8 @@
 		B3D828092573F1C000CAC606 /* CellContextMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellContextMenu.swift; sourceTree = "<group>"; };
 		B3F456B627B1404C00E3BDFA /* WelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; };
 		B3F688E427178B2700962062 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		D3109593277E405B001D7721 /* PreviewStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewStore.swift; sourceTree = "<group>"; };
+		D3A19DE3278799AD009959DC /* Debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Debug.xcconfig; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -225,6 +228,7 @@
 		96DE9241245F31A800652E0E /* Preview Content */ = {
 			isa = PBXGroup;
 			children = (
+				D3109593277E405B001D7721 /* PreviewStore.swift */,
 			);
 			path = "Preview Content";
 			sourceTree = "<group>";
@@ -263,6 +267,7 @@
 			children = (
 				B3A0BB3D26B36FEC00A68341 /* CHANGELOG.md */,
 				B3F688E427178B2700962062 /* README.md */,
+				D3A19DE3278799AD009959DC /* Debug.xcconfig */,
 				96E78B7A245CAC270032F4E3 /* sources */,
 				96E78B79245CAC270032F4E3 /* Products */,
 			);
@@ -271,7 +276,7 @@
 		96E78B79245CAC270032F4E3 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				96E78B78245CAC270032F4E3 /* Brickie Debug.app */,
+				96E78B78245CAC270032F4E3 /* Brickie.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -425,7 +430,7 @@
 				9694B58A24900E21008D0508 /* SDWebImageSwiftUI */,
 			);
 			productName = BrickSet;
-			productReference = 96E78B78245CAC270032F4E3 /* Brickie Debug.app */;
+			productReference = 96E78B78245CAC270032F4E3 /* Brickie.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -531,6 +536,7 @@
 				96E78BC2245D15220032F4E3 /* Secrets.swift in Sources */,
 				96E78BAE245CCED40032F4E3 /* APIHelpers.swift in Sources */,
 				96365E6F2468700900F318C3 /* DismissingKeyboardOnSwipe.swift in Sources */,
+				D3109594277E405B001D7721 /* PreviewStore.swift in Sources */,
 				96365E712468C5A500F318C3 /* BarButtonModifier.swift in Sources */,
 				96DE9247245F3DD800652E0E /* SetDetailView.swift in Sources */,
 				96851E0724734D3A00D9F803 /* MinifigDetailView.swift in Sources */,
@@ -718,6 +724,7 @@
 		};
 		96E78B8D245CAC290032F4E3 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = D3A19DE3278799AD009959DC /* Debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = sources/assets/BrickSet.entitlements;
@@ -734,10 +741,12 @@
 				);
 				MARKETING_VERSION = 1.4.0;
 				PRODUCT_BUNDLE_IDENTIFIER = family.homework.brickset;
-				PRODUCT_NAME = "Brickie Debug";
+				PRODUCT_MODULE_NAME = "$(PRODUCT_NAME:c99extidentifier)";
+				PRODUCT_NAME = Brickie;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "";
 				SUPPORTS_MACCATALYST = NO;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
