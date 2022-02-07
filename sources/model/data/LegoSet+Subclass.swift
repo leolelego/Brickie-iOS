@@ -35,8 +35,8 @@ extension LegoSet {
         let min : Int? 
     }
     struct Collections : Codable {
-        let ownedBy : Int
-        var wantedBy : Int
+        let ownedBy : Int?
+        var wantedBy : Int?
     }
 
     struct Prices : Codable {
