@@ -77,6 +77,7 @@
 		B3D828042573D97500CAC606 /* FigsGridCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D828032573D97500CAC606 /* FigsGridCell.swift */; };
 		B3D828072573DA3B00CAC606 /* PastilView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D828062573DA3B00CAC606 /* PastilView.swift */; };
 		B3D8280A2573F1C000CAC606 /* CellContextMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D828092573F1C000CAC606 /* CellContextMenu.swift */; };
+		B3F456B727B1404C00E3BDFA /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3F456B627B1404C00E3BDFA /* WelcomeView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -152,6 +153,7 @@
 		B3D828032573D97500CAC606 /* FigsGridCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FigsGridCell.swift; sourceTree = "<group>"; };
 		B3D828062573DA3B00CAC606 /* PastilView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PastilView.swift; sourceTree = "<group>"; };
 		B3D828092573F1C000CAC606 /* CellContextMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellContextMenu.swift; sourceTree = "<group>"; };
+		B3F456B627B1404C00E3BDFA /* WelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; };
 		B3F688E427178B2700962062 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -309,6 +311,7 @@
 				96ED04D4246823BD00C3A8BA /* Minifig */,
 				96E78BB9245CEA1D0032F4E3 /* SettingsView.swift */,
 				B36981C526AF158C00046AA3 /* APIIssueView.swift */,
+				B3F456B627B1404C00E3BDFA /* WelcomeView.swift */,
 			);
 			path = views;
 			sourceTree = "<group>";
@@ -512,6 +515,7 @@
 				B3D827DD2572ACF500CAC606 /* Enums.swift in Sources */,
 				B32BA81027864FEB00F0A8AD /* RatingView.swift in Sources */,
 				96E78BBA245CEA1D0032F4E3 /* SettingsView.swift in Sources */,
+				B3F456B727B1404C00E3BDFA /* WelcomeView.swift in Sources */,
 				96DE9256245FA7BC00652E0E /* RoundedCorners.swift in Sources */,
 				9624E38124718DC4002F68F7 /* EnvironmentValues.swift in Sources */,
 				960FAD7D24677CAC0064B458 /* SafariView.swift in Sources */,
@@ -646,7 +650,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -702,7 +706,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
