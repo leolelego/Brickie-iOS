@@ -1,10 +1,17 @@
 // Based on https://github.com/V8tr/AsyncImage/blob/master/AsyncImage/ImageLoader.swift
 import Combine
 import UIKit
+import SwiftUI
 
 class DataLoader: ObservableObject {
     @Published var data: Data?
-    
+    @Published  var progress: Progress? 
+    lazy var dataTask : URLSession.DataTaskProgressPublisher? = {
+        guard let url = url else {return nil}
+        
+        return URLSession.shared.dataTaskProgressPublisher(for: url)
+        
+    }()
     private(set) var isLoading = false
     
     private let url: URL?
@@ -23,14 +30,15 @@ class DataLoader: ObservableObject {
     }
     
     func load() {
-        guard !isLoading, let url = url else { return }
+        guard !isLoading, let url = url , let dtTask = dataTask else { return }
 
         if let cacheData = cache?[url] {
             self.data = cacheData
             return
         }
-
-        cancellable = URLSession.shared.dataTaskPublisher(for: url)
+        
+        
+        cancellable = dtTask.publisher
             .map {$0.data }
             .replaceError(with: nil)
             .handleEvents(receiveSubscription: { [weak self] _ in self?.onStart() },
@@ -40,6 +48,7 @@ class DataLoader: ObservableObject {
             .subscribe(on: Self.processingQueue)
             .receive(on: DispatchQueue.main)
             .assign(to: \.data, on: self)
+      
     }
     
     func cancel() {

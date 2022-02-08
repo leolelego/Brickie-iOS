@@ -20,7 +20,6 @@ struct PDFKitView : UIViewRepresentable {
         pdfView.displayMode = .singlePageContinuous
 
         pdfView.document = document
-
         
         return pdfView
     }

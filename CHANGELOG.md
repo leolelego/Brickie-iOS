@@ -1,4 +1,5 @@
 1.5.0
+- Download progress on Set PDF Manual
 - Add Notes for sets and minifigures
 - [Dev] Enable back Preview in Develpment tool - Thanks @BrianBatchelder
 - Fixed an file cache management issue - Thanks @BrianBatchelder

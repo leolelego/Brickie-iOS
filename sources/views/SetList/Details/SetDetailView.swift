@@ -36,6 +36,7 @@ struct SetDetailView: View {
             makeImages()
             makeInstructions()
             makeAddtionnalInfos()
+            makeNotes()
         }
         .sheet(isPresented: $isImageDetailPresented, content: { FullScreenImageView(isPresented: $isImageDetailPresented, urls: $detailImageUrl,currentIndex: imageIndex )})
         .onAppear {
@@ -66,15 +67,8 @@ struct SetDetailView: View {
                             self.set.instrucctions = items
                         }
                         break
-                    case .failure(_):
-                        break
+                    case .failure(_):break
                     }
-                    
-                    
-                    
-                    
-                    
-                    
                 }
             }
             
@@ -279,7 +273,7 @@ extension SetDetailView {
             Spacer(minLength: 50)
         }
         .padding(.horizontal)
-        
+    }
 
     private func saveNotes(completion: @escaping (Bool)->Void){
         APIRouter<String>.setNotes(store.user!.token, set, notes)

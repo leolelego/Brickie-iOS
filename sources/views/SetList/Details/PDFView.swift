@@ -23,7 +23,10 @@ struct LegoPDFView : View {
                 PDFKitView(document: PDFDocument(data:loader.data!))
             } else {
                 VStack {
-                    Text("instruction.downloading")
+                    Text("instruction.downloading").padding()
+                    if loader.dataTask != nil{
+                        ProgressView(loader.dataTask!.progress).progressViewStyle(.linear).padding(.horizontal, 32)
+                    }
                 }
         }
         }.onAppear {
