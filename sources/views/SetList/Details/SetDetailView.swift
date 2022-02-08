@@ -28,7 +28,7 @@ struct SetDetailView: View {
             makeThumbnail().zIndex(500)
             makeThemes().zIndex(999)
             
-            Spacer()
+            
             makeHeader().zIndex(0)
             Divider()
             
@@ -37,6 +37,8 @@ struct SetDetailView: View {
             makeInstructions()
             makeAddtionnalInfos()
             makeNotes()
+            makeCollectionsi()
+            
         }
         .sheet(isPresented: $isImageDetailPresented, content: { FullScreenImageView(isPresented: $isImageDetailPresented, urls: $detailImageUrl,currentIndex: imageIndex )})
         .onAppear {
@@ -117,7 +119,7 @@ struct SetDetailView: View {
     }
     func makeHeader() -> some View{
         VStack(alignment: .leading, spacing: 8) {
-            
+            Spacer()
             HStack {
                 Text( set.number+" ").font(.number(size: 32))
                     .foregroundColor(.black)
@@ -234,6 +236,7 @@ struct SetDetailView: View {
                 Text(set.availability)
             }
             RatingView(rating: set.rating)
+            
 
         }
         .frame(
@@ -247,6 +250,25 @@ struct SetDetailView: View {
         
     }
    
+    func makeCollectionsi() -> some View {
+        VStack(alignment: .leading){
+            if set.collections.ownedBy != nil && set.collections.wantedBy != nil {
+                Text("\(set.collections.ownedBy!) ").font(.callout)+Text("meta.ownedBy").foregroundColor(.secondary).font(.callout)
+                Text("\(set.collections.wantedBy!) ").font(.callout)+Text("meta.wantedBy").foregroundColor(.secondary).font(.callout)
+            } else {
+                EmptyView()
+            }
+            Spacer(minLength: 50)
+        }
+        .frame(
+            minWidth: 0,
+            maxWidth: .infinity,
+            minHeight: 0,
+            maxHeight: .infinity,
+            alignment: .topLeading
+        )
+        .padding(.horizontal)
+    }
     
     
     func makeInstructionButton()-> some View {
@@ -270,7 +292,6 @@ extension SetDetailView {
                     completionReturn(status)
                 }
             }
-            Spacer(minLength: 50)
         }
         .padding(.horizontal)
     }
