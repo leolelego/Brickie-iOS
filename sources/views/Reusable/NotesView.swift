@@ -30,7 +30,7 @@ struct NotesView: View {
         }
         var color : Color {
             switch self {
-            case .none:return .cyan
+            case .none:return .mint
             case .saving:return .blue
             case .saved:return .green
             case .error: return .orange
@@ -65,7 +65,8 @@ struct NotesView: View {
                 ZStack(alignment: .trailing) {
                     HStack{
                         Spacer()
-                        Text("notes.button").fontWeight(.bold)
+                        Text("notes.button")
+                            .fontWeight(.bold).foregroundColor(Color.black)
                         Spacer()
                         
                     }
