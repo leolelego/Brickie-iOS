@@ -14,7 +14,7 @@ struct TextView: View {
     @Binding var text : String
     var body: some View {
         ZStack(alignment: .topLeading) {
-              Text(text.isEmpty ? "notes.placeholder" : text)
+              Text("notes.placeholder")
                 .foregroundColor(.secondary)
                   .lineSpacing(6)
                   .opacity(text.isEmpty ? 0.75 : 0)
