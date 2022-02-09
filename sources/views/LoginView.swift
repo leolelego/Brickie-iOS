@@ -9,6 +9,7 @@
 import SwiftUI
 
 struct LoginView: View {
+
     @EnvironmentObject private var  store : Store
     @EnvironmentObject var config : Configuration
     @State var username = ""
@@ -53,6 +54,9 @@ struct LoginView: View {
         .frame(maxWidth: 375, alignment: .center)
         .padding([.leading, .trailing], 32)
         .modifier(DismissingKeyboardOnSwipe())
+      
+
+
     }
     
     func makeImage() -> some View {
@@ -70,8 +74,6 @@ struct LoginView: View {
                 .background(LinearGradient(gradient: Gradient(colors:[Color(red: 0/255, green: 28/255, blue: 200/255), Color(red: 89/255, green: 235/255, blue: 255/255)]), startPoint: .leading, endPoint: .trailing))
                 .cornerRadius(12)
         }
-        
-        
     }
     
     func makeFields() -> some View {
@@ -146,7 +148,7 @@ struct LoginView: View {
 struct LoginView_Previews: PreviewProvider {
     static var previews: some View {
         LoginView()
-            .previewDevice("iPhone SE")
+//            .previewDevice("iPhone SE")
             .environmentObject(PreviewStore() as Store)
             .environmentObject(Configuration())
             .previewDisplayName("Defaults")

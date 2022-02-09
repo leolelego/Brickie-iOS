@@ -3,7 +3,7 @@ import SwiftUI
 struct  RoundedButtonStyle:  ButtonStyle {
     var backgroundColor: Color = .black
     var foregroundColor: Color = .white
-    var padding : CGFloat = 16
+    var padding : CGFloat = 14
     var radius : CGFloat = 12
     var borderColor : Color = .clear
     var borderWidth : CGFloat = 0

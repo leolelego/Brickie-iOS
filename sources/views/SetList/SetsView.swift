@@ -110,7 +110,7 @@ struct SetsView_Previews: PreviewProvider {
         SinglePanelView(item: AppPanel.sets,
                         view: AnyView(SetsView()),
                         toolbar: AppRootView().toolbar() )
-            .previewDevice("iPhone SE")
+//            .previewDevice("iPhone SE")
             .environmentObject(PreviewStore() as Store)
             .environmentObject(Configuration())
             .previewDisplayName("Defaults")

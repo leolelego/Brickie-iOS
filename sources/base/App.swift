@@ -13,7 +13,6 @@ var kConfig = Configuration()
 
 @main
 struct TheApp : App {
-    
     var networkCancellable :AnyCancellable? = {
         kConfig.$connection
             .debounce(for: .seconds(2), scheduler: DispatchQueue.main)

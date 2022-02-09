@@ -10,6 +10,8 @@ import SwiftUI
 import StoreKit
 
 struct AppRootView: View {
+    @SceneStorage(Settings.displayWelcome)  var displayWelcome : Bool = true
+
     @EnvironmentObject private var  store : Store
     @SceneStorage(Settings.rootTabSelected)  var selection : Int = 0
     @AppStorage(Settings.reviewRuntime) var reviewRuntime : Int = 0
@@ -23,13 +25,20 @@ struct AppRootView: View {
     var body: some View {
         if store.user == nil  {
             LoginView().accentColor(.backgroundAlt)
+                .sheet(isPresented: $displayWelcome) {
+                    WelcomeView()
+                }
         } else   {
             iPhoneView.accentColor(.backgroundAlt)
                // .modifier(DismissingKeyboardOnSwipe())
                 .sheet(isPresented: $isPresentingSettings) {
                     SettingsView().environmentObject(store)
                 }
+                .sheet(isPresented: $displayWelcome) {
+                    WelcomeView()
+                }
         }
+        
         
         
     }
@@ -105,7 +114,7 @@ struct AppRootView: View {
 struct AppRoot_Previews: PreviewProvider {
     static var previews: some View {
         AppRootView()
-            .previewDevice("iPhone SE")
+//            .previewDevice("iPhone SE")
             .environmentObject(PreviewStore() as Store)
             .environmentObject(Configuration())
             .previewDisplayName("Defaults")

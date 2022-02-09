@@ -20,6 +20,7 @@ enum Settings {
     static let currency = "currency"
     
     static let unreleasedSets = "unreleasedSets"
+    static let displayWelcome = "displayWelcome"
 
 
 

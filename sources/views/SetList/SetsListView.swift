@@ -161,7 +161,7 @@ struct SetsListView_Previews: PreviewProvider {
     static var previews: some View {
         let store = PreviewStore()
         SetsListView(items: store.sets, sorter:$sorter, filter: $filter)
-            .previewDevice("iPhone SE")
+//            .previewDevice("iPhone SE")
             .environmentObject(store as Store)
             .environmentObject(Configuration())
             .previewDisplayName("Defaults")
