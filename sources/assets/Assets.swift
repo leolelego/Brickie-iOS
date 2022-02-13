@@ -47,9 +47,14 @@ extension Image {
     public static func brick(height:CGFloat) -> some View {
         Image("lego_brick").resizable().frame(width: height*47.0/43.0, height: height)  // 35 × 41 pixels
     }
-    
-    
+}
 
+extension LinearGradient {
+    static var blueBlue = LinearGradient(
+        gradient: Gradient(colors:[Color(red: 0/255, green: 28/255, blue: 200/255), Color(red: 89/255, green: 170/255, blue: 255/255),Color(red: 89/255, green: 170/255, blue: 255/255)]),
+        startPoint: .topLeading,
+        endPoint: .bottomTrailing
+    )
 }
 
 extension Font {

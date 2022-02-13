@@ -107,7 +107,6 @@ struct SettingsView: View {
         }
         .onDisappear {
             if self.logout {
-                
                 self.store.user = nil
                 self.store.reset()
             }
@@ -119,21 +118,27 @@ struct SettingsView: View {
     
     func makeThanks()-> some View{
         VStack{
-            HStack{
-                Spacer()
-                VStack{
-                    Image("app_logo")
-                        .padding(20)
-                        .background(Circle()
-                                        .fill(Color.white))
-                    Text("credit.thanks").bold()
-                    Text(" BRICKIE ").font(.lego(size: 32)).foregroundColor(.white)
-                        .padding(.top,4)
-                        .background(LinearGradient(gradient: Gradient(colors:[Color(red: 0/255, green: 28/255, blue: 200/255), Color(red: 89/255, green: 235/255, blue: 255/255)]), startPoint: .leading, endPoint: .trailing))
-                        .cornerRadius(12)
+            NavigationLink {
+                WelcomeView()
+            } label: {
+                HStack{
+                    Spacer()
+                    VStack{
+                        Image("app_logo")
+                            .padding(20)
+                            .background(Circle()
+                                            .fill(Color.white))
+                        Text("credit.thanks").bold()
+                        Text(" BRICKIE ").font(.lego(size: 32)).foregroundColor(.white)
+                            .padding(.top,4)
+                            .background(LinearGradient(gradient: Gradient(colors:[Color(red: 0/255, green: 28/255, blue: 200/255), Color(red: 89/255, green: 235/255, blue: 255/255)]), startPoint: .leading, endPoint: .trailing))
+                            .cornerRadius(12)
+                    }
+                    Spacer()
                 }
-                Spacer()
             }
+
+            
             Spacer()
         }
     }
@@ -169,7 +174,7 @@ struct SettingsView: View {
 struct SettingsView_Previews: PreviewProvider {
     static var previews: some View {
         SettingsView()
-//            .previewDevice("iPhone SE")
+            .previewDevice("iPhone SE")
             .environmentObject(Store())
             .previewDisplayName("Defaults")
     }

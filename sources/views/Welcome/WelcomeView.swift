@@ -7,13 +7,7 @@
 //
 
 import SwiftUI
-// MARK: - API
-@available(iOS 13.0, OSX 10.15, tvOS 13.0, watchOS 6.0, *)
-extension View {
-    public func foreground<Overlay: View>(_ overlay: Overlay) -> some View {
-        self.overlay(overlay).mask(self)
-    }
-}
+
 struct WelcomeView: View {
     @SceneStorage(Settings.displayWelcome)  var displayWelcome : Bool = true
 
@@ -23,14 +17,10 @@ struct WelcomeView: View {
             
             VStack(alignment: .leading,spacing: 16){
                 VStack(alignment: .leading, spacing: -8) {
-                    Text("wlcm.header").bold().font(.system(size: 48, weight: .heavy, design: .default))
+                    Text("wlcm.header").bold().scaledToFill().font(.system(size: 44, weight: .heavy, design: .default)) 
 
                     Text("Brickie").bold().font(.system(size: 40, weight: .heavy, design: .default))
-                        .foreground(LinearGradient(
-                        gradient: Gradient(colors:[Color(red: 0/255, green: 28/255, blue: 200/255), Color(red: 89/255, green: 170/255, blue: 255/255)]),
-                        startPoint: .topLeading,
-                        endPoint: .bottomTrailing
-                    ))
+                        .foreground(LinearGradient.blueBlue)
                 }
                 
                 
@@ -77,6 +67,14 @@ struct WelcomeView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
             WelcomeView().previewDevice("iPhone SE")
+                .environment(\.locale, .init(identifier: "fr"))
         }
+    }
+}
+// MARK: - API
+@available(iOS 13.0, OSX 10.15, tvOS 13.0, watchOS 6.0, *)
+extension View {
+    public func foreground<Overlay: View>(_ overlay: Overlay) -> some View {
+        self.overlay(overlay).mask(self)
     }
 }

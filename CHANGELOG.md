@@ -1,4 +1,5 @@
 1.5.0
+- Add new welcome view
 - Download progress on Set PDF Manual
 - Add Notes for sets and minifigures
 - [Dev] Enable back Preview in Develpment tool - Thanks @BrianBatchelder
