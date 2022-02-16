@@ -119,7 +119,7 @@ struct SettingsView: View {
     func makeThanks()-> some View{
         VStack{
             NavigationLink {
-                WelcomeView()
+                WelcomeView(showContinu: false)
             } label: {
                 HStack{
                     Spacer()

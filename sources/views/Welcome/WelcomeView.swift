@@ -10,7 +10,7 @@ import SwiftUI
 
 struct WelcomeView: View {
     @SceneStorage(Settings.displayWelcome)  var displayWelcome : Bool = true
-
+    let showContinu : Bool
     @State var more = false
     var body: some View {
         ScrollView(showsIndicators: false) {
@@ -35,7 +35,7 @@ struct WelcomeView: View {
                 Spacer()
                 
             }.padding()
-            if more {
+            if more || !showContinu {
                 Text("wlcm.more").font(.system(.callout, design: .monospaced))
                     
                     .foregroundColor(.secondary).padding()
@@ -46,17 +46,17 @@ struct WelcomeView: View {
                     }
                 }.font(.callout)
             }
-            
-            Button(action: {
-                displayWelcome = false
-            }, label: {
-                Text("wlcm.btn").bold()
-                    .frame(minWidth: 0, maxWidth: .infinity, minHeight: 20)
-            })
-                .buttonStyle(RoundedButtonStyle(backgroundColor:.blue))
-                .padding(.horizontal)
-            Text("wlcm.needbrickset").font(.footnote).foregroundColor(.secondary).padding(32)
-            
+            if showContinu {
+                Button(action: {
+                    displayWelcome = false
+                }, label: {
+                    Text("wlcm.btn").bold()
+                        .frame(minWidth: 0, maxWidth: .infinity, minHeight: 20)
+                })
+                    .buttonStyle(RoundedButtonStyle(backgroundColor:.blue))
+                    .padding(.horizontal)
+                Text("wlcm.needbrickset").font(.footnote).foregroundColor(.secondary).padding(32)
+            }
             Spacer()
             
         }.padding(.horizontal)
@@ -66,7 +66,7 @@ struct WelcomeView: View {
 struct WelcomeView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
-            WelcomeView().previewDevice("iPhone SE")
+            WelcomeView(showContinu: true).previewDevice("iPhone SE")
                 .environment(\.locale, .init(identifier: "fr"))
         }
     }

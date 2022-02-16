@@ -26,7 +26,7 @@ struct AppRootView: View {
         if store.user == nil  {
             LoginView().accentColor(.backgroundAlt)
                 .sheet(isPresented: $displayWelcome) {
-                    WelcomeView()
+                    WelcomeView(showContinu: true)
                 }
         } else   {
             iPhoneView.accentColor(.backgroundAlt)
@@ -35,12 +35,9 @@ struct AppRootView: View {
                     SettingsView().environmentObject(store)
                 }
                 .sheet(isPresented: $displayWelcome) {
-                    WelcomeView()
+                    WelcomeView(showContinu: true)
                 }
         }
-        
-        
-        
     }
     
     var iPhoneView: some View {

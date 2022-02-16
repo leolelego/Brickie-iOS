@@ -42,7 +42,7 @@ enum WelcomeEnum : String,CaseIterable {
     var image : Image {
         switch self {
         case .notes : return Image(systemName: "pencil.tip.crop.circle")
-        case .afol : return Image(systemName: "person.crop.circle")
+        case .afol : return Image(systemName: "person.2.circle")
         case .opensource : return Image("github")
         default: return Image("app_logo")
         }
