@@ -67,23 +67,17 @@ struct NakedListActionCell<Content:View, Destination:View>  :  View {
         .swipeActions(edge:.leading){
             Button{want()} label: {
                 Label("collection.want", systemImage:  wanted ? "heart.slash" : "heart")
-            }
-            .tint(.purple)
+            }.tint(.pink)
         }
         .swipeActions(edge:.trailing){
-            
             if owned > 0 {
                 Button{remove()} label: {
-                    Label( owned > 1 ? "collection.decrement" : "collection.remove", systemImage:  owned > 1 ? "arrow.down" : "minus.circle")
-                }
-                .tint(owned > 1 ? .legoYellow : .red)
+                    Label( owned > 1 ? "collection.decrement" : "collection.remove", systemImage:  "minus.circle")
+                }.tint(owned > 1 ? .yellow : .red)
             }
             Button{add()} label: {
-                Label(owned > 0 ? "collection.increment" :"collection.add" , systemImage:  owned > 0 ? "arrow.up" : "plus.circle")
-            }
-            .tint(.legoGreen)
-            
-            
+                Label(owned > 0 ? "collection.increment" :"collection.add" , systemImage:   "plus.circle")
+            }.tint(.green)
         }
     }
 }

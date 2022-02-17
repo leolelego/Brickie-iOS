@@ -17,23 +17,7 @@ extension Color {
     public static var backgroundAlt: Color {
         Color("backgroundAlt", bundle: nil)
     }
-    public static var purple: Color {
-        Color("purple", bundle: nil)
-    }
-    
-    public static var legoGreen : Color {
-        Color(red: 165/255, green: 202/255, blue: 25/255)
-    }
-    public static var legoOrange : Color {
-        Color( red: 214/255, green: 121/255, blue: 35/255) //214, 121, 35
-    }
-    
-    public static var legoYellow : Color {
-        Color( red: 250/255, green: 200/255, blue: 10/255) //250, 200, 10
-    }
-    public static var legoRed : Color {
-        Color( red: 180/255, green: 0/255, blue: 0/255)
-    }
+
 }
 
 extension Image {

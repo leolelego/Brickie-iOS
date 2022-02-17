@@ -123,7 +123,7 @@ struct LoginView: View {
                 .frame(minWidth: 0, maxWidth: .infinity)
             
         }.buttonStyle(
-            RoundedButtonStyle(backgroundColor:loading ? Color("purple") : (username.isEmpty || password.isEmpty) ? Color.backgroundAlt.opacity(0.1) : Color.backgroundAlt)
+            RoundedButtonStyle(backgroundColor:loading ? .indigo : (username.isEmpty || password.isEmpty) ? Color.backgroundAlt.opacity(0.1) : Color.backgroundAlt)
         ).disabled(username.isEmpty || password.isEmpty || loading)
     }
     

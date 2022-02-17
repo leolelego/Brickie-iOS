@@ -26,7 +26,7 @@ struct SetEditorView: View {
                     }
                     
                     .frame(minWidth: 0, maxWidth: .infinity, minHeight: 24)
-                }.buttonStyle(RoundedButtonStyle(backgroundColor: Color("purple")  )).opacity(canEdit() ? 0.6: 1.0)
+                }.buttonStyle(RoundedButtonStyle(backgroundColor: .pink  )).opacity(canEdit() ? 0.6: 1.0)
                 
                 if set.collection.owned {
                     Button(action: {
