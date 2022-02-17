@@ -11,7 +11,7 @@ import SDWebImageSwiftUI
 struct FullScreenImageView: View {
     @Binding var isPresented : Bool
     @Binding var urls : [String]
-    @State var currentIndex = 1
+    @Binding var currentIndex : Int
     @State var lastScale: CGFloat = 1.0
     @State var scale: CGFloat = 1.0
     @State private var currentPosition: CGSize = .zero

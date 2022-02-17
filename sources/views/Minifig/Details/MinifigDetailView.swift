@@ -27,7 +27,7 @@ struct MinifigDetailView: View {
             
             
         }
-        .sheet(isPresented: $isImageDetailPresented, content: { FullScreenImageView(isPresented: $isImageDetailPresented, urls: .constant([minifig.imageUrl]))})
+        .sheet(isPresented: $isImageDetailPresented, content: { FullScreenImageView(isPresented: $isImageDetailPresented, urls: .constant([minifig.imageUrl]), currentIndex: .constant(1))})
         
         .navigationBarTitle("", displayMode: .inline)
         .onAppear {
@@ -54,16 +54,7 @@ struct MinifigDetailView: View {
     }
     private func makeHeader() -> some View{
         VStack(alignment: .center, spacing: 8) {
-            
-            HStack {
-                Text( (minifig.minifigNumber+" - ").uppercased()).font(.number(size: 26)).foregroundColor(.black)
-                + Text(minifig.nameUI).font(.title).bold().foregroundColor(.black)
-            }.shadow(color: .white, radius: 1, x: 1, y: 1)
-                .frame(minWidth: 0, maxWidth: .infinity,alignment: .leading)
-                .foregroundColor(Color.backgroundAlt)
-                .padding(.vertical,8).padding(.horizontal,6)
-                .background(BackgroundImageView(imagePath: minifig.imageUrl)).clipped().modifier(RoundedShadowMod())
-                .foregroundColor(Color.background)
+            TitleView(number: minifig.minifigNumber.uppercased(), name: minifig.nameUI, image: minifig.imageUrl)
             
             ForEach(minifig.subNames, id: \.self){ sub in
                 Text(sub).font(.subheadline)

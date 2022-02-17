@@ -31,7 +31,7 @@ struct ThumbnailView: View {
                 .aspectRatio(contentMode: .fit)
                 .frame(minWidth: 0, maxWidth: .infinity, minHeight: minHeight, maxHeight: maxHeight, alignment: .center)
         }
-        .sheet(isPresented: $present, content: { FullScreenImageView(isPresented: $present, urls: $presentedURLs,currentIndex: 0 )})
+        .sheet(isPresented: $present, content: { FullScreenImageView(isPresented: $present, urls: $presentedURLs,currentIndex: .constant(0) )})
     }
 }
 

@@ -13,29 +13,25 @@ struct SetDetailView: View {
 
     @Environment(\.dataCache) var cache: DataCache
     @EnvironmentObject var config : Configuration
-    //    @AppStorage(Settings.currency) var currency : Currency = .default
     
     @ObservedObject var set : LegoSet
-    @State var isImageDetailPresented : Bool = false
-    @State var detailImageUrl : [String] = []
-    @State var imageIndex : Int = 1
-    
     @State var notes = ""
-
     @State var isEditing = false
     var body: some View {
         ScrollView( showsIndicators: false){
             makeTop()
-            makeButtons()
-            makeImages()
+            SetEditorView(set: set).padding(.horizontal)
+            if set.additionalImages?.count ?? 0 > 0 {
+                SetAddtionnalImagesView(images: set.additionalImages!)
+            }
             makeInstructions()
+      
             makeAddtionnalInfos()
             LinkView(title: "BrickLink", link: "https://www.bricklink.com/v2/catalog/catalogitem.page?S=\(set.number)", color: .cyan)
             makeNotes()
-            makeCollectionsi()
+            makeCollections()
             
         }
-        .sheet(isPresented: $isImageDetailPresented, content: { FullScreenImageView(isPresented: $isImageDetailPresented, urls: $detailImageUrl,currentIndex: imageIndex )})
         .onAppear {
             loadNotes()
             isEditing = false
@@ -104,17 +100,7 @@ struct SetDetailView: View {
     func makeHeader() -> some View{
         VStack(alignment: .leading, spacing: 8) {
             Spacer()
-            HStack {
-                Text( set.number+" ").font(.number(size: 32))
-                    .foregroundColor(.black)
-                + Text(set.name).font(.largeTitle).bold().foregroundColor(.black)
-                Spacer()
-            }.shadow(color: .white, radius: 1, x: 1, y: 1)
-                .foregroundColor(Color.backgroundAlt)
-                .padding(.vertical,8).padding(.horizontal,6)
-                .background(BackgroundImageView(imagePath: set.image.imageURL)).modifier(RoundedShadowMod())
-                .foregroundColor(Color.background)
-                .clipped()
+            TitleView(number: set.number, name: set.name, image: set.image.imageURL)
             
             HStack(alignment: .center){
                 Text("\(set.pieces ?? 0)").font(.headline)
@@ -127,46 +113,8 @@ struct SetDetailView: View {
             }
         }.padding(.horizontal)
     }
-    func makeButtons() -> some View {
-        SetEditorView(set: set).padding(.horizontal)
-    }
-    func makeImages() -> some View{
-        Group {
-            if set.additionalImages?.count ?? 0 > 0 {
-                VStack(alignment: .leading){
-                    Text("sets.images").font(.title).bold().padding()
-                    ScrollView (.horizontal, showsIndicators: false) {
-                        HStack(spacing: 16){
-                            ForEach(set.additionalImages!, id: \.thumbnailURL){ image in
-                                
-                                Button(action: {
-                                    let images = set.additionalImages?.compactMap{$0.imageURL}
-                                    self.detailImageUrl = images ?? []
-                                    self.imageIndex = set.additionalImages?.firstIndex(of: image) ?? 0
-                                    
-                                    self.isImageDetailPresented.toggle()
-                                }) {
-                                    
-                                    WebImage(url: URL(string: image.thumbnailURL ?? ""))
-                                    
-                                        .resizable()
-                                        .renderingMode(.original)
-                                        .indicator(.activity)
-                                        .transition(.fade)
-                                        .aspectRatio(contentMode: .fill)
-                                        .modifier(RoundedShadowMod())
-                                }.disabled(!SDImageCache.shared.diskImageDataExists(withKey: image.imageURL) && self.config.connection == .unavailable)
-                                
-                            }
-                        }.padding(.horizontal,32)
-                    }.frame(height: 100).padding(.horizontal, -16)
-                    
-                }.transition(.fade)
-            } else {
-                EmptyView()
-            }
-        }
-    }
+
+
     func makeInstructions() -> some View{
         Group {
             if set.instrucctions?.first != nil && URL(string:set.instrucctions!.first!.URL) != nil {
@@ -234,8 +182,9 @@ struct SetDetailView: View {
         
     }
    
-    func makeCollectionsi() -> some View {
+    func makeCollections() -> some View {
         VStack(alignment: .leading){
+            Spacer()
             if set.collections.ownedBy != nil && set.collections.wantedBy != nil {
                 Text("\(set.collections.ownedBy!) ").font(.callout)+Text("meta.ownedBy").foregroundColor(.secondary).font(.callout)
                 Text("\(set.collections.wantedBy!) ").font(.callout)+Text("meta.wantedBy").foregroundColor(.secondary).font(.callout)
