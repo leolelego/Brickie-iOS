@@ -59,6 +59,11 @@
 		96EBF9252551E384004C1786 /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96EBF9242551E384004C1786 /* App.swift */; };
 		96ED04D6246823DA00C3A8BA /* LegoMinifig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96ED04D5246823DA00C3A8BA /* LegoMinifig.swift */; };
 		B3220B6327A0A8D00058F63F /* NotesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3220B6227A0A8D00058F63F /* NotesView.swift */; };
+		B32A5D4927BDB0C300DAF7F1 /* String+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32A5D4827BDB0C300DAF7F1 /* String+Ext.swift */; };
+		B32A5D4B27BDB30200DAF7F1 /* SetDetailView+Composition.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32A5D4A27BDB30200DAF7F1 /* SetDetailView+Composition.swift */; };
+		B32A5D4D27BDB3C100DAF7F1 /* ThumbnailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32A5D4C27BDB3C100DAF7F1 /* ThumbnailView.swift */; };
+		B32A5D4F27BDB78A00DAF7F1 /* LegoTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32A5D4E27BDB78A00DAF7F1 /* LegoTitleView.swift */; };
+		B32A5D5127BDBA6900DAF7F1 /* LinkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32A5D5027BDBA6900DAF7F1 /* LinkView.swift */; };
 		B32BA81027864FEB00F0A8AD /* RatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32BA80F27864FEB00F0A8AD /* RatingView.swift */; };
 		B32BA8122786601100F0A8AD /* LegoSet+Subclass.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32BA8112786601100F0A8AD /* LegoSet+Subclass.swift */; };
 		B361BEC527B3338200FD4A4A /* WelcomeItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B361BEC427B3338200FD4A4A /* WelcomeItemView.swift */; };
@@ -137,6 +142,11 @@
 		96EBF9242551E384004C1786 /* App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = App.swift; sourceTree = "<group>"; };
 		96ED04D5246823DA00C3A8BA /* LegoMinifig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LegoMinifig.swift; sourceTree = "<group>"; };
 		B3220B6227A0A8D00058F63F /* NotesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesView.swift; sourceTree = "<group>"; };
+		B32A5D4827BDB0C300DAF7F1 /* String+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Ext.swift"; sourceTree = "<group>"; };
+		B32A5D4A27BDB30200DAF7F1 /* SetDetailView+Composition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SetDetailView+Composition.swift"; sourceTree = "<group>"; };
+		B32A5D4C27BDB3C100DAF7F1 /* ThumbnailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThumbnailView.swift; sourceTree = "<group>"; };
+		B32A5D4E27BDB78A00DAF7F1 /* LegoTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LegoTitleView.swift; sourceTree = "<group>"; };
+		B32A5D5027BDBA6900DAF7F1 /* LinkView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkView.swift; sourceTree = "<group>"; };
 		B32BA80F27864FEB00F0A8AD /* RatingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatingView.swift; sourceTree = "<group>"; };
 		B32BA8112786601100F0A8AD /* LegoSet+Subclass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LegoSet+Subclass.swift"; sourceTree = "<group>"; };
 		B361BEC427B3338200FD4A4A /* WelcomeItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeItemView.swift; sourceTree = "<group>"; };
@@ -387,6 +397,7 @@
 			isa = PBXGroup;
 			children = (
 				96DE9246245F3DD800652E0E /* SetDetailView.swift */,
+				B32A5D4A27BDB30200DAF7F1 /* SetDetailView+Composition.swift */,
 				960FAD8124677FD70064B458 /* PDFView.swift */,
 				960FAD58246729EE0064B458 /* SetEditorView.swift */,
 				96351F56248BC09700372A03 /* SetsFilteredView.swift */,
@@ -417,6 +428,9 @@
 				B3BA166227160C95001292CC /* SwipeActionsMenu.swift */,
 				B3831BA3278F5FD9000301FC /* TextView.swift */,
 				B3220B6227A0A8D00058F63F /* NotesView.swift */,
+				B32A5D4C27BDB3C100DAF7F1 /* ThumbnailView.swift */,
+				B32A5D4E27BDB78A00DAF7F1 /* LegoTitleView.swift */,
+				B32A5D5027BDBA6900DAF7F1 /* LinkView.swift */,
 			);
 			path = Reusable;
 			sourceTree = "<group>";
@@ -425,6 +439,7 @@
 			isa = PBXGroup;
 			children = (
 				B3DBB6B227B1EA9400A66445 /* URLSession+DataTaskProgressPublisher.swift */,
+				B32A5D4827BDB0C300DAF7F1 /* String+Ext.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -537,6 +552,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B32A5D4B27BDB30200DAF7F1 /* SetDetailView+Composition.swift in Sources */,
 				96DE9253245F8A6800652E0E /* Blur.swift in Sources */,
 				B3BA1661271603A8001292CC /* NakedList.swift in Sources */,
 				B3D827DD2572ACF500CAC606 /* Enums.swift in Sources */,
@@ -581,6 +597,8 @@
 				96E78BBE245CF4BB0032F4E3 /* LegoSet.swift in Sources */,
 				B3D828072573DA3B00CAC606 /* PastilView.swift in Sources */,
 				964BA87F246A34D700984DCC /* Router.swift in Sources */,
+				B32A5D4D27BDB3C100DAF7F1 /* ThumbnailView.swift in Sources */,
+				B32A5D4F27BDB78A00DAF7F1 /* LegoTitleView.swift in Sources */,
 				9624E38324718DC4002F68F7 /* Cache.swift in Sources */,
 				96EBF9252551E384004C1786 /* App.swift in Sources */,
 				9694B588248FE881008D0508 /* CodeScanner.swift in Sources */,
@@ -588,9 +606,11 @@
 				B3D828042573D97500CAC606 /* FigsGridCell.swift in Sources */,
 				960FAD59246729EE0064B458 /* SetEditorView.swift in Sources */,
 				9624E3892471E66B002F68F7 /* Lego.swift in Sources */,
+				B32A5D5127BDBA6900DAF7F1 /* LinkView.swift in Sources */,
 				B36981C626AF158C00046AA3 /* APIIssueView.swift in Sources */,
 				96E78BB4245CE61A0032F4E3 /* AppRoot.swift in Sources */,
 				96E78B95245CADFA0032F4E3 /* LoginView.swift in Sources */,
+				B32A5D4927BDB0C300DAF7F1 /* String+Ext.swift in Sources */,
 				960FAD53246709C50064B458 /* BlurredImageView.swift in Sources */,
 				967ED17B24607BD4004712DB /* SetListCell.swift in Sources */,
 				9624E38B2471F2D1002F68F7 /* SetsListView.swift in Sources */,
