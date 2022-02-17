@@ -6,4 +6,12 @@
 //  Copyright © 2022 Homework. All rights reserved.
 //
 
-import Foundation
+import UIKit
+
+
+extension String {
+    func isValidUrl() -> URL? {
+        guard let url = URL(string:self) else {return nil}
+        return UIApplication.shared.canOpenURL(url) ? url : nil
+    }
+}

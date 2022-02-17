@@ -28,6 +28,8 @@ enum APIRouter<T:Any> {
     //    case setOwned(String,LegoSet,Bool) // Useless as it's done form the server by updating the QTY
     case setQty(String,LegoSet,Int)
     case setNotes(String,LegoSet,String)
+    case setRating(String,LegoSet,Int)
+
     // MARK: Get Sets Details
     case setInstructions(Int)
     case additionalImages(Int)
@@ -65,7 +67,7 @@ enum APIRouter<T:Any> {
         case .setInstructions: return "getInstructions"
         case .additionalImages: return "getAdditionalImages"
         case .ownedSets,.wantedSets,.searchSets,.searchSetsTheme,.searchSetsSubTheme,.searchSetsYear : return "getSets"
-        case .setWanted,.setQty,.setNotes: return "setCollection"
+        case .setWanted,.setQty,.setNotes,.setRating: return "setCollection"
         case .ownedFigs,.wantedFigs,.searchMinifigs: return "getMinifigCollection"
         case .minifigWanted,.minifigQty,.minifigNotes: return "setMinifigCollection"
         case .themes : return "getThemes"
@@ -83,7 +85,7 @@ enum APIRouter<T:Any> {
         case .additionalImages:  return "additionalImages"
         case .ownedSets,.wantedSets,.searchSets,.searchSetsTheme,.searchSetsSubTheme,.searchSetsYear : return "sets"
         case .ownedFigs,.wantedFigs,.searchMinifigs: return "minifigs"
-        case .setWanted,.setQty,.minifigWanted,.minifigQty,.setNotes,.minifigNotes: return "status"
+        case .setWanted,.setQty,.minifigWanted,.minifigQty,.setNotes,.minifigNotes,.setRating: return "status"
         case .themes: return "themes"
         case .subthemes: return "subthemes"
         case .getMinifigNotes : return "userMinifigNotes"
@@ -168,7 +170,13 @@ enum APIRouter<T:Any> {
             URLQueryItem(name: "apiKey", value: BrickSetApiKey),
             URLQueryItem(name: "userHash", value: hash),
             URLQueryItem(name: "setID", value: String(set.setID)),
-            URLQueryItem(name: "params", value: "{notes:\"\(notes.isEmpty ? " " : notes)\"}") //owned:\(qty < 1 ? 0 : 1),
+            URLQueryItem(name: "params", value: "{notes:\"\(notes.isEmpty ? " " : notes)\"}")
+            ]
+        case .setRating(let hash,let set, let rating) : return [
+            URLQueryItem(name: "apiKey", value: BrickSetApiKey),
+            URLQueryItem(name: "userHash", value: hash),
+            URLQueryItem(name: "setID", value: String(set.setID)),
+            URLQueryItem(name: "params", value: "{rating:\(rating)}")
             ]
         case .minifigWanted(let hash,let minifig, let want) : return [
             URLQueryItem(name: "apiKey", value: BrickSetApiKey),

@@ -25,17 +25,12 @@ struct SetDetailView: View {
     @State var isEditing = false
     var body: some View {
         ScrollView( showsIndicators: false){
-            makeThumbnail().zIndex(500)
-            makeThemes().zIndex(999)
-            
-            
-            makeHeader().zIndex(0)
-            Divider()
-            
+            makeTop()
             makeButtons()
             makeImages()
             makeInstructions()
             makeAddtionnalInfos()
+            LinkView(title: "BrickLink", link: "https://www.bricklink.com/v2/catalog/catalogitem.page?S=\(set.number)", color: .cyan)
             makeNotes()
             makeCollectionsi()
             
@@ -80,27 +75,16 @@ struct SetDetailView: View {
         
     }
     
-    func makeThumbnail() -> some View {
-        Button(action: {
-            detailImageUrl = [self.set.image.imageURL ?? "" ]
-            isImageDetailPresented.toggle()
-            imageIndex = 0
-            
-        }) {
-            
-            
-            WebImage(url: URL(string: set.image.imageURL ?? ""), options: [.progressiveLoad, .delayPlaceholder])
-                .resizable()
-                .renderingMode(.original)
-                .placeholder(.wifiError)
-                .indicator(.progress)
-                .aspectRatio(contentMode: .fit)
-                .frame(minWidth: 0, maxWidth: .infinity, minHeight: 200, maxHeight: 400, alignment: .center)
+    func makeTop() -> some View {
+        Group {
+        ThumbnailView(url: set.image.imageURL, minHeight: 200, maxHeight: 400).zIndex(500)
+        makeThemes().zIndex(999)
+        makeHeader().zIndex(0)
+        Divider()
         }
-        
-        
-        
     }
+    
+
     func makeThemes() -> some View{
         HStack(spacing: 8){
             NavigationLink(destination: SetsFilteredView(text: set.theme,filter:.theme,sorter:.newer)) {
@@ -235,7 +219,7 @@ struct SetDetailView: View {
                 Spacer()
                 Text(set.availability)
             }
-            RatingView(rating: set.rating)
+            RatingView(set: set, editable: false)
             
 
         }
@@ -287,6 +271,7 @@ extension SetDetailView {
     private func makeNotes() -> some View {
         VStack(alignment: .leading,spacing: 16){
             HStack{Text("notes.title").font(.title).bold()}
+            RatingView(set: set, editable: true)
             NotesView(note: $notes){ completionReturn in
                 saveNotes { status in
                     completionReturn(status)

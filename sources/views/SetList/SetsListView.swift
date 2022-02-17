@@ -138,7 +138,7 @@ struct SetsListView: View {
             return items.filter({"\($0.year)" == section}).sorted(by: {$0.name < $1.name})
             
         default:
-            return items.filter({$0.theme == section}).sorted(by: {$0.subtheme ?? "" < $1.subtheme ?? "" && $0.name < $1.name})
+            return items.filter({$0.theme == section}).sorted(by: {$0.name < $1.name})
         }
     }
     

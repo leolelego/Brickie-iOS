@@ -17,42 +17,58 @@ enum RatingStar :  String {
     }
 }
 struct RatingView: View {
-    let rating : Float
-    var floatingStar : some View {
-        let f = self.rating.truncatingRemainder(dividingBy: 1)
-        if f > 0.8 {
-            return RatingStar.filled.view
-        } else if f < 0.3 {
-            return RatingStar.empty.view
-        } else {
-            return RatingStar.half.view
-        }
-        
-    }
+    @EnvironmentObject private var  store : Store
 
-    var filledStar : Int {
-        let f = floor(rating)
-        let i = Int(f)
-        return i
-    }
-    var emptyStar : Int {5-filledStar-1}
-    var body: some View {
-        HStack(alignment: .center, spacing: 4) {
-            HStack {
-            if filledStar > 0 {
-                ForEach(1...filledStar, id: \.self){ _ in
-                    RatingStar.filled.view
-                }
-            }
-            floatingStar
-            if emptyStar > 0 {
-                ForEach(1...emptyStar, id: \.self){ _ in
-                    RatingStar.empty.view
-                }
-            }
-            }.modifier(Rainbow())
-            Text("(\(String(format: "%.1f", rating)))").bold()
+    var  rating : Float {editable ? set.collection.rating : set.rating}
+    @ObservedObject var set : LegoSet
+    let editable : Bool
+    func star(level:Int) -> RatingStar {
+        if Int(rating) >= level {
+            return RatingStar.filled
+        } else if self.rating.truncatingRemainder(dividingBy: 1) > 0.8 {
+            return RatingStar.filled
+        } else if  self.rating.truncatingRemainder(dividingBy: 1) > 0.3 {
+            return RatingStar.half
+        } else {
+            return RatingStar.empty
         }
+    }
+    var body: some View {
+        VStack(alignment: .leading, spacing: 4){
+            HStack(alignment: .center, spacing: 4) {
+                HStack {
+                    ForEach(1...5, id: \.self){ n in
+                        Button {
+                            setRating(n)
+                        } label: {
+                            star(level: n).view
+                        }.disabled(!editable)
+
+                   
+                    }
+                }.modifier(Rainbow())
+                Text("(\(String(format: "%.1f", rating)))").bold()
+            }
+            if editable {
+                Text("rating.edit").font(.caption).foregroundColor(.secondary)
+            }
+        }
+    }
+    
+    func setRating(_ newRating:Int){
+        
+        APIRouter<String>.setRating(store.user!.token, set, newRating)
+            .responseJSON { response in
+                switch response {
+                case .failure(let err):
+                    logerror(err)
+                    break
+                case .success:
+                    set.objectWillChange.send()
+                    set.collection.rating = Float(newRating)
+                    break
+                }
+            }
     }
 }
 extension Float {
@@ -77,7 +93,7 @@ struct Rainbow: ViewModifier {
                                    startPoint: .leading,
                                    endPoint: .trailing)
                         .frame(width: proxy.size.width)
-                }
+                }.allowsHitTesting(false)
             })
             .mask(content)
     }

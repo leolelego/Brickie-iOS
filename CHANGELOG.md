@@ -1,13 +1,15 @@
 1.5.0
+- Add  User rating on Sets
+- Add BrickLink link on Set
 - Add new welcome view
-- Download progress on Set PDF Manual
+- Add Download progress on Set PDF Instructions
 - Add Notes for sets and minifigures
-- [Dev] Enable back Preview in Develpment tool - Thanks @BrianBatchelder
-- Fixed an file cache management issue - Thanks @BrianBatchelder
-- Fixed and API Error handle issue - Thanks @BrianBatchelder
 - Add Pull to Refresh on iPhone Table mode (not grid)
 - Add options to display unreleased sets with mising informations
-- Change number font to be more readble. If you have any expertise in fonts, I need help to find a better font.
+- [Dev] Enable back Preview in Develpment tool - Thanks @BrianBatchelder
+- Fix file cache management issue - Thanks @BrianBatchelder
+- Fix API Error handle issue - Thanks @BrianBatchelder
+- Fix number font to be more readble. If you have any expertise in fonts, I need help to find a better font.
 
 1.4.0
 - save locally more often

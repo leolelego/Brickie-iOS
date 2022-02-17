@@ -16,12 +16,13 @@ struct MinifigDetailView: View {
     @State var notes = ""
     var body: some View {
         ScrollView( showsIndicators: false){
-            makeThumbnail().zIndex(80)
+            ThumbnailView(url: minifig.imageUrl, minHeight: 300, maxHeight: 300).zIndex(80)
             makeThemes().zIndex(999)
             Spacer()
             makeHeader().zIndex(0)
             Divider()
             MinifigEditorView(minifig: minifig).padding()
+            LinkView(title: "BrickLink", link: "https://www.bricklink.com/v2/catalog/catalogitem.page?M=\(minifig.minifigNumber)", color: .cyan)
             makeNotes()
             
             
