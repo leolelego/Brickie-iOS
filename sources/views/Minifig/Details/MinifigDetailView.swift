@@ -34,25 +34,6 @@ struct MinifigDetailView: View {
         }
         
     }
-    private func makeThumbnail() -> some View {
-        
-        Button(action: {
-            
-            isImageDetailPresented.toggle()
-            
-        }) {
-            WebImage(url: URL(string: minifig.imageUrl), options: [.progressiveLoad, .delayPlaceholder])
-                .resizable()
-                .renderingMode(.original)
-                .placeholder(.wifiError)
-                .indicator(.progress)
-                .aspectRatio(contentMode: .fit)
-                .frame(minWidth: 0, maxWidth: .infinity, minHeight: 300, maxHeight: 300, alignment: .center)
-        }
-        
-        
-        
-    }
     private func makeThemes() -> some View{
         
         HStack(spacing: 8){
