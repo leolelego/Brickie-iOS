@@ -25,7 +25,6 @@ struct SetAddtionnalImagesView: View {
                             Button(action: {
                                 let urls = images.compactMap{$0.imageURL}
                                 self.index = urls.firstIndex(of: image.imageURL ?? "") ?? 1
-
                                 self.presentedURLs = urls
                                 self.present.toggle()
                             }) {
