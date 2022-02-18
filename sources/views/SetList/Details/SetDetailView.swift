@@ -57,7 +57,10 @@ struct SetDetailView: View {
                     case .success(let items):
                         DispatchQueue.main.async {
                             self.set.objectWillChange.send()
-                            self.set.instrucctions = items
+                            withAnimation {
+                                self.set.instrucctions = items
+                            }
+                          
                         }
                         break
                     case .failure(_):break
@@ -118,7 +121,7 @@ struct SetDetailView: View {
     func makeInstructions() -> some View{
         Group {
             if set.instrucctions?.first != nil && URL(string:set.instrucctions!.first!.URL) != nil {
-                NavigationLink(destination: LegoPDFView(string: set.instrucctions!.first!.URL,cache: cache)) {
+                NavigationLink(destination: InstructionsView(values: set.instrucctions!)) {
                     makeInstructionButton().opacity((cache[URL(string:set.instrucctions!.first!.URL)!] == nil && self.config.connection == .unavailable) ?  0.4 : 1.0)
                     
                 }.disabled(cache[URL(string:set.instrucctions!.first!.URL)!] == nil && self.config.connection == .unavailable)
