@@ -4,7 +4,7 @@ import UIKit
 import SwiftUI
 
 class DataLoader: ObservableObject {
-    @Published var data: Data?
+    //@Published var data: Data?
     @Published  var progress: Progress? 
     lazy var dataTask : URLSession.DataTaskProgressPublisher? = {
         guard let url = url else {return nil}
@@ -29,26 +29,50 @@ class DataLoader: ObservableObject {
         cancellable?.cancel()
     }
     
-    func load() {
+//    func load() {
+//        guard !isLoading, let url = url , let dtTask = dataTask else { return }
+//
+//        if let cacheData = cache?[url] {
+//            objectWillChange.send()
+//            self.data = cacheData
+//            return
+//        }
+//
+//
+//        cancellable = dtTask.publisher
+//            .map {$0.data }
+//            .replaceError(with: nil)
+//            .handleEvents(receiveSubscription: { [weak self] _ in self?.onStart() },
+//                          receiveOutput: { [weak self] in self?.cache($0) },
+//                          receiveCompletion: { [weak self] _ in self?.onFinish() },
+//                          receiveCancel: { [weak self] in self?.onFinish() })
+//            .subscribe(on: Self.processingQueue)
+//            .receive(on: DispatchQueue.main)
+//            .assign(to: \.data, on: self)
+//
+//    }
+    
+    func syncLoad(completion:@escaping (Data)->Void){
         guard !isLoading, let url = url , let dtTask = dataTask else { return }
 
         if let cacheData = cache?[url] {
-            self.data = cacheData
+//            self.data = cacheData
+            completion(cacheData)
             return
         }
         
         
         cancellable = dtTask.publisher
             .map {$0.data }
-            .replaceError(with: nil)
-            .handleEvents(receiveSubscription: { [weak self] _ in self?.onStart() },
-                          receiveOutput: { [weak self] in self?.cache($0) },
-                          receiveCompletion: { [weak self] _ in self?.onFinish() },
-                          receiveCancel: { [weak self] in self?.onFinish() })
-            .subscribe(on: Self.processingQueue)
-            .receive(on: DispatchQueue.main)
-            .assign(to: \.data, on: self)
-      
+            .sink(receiveCompletion: { _ in
+            }, receiveValue: { data in
+                self.cache?[url] = data
+//                self.data = data
+                completion(data)
+                
+
+            })
+            
     }
     
     func cancel() {

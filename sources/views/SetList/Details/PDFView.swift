@@ -10,17 +10,16 @@ import SwiftUI
 import PDFKit
 
 struct LegoPDFView : View {
-    @ObservedObject private var loader: DataLoader
-    let stringURL : String
+    @State private var loader: DataLoader
+    @State var data : Data?
     init(string:String,cache:DataCache){
-        stringURL = string
         loader = DataLoader(url: URL(string: string), cache: cache)
     }
 
     var body: some View {
         Group {
-            if loader.data != nil {
-                PDFKitView(document: PDFDocument(data:loader.data!))
+            if data != nil {
+                PDFKitView(document: PDFDocument(data:data!))
             } else {
                 VStack {
                     Text("instruction.downloading").padding()
@@ -30,7 +29,9 @@ struct LegoPDFView : View {
                 }
         }
         }.onAppear {
-            self.loader.load()
+            self.loader.syncLoad { data in
+                self.data = data
+            }
         }.onDisappear{
             self.loader.cancel()
         }

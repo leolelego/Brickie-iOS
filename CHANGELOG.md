@@ -7,6 +7,7 @@
 - Add Pull to Refresh on iPhone Table mode (not grid)
 - Add options to display unreleased sets with mising informations
 - [Dev] Enable back Preview in Develpment tool - Thanks @BrianBatchelder
+- Fix an issue where insctruction don't show up after download
 - Fix file cache management issue - Thanks @BrianBatchelder
 - Fix API Error handle issue - Thanks @BrianBatchelder
 - Fix number font to be more readble. If you have any expertise in fonts, I need help to find a better font.
