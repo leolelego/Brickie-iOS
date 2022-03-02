@@ -23,7 +23,6 @@
 		9624E38F2471F79B002F68F7 /* RoundedText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9624E38E2471F79B002F68F7 /* RoundedText.swift */; };
 		9624E3912471F904002F68F7 /* MinifigListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9624E3902471F904002F68F7 /* MinifigListCell.swift */; };
 		96351F57248BC09700372A03 /* SetsFilteredView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96351F56248BC09700372A03 /* SetsFilteredView.swift */; };
-		96365E6E2468700900F318C3 /* AdaptsToSoftwareKeyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96365E6C2468700800F318C3 /* AdaptsToSoftwareKeyboard.swift */; };
 		96365E6F2468700900F318C3 /* DismissingKeyboardOnSwipe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96365E6D2468700900F318C3 /* DismissingKeyboardOnSwipe.swift */; };
 		96365E712468C5A500F318C3 /* BarButtonModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96365E702468C5A500F318C3 /* BarButtonModifier.swift */; };
 		964BA877246A1FFE00984DCC /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 964BA879246A1FFE00984DCC /* Localizable.strings */; };
@@ -106,7 +105,6 @@
 		9624E38E2471F79B002F68F7 /* RoundedText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedText.swift; sourceTree = "<group>"; };
 		9624E3902471F904002F68F7 /* MinifigListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MinifigListCell.swift; sourceTree = "<group>"; };
 		96351F56248BC09700372A03 /* SetsFilteredView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetsFilteredView.swift; sourceTree = "<group>"; };
-		96365E6C2468700800F318C3 /* AdaptsToSoftwareKeyboard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdaptsToSoftwareKeyboard.swift; sourceTree = "<group>"; };
 		96365E6D2468700900F318C3 /* DismissingKeyboardOnSwipe.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DismissingKeyboardOnSwipe.swift; sourceTree = "<group>"; };
 		96365E702468C5A500F318C3 /* BarButtonModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarButtonModifier.swift; sourceTree = "<group>"; };
 		964BA878246A1FFE00984DCC /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -252,7 +250,6 @@
 		96DE9248245F62E300652E0E /* Modifier and Accessories */ = {
 			isa = PBXGroup;
 			children = (
-				96365E6C2468700800F318C3 /* AdaptsToSoftwareKeyboard.swift */,
 				96365E6D2468700900F318C3 /* DismissingKeyboardOnSwipe.swift */,
 				96DE9252245F8A6800652E0E /* Blur.swift */,
 				96E78B97245CB1120032F4E3 /* RoundedButtonStyle.swift */,
@@ -586,7 +583,6 @@
 				9624E3912471F904002F68F7 /* MinifigListCell.swift in Sources */,
 				9624E38F2471F79B002F68F7 /* RoundedText.swift in Sources */,
 				B32BA8122786601100F0A8AD /* LegoSet+Subclass.swift in Sources */,
-				96365E6E2468700900F318C3 /* AdaptsToSoftwareKeyboard.swift in Sources */,
 				961FC1BD2558770500434E5D /* User.swift in Sources */,
 				B3B580F6278F784300D543B7 /* MinifigNote.swift in Sources */,
 				96DE924C245F695100652E0E /* Assets.swift in Sources */,

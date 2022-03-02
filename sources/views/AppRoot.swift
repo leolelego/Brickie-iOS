@@ -30,7 +30,6 @@ struct AppRootView: View {
                 }
         } else   {
             iPhoneView.accentColor(.backgroundAlt)
-               // .modifier(DismissingKeyboardOnSwipe())
                 .sheet(isPresented: $isPresentingSettings) {
                     SettingsView().environmentObject(store)
                 }
@@ -47,32 +46,32 @@ struct AppRootView: View {
             }
         }
     }
-
-    var iPadMacView : some View {
-        NavigationView {
-            
-            List(selection: $sideSelection){
-                ForEach(AppPanel.allCases, id: \.self){ item in
-                    NavigationLink(destination: item.view.navigationBarTitle(item.title),
-                                   tag: item.rawValue,
-                                   selection: $sideSelection){
-                        Label(item.title, image: item.imageName).font(.lego(size: 17))
-                        
-                    }
-                }
-                
-            }
-            .listStyle(SidebarListStyle())
-            .navigationTitle("BRICKIE_")
-            .toolbar(content: {
-                ToolbarItem(placement: .navigationBarLeading){
-                    toolbar()
-                }
-            })
-            startView
-        }
-        .navigationViewStyle(DoubleColumnNavigationViewStyle())
-    }
+//
+//    var iPadMacView : some View {
+//        NavigationView {
+//            
+//            List(selection: $sideSelection){
+//                ForEach(AppPanel.allCases, id: \.self){ item in
+//                    NavigationLink(destination: item.view.navigationBarTitle(item.title),
+//                                   tag: item.rawValue,
+//                                   selection: $sideSelection){
+//                        Label(item.title, image: item.imageName).font(.lego(size: 17))
+//                        
+//                    }
+//                }
+//                
+//            }
+//            .listStyle(SidebarListStyle())
+//            .navigationTitle("BRICKIE_")
+//            .toolbar(content: {
+//                ToolbarItem(placement: .navigationBarLeading){
+//                    toolbar()
+//                }
+//            })
+//            startView
+//        }
+//        .navigationViewStyle(DoubleColumnNavigationViewStyle())
+//    }
     
     func toolbar() -> Button<Image> {
         Button(action: {
