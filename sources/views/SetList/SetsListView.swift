@@ -12,7 +12,6 @@ struct SetsListView: View {
     
     var items : [LegoSet]
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
-    @Environment(\.verticalSizeClass) var verticalSizeClass
     @EnvironmentObject private var  store : Store
     @Binding var sorter : LegoListSorter
     @Binding var filter : LegoListFilter
