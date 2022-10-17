@@ -1,6 +1,10 @@
+
+> Brickie is searching minifigs to help improve the app. I'm currently not really available and I can be able to validate and checks PR but I have less time to improve the app itself. So if you love SwiftUI and bricks, feel **free to add your own touch to the app!**
+
+
 # Brickie: The BrickSet Companion for iOS
 
-Brickie is an iOS application powered by the BrickSet API which permits to manage your Lego of sets and minifigures collection . 
+Brickie is an iOS application powered by the BrickSet API which permits to manage your Lego of sets and minifigures collection. 
 
 ## Open Source, Technologies and Privacy
 
