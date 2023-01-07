@@ -29,3 +29,11 @@ enum APIError : Error {
         }
     }
 }
+
+// MARK: - CharacterSet
+
+extension CharacterSet {
+    static var plus: CharacterSet {
+        CharacterSet(charactersIn: "/+").inverted
+    }
+}

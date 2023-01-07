@@ -78,92 +78,75 @@ enum APIRouter<T:Any> {
         }
     }
     var querys : [URLQueryItem]? {
+        var allQueries: [URLQueryItem] = [
+            URLQueryItem(name: "apiKey", value: SecretsConfiguration.apiKey)
+        ]
         switch self {
         case .login(let u, let p):
-            return [
-                URLQueryItem(name: "apiKey", value: BrickSetApiKey),
-                URLQueryItem(name: "username", value: u),
-                URLQueryItem(name: "password", value: p)
-            ]
-            
+            allQueries.append(URLQueryItem(name: "username", value: u))
+            allQueries.append(URLQueryItem(name: "password", value: p))
+
         case .setInstructions(let setId),.additionalImages(let setId):
-            return [
-                URLQueryItem(name: "apiKey", value: BrickSetApiKey),
-                URLQueryItem(name: "setID", value: String(setId)),
-            ]
-        case .ownedSets(let hash, let page): return [
-            URLQueryItem(name: "apiKey", value: BrickSetApiKey),
-            URLQueryItem(name: "userHash", value: hash),
-            URLQueryItem(name: "params", value: "{owned:1,pageNumber:\(page),pageSize:\(pageSizeSet)}"),
-            ]
-        case .ownedFigs(let hash) : return [
-            URLQueryItem(name: "apiKey", value: BrickSetApiKey),
-            URLQueryItem(name: "userHash", value: hash),
-            URLQueryItem(name: "params", value: "{owned:1}"),
-            ]
-        case .wantedSets(let hash, let page) : return [
-            URLQueryItem(name: "apiKey", value: BrickSetApiKey),
-            URLQueryItem(name: "userHash", value: hash),
-            URLQueryItem(name: "params", value: "{wanted:1,pageNumber:\(page),pageSize:\(pageSizeSet)}"),
-            ]
-        case .wantedFigs(let hash) : return [
-            URLQueryItem(name: "apiKey", value: BrickSetApiKey),
-            URLQueryItem(name: "userHash", value: hash),
-            URLQueryItem(name: "params", value: "{wanted:1}"),
-            ]
-        case .searchSets(let hash, let search, let page) : return [
-            URLQueryItem(name: "apiKey", value: BrickSetApiKey),
-            URLQueryItem(name: "userHash", value: hash),
-            URLQueryItem(name: "params", value: "{query:\"\(search)\",pageNumber:\(page),pageSize:\(pageSizeSearch)}"),
-            ]
-        case .searchSetsTheme(let hash, let search, let page) : return [
-            URLQueryItem(name: "apiKey", value: BrickSetApiKey),
-            URLQueryItem(name: "userHash", value: hash),
-            URLQueryItem(name: "params", value: "{theme:\"\(search)\",pageNumber:\(page),pageSize:\(pageSizeSearch)}"),
-            ]
-        case .searchSetsSubTheme(let hash, let search, let page) : return [
-            URLQueryItem(name: "apiKey", value: BrickSetApiKey),
-            URLQueryItem(name: "userHash", value: hash),
-            URLQueryItem(name: "params", value: "{subtheme:\"\(search)\",pageNumber:\(page),pageSize:\(pageSizeSearch)}"),
-            ]
-        case .searchSetsYear(let hash, let search, let page) : return [
-            URLQueryItem(name: "apiKey", value: BrickSetApiKey),
-            URLQueryItem(name: "userHash", value: hash),
-            URLQueryItem(name: "params", value: "{year:\"\(search)\",pageNumber:\(page),pageSize:\(pageSizeSearch)}"),
-            ]
-        case .searchMinifigs(let hash, let search) : return [
-            URLQueryItem(name: "apiKey", value: BrickSetApiKey),
-            URLQueryItem(name: "userHash", value: hash),
-            URLQueryItem(name: "params", value: "{query:\"\(search)\"}"),
-            ]
-        case .setWanted(let hash,let set, let want) : return [
-            URLQueryItem(name: "apiKey", value: BrickSetApiKey),
-            URLQueryItem(name: "userHash", value: hash),
-            URLQueryItem(name: "setID", value: String(set.setID)),
-            URLQueryItem(name: "params", value: "{want:\(want ? 1:0)}")
-            ]
-        case .setQty(let hash,let set, let qty) : return [
-            URLQueryItem(name: "apiKey", value: BrickSetApiKey),
-            URLQueryItem(name: "userHash", value: hash),
-            URLQueryItem(name: "setID", value: String(set.setID)),
-            URLQueryItem(name: "params", value: "{qtyOwned:\(qty)}") //owned:\(qty < 1 ? 0 : 1),
-            ]
-        case .minifigWanted(let hash,let minifig, let want) : return [
-            URLQueryItem(name: "apiKey", value: BrickSetApiKey),
-            URLQueryItem(name: "userHash", value: hash),
-            URLQueryItem(name: "minifigNumber", value: minifig.minifigNumber),
-            URLQueryItem(name: "params", value: "{want:\(want ? 1:0),qtyOwned:\(minifig.ownedLoose)}")
-            ]
-        case .minifigQty(let hash,let minifig, let qty) : return [
-            URLQueryItem(name: "apiKey", value: BrickSetApiKey),
-            URLQueryItem(name: "userHash", value: hash),
-            URLQueryItem(name: "minifigNumber", value: minifig.minifigNumber),
-            URLQueryItem(name: "params", value: "{want:\(minifig.wanted ? 1 : 0),qtyOwned:\(qty)}")
-            ]
+            allQueries.append(URLQueryItem(name: "setID", value: String(setId)))
+
+        case .ownedSets(let hash, let page):
+            allQueries.append(URLQueryItem(name: "userHash", value: hash))
+            allQueries.append(URLQueryItem(name: "params", value: "{owned:1,pageNumber:\(page),pageSize:\(pageSizeSet)}"))
+
+        case .ownedFigs(let hash):
+            allQueries.append(URLQueryItem(name: "userHash", value: hash))
+            allQueries.append(URLQueryItem(name: "params", value: "{owned:1}"))
+
+        case .wantedSets(let hash, let page):
+            allQueries.append(URLQueryItem(name: "userHash", value: hash))
+            allQueries.append(URLQueryItem(name: "params", value: "{wanted:1,pageNumber:\(page),pageSize:\(pageSizeSet)}"))
+
+        case .wantedFigs(let hash):
+            allQueries.append(URLQueryItem(name: "userHash", value: hash))
+            allQueries.append(URLQueryItem(name: "params", value: "{wanted:1}"))
+
+        case .searchSets(let hash, let search, let page):
+            allQueries.append(URLQueryItem(name: "userHash", value: hash))
+            allQueries.append(URLQueryItem(name: "params", value: "{query:\"\(search)\",pageNumber:\(page),pageSize:\(pageSizeSearch)}"))
+
+        case .searchSetsTheme(let hash, let search, let page):
+            allQueries.append(URLQueryItem(name: "userHash", value: hash))
+            allQueries.append(URLQueryItem(name: "params", value: "{theme:\"\(search)\",pageNumber:\(page),pageSize:\(pageSizeSearch)}"))
+
+        case .searchSetsSubTheme(let hash, let search, let page):
+            allQueries.append(URLQueryItem(name: "userHash", value: hash))
+            allQueries.append(URLQueryItem(name: "params", value: "{subtheme:\"\(search)\",pageNumber:\(page),pageSize:\(pageSizeSearch)}"))
+
+        case .searchSetsYear(let hash, let search, let page):
+            allQueries.append(URLQueryItem(name: "userHash", value: hash))
+            allQueries.append(URLQueryItem(name: "params", value: "{year:\"\(search)\",pageNumber:\(page),pageSize:\(pageSizeSearch)}"))
+
+        case .searchMinifigs(let hash, let search):
+            allQueries.append(URLQueryItem(name: "userHash", value: hash))
+            allQueries.append(URLQueryItem(name: "params", value: "{query:\"\(search)\"}"))
+
+        case .setWanted(let hash,let set, let want):
+            allQueries.append(URLQueryItem(name: "userHash", value: hash))
+            allQueries.append(URLQueryItem(name: "setID", value: String(set.setID)))
+            allQueries.append(URLQueryItem(name: "params", value: "{want:\(want ? 1:0)}"))
+
+        case .setQty(let hash,let set, let qty):
+            allQueries.append(URLQueryItem(name: "userHash", value: hash))
+            allQueries.append(URLQueryItem(name: "setID", value: String(set.setID)))
+            allQueries.append(URLQueryItem(name: "params", value: "{qtyOwned:\(qty)}")) //owned:\(qty < 1 ? 0 : 1),
+
+        case .minifigWanted(let hash,let minifig, let want):
+            allQueries.append(URLQueryItem(name: "userHash", value: hash))
+            allQueries.append(URLQueryItem(name: "minifigNumber", value: minifig.minifigNumber))
+            allQueries.append(URLQueryItem(name: "params", value: "{want:\(want ? 1:0),qtyOwned:\(minifig.ownedLoose)}"))
+
+        case .minifigQty(let hash,let minifig, let qty):
+            allQueries.append(URLQueryItem(name: "userHash", value: hash))
+            allQueries.append(URLQueryItem(name: "minifigNumber", value: minifig.minifigNumber))
+            allQueries.append(URLQueryItem(name: "params", value: "{want:\(minifig.wanted ? 1 : 0),qtyOwned:\(qty)}"))
         }
+        return allQueries
     }
-    
-    
 }
 
 
