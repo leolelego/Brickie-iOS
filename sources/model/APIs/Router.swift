@@ -45,6 +45,7 @@ enum APIRouter<T:Any> {
         guard var components = URLComponents(url: baseURL.appendingPathComponent(method), resolvingAgainstBaseURL: false)
             else {return nil}
         components.queryItems = querys
+        components.percentEncodedQuery = components.percentEncodedQuery?.addingPercentEncoding(withAllowedCharacters: .plus)
         return components.url
     }
     var baseURL : URL {

@@ -72,6 +72,7 @@
 		B3D828042573D97500CAC606 /* FigsGridCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D828032573D97500CAC606 /* FigsGridCell.swift */; };
 		B3D828072573DA3B00CAC606 /* PastilView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D828062573DA3B00CAC606 /* PastilView.swift */; };
 		B3D8280A2573F1C000CAC606 /* CellContextMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D828092573F1C000CAC606 /* CellContextMenu.swift */; };
+		EE8CF935296A21E100E71D0C /* CharacterSet+Plus.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE8CF934296A21E100E71D0C /* CharacterSet+Plus.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -143,6 +144,7 @@
 		B3D828062573DA3B00CAC606 /* PastilView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PastilView.swift; sourceTree = "<group>"; };
 		B3D828092573F1C000CAC606 /* CellContextMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellContextMenu.swift; sourceTree = "<group>"; };
 		B3F688E427178B2700962062 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		EE8CF934296A21E100E71D0C /* CharacterSet+Plus.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CharacterSet+Plus.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -193,6 +195,7 @@
 		964BA87C246A34AD00984DCC /* APIs */ = {
 			isa = PBXGroup;
 			children = (
+				EE8CF934296A21E100E71D0C /* CharacterSet+Plus.swift */,
 				96E78BAD245CCED40032F4E3 /* APIHelpers.swift */,
 				964BA87E246A34D700984DCC /* Router.swift */,
 			);
@@ -505,6 +508,7 @@
 				96365E712468C5A500F318C3 /* BarButtonModifier.swift in Sources */,
 				96DE9247245F3DD800652E0E /* SetDetailView.swift in Sources */,
 				96851E0724734D3A00D9F803 /* MinifigDetailView.swift in Sources */,
+				EE8CF935296A21E100E71D0C /* CharacterSet+Plus.swift in Sources */,
 				96E78B98245CB1120032F4E3 /* RoundedButtonStyle.swift in Sources */,
 				9624E3912471F904002F68F7 /* MinifigListCell.swift in Sources */,
 				96519AD52496FC4E002B0354 /* ActivityIndicator.swift in Sources */,
