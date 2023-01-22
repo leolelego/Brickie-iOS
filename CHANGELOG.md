@@ -1,3 +1,5 @@
+1.5.1
+- Fix an login issue when password contains some special caracters. Thanks [@dmlebron](https://github.com/leolelego/Brickie-iOS/commits?author=dmlebron)
 1.5.0
 - Add  User rating on Sets
 - Add BrickLink link on Set
@@ -6,7 +8,7 @@
 - Add Notes for sets and minifigures
 - Add Pull to Refresh on iPhone Table mode (not grid)
 - Add options to display unreleased sets with mising informations
-- [Dev] Enable back Preview in Develpment tool - Thanks @BrianBatchelder
+- [Dev] Enable back Preview in Develpment tool - Thanks [@BrianBatchelder](https://github.com/leolelego/Brickie-iOS/commits?author=BrianBatchelder)
 - Fix an issue where insctruction don't show up after download
 - Fix file cache management issue - Thanks @BrianBatchelder
 - Fix API Error handle issue - Thanks @BrianBatchelder
