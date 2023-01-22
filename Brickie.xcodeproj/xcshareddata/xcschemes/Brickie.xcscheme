@@ -29,6 +29,18 @@
       shouldUseLaunchSchemeArgsEnv = "YES"
       language = "en">
       <Testables>
+         <TestableReference
+            skipped = "NO"
+            parallelizable = "YES"
+            testExecutionOrdering = "random">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "EE8CF939296A24EB00E71D0C"
+               BuildableName = "BrickieTests.xctest"
+               BlueprintName = "BrickieTests"
+               ReferencedContainer = "container:Brickie.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
    </TestAction>
    <LaunchAction
