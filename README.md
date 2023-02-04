@@ -1,5 +1,6 @@
 
-> Brickie is searching minifigs to help improve the app. I'm currently not really available and I can be able to validate and checks PR but I have less time to improve the app itself. So if you love SwiftUI and bricks, feel **free to add your own touch to the app!**
+> **Brickie is searching minifigs to help improve the app**. I'm currently not really available to improve the app by myself but I'm able to validate and checks PR. So if you love SwiftUI and bricks, feel **free to add your own touch to the app**! **All apps should be driven by users, make it yours!**
+Thanks to our awesome contributors! Always happy to receive bug fixes and features ❤️
 
 
 # Brickie: The BrickSet Companion for iOS
@@ -60,4 +61,5 @@ We don't dislay any ads or send anything to any server. So we don't track you us
  
 ## Credits and Thanks
 
-Thanks first to **BrickSet** and Huw for is support in this implementation. Thanks to Will from HMWK Family for it helps and Apple Account. 
+Thanks first to **BrickSet** and Huw for is support in this implementation. Thanks to [Will](https://github.com/william-delaere) from [HMWK Family](https://homework.family) for it helps and Apple Account. 
+
