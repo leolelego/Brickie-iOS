@@ -1,4 +1,5 @@
 1.5.2
+- add reset cache options
 - remove useless code and some refactor
 - remove Twitter link because nobody use it
 - add an options to add collections number as bottom bar badge

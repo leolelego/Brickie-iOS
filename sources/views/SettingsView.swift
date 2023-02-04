@@ -78,15 +78,26 @@ struct SettingsView: View {
                     }
                 }
                 
-                Section(header: Text("settings.options"),footer: Text("settings.options.footer")) {
+                Section(header: Text("settings.options")){
                     Toggle( isOn: $unreleasedSets){
-                        Text("settings.options.unreleasedsets").font(.subheadline)
+                        SettingsOptionsTexts(title: "settings.options.unreleasedsets", sub: "settings.options.unreleasedsetssub")
                     }
                     Toggle( isOn: $collectionNumberBadge){
-                        Text("settings.options.collectionNumberBadge").font(.subheadline)
+                        SettingsOptionsTexts(title: "settings.options.collectionNumberBadge", sub: "settings.options.collectionNumberBadgeSub")
                     }
-
+                    Button {
+                        store.reset()
+                        self.presentationMode.wrappedValue.dismiss()
+                    } label: {
+                        
+                        SettingsOptionsTexts(title: "settings.options.reset", sub: "settings.options.resetsub")
+                        
+                        
+                    }
+                    
+                    
                 }
+                
                 Section(header: Text("settings.feedbacks"),footer: makeFooter()) {
                     ForEach(feedbacks){ c in
                         Button(action: {
@@ -99,7 +110,9 @@ struct SettingsView: View {
                         }
                     }
                 }
+                
             }
+            
             .toolbar(content: {
                 ToolbarItem(placement: .navigationBarTrailing){
                     Button {
@@ -135,7 +148,7 @@ struct SettingsView: View {
                         Image("app_logo")
                             .padding(20)
                             .background(Circle()
-                                            .fill(Color.white))
+                                .fill(Color.white))
                         Text("credit.thanks").bold()
                         Text(" BRICKIE ").font(.lego(size: 32)).foregroundColor(.white)
                             .padding(.top,4)
@@ -145,7 +158,7 @@ struct SettingsView: View {
                     Spacer()
                 }
             }
-
+            
             
             Spacer()
         }
