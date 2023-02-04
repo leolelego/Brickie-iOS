@@ -66,7 +66,7 @@ class LegoSet : Lego, Hashable {
     
     var priceFloat : Float {
            let currentlocale = Locale.current
-           switch Locale(identifier: currentlocale.regionCode!).identifier {
+           switch Locale(identifier: currentlocale.regionCode ?? "us").identifier {
            case "ca":
                return LEGOCom["CA"]?.retailPrice ?? 0
            case "us":
@@ -148,7 +148,7 @@ let currencyFormatter : NumberFormatter = {
     
     let currentlocale = Locale.current
     
-    switch Locale(identifier: currentlocale.regionCode!).identifier {
+    switch Locale(identifier: currentlocale.regionCode ?? "us").identifier {
     case "ca":
         f.currencyCode = "CAD"
         break

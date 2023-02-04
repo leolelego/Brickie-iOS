@@ -29,7 +29,12 @@ struct AppRootView: View {
                     WelcomeView(showContinu: true)
                 }
         } else   {
-            iPhoneView.accentColor(.backgroundAlt)
+            TabView(selection: $selection){
+                ForEach(AppPanel.allCases, id: \.self) { item in
+                    SinglePanelView(item: item, view: item.view, toolbar: toolbar() )
+                }
+            }
+            .accentColor(.backgroundAlt)
                 .sheet(isPresented: $isPresentingSettings) {
                     SettingsView().environmentObject(store)
                 }
@@ -38,71 +43,14 @@ struct AppRootView: View {
                 }
         }
     }
-    
-    var iPhoneView: some View {
-        TabView(selection: $selection){
-            ForEach(AppPanel.allCases, id: \.self) { item in
-                SinglePanelView(item: item, view: item.view, toolbar: toolbar() )
-            }
-        }
-    }
-//
-//    var iPadMacView : some View {
-//        NavigationView {
-//            
-//            List(selection: $sideSelection){
-//                ForEach(AppPanel.allCases, id: \.self){ item in
-//                    NavigationLink(destination: item.view.navigationBarTitle(item.title),
-//                                   tag: item.rawValue,
-//                                   selection: $sideSelection){
-//                        Label(item.title, image: item.imageName).font(.lego(size: 17))
-//                        
-//                    }
-//                }
-//                
-//            }
-//            .listStyle(SidebarListStyle())
-//            .navigationTitle("BRICKIE_")
-//            .toolbar(content: {
-//                ToolbarItem(placement: .navigationBarLeading){
-//                    toolbar()
-//                }
-//            })
-//            startView
-//        }
-//        .navigationViewStyle(DoubleColumnNavigationViewStyle())
-//    }
-    
+
+
     func toolbar() -> Button<Image> {
         Button(action: {
             self.isPresentingSettings.toggle()
         }, label: {
             Image(systemName: "gear")
         })
-    }
-    
-    var startView : some View{
-        let item : AppPanel = AppPanel(rawValue: sideSelection ?? 0)!
-        return item.view.navigationBarTitle(item.title)
-    }
-    func appStoreReview(){
-        reviewRuntime += 1
-        let currentBuild = Bundle.main.infoDictionary?["CFBundleVersion"] as? String
-        let lastReviewedBuild = reviewVersion
-        if reviewRuntime > 15 && currentBuild != lastReviewedBuild {
-            if let scene = UIApplication.shared.connectedScenes.first as? UIWindowScene {
-                SKStoreReviewController.requestReview(in: scene)
-                reviewVersion = currentBuild
-            }
-        }
-    }
-    
-    func limiteWindowSizeMac(){
-#if targetEnvironment(macCatalyst)
-        if let scene = UIApplication.shared.connectedScenes.first as? UIWindowScene {            
-            scene.sizeRestrictions?.minimumSize = CGSize(width: 640, height: 800)
-        }
-#endif
     }
     
 }
@@ -114,67 +62,6 @@ struct AppRoot_Previews: PreviewProvider {
             .environmentObject(PreviewStore() as Store)
             .environmentObject(Configuration())
             .previewDisplayName("Defaults")
-    }
-}
-
-struct SinglePanelView: View {
-    let item : AppPanel
-    let view : AnyView
-    let toolbar : Button<Image>
-    var body: some View {
-        NavigationView {
-            view
-                .navigationTitle(item.title)
-                .toolbar(content: {
-                    ToolbarItem(placement: .navigationBarLeading){
-                        toolbar
-                    }
-                })
-        }.navigationViewStyle(StackNavigationViewStyle())
-            .tabItem {
-                VStack {
-                    item.image
-                    Text(item.tab)
-                }
-            }.tag(item.rawValue)
-    }
-}
-
-enum AppPanel : Int,CaseIterable {
-    case sets = 0
-    case minifigures = 1
-    
-    var view : AnyView {
-        switch self {
-        case .minifigures: return AnyView(FigsView())
-        default: return AnyView(SetsView())
-        }
-    }
-    
-    var tab : LocalizedStringKey {
-        switch self {
-        case .minifigures: return "minifig.tab"
-        default: return "sets.tab"
-        }
-    }
-    var title : LocalizedStringKey {
-        switch self {
-        case .minifigures: return "minifig.title"
-        default: return "sets.title"
-        }
-    }
-    var image : Image {
-        switch self {
-        case .minifigures: return Image.minifig_head
-        default: return Image.brick
-        }
-    }
-    
-    var imageName : String {
-        switch self {
-        case .minifigures: return  "lego_head"
-        default: return "lego_brick"
-        }
     }
 }
 

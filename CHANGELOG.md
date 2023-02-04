@@ -1,3 +1,8 @@
+1.5.2
+- remove useless code and some refactor
+- remove Twitter link because nobody use it
+- add an options to add collections number as bottom bar badge
+
 1.5.1
 - Fix an login issue when password contains some special caracters. Thanks [@dmlebron](https://github.com/leolelego/Brickie-iOS/commits?author=dmlebron)
 1.5.0

@@ -13,6 +13,8 @@ struct SettingsView: View {
     
     @EnvironmentObject private var  store : Store
     @AppStorage(Settings.unreleasedSets) var unreleasedSets : Bool = false
+    @AppStorage(Settings.collectionNumberBadge) var collectionNumberBadge : Bool = false
+
     
     @Environment(\.presentationMode) var presentationMode
     //    @AppStorage(Settings.currency) var currency : Currency = .default
@@ -20,7 +22,7 @@ struct SettingsView: View {
     let feedbacks = [
         Credit(text: "credit.email", link: URL(string:kFeedbackMailto)!,image: Image(systemName:"envelope.fill")),
         Credit(text: "credit.github", link: URL(string: "https://github.com/leolelego/BrickSet")!,image: Image("github")),
-        Credit(text: "credit.twitter", link: URL(string: "https://twitter.com/leolelego")!,image: Image("twitter"))
+        //Credit(text: "credit.twitter", link: URL(string: "https://twitter.com/leolelego")!,image: Image("twitter"))
     ]
     
     @State var logout = false
@@ -77,7 +79,13 @@ struct SettingsView: View {
                 }
                 
                 Section(header: Text("settings.options"),footer: Text("settings.options.footer")) {
-                    Toggle("settings.options.unreleasedsets", isOn: $unreleasedSets)
+                    Toggle( isOn: $unreleasedSets){
+                        Text("settings.options.unreleasedsets").font(.subheadline)
+                    }
+                    Toggle( isOn: $collectionNumberBadge){
+                        Text("settings.options.collectionNumberBadge").font(.subheadline)
+                    }
+
                 }
                 Section(header: Text("settings.feedbacks"),footer: makeFooter()) {
                     ForEach(feedbacks){ c in

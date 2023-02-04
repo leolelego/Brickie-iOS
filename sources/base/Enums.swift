@@ -21,7 +21,9 @@ enum Settings {
     
     static let unreleasedSets = "unreleasedSets"
     static let displayWelcome = "displayWelcome"
+    static let collectionNumberBadge = "collectionNumberBadge"
 
+    
 
 
 }
