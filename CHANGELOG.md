@@ -1,4 +1,5 @@
 1.5.2
+- add compact list option
 - add reset cache options
 - remove useless code and some refactor
 - remove Twitter link because nobody use it

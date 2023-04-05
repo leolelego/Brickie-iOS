@@ -35,8 +35,7 @@ class LegoSet : Lego, Hashable {
     let collections : Collections
     
     var price : String? {
-        let currentlocale = Locale.current
-        switch Locale(identifier: currentlocale.regionCode!).identifier {
+        switch Locale(identifier: Locale.currentRegionCode).identifier {
         case "ca":
             return currencyFormatter.string(for: LEGOCom["CA"]?.retailPrice)
         case "us":
@@ -50,7 +49,7 @@ class LegoSet : Lego, Hashable {
     }
     
     var pricePerPiece : String? {
-        switch Locale(identifier: Locale.current.regionCode!).identifier {
+        switch Locale(identifier: Locale.current.regionCode ?? "us").identifier {
         case "ca", "us","gb":
             return currencyFormatter.string(for: pricePerPieceFloat)
         default:
@@ -65,8 +64,7 @@ class LegoSet : Lego, Hashable {
     }
     
     var priceFloat : Float {
-           let currentlocale = Locale.current
-           switch Locale(identifier: currentlocale.regionCode ?? "us").identifier {
+           switch Locale(identifier: Locale.currentRegionCode).identifier {
            case "ca":
                return LEGOCom["CA"]?.retailPrice ?? 0
            case "us":
@@ -145,10 +143,7 @@ extension LegoSet {
 let currencyFormatter : NumberFormatter = {
     let f = NumberFormatter()
     f.numberStyle = .currency
-    
-    let currentlocale = Locale.current
-    
-    switch Locale(identifier: currentlocale.regionCode ?? "us").identifier {
+    switch Locale(identifier: Locale.currentRegionCode).identifier {
     case "ca":
         f.currencyCode = "CAD"
         break

@@ -14,24 +14,32 @@ struct ThumbnailView: View {
     let url : String?
     let minHeight : CGFloat
     let maxHeight : CGFloat
+    var canTap : Bool = true
+
     @State var present : Bool = false
     @State var presentedURLs : [String] = []
-    
     var body: some View {
-        Button(action: {
-            presentedURLs = [url ?? "" ]
-            present.toggle()
+        if canTap {
+            Button(action: {
+                presentedURLs = [url ?? "" ]
+                present.toggle()
+                
+            }) {
+                imageView
+            }
+            .sheet(isPresented: $present, content: { FullScreenImageView(isPresented: $present, urls: $presentedURLs,currentIndex: .constant(0) )})
             
-        }) {
-            WebImage(url: URL(string: url ?? ""), options: [.progressiveLoad, .delayPlaceholder])
-                .resizable()
-                .renderingMode(.original)
-                .placeholder(.wifiError)
-                .indicator(.progress)
-                .aspectRatio(contentMode: .fit)
-                .frame(minWidth: 0, maxWidth: .infinity, minHeight: minHeight, maxHeight: maxHeight, alignment: .center)
-        }
-        .sheet(isPresented: $present, content: { FullScreenImageView(isPresented: $present, urls: $presentedURLs,currentIndex: .constant(0) )})
+        } else {imageView}
+    }
+    
+    var imageView : some View {
+        WebImage(url: URL(string: url ?? ""), options: [.progressiveLoad, .delayPlaceholder])
+            .resizable()
+            .renderingMode(.original)
+            .placeholder(.wifiError)
+            .indicator(.progress)
+            .aspectRatio(contentMode: .fit)
+            .frame(minWidth: 0, maxWidth: .infinity, minHeight: minHeight, maxHeight: maxHeight, alignment: .center)
     }
 }
 

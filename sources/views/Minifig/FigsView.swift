@@ -14,7 +14,8 @@ struct FigsView: View {
     @State var filter : LegoListFilter = .all
     @AppStorage(Settings.figsListSorter) var sorter : LegoListSorter = .default
     @AppStorage(Settings.figsDisplayMode) var displayMode : DisplayMode = .default
-    
+    @AppStorage(Settings.compactList) var compactList : Bool = false
+
     
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
@@ -41,7 +42,9 @@ struct FigsView: View {
                                  sorterAvailable: [.default,.alphabetical,.number],
                                  filterAvailable: store.searchMinifigsText.isEmpty ? [.all,.wanted] : [.all,.wanted,.owned]
                 )
-                DisplayModeView(mode: $displayMode)
+                if !compactList {
+                    DisplayModeView(mode: $displayMode)
+                }
             }
         }
     }

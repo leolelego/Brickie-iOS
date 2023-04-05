@@ -8,7 +8,6 @@
 
 import SwiftUI
 
-let kCellHeight : CGFloat = 150
 
 struct SetListCell : View {
     @ObservedObject var set : LegoSet
@@ -24,8 +23,6 @@ struct SetListCell : View {
         .modifier(RoundedShadowMod())
 
     }
-    
-   
     
     func makeInfos() -> some View {
         VStack(alignment: .leading,spacing: 12) {

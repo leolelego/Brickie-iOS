@@ -16,14 +16,15 @@ struct SetsListView: View {
     @Binding var sorter : LegoListSorter
     @Binding var filter : LegoListFilter
     
-    
+    @AppStorage(Settings.compactList) var compactList : Bool = false
+
     
     var body: some View {
         
         if setsToShow.count == 0 {
             TrySyncView(count: store.sets.filter({$0.collection.owned}).count)
         } else {
-            if horizontalSizeClass == . compact {
+            if horizontalSizeClass == . compact || compactList {
                 List{
                     ForEach(sections(for:  setsToShow ), id: \.self){ theme in
                         if theme == "" {
@@ -45,7 +46,7 @@ struct SetsListView: View {
                 .refreshable {
                     store.requestForSync = true
                 }
-            } else {
+            } else { // iPad double list
                 ScrollView{
                     LazyVStack(alignment: .leading, spacing: 16, pinnedViews: [.sectionHeaders]) {
                         ForEach(sections(for:  setsToShow ), id: \.self){ theme in
@@ -95,7 +96,11 @@ struct SetsListView: View {
                 remove: {store.action(.qty(item.collection.qtyOwned-1),on: item)},
                 want: {store.action(.want(!item.collection.wanted),on: item)},
                 destination: SetDetailView(set: item)) {
-                    SetListCell(set:item)
+                    if (compactList) {
+                        CompactSetListCell(set:item)
+                    } else {
+                        SetListCell(set:item)
+                    }
                 }
                 .padding(.leading,16).padding(.trailing,8)
         }
@@ -163,6 +168,6 @@ struct SetsListView_Previews: PreviewProvider {
 //            .previewDevice("iPhone SE")
             .environmentObject(store as Store)
             .environmentObject(Configuration())
-            .previewDisplayName("Defaults")
+            .previewDisplayName("Defaults2")
     }
 }

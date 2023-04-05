@@ -17,8 +17,10 @@ struct MinifigListView: View {
     @Binding var sorter : LegoListSorter
     @EnvironmentObject private var  store : Store
     var displayMode : DisplayMode
+    @AppStorage(Settings.compactList) var compactList : Bool = false
+
     var body: some View {
-        if displayMode == .grid || horizontalSizeClass != .compact {
+        if (displayMode == .grid || horizontalSizeClass != .compact) && !compactList  {
             ScrollView {
                 LazyVStack(alignment: .leading, spacing: 16, pinnedViews: [.sectionHeaders]) {
                     ForEach(sections(for: figs ), id: \.self){ theme in
@@ -108,7 +110,13 @@ struct MinifigListView: View {
                           remove: {store.action(.qty(value.ownedLoose-1),on: value)},
                           want: {store.action(.want(!value.wanted), on: value)},
                           destination: MinifigDetailView(minifig: value)) {
-                MinifigListCell(minifig:value)
+                
+                if compactList {
+                    CompactFigsListCell(item: value)
+                } else {
+                    MinifigListCell(minifig:value)
+
+                }
             }
         }
     }

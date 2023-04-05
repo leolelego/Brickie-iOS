@@ -69,6 +69,9 @@
 		B32A5D5527BDD68400DAF7F1 /* SetAddtionnalImagesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32A5D5427BDD68400DAF7F1 /* SetAddtionnalImagesView.swift */; };
 		B32BA81027864FEB00F0A8AD /* RatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32BA80F27864FEB00F0A8AD /* RatingView.swift */; };
 		B32BA8122786601100F0A8AD /* LegoSet+Subclass.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32BA8112786601100F0A8AD /* LegoSet+Subclass.swift */; };
+		B33A4B4529DCDD1200F19111 /* Locale+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = B33A4B4429DCDD1200F19111 /* Locale+Ext.swift */; };
+		B33A4B4729DCE06400F19111 /* CompactSetListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B33A4B4629DCE06400F19111 /* CompactSetListCell.swift */; };
+		B33A4B4929DCEB8D00F19111 /* CompactFigsListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B33A4B4829DCEB8D00F19111 /* CompactFigsListCell.swift */; };
 		B361BEC527B3338200FD4A4A /* WelcomeItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B361BEC427B3338200FD4A4A /* WelcomeItemView.swift */; };
 		B36981C626AF158C00046AA3 /* APIIssueView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B36981C526AF158C00046AA3 /* APIIssueView.swift */; };
 		B3831BA4278F5FD9000301FC /* TextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3831BA3278F5FD9000301FC /* TextView.swift */; };
@@ -167,6 +170,9 @@
 		B32A5D5427BDD68400DAF7F1 /* SetAddtionnalImagesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetAddtionnalImagesView.swift; sourceTree = "<group>"; };
 		B32BA80F27864FEB00F0A8AD /* RatingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatingView.swift; sourceTree = "<group>"; };
 		B32BA8112786601100F0A8AD /* LegoSet+Subclass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LegoSet+Subclass.swift"; sourceTree = "<group>"; };
+		B33A4B4429DCDD1200F19111 /* Locale+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Locale+Ext.swift"; sourceTree = "<group>"; };
+		B33A4B4629DCE06400F19111 /* CompactSetListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompactSetListCell.swift; sourceTree = "<group>"; };
+		B33A4B4829DCEB8D00F19111 /* CompactFigsListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompactFigsListCell.swift; sourceTree = "<group>"; };
 		B361BEC427B3338200FD4A4A /* WelcomeItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeItemView.swift; sourceTree = "<group>"; };
 		B36981C526AF158C00046AA3 /* APIIssueView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIIssueView.swift; sourceTree = "<group>"; };
 		B3831BA3278F5FD9000301FC /* TextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextView.swift; sourceTree = "<group>"; };
@@ -298,6 +304,7 @@
 				B3D827E72573BF5800CAC606 /* SetsView.swift */,
 				9624E38A2471F2D1002F68F7 /* SetsListView.swift */,
 				967ED17A24607BD4004712DB /* SetListCell.swift */,
+				B33A4B4629DCE06400F19111 /* CompactSetListCell.swift */,
 				9694B587248FE881008D0508 /* CodeScanner.swift */,
 				B3D827E22573BF0000CAC606 /* Details */,
 			);
@@ -404,6 +411,7 @@
 				9624E38C2471F3B5002F68F7 /* FigsListView.swift */,
 				9624E3902471F904002F68F7 /* MinifigListCell.swift */,
 				B3D828032573D97500CAC606 /* FigsGridCell.swift */,
+				B33A4B4829DCEB8D00F19111 /* CompactFigsListCell.swift */,
 				B3D827E42573BF0E00CAC606 /* Details */,
 			);
 			path = Minifig;
@@ -475,6 +483,7 @@
 			children = (
 				B3DBB6B227B1EA9400A66445 /* URLSession+DataTaskProgressPublisher.swift */,
 				B32A5D4827BDB0C300DAF7F1 /* String+Ext.swift */,
+				B33A4B4429DCDD1200F19111 /* Locale+Ext.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -639,6 +648,7 @@
 				B3BA1661271603A8001292CC /* NakedList.swift in Sources */,
 				B3D827DD2572ACF500CAC606 /* Enums.swift in Sources */,
 				B32BA81027864FEB00F0A8AD /* RatingView.swift in Sources */,
+				B33A4B4929DCEB8D00F19111 /* CompactFigsListCell.swift in Sources */,
 				B361BEC527B3338200FD4A4A /* WelcomeItemView.swift in Sources */,
 				96E78BBA245CEA1D0032F4E3 /* SettingsView.swift in Sources */,
 				B3F456B727B1404C00E3BDFA /* WelcomeView.swift in Sources */,
@@ -696,6 +706,8 @@
 				96E78B95245CADFA0032F4E3 /* LoginView.swift in Sources */,
 				B32A5D4927BDB0C300DAF7F1 /* String+Ext.swift in Sources */,
 				960FAD53246709C50064B458 /* BlurredImageView.swift in Sources */,
+				B33A4B4529DCDD1200F19111 /* Locale+Ext.swift in Sources */,
+				B33A4B4729DCE06400F19111 /* CompactSetListCell.swift in Sources */,
 				967ED17B24607BD4004712DB /* SetListCell.swift in Sources */,
 				9624E38B2471F2D1002F68F7 /* SetsListView.swift in Sources */,
 				B3D8280A2573F1C000CAC606 /* CellContextMenu.swift in Sources */,
@@ -886,7 +898,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.5.1;
+				MARKETING_VERSION = 1.5.2;
 				PRODUCT_BUNDLE_IDENTIFIER = family.homework.brickset;
 				PRODUCT_MODULE_NAME = "$(PRODUCT_NAME:c99extidentifier)";
 				PRODUCT_NAME = Brickie;
@@ -916,7 +928,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.5.1;
+				MARKETING_VERSION = 1.5.2;
 				PRODUCT_BUNDLE_IDENTIFIER = family.homework.brickset;
 				PRODUCT_NAME = Brickie;
 				PROVISIONING_PROFILE_SPECIFIER = "";

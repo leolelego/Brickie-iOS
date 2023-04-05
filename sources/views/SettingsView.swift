@@ -14,6 +14,7 @@ struct SettingsView: View {
     @EnvironmentObject private var  store : Store
     @AppStorage(Settings.unreleasedSets) var unreleasedSets : Bool = false
     @AppStorage(Settings.collectionNumberBadge) var collectionNumberBadge : Bool = false
+    @AppStorage(Settings.compactList) var compactList : Bool = false
 
     
     @Environment(\.presentationMode) var presentationMode
@@ -81,6 +82,9 @@ struct SettingsView: View {
                 Section(header: Text("settings.options")){
                     Toggle( isOn: $unreleasedSets){
                         SettingsOptionsTexts(title: "settings.options.unreleasedsets", sub: "settings.options.unreleasedsetssub")
+                    }
+                    Toggle( isOn: $compactList){
+                        SettingsOptionsTexts(title: "settings.options.compactList", sub: "settings.options.compactListSub")
                     }
                     Toggle( isOn: $collectionNumberBadge){
                         SettingsOptionsTexts(title: "settings.options.collectionNumberBadge", sub: "settings.options.collectionNumberBadgeSub")
