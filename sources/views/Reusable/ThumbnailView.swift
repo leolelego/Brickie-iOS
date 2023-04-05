@@ -15,7 +15,6 @@ struct ThumbnailView: View {
     let minHeight : CGFloat
     let maxHeight : CGFloat
     var canTap : Bool = true
-
     @State var present : Bool = false
     @State var presentedURLs : [String] = []
     var body: some View {
@@ -40,6 +39,7 @@ struct ThumbnailView: View {
             .indicator(.progress)
             .aspectRatio(contentMode: .fit)
             .frame(minWidth: 0, maxWidth: .infinity, minHeight: minHeight, maxHeight: maxHeight, alignment: .center)
+            .background(.white)
     }
 }
 
