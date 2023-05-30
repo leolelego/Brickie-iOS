@@ -353,13 +353,18 @@ extension Store {
     func action(_ action:Action,on item:LegoMinifig){
         
         action.query(obj: item,user:user) { res in
+            let generator = UINotificationFeedbackGenerator()
+
             switch res {
             case .success:
                 action.manage(obj: item,store:self)
+                generator.notificationOccurred(.success)
                 self.backup()
 
                 break
             default:
+                generator.notificationOccurred(.error)
+
                 break
             }
             
@@ -554,12 +559,17 @@ extension Store {
     
     func action(_ action:Action,on item:LegoSet){
         action.query(obj: item,user:user) { res in
+            let generator = UINotificationFeedbackGenerator()
+
             switch res {
             case .success:
                 action.manage(obj: item,store: self)
+                generator.notificationOccurred(.success)
+
                 self.backup()
                 break
             default:
+                generator.notificationOccurred(.error)
                 break
             }
         }

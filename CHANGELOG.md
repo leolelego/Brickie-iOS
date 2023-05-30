@@ -1,4 +1,5 @@
 1.5.2
+- add haptic feedbacks
 - add new filters for sets
 - add compact list option
 - add reset cache options

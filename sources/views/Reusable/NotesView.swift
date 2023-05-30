@@ -53,6 +53,14 @@ struct NotesView: View {
                 onSave(){ stat in
                     withAnimation {
                         self.status = stat ? .saved : .error
+                        let generator = UINotificationFeedbackGenerator()
+                        if status == .saved {
+                            generator.notificationOccurred(.success)
+                        } else {
+                            generator.notificationOccurred(.error)
+
+                        }
+
                     }
                     DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
                         withAnimation {
