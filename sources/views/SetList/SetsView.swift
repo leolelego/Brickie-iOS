@@ -8,23 +8,27 @@
 
 import SwiftUI
 
+
 struct SetsView: View {
     @EnvironmentObject private var  store : Store
     @EnvironmentObject var config : Configuration
+    @State var isPresentingScanner = false
+
+    @State var searchFilter : [LegoListSorter:String] = [:]
     @State var filter : LegoListFilter = .all
     @AppStorage(Settings.setsListSorter) var sorter : LegoListSorter = .default
-    @State var isPresentingScanenr = false
-
+    
+    
     var body: some View {
         VStack(alignment: .leading, spacing: 8){
             APIIssueView(error: $store.error)
-            SetsListView(items: store.mainSets,sorter:$sorter,filter: $filter)
+            SetsListView(items: store.mainSets,sorter:$sorter,filter: $filter, searchFilter: $searchFilter)
             .searchable(text: $store.searchSetsText,
                         prompt: searchPlaceholder()) 
                
             .disableAutocorrection(true)
         }
-        .sheet(isPresented: $isPresentingScanenr) {
+        .sheet(isPresented: $isPresentingScanner) {
             makeScanner()
         }
         .toolbar{
@@ -37,12 +41,14 @@ struct SetsView: View {
                     EmptyView()
                 }
                 FilterSorterMenu(sorter: $sorter,
-                                 filter: $filter,
+                                 filter: $filter, searchFilter: $searchFilter, searchFilterEnabled: true,
                                  sorterAvailable: [.default,.alphabetical,.number,.older,.newer,.piece,.pieceDesc,.price,.priceDesc,.pricePerPiece,.pricePerPieceDesc],
                                  filterAvailable: store.searchSetsText.isEmpty ? [.all,.wanted] : [.all,.wanted,.owned]
                 )
+        
+                
                 Button(action: {
-                    isPresentingScanenr.toggle()
+                    isPresentingScanner.toggle()
                 }, label: {
                     Image(systemName: "barcode.viewfinder")
                 })
@@ -57,7 +63,7 @@ struct SetsView: View {
                 .toolbar(content: {
                     ToolbarItem(placement: .navigationBarTrailing){
                         Button {
-                            self.isPresentingScanenr.toggle()
+                            self.isPresentingScanner.toggle()
                         } label: {
                             Image(systemName: "xmark")
                         }
@@ -68,7 +74,7 @@ struct SetsView: View {
         .accentColor(.backgroundAlt)
     }
     func handleScan(result: Result<String, CodeScannerView.ScanError>) {
-        isPresentingScanenr.toggle()
+        isPresentingScanner.toggle()
         
         switch result {
         case .success(let code):

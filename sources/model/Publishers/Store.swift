@@ -17,14 +17,12 @@ class Store : ObservableObject{
     
     static let singleton = Store()
     let keychain = KeychainSwift()
-    let serialQueue = DispatchQueue(label: "store.serial.queue")
     
     @Published private(set) var sets = [LegoSet]()
     @Published private(set) var minifigs = [LegoMinifig]()
     @Published private(set) var themes = [LegoTheme]()
     @Published private(set) var subthemes = [LegoTheme.Subtheme]()
     @Published var searchSetsText = ""
-    
     private var searchSetsCancellable: AnyCancellable?
     @Published var searchMinifigsText = ""
     private var searchMinifigsCancellable: AnyCancellable?
@@ -117,7 +115,7 @@ class Store : ObservableObject{
         
         requestForSync = self.user != nil
         
-        //self.getThemes()
+        self.getThemes()
         
     }
 
@@ -126,32 +124,33 @@ class Store : ObservableObject{
             switch response {
             case .success(let data):
                 self.themes = data
-                for theme in data {
-                    if(theme.setCount == 0 ){
-                        log("WTF")
-                    }
-                    if(theme.subthemeCount != 0 ){
-                 
-                        APIRouter<[[String:Any]]>.subthemes(theme.theme).decode(ofType: [LegoTheme.Subtheme].self) { response in
-                        switch response {
-                        case .success(let data):
-                            self.subthemes.append(contentsOf: data.filter {$0.subtheme != "{None"})
-                            break
-                        case .failure:break
-                        }
-                    }
-                    }
-                }
-                
+//                for theme in data {
+//                    if(theme.setCount == 0 ){
+//                        log("WTF")
+//                    }
+//                    if(theme.subthemeCount != 0 ){
+//                 
+//                        APIRouter<[[String:Any]]>.subthemes(theme.theme).decode(ofType: [LegoTheme.Subtheme].self) { response in
+//                        switch response {
+//                        case .success(let data):
+//                            self.subthemes.append(contentsOf: data.filter {$0.subtheme != "{None"})
+//                            break
+//                        case .failure:break
+//                        }
+//                    }
+//                    }
+//                }
+//                
                 break
-            case .failure:break
+            case .failure:
+                log("Themes Load failed")
+                break
             }
         }
     }
     enum Filter : Equatable{
         case owned
         case search(String)
-        
     }
     
     var setsFilter : Filter = .owned {

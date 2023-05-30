@@ -58,7 +58,6 @@
 		96EBF9252551E384004C1786 /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96EBF9242551E384004C1786 /* App.swift */; };
 		96ED04D6246823DA00C3A8BA /* LegoMinifig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96ED04D5246823DA00C3A8BA /* LegoMinifig.swift */; };
 		B30FEB87298E870100E504B4 /* SinglePanelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B30FEB86298E870100E504B4 /* SinglePanelView.swift */; };
-		B30FEB88298E870100E504B4 /* SinglePanelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B30FEB86298E870100E504B4 /* SinglePanelView.swift */; };
 		B30FEB8A298E989100E504B4 /* SettingsOptionsTexts.swift in Sources */ = {isa = PBXBuildFile; fileRef = B30FEB89298E989100E504B4 /* SettingsOptionsTexts.swift */; };
 		B3220B6327A0A8D00058F63F /* NotesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3220B6227A0A8D00058F63F /* NotesView.swift */; };
 		B32A5D4927BDB0C300DAF7F1 /* String+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32A5D4827BDB0C300DAF7F1 /* String+Ext.swift */; };
@@ -728,7 +727,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				EE8CF93D296A24EB00E71D0C /* RouterTests.swift in Sources */,
-				B30FEB88298E870100E504B4 /* SinglePanelView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -955,7 +953,7 @@
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Brickie Debug.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Brickie Debug";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Brickie.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Brickie";
 			};
 			name = Debug;
 		};
@@ -975,7 +973,7 @@
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Brickie Debug.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Brickie Debug";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Brickie.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Brickie";
 			};
 			name = Release;
 		};

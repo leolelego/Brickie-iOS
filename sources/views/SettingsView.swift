@@ -128,7 +128,6 @@ struct SettingsView: View {
             })
             .listStyle(GroupedListStyle())
             .environment(\.horizontalSizeClass, .regular)
-            .navigationBarTitle("settings.title")
         }
         .onDisappear {
             if self.logout {

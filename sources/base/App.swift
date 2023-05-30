@@ -67,21 +67,21 @@ struct TheApp : App {
 
     #endif
     func tweakThatShit(){
-        UITableView.appearance().tableFooterView = UIView()
-        UINavigationBar.appearance().largeTitleTextAttributes = [
-            NSAttributedString.Key.font:UIFont(name: "LEGothicType", size: 34)!,
-            
-            
-        ]
-        UINavigationBar.appearance().titleTextAttributes = [
-            NSAttributedString.Key.font:UIFont(name: "LEGothicType", size: 17)!,
-        ]
-        UINavigationBar.appearance().shadowImage = UIImage()
-        UINavigationBar.appearance().isTranslucent = true
-        UIBarButtonItem.appearance().setTitleTextAttributes([NSAttributedString.Key.font: UIFont(name: "LEGothicType", size: 17)!], for: .normal)
-        UIBarButtonItem.appearance().setTitleTextAttributes([NSAttributedString.Key.font: UIFont(name: "LEGothicType", size: 17)!], for: .selected)
-        UIBarButtonItem.appearance().setTitleTextAttributes([NSAttributedString.Key.font: UIFont(name: "LEGothicType", size: 17)!], for: .focused)
-        UIBarButtonItem.appearance().setTitleTextAttributes([NSAttributedString.Key.font: UIFont(name: "LEGothicType", size: 17)!], for: .highlighted)
+//        UITableView.appearance().tableFooterView = UIView()
+//        UINavigationBar.appearance().largeTitleTextAttributes = [
+//            NSAttributedString.Key.font:UIFont(name: "LEGothicType", size: 34)!,
+//            
+//            
+//        ]
+//        UINavigationBar.appearance().titleTextAttributes = [
+//            NSAttributedString.Key.font:UIFont(name: "LEGothicType", size: 17)!,
+//        ]
+//        UINavigationBar.appearance().shadowImage = UIImage()
+//        UINavigationBar.appearance().isTranslucent = true
+//        UIBarButtonItem.appearance().setTitleTextAttributes([NSAttributedString.Key.font: UIFont(name: "LEGothicType", size: 17)!], for: .normal)
+//        UIBarButtonItem.appearance().setTitleTextAttributes([NSAttributedString.Key.font: UIFont(name: "LEGothicType", size: 17)!], for: .selected)
+//        UIBarButtonItem.appearance().setTitleTextAttributes([NSAttributedString.Key.font: UIFont(name: "LEGothicType", size: 17)!], for: .focused)
+//        UIBarButtonItem.appearance().setTitleTextAttributes([NSAttributedString.Key.font: UIFont(name: "LEGothicType", size: 17)!], for: .highlighted)
         
     }
 }

@@ -53,7 +53,8 @@ enum LegoListFilter : String, CaseIterable{
     static let home : [LegoListFilter] = [.all,.wanted]
 }
 
-enum LegoListSorter : String, CaseIterable{
+enum LegoListSorter : String, CaseIterable,Identifiable{
+    var id: RawValue { rawValue }
     case `default` = "default"
     case number = "number"
     case newer = "newer"

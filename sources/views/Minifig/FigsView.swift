@@ -38,7 +38,7 @@ struct FigsView: View {
                 } else {
                     EmptyView()
                 }
-                FilterSorterMenu(sorter: $sorter,filter: $filter,
+                FilterSorterMenu(sorter: $sorter,filter: $filter,searchFilter: .constant([:]), searchFilterEnabled: false,
                                  sorterAvailable: [.default,.alphabetical,.number],
                                  filterAvailable: store.searchMinifigsText.isEmpty ? [.all,.wanted] : [.all,.wanted,.owned]
                 )

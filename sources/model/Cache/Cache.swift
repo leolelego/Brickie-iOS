@@ -64,7 +64,7 @@ struct PersistentData {
                         try FileManager.default.removeItem(at: path)
                         set.remove(key.absoluteString)
                     } else {
-                        try newValue?.write(to: path)
+                        try newValue?.write(to: path,options: [.atomicWrite,.completeFileProtection])
                         set.insert(key.absoluteString)
                     }
                     

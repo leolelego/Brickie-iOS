@@ -11,7 +11,7 @@ enum SecretsConfiguration {
     static var apiKey: String {
 #if DEBUG
     if ProcessInfo.isUnitTest {
-        return debugBrickSetApiKey
+        return BrickSetApiKey
     }
 #endif
     return BrickSetApiKey

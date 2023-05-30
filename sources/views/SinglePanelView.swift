@@ -60,8 +60,8 @@ enum AppPanel : Int,CaseIterable {
     }
     var title : LocalizedStringKey {
         switch self {
-        case .minifigures: return "minifig.title"
-        default: return "sets.title"
+        case .minifigures: return "minifig.tab"
+        default: return "sets.tab"
         }
     }
     var image : Image {

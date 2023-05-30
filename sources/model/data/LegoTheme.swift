@@ -15,7 +15,7 @@ class LegoTheme : Lego, Hashable {
     let yearFrom : Int
     let yearTo : Int
     
-    var subThemes = [LegoTheme.Subtheme]()
+//    var subThemes = [LegoTheme.Subtheme]()
 
     static func == (lhs: LegoTheme, rhs: LegoTheme) -> Bool {
         lhs.theme == rhs.theme
