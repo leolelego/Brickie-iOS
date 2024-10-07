@@ -57,18 +57,24 @@ struct RatingView: View {
     
     func setRating(_ newRating:Int){
         
-        APIRouter<String>.setRating(store.user!.token, set, newRating)
-            .responseJSON { response in
-                switch response {
-                case .failure(let err):
-                    logerror(err)
-                    break
-                case .success:
-                    set.objectWillChange.send()
-                    set.collection.rating = Float(newRating)
-                    break
-                }
+        Task {
+            let response = try? await APIRouter<String>.setRating(store.user!.token, set, newRating).responseJSON2()
+            if response != nil {
+                set.objectWillChange.send()
+                set.collection.rating = Float(newRating)
             }
+        }
+//            APIRouter<String>.setRating(store.user!.token, set, newRating)
+//            .responseJSON { response in
+//                switch response {
+//                case .failure(let err):
+//                    logerror(err)
+//                    break
+//                case .success:
+//                    
+//                    break
+//                }
+//            }
     }
 }
 extension Float {

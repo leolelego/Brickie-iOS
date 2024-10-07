@@ -57,6 +57,10 @@
 		96E78BC2245D15220032F4E3 /* Secrets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E78BC1245D15220032F4E3 /* Secrets.swift */; };
 		96EBF9252551E384004C1786 /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96EBF9242551E384004C1786 /* App.swift */; };
 		96ED04D6246823DA00C3A8BA /* LegoMinifig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96ED04D5246823DA00C3A8BA /* LegoMinifig.swift */; };
+		B308E7402CB433200014CA97 /* SharedModelContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B308E73F2CB4331A0014CA97 /* SharedModelContainer.swift */; };
+		B308E7502CB433A50014CA97 /* SetData.swift in Sources */ = {isa = PBXBuildFile; fileRef = B308E74F2CB433A00014CA97 /* SetData.swift */; };
+		B308E7552CB434D30014CA97 /* SetsView2.swift in Sources */ = {isa = PBXBuildFile; fileRef = B308E7542CB434D30014CA97 /* SetsView2.swift */; };
+		B308E7572CB434FD0014CA97 /* DataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B308E7562CB434F90014CA97 /* DataModel.swift */; };
 		B30FEB87298E870100E504B4 /* SinglePanelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B30FEB86298E870100E504B4 /* SinglePanelView.swift */; };
 		B30FEB8A298E989100E504B4 /* SettingsOptionsTexts.swift in Sources */ = {isa = PBXBuildFile; fileRef = B30FEB89298E989100E504B4 /* SettingsOptionsTexts.swift */; };
 		B3220B6327A0A8D00058F63F /* NotesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3220B6227A0A8D00058F63F /* NotesView.swift */; };
@@ -158,6 +162,10 @@
 		96E78BC1245D15220032F4E3 /* Secrets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Secrets.swift; sourceTree = "<group>"; };
 		96EBF9242551E384004C1786 /* App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = App.swift; sourceTree = "<group>"; };
 		96ED04D5246823DA00C3A8BA /* LegoMinifig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LegoMinifig.swift; sourceTree = "<group>"; };
+		B308E73F2CB4331A0014CA97 /* SharedModelContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedModelContainer.swift; sourceTree = "<group>"; };
+		B308E74F2CB433A00014CA97 /* SetData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetData.swift; sourceTree = "<group>"; };
+		B308E7542CB434D30014CA97 /* SetsView2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetsView2.swift; sourceTree = "<group>"; };
+		B308E7562CB434F90014CA97 /* DataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataModel.swift; sourceTree = "<group>"; };
 		B30FEB86298E870100E504B4 /* SinglePanelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SinglePanelView.swift; sourceTree = "<group>"; };
 		B30FEB89298E989100E504B4 /* SettingsOptionsTexts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsOptionsTexts.swift; sourceTree = "<group>"; };
 		B3220B6227A0A8D00058F63F /* NotesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesView.swift; sourceTree = "<group>"; };
@@ -346,6 +354,7 @@
 		96E78B90245CACA20032F4E3 /* model */ = {
 			isa = PBXGroup;
 			children = (
+				B308E73E2CB430FC0014CA97 /* Data2 */,
 				B3DBB6B127B1EA7C00A66445 /* Extensions */,
 				9624E38524718FE4002F68F7 /* Cache */,
 				964BA87D246A34C400984DCC /* Publishers */,
@@ -367,6 +376,7 @@
 				960FAD7A24677CAC0064B458 /* representables */,
 				96DE9248245F62E300652E0E /* Modifier and Accessories */,
 				B361BEC327B3336900FD4A4A /* Welcome */,
+				B308E7532CB434B10014CA97 /* Sets */,
 				96DE9257245FB48D00652E0E /* SetList */,
 				96ED04D4246823BD00C3A8BA /* Minifig */,
 				96E78BB9245CEA1D0032F4E3 /* SettingsView.swift */,
@@ -414,6 +424,24 @@
 				B3D827E42573BF0E00CAC606 /* Details */,
 			);
 			path = Minifig;
+			sourceTree = "<group>";
+		};
+		B308E73E2CB430FC0014CA97 /* Data2 */ = {
+			isa = PBXGroup;
+			children = (
+				B308E74F2CB433A00014CA97 /* SetData.swift */,
+				B308E73F2CB4331A0014CA97 /* SharedModelContainer.swift */,
+				B308E7562CB434F90014CA97 /* DataModel.swift */,
+			);
+			path = Data2;
+			sourceTree = "<group>";
+		};
+		B308E7532CB434B10014CA97 /* Sets */ = {
+			isa = PBXGroup;
+			children = (
+				B308E7542CB434D30014CA97 /* SetsView2.swift */,
+			);
+			path = Sets;
 			sourceTree = "<group>";
 		};
 		B361BEC327B3336900FD4A4A /* Welcome */ = {
@@ -555,8 +583,9 @@
 		96E78B70245CAC270032F4E3 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				BuildIndependentTargetsInParallel = YES;
 				LastSwiftUpdateCheck = 1400;
-				LastUpgradeCheck = 1210;
+				LastUpgradeCheck = 1600;
 				ORGANIZATIONNAME = Homework;
 				TargetAttributes = {
 					96E78B77245CAC270032F4E3 = {
@@ -648,6 +677,7 @@
 				B3D827DD2572ACF500CAC606 /* Enums.swift in Sources */,
 				B32BA81027864FEB00F0A8AD /* RatingView.swift in Sources */,
 				B33A4B4929DCEB8D00F19111 /* CompactFigsListCell.swift in Sources */,
+				B308E7572CB434FD0014CA97 /* DataModel.swift in Sources */,
 				B361BEC527B3338200FD4A4A /* WelcomeItemView.swift in Sources */,
 				96E78BBA245CEA1D0032F4E3 /* SettingsView.swift in Sources */,
 				B3F456B727B1404C00E3BDFA /* WelcomeView.swift in Sources */,
@@ -656,6 +686,7 @@
 				960FAD7D24677CAC0064B458 /* SafariView.swift in Sources */,
 				96ED04D6246823DA00C3A8BA /* LegoMinifig.swift in Sources */,
 				96E78BB2245CD79F0032F4E3 /* Logger.swift in Sources */,
+				B308E7552CB434D30014CA97 /* SetsView2.swift in Sources */,
 				B3D827EF2573C4FE00CAC606 /* FigsView.swift in Sources */,
 				B3831BA4278F5FD9000301FC /* TextView.swift in Sources */,
 				B3D827EB2573BF8B00CAC606 /* FirstSyncView.swift in Sources */,
@@ -695,6 +726,8 @@
 				96EBF9252551E384004C1786 /* App.swift in Sources */,
 				9694B588248FE881008D0508 /* CodeScanner.swift in Sources */,
 				96351F57248BC09700372A03 /* SetsFilteredView.swift in Sources */,
+				B308E7502CB433A50014CA97 /* SetData.swift in Sources */,
+				B308E7402CB433200014CA97 /* SharedModelContainer.swift in Sources */,
 				B3D828042573D97500CAC606 /* FigsGridCell.swift in Sources */,
 				960FAD59246729EE0064B458 /* SetEditorView.swift in Sources */,
 				9624E3892471E66B002F68F7 /* Lego.swift in Sources */,
@@ -799,6 +832,7 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -820,6 +854,7 @@
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_STRICT_CONCURRENCY = minimal;
 			};
 			name = Debug;
 		};
@@ -861,6 +896,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -875,6 +911,7 @@
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_STRICT_CONCURRENCY = minimal;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -891,12 +928,12 @@
 				DEVELOPMENT_TEAM = Z22Q8S6MMK;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = sources/assets/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.5.2;
+				MARKETING_VERSION = 2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = family.homework.brickset;
 				PRODUCT_MODULE_NAME = "$(PRODUCT_NAME:c99extidentifier)";
 				PRODUCT_NAME = Brickie;
@@ -921,12 +958,12 @@
 				DEVELOPMENT_TEAM = Z22Q8S6MMK;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = sources/assets/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.5.2;
+				MARKETING_VERSION = 2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = family.homework.brickset;
 				PRODUCT_NAME = Brickie;
 				PROVISIONING_PROFILE_SPECIFIER = "";

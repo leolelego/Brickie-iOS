@@ -30,8 +30,9 @@ struct MinifigDetailView: View {
         .sheet(isPresented: $isImageDetailPresented, content: { FullScreenImageView(isPresented: $isImageDetailPresented, urls: .constant([minifig.imageUrl]), currentIndex: .constant(1))})
         
         .navigationBarTitle("", displayMode: .inline)
-        .onAppear {
-            loadNotes()
+        
+        .task {
+             loadNotes()
         }
         
     }
@@ -82,22 +83,29 @@ extension MinifigDetailView {
     }
     private func saveNotes(completion: @escaping (Bool)->Void){
         
-        APIRouter<String>.minifigNotes(store.user!.token, minifig, notes)
-            .responseJSON { response in
-                switch response {
-                case .failure:
-                    completion(false)
-                    break
-                case .success:
-                    completion(true)
-                    break
-                }
-            }
+        Task {
+            let response = try? await APIRouter<String>.minifigNotes(store.user!.token, minifig, notes).responseJSON2()
+            completion(response != nil)
+        }
+        
+//        APIRouter<String>.minifigNotes(store.user!.token, minifig, notes)
+//            .responseJSON { response in
+//                switch response {
+//                case .failure:
+//                    completion(false)
+//                    break
+//                case .success:
+//                    completion(true)
+//                    break
+//                }
+//            }
         
     }
-    private func loadNotes(){
+    private func loadNotes() {
         self.notes = minifig.notes ?? ""
-        APIRouter<[[String:Any]]>.getMinifigNotes(store.user!.token).decode(ofType: [MinigifNote].self){ response in
+        
+        
+         APIRouter<[[String:Any]]>.getMinifigNotes(store.user!.token).decode(ofType: [MinigifNote].self){ response in
             switch response {
             case .success(let notes):
                 minifig.notes = notes.first(where: { $0.minifigNumber == minifig.minifigNumber})?.notes ?? ""

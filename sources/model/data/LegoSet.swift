@@ -49,7 +49,7 @@ class LegoSet : Lego, Hashable {
     }
     
     var pricePerPiece : String? {
-        switch Locale(identifier: Locale.current.regionCode ?? "us").identifier {
+        switch Locale(identifier: Locale.current.region?.identifier ?? "us").identifier {
         case "ca", "us","gb":
             return currencyFormatter.string(for: pricePerPieceFloat)
         default:

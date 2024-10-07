@@ -29,7 +29,7 @@ enum APIRouter<T:Any> {
     case setQty(String,LegoSet,Int)
     case setNotes(String,LegoSet,String)
     case setRating(String,LegoSet,Int)
-
+    
     // MARK: Get Sets Details
     case setInstructions(Int)
     case additionalImages(Int)
@@ -53,7 +53,7 @@ enum APIRouter<T:Any> {
     
     var url : URL? {
         guard var components = URLComponents(url: baseURL.appendingPathComponent(method), resolvingAgainstBaseURL: false)
-            else {return nil}
+        else {return nil}
         components.queryItems = querys
         components.percentEncodedQuery = components.percentEncodedQuery?.addingPercentEncoding(withAllowedCharacters: .plus)
         return components.url
@@ -91,7 +91,7 @@ enum APIRouter<T:Any> {
         case .subthemes: return "subthemes"
         case .getMinifigNotes : return "userMinifigNotes"
         case .getUserNotes : return "userNotes"
-
+            
             
             
         }
@@ -104,77 +104,77 @@ enum APIRouter<T:Any> {
         case .login(let u, let p):
             allQueries.append(URLQueryItem(name: "username", value: u))
             allQueries.append(URLQueryItem(name: "password", value: p))
-
+            
         case .setInstructions(let setId),.additionalImages(let setId):
             allQueries.append(URLQueryItem(name: "setID", value: String(setId)))
-
-
+            
+            
         case .ownedSets(let hash, let page):
             allQueries.append(URLQueryItem(name: "userHash", value: hash))
             allQueries.append(URLQueryItem(name: "params", value: "{owned:1,pageNumber:\(page),pageSize:\(pageSizeSet)}"))
-
+            
         case .ownedFigs(let hash):
             allQueries.append(URLQueryItem(name: "userHash", value: hash))
             allQueries.append(URLQueryItem(name: "params", value: "{owned:1}"))
-
+            
         case .wantedSets(let hash, let page):
             allQueries.append(URLQueryItem(name: "userHash", value: hash))
             allQueries.append(URLQueryItem(name: "params", value: "{wanted:1,pageNumber:\(page),pageSize:\(pageSizeSet)}"))
-
+            
         case .wantedFigs(let hash):
             allQueries.append(URLQueryItem(name: "userHash", value: hash))
             allQueries.append(URLQueryItem(name: "params", value: "{wanted:1}"))
-
+            
         case .searchSets(let hash, let search, let page):
             allQueries.append(URLQueryItem(name: "userHash", value: hash))
             allQueries.append(URLQueryItem(name: "params", value: "{query:\"\(search)\",pageNumber:\(page),pageSize:\(pageSizeSearch)}"))
-
+            
         case .searchSetsTheme(let hash, let search, let page):
             allQueries.append(URLQueryItem(name: "userHash", value: hash))
             allQueries.append(URLQueryItem(name: "params", value: "{theme:\"\(search)\",pageNumber:\(page),pageSize:\(pageSizeSearch)}"))
-
+            
         case .searchSetsSubTheme(let hash, let search, let page):
             allQueries.append(URLQueryItem(name: "userHash", value: hash))
             allQueries.append(URLQueryItem(name: "params", value: "{subtheme:\"\(search)\",pageNumber:\(page),pageSize:\(pageSizeSearch)}"))
-
+            
         case .searchSetsYear(let hash, let search, let page):
             allQueries.append(URLQueryItem(name: "userHash", value: hash))
             allQueries.append(URLQueryItem(name: "params", value: "{year:\"\(search)\",pageNumber:\(page),pageSize:\(pageSizeSearch)}"))
-
+            
         case .searchMinifigs(let hash, let search):
             allQueries.append(URLQueryItem(name: "userHash", value: hash))
             allQueries.append(URLQueryItem(name: "params", value: "{query:\"\(search)\"}"))
-
+            
         case .setWanted(let hash,let set, let want):
             allQueries.append(URLQueryItem(name: "userHash", value: hash))
             allQueries.append(URLQueryItem(name: "setID", value: String(set.setID)))
             allQueries.append(URLQueryItem(name: "params", value: "{want:\(want ? 1:0)}"))
-
+            
         case .setQty(let hash,let set, let qty):
             allQueries.append(URLQueryItem(name: "userHash", value: hash))
             allQueries.append(URLQueryItem(name: "setID", value: String(set.setID)))
             allQueries.append(URLQueryItem(name: "params", value: "{qtyOwned:\(qty)}")) //owned:\(qty < 1 ? 0 : 1),
-
+            
         case .minifigWanted(let hash,let minifig, let want):
             allQueries.append(URLQueryItem(name: "userHash", value: hash))
             allQueries.append(URLQueryItem(name: "minifigNumber", value: minifig.minifigNumber))
             allQueries.append(URLQueryItem(name: "params", value: "{want:\(want ? 1:0),qtyOwned:\(minifig.ownedLoose)}"))
-
+            
         case .minifigQty(let hash,let minifig, let qty):
             allQueries.append(URLQueryItem(name: "userHash", value: hash))
             allQueries.append(URLQueryItem(name: "minifigNumber", value: minifig.minifigNumber))
             allQueries.append(URLQueryItem(name: "params", value: "{want:\(minifig.wanted ? 1 : 0),qtyOwned:\(qty)}"))
-        case .setNotes(let hash,let set, let notes) : 
+        case .setNotes(let hash,let set, let notes) :
             allQueries.append(URLQueryItem(name: "userHash", value: hash))
             allQueries.append(URLQueryItem(name: "setID", value: String(set.setID)))
             allQueries.append(URLQueryItem(name: "params", value: "{notes:\"\(notes.isEmpty ? " " : notes)\"}"))
             
-        case .setRating(let hash,let set, let rating) : 
+        case .setRating(let hash,let set, let rating) :
             allQueries.append(URLQueryItem(name: "userHash", value: hash))
             allQueries.append(URLQueryItem(name: "setID", value: String(set.setID)))
             allQueries.append(URLQueryItem(name: "params", value: "{rating:\(rating)}"))
             
-        case .minifigNotes(let hash,let minifig, let notes) : 
+        case .minifigNotes(let hash,let minifig, let notes) :
             allQueries.append(URLQueryItem(name: "userHash", value: hash))
             allQueries.append(URLQueryItem(name: "minifigNumber", value: minifig.minifigNumber))
             allQueries.append(URLQueryItem(name: "params", value: "{notes:\"\(notes.isEmpty ? " " : notes)\"}"))
@@ -182,10 +182,10 @@ enum APIRouter<T:Any> {
         case .themes :
             log("Do Nothing")
             
-        case .subthemes(let theme) : 
+        case .subthemes(let theme) :
             allQueries.append(URLQueryItem(name: "theme", value: theme))
             
-        case .getMinifigNotes(let hash), .getUserNotes(let hash) : 
+        case .getMinifigNotes(let hash), .getUserNotes(let hash) :
             allQueries.append(URLQueryItem(name: "userHash", value: hash))
         }
         return allQueries
@@ -196,10 +196,10 @@ enum APIRouter<T:Any> {
 extension APIRouter {
     private func response(completion: @escaping (Result<Any,Error>) -> Void){
         guard let u = url
-            else {
-                completion(.failure(APIError.invalid))
-                return
-                
+        else {
+            completion(.failure(APIError.invalid))
+            return
+            
         }
         URLSession.shared.dataTask(with: u){ data, response, error in
             guard error == nil else {
@@ -209,10 +209,10 @@ extension APIRouter {
                 
             }
             guard let d = data,
-                let jsonObj = try? JSONSerialization.jsonObject(with: d, options: [])
-                else {
-                    completion(.failure(APIError.invalid))
-                    return
+                  let jsonObj = try? JSONSerialization.jsonObject(with: d, options: [])
+            else {
+                completion(.failure(APIError.invalid))
+                return
             }
             completion(.success(jsonObj))
             
@@ -229,9 +229,9 @@ extension APIRouter {
                 break
             case .success(let jsonObj):
                 guard let dict = jsonObj as? [String:Any]
-                    else {
-                        completion(.failure(APIError.invalid))
-                        return
+                else {
+                    completion(.failure(APIError.invalid))
+                    return
                 }
                 
                 if let items = dict[self.subkey] as? T {
@@ -246,15 +246,15 @@ extension APIRouter {
                     }
                 } else {
                     completion(.failure(APIError.malformed))
-
+                    
                 }
                 break
-
+                
             }
         }
     }
     
-    func decode<C:Codable>(ofType: C.Type,completion: @escaping (Result<C,Error>) -> Void /*@escaping (C) -> Void*/){
+    func decode<C:Codable>(ofType: C.Type,completion: @escaping (Result<C,Error>) -> Void ){
         responseJSON { response in
             switch response{
             case .success(let object):
@@ -282,13 +282,104 @@ extension APIRouter {
                 break
             case .failure(let err):
                 completion(.failure(err))
-
+                
                 break // logged before nobody care
             }
             
         }
     }
     
-
+    
+    func responseJSON2() async throws -> T{
+        do {
+            guard let u = url else {
+                throw APIError.invalid
+            }
+            
+            let (data, _) = try await URLSession.shared.data(for: URLRequest(url: u))
+            
+            guard let dict = try? JSONSerialization.jsonObject(with: data, options: [])as? [String:Any]  else {
+                throw APIError.invalid
+            }
+            
+            
+            if let items = dict[self.subkey] as? T{
+                return items
+            } else if let mess = dict["message"] as? String {
+                
+                if mess.contains("Invalid user hash") {
+                    throw APIError.invalidUserHash
+                } else if mess.contains("API limit exceeded") {
+                    throw APIError.apiLimitExceeded
+                } else {
+                    throw APIError.badData
+                }
+            } else {
+                throw APIError.malformed
+            }
+            
+        } catch(let err) {
+            throw err
+        }
+        
+    }
+    
+    func decode2() async throws -> T where T:Codable{
+        do {
+//            let response = try await responseJSON2()
+            guard let u = url else {
+                throw APIError.invalid
+            }
+            
+            let (data, _) = try await URLSession.shared.data(for: URLRequest(url: u))
+            
+            guard let dict = try? JSONSerialization.jsonObject(with: data, options: [])as? [String:Any]  else {
+                throw APIError.invalid
+            }
+            
+            guard  let items = dict[self.subkey] as? [[String:Any]] else {
+                if let mess = dict["message"] as? String {
+                    
+                    if mess.contains("Invalid user hash") {
+                        throw APIError.invalidUserHash
+                    } else if mess.contains("API limit exceeded") {
+                        throw APIError.apiLimitExceeded
+                    } else {
+                        throw APIError.badData
+                    }
+                } else {
+                    throw APIError.malformed
+                }
+                
+            }
+            let json = try JSONSerialization.data(withJSONObject: items, options: [])
+            let objs = try JSONDecoder().decode(T.self, from: json)
+            
+            return objs
+        } catch let DecodingError.dataCorrupted(context) {
+            log("\(context)")
+            throw APIError.malformed
+        } catch let DecodingError.keyNotFound(key, context) {
+            
+            log("Key '\(key)' not found: \(context.debugDescription)")
+            log("codingPath: \(context.codingPath)")
+            throw APIError.malformed
+        } catch let DecodingError.valueNotFound(value, context) {
+            log("Value '\(value)' not found: \(context.debugDescription)")
+            log("codingPath: \(context.codingPath)" )
+            throw APIError.malformed
+        } catch let DecodingError.typeMismatch(type, context)  {
+            log("Type '\(type)' mismatch: \(context.debugDescription)")
+            log("codingPath: \(context.codingPath)")
+            throw APIError.malformed
+        } catch {
+            logerror(error)
+            throw APIError.malformed
+            
+        }
+        
+    }
+    
+    
 }
 

@@ -9,8 +9,7 @@
 import SwiftUI
 
 struct LoginView: View {
-
-    @EnvironmentObject private var  store : Store
+    @Environment(DataModel.self) private var model
     @EnvironmentObject var config : Configuration
     @State var username = ""
     @State var password = ""
@@ -33,14 +32,14 @@ struct LoginView: View {
                 makeLoginButton().offset(y:-60)
                 if !loading {
                     Text("login.create")
-        //            Link("login.create", destination: loginURL)
+                    //            Link("login.create", destination: loginURL)
                         .font(.caption)
                         .foregroundColor(.gray)
                         .offset(y:-60)
                 }
             }
             
-
+            
             if  error != nil && !self.loading {
                 VStack{
                     Text(error!).font(.callout).multilineTextAlignment(.center).foregroundColor(.red).lineLimit(10)
@@ -54,17 +53,17 @@ struct LoginView: View {
         .frame(maxWidth: 375, alignment: .center)
         .padding([.leading, .trailing], 32)
         .modifier(DismissingKeyboardOnSwipe())
-      
-
-
+        
+        
+        
     }
     
     func makeImage() -> some View {
         VStack{
             Image("app_logo")
                 .padding(20)
-                            .background(Circle()
-                                .fill(Color.white))
+                .background(Circle()
+                    .fill(Color.white))
                 .rotationEffect(Angle(degrees:loading ? 320 : 0))
                 .offset(y: loading ? -600 : 0)
                 .animation(Animation.interpolatingSpring(stiffness: 170, damping: 5),value: loading)
@@ -81,7 +80,7 @@ struct LoginView: View {
             TextField("login.username", text: $username)
                 .textContentType(.username)
                 .autocapitalization(.none)
-//                .textCase(.lowercase)
+            //                .textCase(.lowercase)
                 .disableAutocorrection(true)
             Divider()
             SecureField("login.password", text: $password,prompt: Text("login.password")).textContentType(.password).transition(.move(edge: .bottom))
@@ -94,28 +93,26 @@ struct LoginView: View {
             withAnimation{
                 self.loading.toggle()
             }
-            APIRouter<String>.login(self.username, self.password).responseJSON { response in
-                switch response {
-                case .failure(let err):
-                   if  let errApi  = err as? APIError {
+            Task { @MainActor in
+                do {
+                                        
+                    let hash = try await APIRouter<String>.login(self.username, self.password).responseJSON2()
+                    self.model.user = User(username: self.username, token: hash)
+        
+                    
+ 
+                } catch(let err) {
+                    if  let errApi  = err as? APIError {
                         self.error = errApi.localizedDescription
                     } else {
                         self.error = "error.badlogin"
                     }
-                    
-                    break
-                case .success(let hash):
-                    let user = User(username: self.username, token: hash)
-                    DispatchQueue.main.async {
-                        self.store.user = user
-                        self.store.requestForSync = true
-                    }
-                    break
                 }
                 withAnimation{
                     self.loading.toggle()
                 }
             }
+            
             
         }) {
             Text(loading ? "login.buttonactive" : "login.button")
@@ -148,7 +145,7 @@ struct LoginView: View {
 struct LoginView_Previews: PreviewProvider {
     static var previews: some View {
         LoginView()
-//            .previewDevice("iPhone SE")
+        //            .previewDevice("iPhone SE")
             .environmentObject(PreviewStore() as Store)
             .environmentObject(Configuration())
             .previewDisplayName("Defaults")

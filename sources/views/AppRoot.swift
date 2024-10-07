@@ -13,6 +13,8 @@ struct AppRootView: View {
     @SceneStorage(Settings.displayWelcome)  var displayWelcome : Bool = true
 
     @EnvironmentObject private var  store : Store
+    @Environment(DataModel.self) private var model
+    
     @SceneStorage(Settings.rootTabSelected)  var selection : Int = 0
     @AppStorage(Settings.reviewRuntime) var reviewRuntime : Int = 0
     @AppStorage(Settings.reviewVersion) var reviewVersion : String?
@@ -21,26 +23,33 @@ struct AppRootView: View {
     
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
     
-    
+    @AppStorage(Settings.appVersion2) private var appVersion2: Bool = true
+
     var body: some View {
-        if store.user == nil  {
+        if model.user == nil  {
             LoginView().accentColor(.backgroundAlt)
                 .sheet(isPresented: $displayWelcome) {
                     WelcomeView(showContinu: true)
                 }
         } else   {
-            TabView(selection: $selection){
-                ForEach(AppPanel.allCases, id: \.self) { item in
-                    SinglePanelView(item: item, view: item.view, toolbar: toolbar() )
+            if appVersion2 {
+                SetsView2()
+            } else {
+                TabView(selection: $selection){
+                    ForEach(AppPanel.allCases, id: \.self) { item in
+                        SinglePanelView(item: item, view: item.view, toolbar: toolbar() )
+                    }
                 }
+              
+                .accentColor(.backgroundAlt)
+                    .sheet(isPresented: $isPresentingSettings) {
+                        SettingsView().environmentObject(store)
+                    }
+                    .sheet(isPresented: $displayWelcome) {
+                        WelcomeView(showContinu: true)
+                    }
             }
-            .accentColor(.backgroundAlt)
-                .sheet(isPresented: $isPresentingSettings) {
-                    SettingsView().environmentObject(store)
-                }
-                .sheet(isPresented: $displayWelcome) {
-                    WelcomeView(showContinu: true)
-                }
+ 
         }
     }
 

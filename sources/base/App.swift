@@ -28,6 +28,7 @@ struct TheApp : App {
     var body : some Scene {
         WindowGroup{
             SetsView_Previews.previews
+                .environment(DataModel())
                 .environmentObject(kCollection).environmentObject(kConfig)
                 .onReceive(NotificationCenter.default.publisher(for: UIApplication.willResignActiveNotification)) { _ in
                     kCollection.backup()
@@ -37,9 +38,6 @@ struct TheApp : App {
                 }
                 .onReceive(NotificationCenter.default.publisher(for: UIApplication.didBecomeActiveNotification)) { _ in
                     kCollection.requestForSync = true
-                }
-                .onAppear {
-                    tweakThatShit()
                 }
         }
     }
@@ -49,6 +47,7 @@ struct TheApp : App {
     var body : some Scene {
         WindowGroup{
             AppRootView()
+                .environment(DataModel())
                 .environmentObject(kCollection).environmentObject(kConfig)
                 .onReceive(NotificationCenter.default.publisher(for: UIApplication.willResignActiveNotification)) { _ in
                     kCollection.backup()
@@ -59,30 +58,10 @@ struct TheApp : App {
                 .onReceive(NotificationCenter.default.publisher(for: UIApplication.didBecomeActiveNotification)) { _ in
                     kCollection.requestForSync = true
                 }
-                .onAppear {
-                    tweakThatShit()
-                }
         }
     }
 
     #endif
-    func tweakThatShit(){
-//        UITableView.appearance().tableFooterView = UIView()
-//        UINavigationBar.appearance().largeTitleTextAttributes = [
-//            NSAttributedString.Key.font:UIFont(name: "LEGothicType", size: 34)!,
-//            
-//            
-//        ]
-//        UINavigationBar.appearance().titleTextAttributes = [
-//            NSAttributedString.Key.font:UIFont(name: "LEGothicType", size: 17)!,
-//        ]
-//        UINavigationBar.appearance().shadowImage = UIImage()
-//        UINavigationBar.appearance().isTranslucent = true
-//        UIBarButtonItem.appearance().setTitleTextAttributes([NSAttributedString.Key.font: UIFont(name: "LEGothicType", size: 17)!], for: .normal)
-//        UIBarButtonItem.appearance().setTitleTextAttributes([NSAttributedString.Key.font: UIFont(name: "LEGothicType", size: 17)!], for: .selected)
-//        UIBarButtonItem.appearance().setTitleTextAttributes([NSAttributedString.Key.font: UIFont(name: "LEGothicType", size: 17)!], for: .focused)
-//        UIBarButtonItem.appearance().setTitleTextAttributes([NSAttributedString.Key.font: UIFont(name: "LEGothicType", size: 17)!], for: .highlighted)
-        
-    }
+
 }
 

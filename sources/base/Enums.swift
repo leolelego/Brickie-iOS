@@ -23,6 +23,8 @@ enum Settings {
     static let displayWelcome = "displayWelcome"
     static let collectionNumberBadge = "collectionNumberBadge"
     static let compactList = "compactList"
+    
+    static let appVersion2 = "appVersion2"
 
 }
 enum SheetType  {

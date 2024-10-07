@@ -10,6 +10,6 @@ import Foundation
 
 extension Locale {
     static var currentRegionCode : String {
-        return Locale.current.regionCode ?? "us"
+        return Locale.current.region?.identifier ?? "us"
     }
 }

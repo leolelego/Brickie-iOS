@@ -10,12 +10,12 @@ import SwiftUI
 
 
 struct SettingsView: View {
-    
+    @Environment(DataModel.self) private var model
     @EnvironmentObject private var  store : Store
     @AppStorage(Settings.unreleasedSets) var unreleasedSets : Bool = false
     @AppStorage(Settings.collectionNumberBadge) var collectionNumberBadge : Bool = false
     @AppStorage(Settings.compactList) var compactList : Bool = false
-
+    @AppStorage(Settings.appVersion2) var appVersion2 : Bool = true
     
     @Environment(\.presentationMode) var presentationMode
     //    @AppStorage(Settings.currency) var currency : Currency = .default
@@ -34,7 +34,7 @@ struct SettingsView: View {
                 Section(header:makeThanks()){
                     
                     HStack{
-                        Text("\(store.user?.username  ?? "Debug Name")").font(.title)
+                        Text("\(model.user?.username  ?? "DNot Connected")").font(.title)
                         Spacer()
                         Button(action: {
                             self.presentationMode.wrappedValue.dismiss()
@@ -54,7 +54,7 @@ struct SettingsView: View {
                             Spacer()
                             Button(action: {
                                 let pasteboard = UIPasteboard.general
-                                pasteboard.string = self.store.user?.token ?? ""
+                                pasteboard.string = self.model.user?.token ?? ""
                             }) {
                                 Text(store.user?.token ?? "")
                                     .fontWeight(.bold)
@@ -80,6 +80,7 @@ struct SettingsView: View {
                 }
                 
                 Section(header: Text("settings.options")){
+                    Toggle("App Version 2", isOn: $appVersion2)
                     Toggle( isOn: $unreleasedSets){
                         SettingsOptionsTexts(title: "settings.options.unreleasedsets", sub: "settings.options.unreleasedsetssub")
                     }
@@ -131,7 +132,7 @@ struct SettingsView: View {
         }
         .onDisappear {
             if self.logout {
-                self.store.user = nil
+                self.model.user = nil
                 self.store.reset()
             }
         }

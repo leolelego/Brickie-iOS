@@ -48,7 +48,6 @@ class Store : ObservableObject{
     
     struct Key {
         static let username = "username"
-        static let password = "password"
         static let token = "token"
         
         static let setsBackupURL = URL(string: "sets.json")!
@@ -124,22 +123,7 @@ class Store : ObservableObject{
             switch response {
             case .success(let data):
                 self.themes = data
-//                for theme in data {
-//                    if(theme.setCount == 0 ){
-//                        log("WTF")
-//                    }
-//                    if(theme.subthemeCount != 0 ){
-//                 
-//                        APIRouter<[[String:Any]]>.subthemes(theme.theme).decode(ofType: [LegoTheme.Subtheme].self) { response in
-//                        switch response {
-//                        case .success(let data):
-//                            self.subthemes.append(contentsOf: data.filter {$0.subtheme != "{None"})
-//                            break
-//                        case .failure:break
-//                        }
-//                    }
-//                    }
-//                }
+
 //                
                 break
             case .failure:
@@ -458,10 +442,6 @@ extension Store {
                     self.fireApiError(err)
                     break
                 }
-                
-                
-                
-                
             }
         }
         
