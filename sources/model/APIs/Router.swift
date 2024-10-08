@@ -324,7 +324,7 @@ extension APIRouter {
         
     }
     
-    func decode2() async throws -> T where T:Codable{
+    func decode2() async throws -> T where T:Decodable{
         do {
 //            let response = try await responseJSON2()
             guard let u = url else {

@@ -17,8 +17,8 @@ final class DataModel {
     var sets: [SetData] = []
     
     @MainActor
-    func fetchOwnedSets() async {
-        guard let token = user?.token else { return }
+    func fetchOwnedSets() async  { // -> [SetData]
+        guard let token = user?.token else { return  } //[] }
         var page = 1
         
         while let data =  try? await APIRouter<[SetData]>.ownedSets(token,page).decode2() , data.count > 0 {
@@ -33,6 +33,10 @@ final class DataModel {
         }
         
         updateSets()
+//        let descriptor = FetchDescriptor<SetData>()
+//        
+//        return (try? modelContext.fetch(descriptor)) ?? []
+        
     }
     func wipe(){
         PersistentData().free()
@@ -62,8 +66,16 @@ final class DataModel {
     private func updateSets(){
         do {
             let descriptor = FetchDescriptor<SetData>()
-            sets = try modelContext.fetch(descriptor)
-            log("\(sets.count) sets in Stored Data")
+                self.sets = try modelContext.fetch(descriptor)
+//                log("------- \(sets.count) sets in Stored ----")
+//                
+//                for set in sets{
+//                    log(">>> \(set.name) > \(set.collection.qtyOwned)")
+//                }
+            
+
+            
+           
         } catch {
             print("Fetch failed")
         }
