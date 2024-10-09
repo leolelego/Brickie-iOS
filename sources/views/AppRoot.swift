@@ -13,7 +13,7 @@ struct AppRootView: View {
     @SceneStorage(Settings.displayWelcome)  var displayWelcome : Bool = true
 
     @EnvironmentObject private var  store : Store
-    @Environment(DataModel.self) private var model
+    @Environment(Model.self) private var model
     
     @SceneStorage(Settings.rootTabSelected)  var selection : Int = 0
     @AppStorage(Settings.reviewRuntime) var reviewRuntime : Int = 0
@@ -26,7 +26,7 @@ struct AppRootView: View {
     @AppStorage(Settings.appVersion2) private var appVersion2: Bool = true
 
     var body: some View {
-        if model.user == nil  {
+        if model.keychain.user == nil  {
             LoginView().accentColor(.backgroundAlt)
                 .sheet(isPresented: $displayWelcome) {
                     WelcomeView(showContinu: true)

@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct LoginView: View {
-    @Environment(DataModel.self) private var model
+    @Environment(Model.self) private var model
     @EnvironmentObject var config : Configuration
     @State var username = ""
     @State var password = ""
@@ -97,7 +97,7 @@ struct LoginView: View {
                 do {
                                         
                     let hash = try await APIRouter<String>.login(self.username, self.password).responseJSON2()
-                    self.model.user = User(username: self.username, token: hash)
+                    self.model.keychain.user = User(username: self.username, token: hash)
         
                     
  

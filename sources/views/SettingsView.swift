@@ -10,7 +10,7 @@ import SwiftUI
 
 
 struct SettingsView: View {
-    @Environment(DataModel.self) private var model
+    @Environment(Model.self) private var model
     @EnvironmentObject private var  store : Store
     @AppStorage(Settings.unreleasedSets) var unreleasedSets : Bool = false
     @AppStorage(Settings.collectionNumberBadge) var collectionNumberBadge : Bool = false
@@ -34,7 +34,7 @@ struct SettingsView: View {
                 Section(header:makeThanks()){
                     
                     HStack{
-                        Text("\(model.user?.username  ?? "DNot Connected")").font(.title)
+                        Text("\(model.keychain.user?.username  ?? "DNot Connected")").font(.title)
                         Spacer()
                         Button(action: {
                             self.presentationMode.wrappedValue.dismiss()
@@ -54,7 +54,7 @@ struct SettingsView: View {
                             Spacer()
                             Button(action: {
                                 let pasteboard = UIPasteboard.general
-                                pasteboard.string = self.model.user?.token ?? ""
+                                pasteboard.string = self.model.keychain.user?.token ?? ""
                             }) {
                                 Text(store.user?.token ?? "")
                                     .fontWeight(.bold)
@@ -132,7 +132,7 @@ struct SettingsView: View {
         }
         .onDisappear {
             if self.logout {
-                self.model.user = nil
+                self.model.keychain.user = nil
                 self.store.reset()
             }
         }
