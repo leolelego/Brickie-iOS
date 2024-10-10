@@ -231,7 +231,7 @@ extension SetDetailView {
     }
 
     private func saveNotes(completion: @escaping (Bool)->Void){
-        APIRouter<String>.setNotes(store.user!.token, set, notes)
+        APIRouter<String>.setNotes(store.user!.token, set.setID, notes)
             .responseJSON { response in
                 switch response {
                 case .failure:

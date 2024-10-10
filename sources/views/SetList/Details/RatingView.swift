@@ -58,7 +58,7 @@ struct RatingView: View {
     func setRating(_ newRating:Int){
         
         Task {
-            let response = try? await APIRouter<String>.setRating(store.user!.token, set, newRating).responseJSON2()
+            let response = try? await APIRouter<String>.setRating(store.user!.token, set.setID, newRating).responseJSON2()
             if response != nil {
                 set.objectWillChange.send()
                 set.collection.rating = Float(newRating)

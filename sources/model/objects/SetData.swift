@@ -115,9 +115,18 @@ final class SetData : Decodable,Equatable{
         self.dimensions = try container.decode(Dimension.self, forKey: .dimensions)
         self.ageRange = try container.decode(AgeRange.self, forKey: .ageRange)
         self.prices = try container.decodeIfPresent(Prices.self, forKey: .LEGOCom)
-        self.additionalImages = try container.decodeIfPresent([SetImage].self, forKey: .additionalImages)
-        self.instrucctions = try container.decodeIfPresent([Instruction].self, forKey: .instructions)
+        if let data =  try container.decodeIfPresent([SetImage].self, forKey: .additionalImages){
+            self.additionalImages = data // Update only if exist so we keep download from another way
+        }
+        if let data =  try container.decodeIfPresent([Instruction].self, forKey: .instructions) {
+            self.instrucctions = data // Update only if exist so we keep download from another way
+        }
         
+    }
+    
+    class SetNote : Codable {
+        let setID : Int
+        let notes : String
     }
 
 }

@@ -8,6 +8,8 @@
 
 import SwiftUI
 import SwiftData
+import Reachability
+import SDWebImage
 
 
 @Observable
@@ -15,8 +17,8 @@ final class Model {
     let keychain = Keychain()
     let datamanager = DataManager()
     @MainActor
-    func fetchOwnedSets() async  { // -> [SetData]
-        guard let token = keychain.user?.token else { return  } //[] }
+    func fetchOwnedSets() async  {
+        guard let token = keychain.user?.token else { return  }
         var page = 1
         var ownedSets: [SetData] = []
         while let data =  try? await APIRouter<[SetData]>.ownedSets(token,page).decode2() , data.count > 0 {
@@ -50,17 +52,70 @@ final class Model {
         
     }
 
-    @MainActor
-    func add(additionalImage:[SetData.SetImage],set:SetData){
-        set.additionalImages = additionalImage
-        try? datamanager.modelContext.save()
+    
+
+    
+    func fetchAdditionalImages(for sets:[SetData]) async {
+        for item in sets {
+            do {
+                let images = try await APIRouter<[SetData.SetImage]>.additionalImages(item.setID).decode2()
+                item.additionalImages = images
+            } catch{
+                logerror(error)
+            }
+        }
+        
+        Task { @MainActor in
+            try? datamanager.modelContext.save()
+        }
     }
-    @MainActor
-    func add(instructions:[SetData.Instruction],set:SetData){
-        set.instrucctions = instructions
-        try? datamanager.modelContext.save()
+    
+    func fetchInstruction(for sets:[SetData]) async {
+        for item in sets {
+            do {
+                let instructions = try await APIRouter<[SetData.Instruction]>.setInstructions(item.setID).decode2()
+                item.instrucctions = instructions
+            } catch{
+                logerror(error)
+            }
+        }
+        Task { @MainActor in
+            try? datamanager.modelContext.save()
+        }
+        
     }
-   
+    
+    func fetchNotes(for set:SetData) async -> String {
+        guard let token = keychain.user?.token else { return  set.collection.notes}
+        
+        do {
+            let notes = try await APIRouter<[SetNote]>.getUserNotes(token).decode2()
+            let note = notes.first(where: { $0.setID == set.setID})?.notes ?? ""
+            set.collection.notes = note
+            
+        } catch{
+            logerror(error)
+        }
+        return set.collection.notes
+    }
+    
+    func save(note:String,for set:SetData) async -> Bool{
+        guard let token = keychain.user?.token else { return  false}
+        do {
+            _ = try await APIRouter<String>.setNotes(token, set.setID, note).responseJSON2()
+            return true
+        } catch {
+            logerror(error)
+            return  false
+        }
+    }
+    
+    func fetchImages(_ urls:[URL]){
+        
+        if try! Reachability().connection == .wifi && ProcessInfo.processInfo.isLowPowerModeEnabled == false {
+            SDWebImagePrefetcher.shared.prefetchURLs(urls)
+        }
+    }
     
 
     
