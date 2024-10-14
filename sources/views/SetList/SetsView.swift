@@ -16,37 +16,31 @@ struct SetsView: View {
     
     
     var body: some View {
-        VStack(alignment: .leading, spacing: 8){
-//            APIIssueView(error: $store.error)
-            SetsListView()
-//            .searchable(text: $store.searchSetsText,
-//                        prompt: searchPlaceholder()) 
-               
-            .disableAutocorrection(true)
-        }
+//        VStack(alignment: .leading, spacing: 8){
+//            SetsListView()
+////            .searchable(text: $store.searchSetsText,
+////                        prompt: searchPlaceholder()) 
+//               
+//            .disableAutocorrection(true)
+//        }
+        SetsListView()
         .sheet(isPresented: $isPresentingScanner) {
             makeScanner()
         }
-        .toolbar{
+//        .toolbar{
 
-            ToolbarItemGroup(placement: .navigationBarTrailing){
-                FilterSorterMenu(searchFilterEnabled: true,
-                                 sorterAvailable: [.default,.alphabetical,.number,.older,.newer,.piece,.pieceDesc,.price,.priceDesc,.pricePerPiece,.pricePerPieceDesc]
-                )
-        
-                
-                Button(action: {
-                    isPresentingScanner.toggle()
-                }, label: {
-                    Image(systemName: "barcode.viewfinder")
-                })
-
-            }
-        }
+//                Button(action: {
+//                    isPresentingScanner.toggle()
+//                }, label: {
+//                    Image(systemName: "barcode.viewfinder")
+//                })
+//
+//            }
+//        }
     }
     
     func makeScanner() -> some View{
-        NavigationView{
+        NavigationStack{
             CodeScannerView(codeTypes: [.ean8, .ean13,.upce, .pdf417], completion: self.handleScan)
                 .toolbar(content: {
                     ToolbarItem(placement: .navigationBarTrailing){

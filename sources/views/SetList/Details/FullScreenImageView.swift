@@ -43,7 +43,7 @@ struct FullScreenImageView: View {
         
        // let dragBeforePinch =  scaleGesture.exclusively(before:dragGesture )
         return
-            NavigationView{
+            NavigationStack{
                 TabView (selection:$currentIndex){
                     ForEach(0..<urls.count, id: \.self){ idx in
                         

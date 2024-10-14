@@ -396,24 +396,24 @@ extension Store {
         
     }
     func updateOwned(with owned:[LegoSet]){
-        for set in self.sets {
-            let owned = owned.contains(set)
-            DispatchQueue.main.async {
-                set.objectWillChange.send()
-                set.collection.owned = owned
-                if owned == false {
-                    set.collection.qtyOwned = 0
-                }
-            }
-        }
-        self.append(owned)
-        DispatchQueue.main.async {
-            
-            self.isLoadingData = false
-        }
-        
-        let urls = owned.compactMap { return $0.image.thumbnailURL != nil ? URL(string:$0.image.thumbnailURL!) : nil }
-        fetchImages(urls)
+//        for set in self.sets {
+//            let owned = owned.contains(set)
+//            DispatchQueue.main.async {
+//                set.objectWillChange.send()
+//                set.collection.owned = owned
+//                if owned == false {
+//                    set.collection.qtyOwned = 0
+//                }
+//            }
+//        }
+//        self.append(owned)
+//        DispatchQueue.main.async {
+//            
+//            self.isLoadingData = false
+//        }
+//        
+//        let urls = owned.compactMap { return $0.image.thumbnailURL != nil ? URL(string:$0.image.thumbnailURL!) : nil }
+//        fetchImages(urls)
         
     }
     

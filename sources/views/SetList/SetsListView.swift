@@ -67,7 +67,6 @@ struct SetsListView: View {
                         }
                     }
                     .naked
-                    .id(UUID())
                     .refreshable {
                         Task {
                             await model.fetchOwnedSets()
@@ -99,6 +98,11 @@ struct SetsListView: View {
                 }
             }
         }
+        .toolbar {
+            
+            FilterSorterMenu( sorter: $sorter, searchFilter: $searchFilter, searchFilterEnabled: true, sorterAvailable: [.default,.alphabetical,.number,.older,.newer,.piece,.pieceDesc,.price,.priceDesc,.pricePerPiece,.pricePerPieceDesc])
+        }
+  
     }
     
     func sectionView(theme:String) -> some View{
