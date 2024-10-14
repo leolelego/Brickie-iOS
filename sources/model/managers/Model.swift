@@ -16,6 +16,7 @@ import SDWebImage
 final class Model {
     let keychain = Keychain()
     let datamanager = DataManager()
+    
     @MainActor
     func fetchOwnedSets() async  {
         guard let token = keychain.user?.token else { return  }
@@ -28,8 +29,8 @@ final class Model {
             }
             page = page + 1
         }
-     
-
+        
+        
         do {
             let descriptor = FetchDescriptor<SetData>()
             let sets = try datamanager.modelContext.fetch(descriptor)
@@ -45,20 +46,22 @@ final class Model {
                 datamanager.modelContext.insert(set)
             }
             try? datamanager.modelContext.save()
-            
+            log("Owned sets \(ownedSets.count)")
         } catch {
             logerror(error)
         }
         
     }
-
     
-
+    
+    
     
     func fetchAdditionalImages(for sets:[SetData]) async {
         for item in sets {
             do {
                 let images = try await APIRouter<[SetData.SetImage]>.additionalImages(item.setID).decode2()
+                
+                
                 item.additionalImages = images
             } catch{
                 logerror(error)
@@ -68,21 +71,6 @@ final class Model {
         Task { @MainActor in
             try? datamanager.modelContext.save()
         }
-    }
-    
-    func fetchInstruction(for sets:[SetData]) async {
-        for item in sets {
-            do {
-                let instructions = try await APIRouter<[SetData.Instruction]>.setInstructions(item.setID).decode2()
-                item.instrucctions = instructions
-            } catch{
-                logerror(error)
-            }
-        }
-        Task { @MainActor in
-            try? datamanager.modelContext.save()
-        }
-        
     }
     
     func fetchNotes(for set:SetData) async -> String {
@@ -99,27 +87,8 @@ final class Model {
         return set.collection.notes
     }
     
-    func save(note:String,for set:SetData) async -> Bool{
-        guard let token = keychain.user?.token else { return  false}
-        do {
-            _ = try await APIRouter<String>.setNotes(token, set.setID, note).responseJSON2()
-            return true
-        } catch {
-            logerror(error)
-            return  false
-        }
-    }
     
-    func fetchImages(_ urls:[URL]){
-        
-        if try! Reachability().connection == .wifi && ProcessInfo.processInfo.isLowPowerModeEnabled == false {
-            SDWebImagePrefetcher.shared.prefetchURLs(urls)
-        }
-    }
     
-
-    
-
 }
 
 

@@ -10,21 +10,17 @@ import SwiftUI
 
 
 struct SetsView: View {
-    @EnvironmentObject private var  store : Store
+//    @EnvironmentObject private var  store : Store
     @EnvironmentObject var config : Configuration
     @State var isPresentingScanner = false
-
-    @State var searchFilter : [LegoListSorter:String] = [:]
-    @State var filter : LegoListFilter = .all
-    @AppStorage(Settings.setsListSorter) var sorter : LegoListSorter = .default
     
     
     var body: some View {
         VStack(alignment: .leading, spacing: 8){
-            APIIssueView(error: $store.error)
-            SetsListView(items: store.mainSets,sorter:$sorter,filter: $filter, searchFilter: $searchFilter)
-            .searchable(text: $store.searchSetsText,
-                        prompt: searchPlaceholder()) 
+//            APIIssueView(error: $store.error)
+            SetsListView()
+//            .searchable(text: $store.searchSetsText,
+//                        prompt: searchPlaceholder()) 
                
             .disableAutocorrection(true)
         }
@@ -34,16 +30,8 @@ struct SetsView: View {
         .toolbar{
 
             ToolbarItemGroup(placement: .navigationBarTrailing){
-                if store.isLoadingData {
-                    ProgressView()
-                        .progressViewStyle(CircularProgressViewStyle())
-                } else {
-                    EmptyView()
-                }
-                FilterSorterMenu(sorter: $sorter,
-                                 filter: $filter, searchFilter: $searchFilter, searchFilterEnabled: true,
-                                 sorterAvailable: [.default,.alphabetical,.number,.older,.newer,.piece,.pieceDesc,.price,.priceDesc,.pricePerPiece,.pricePerPieceDesc],
-                                 filterAvailable: store.searchSetsText.isEmpty ? [.all,.wanted] : [.all,.wanted,.owned]
+                FilterSorterMenu(searchFilterEnabled: true,
+                                 sorterAvailable: [.default,.alphabetical,.number,.older,.newer,.piece,.pieceDesc,.price,.priceDesc,.pricePerPiece,.pricePerPieceDesc]
                 )
         
                 
@@ -82,32 +70,20 @@ struct SetsView: View {
             if code.first == "0"{
                 theCode.removeFirst()
             }
-            store.searchSetsText = theCode
+            //store.searchSetsText = theCode
         case .failure(let error):
             logerror(error)
         }
     }
     
-    fileprivate func searchPlaceholder() -> LocalizedStringKey{
-        return filter == .wanted ?
-            "search.placeholderwanted" :
-            config.connection == .unavailable ?
-                "search.placeholderoffline":"search.placeholder"
-        
-    }
-    fileprivate func footer() -> some View{
-        VStack(){
-            Spacer(minLength: 16)
-            HStack{
-                Spacer()
-                Text(String(store.sets.qtyOwned)+" ").font(.lego(size: 20))
-                Image.brick
-                Spacer()
-            }
-            Spacer(minLength: 16)
-        }
-        
-    }
+//    fileprivate func searchPlaceholder() -> LocalizedStringKey{
+//        return filter == .wanted ?
+//            "search.placeholderwanted" :
+//            config.connection == .unavailable ?
+//                "search.placeholderoffline":"search.placeholder"
+//        
+//    }
+
     
 }
 

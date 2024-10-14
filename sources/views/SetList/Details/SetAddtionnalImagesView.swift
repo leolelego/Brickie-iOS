@@ -11,7 +11,7 @@ import SDWebImageSwiftUI
 struct SetAddtionnalImagesView: View {
     @EnvironmentObject var config : Configuration
 
-    let images :  [LegoSet.SetImage]
+    let images :  [SetData.SetImage]
     @State var present : Bool = false
     @State var presentedURLs : [String] = []
     @State var index : Int = 1

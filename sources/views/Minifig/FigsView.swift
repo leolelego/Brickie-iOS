@@ -38,10 +38,10 @@ struct FigsView: View {
                 } else {
                     EmptyView()
                 }
-                FilterSorterMenu(sorter: $sorter,filter: $filter,searchFilter: .constant([:]), searchFilterEnabled: false,
-                                 sorterAvailable: [.default,.alphabetical,.number],
-                                 filterAvailable: store.searchMinifigsText.isEmpty ? [.all,.wanted] : [.all,.wanted,.owned]
-                )
+//                FilterSorterMenu(sorter: $sorter,filter: $filter,searchFilter: .constant([:]), searchFilterEnabled: false,
+//                                 sorterAvailable: [.default,.alphabetical,.number],
+//                                 filterAvailable: store.searchMinifigsText.isEmpty ? [.all,.wanted] : [.all,.wanted,.owned]
+//                )
                 if !compactList {
                     DisplayModeView(mode: $displayMode)
                 }

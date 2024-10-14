@@ -32,9 +32,7 @@ struct AppRootView: View {
                     WelcomeView(showContinu: true)
                 }
         } else   {
-            if appVersion2 {
-                SetsView2()
-            } else {
+
                 TabView(selection: $selection){
                     ForEach(AppPanel.allCases, id: \.self) { item in
                         SinglePanelView(item: item, view: item.view, toolbar: toolbar() )
@@ -48,7 +46,7 @@ struct AppRootView: View {
                     .sheet(isPresented: $displayWelcome) {
                         WelcomeView(showContinu: true)
                     }
-            }
+            
  
         }
     }

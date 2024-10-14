@@ -79,6 +79,7 @@
 		B3831BA4278F5FD9000301FC /* TextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3831BA3278F5FD9000301FC /* TextView.swift */; };
 		B3900DD62784EDAD002D228A /* MPLUSRounded1c-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B3900DD52784EDAD002D228A /* MPLUSRounded1c-Black.ttf */; };
 		B3900DDA2784FFA9002D228A /* LegoTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3900DD92784FFA9002D228A /* LegoTheme.swift */; };
+		B397B59D2CBDBC5A00F331BB /* Model+Actions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B397B59C2CBDBC5A00F331BB /* Model+Actions.swift */; };
 		B3A0BB3C26B2C9CF00A68341 /* Static.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3A0BB3B26B2C9CF00A68341 /* Static.swift */; };
 		B3A403032CB730BB00F6E55A /* SwiftDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3A403022CB730A400F6E55A /* SwiftDataManager.swift */; };
 		B3A403052CB7310600F6E55A /* Keychain.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3A403042CB730F400F6E55A /* Keychain.swift */; };
@@ -187,6 +188,7 @@
 		B3831BA3278F5FD9000301FC /* TextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextView.swift; sourceTree = "<group>"; };
 		B3900DD52784EDAD002D228A /* MPLUSRounded1c-Black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "MPLUSRounded1c-Black.ttf"; sourceTree = "<group>"; };
 		B3900DD92784FFA9002D228A /* LegoTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LegoTheme.swift; sourceTree = "<group>"; };
+		B397B59C2CBDBC5A00F331BB /* Model+Actions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Model+Actions.swift"; sourceTree = "<group>"; };
 		B3A0BB3B26B2C9CF00A68341 /* Static.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Static.swift; sourceTree = "<group>"; };
 		B3A0BB3D26B36FEC00A68341 /* CHANGELOG.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = CHANGELOG.md; sourceTree = "<group>"; };
 		B3A403022CB730A400F6E55A /* SwiftDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftDataManager.swift; sourceTree = "<group>"; };
@@ -439,6 +441,7 @@
 				B3A403042CB730F400F6E55A /* Keychain.swift */,
 				B308E7562CB434F90014CA97 /* Model.swift */,
 				B3A403022CB730A400F6E55A /* SwiftDataManager.swift */,
+				B397B59C2CBDBC5A00F331BB /* Model+Actions.swift */,
 			);
 			path = managers;
 			sourceTree = "<group>";
@@ -708,6 +711,7 @@
 				B3A403092CB745CB00F6E55A /* SetData+Ext.swift in Sources */,
 				B3D827EF2573C4FE00CAC606 /* FigsView.swift in Sources */,
 				B3831BA4278F5FD9000301FC /* TextView.swift in Sources */,
+				B397B59D2CBDBC5A00F331BB /* Model+Actions.swift in Sources */,
 				B3D827EB2573BF8B00CAC606 /* FirstSyncView.swift in Sources */,
 				96E78BA1245CC5AA0032F4E3 /* Configuration.swift in Sources */,
 				9610E5C82479815F00E31B57 /* FullScreenImageView.swift in Sources */,

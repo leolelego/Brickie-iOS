@@ -33,7 +33,7 @@ struct SetsFilteredView: View {
     }
     
     var body: some View {
-        SetsListView(items: items,sorter:.constant(sorter),filter: .constant(.all), searchFilter: .constant([:]))
+        SetsListView()
         .navigationBarItems(trailing:makeCheck())
         .navigationBarTitle(text.uppercased()+"_")
         .onAppear {
